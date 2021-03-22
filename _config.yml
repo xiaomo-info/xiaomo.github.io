@@ -143,3 +143,6 @@ pwa:
       - pattern: !!js/regexp /\//
         strategy: networkFirst
   priority: 5
+
+encrypt:
+  enable: true

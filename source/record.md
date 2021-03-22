@@ -1,6 +1,9 @@
 ---
 title: 我的日常
 date: 2017-03-01 11:24:53
+password: record   
+abstract: Welcome to my blog, enter a password to read.
+message: 记录
 ---
 <br><br><br><br><br><br><br>
 
