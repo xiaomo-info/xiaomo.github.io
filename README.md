@@ -7,8 +7,8 @@ a game developer live in tokyo/Japan.
   anything [here](https://chat.getloli.com/room/@:houko?title=%E5%B0%8F%E8%8E%AB%E7%9A%84github%E7%95%99%E8%A8%80%E6%9D%BF)
 
 **concat**   
-[![](https://img.shields.io/badge/-twitter-1DA1F2?style=flat-square&logo=twitter&logoColor=white)](https://twitter.com/xiaomoinfo)
-[![](https://img.shields.io/badge/-blog-21759B?style=flat-square&logo=hexo&logoColor=white)](https://blog.xiaomo.info)
+[![](https://img.shields.io/badge/-twitter-white?style=flat-square&logo=twitter&logoColor=1DA1F2)](https://twitter.com/xiaomoinfo)
+[![](https://img.shields.io/badge/-blog-white?style=flat-square&logo=hexo&logoColor=21759B)](https://blog.xiaomo.info)
 [![](https://img.shields.io/badge/-github-white?style=flat-square&logo=github&logoColor=black)](https://github.com/houko)
 [![](https://img.shields.io/badge/-gmail-white?style=flat-square&logo=gmail&logoColor=red)](https://xiaomo.info)
 [![](https://img.shields.io/badge/-bilibili-white?style=flat-square&logo=bilibili&logoColor=1DA1F2)](https://space.bilibili.com/6721344)
@@ -36,6 +36,7 @@ a game developer live in tokyo/Japan.
 [![](https://img.shields.io/badge/-CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)](https://www.w3.org/Style/CSS/)
 [![](https://img.shields.io/badge/-React-black?style=flat-square&logo=react&logoColor=blue)](https://vuejs.org/)
 [![](https://img.shields.io/badge/-Vue-4fc08d?style=flat-square&logo=vue.js&logoColor=ffffff)](https://reactjs.org/)
+
 [![](https://img.shields.io/badge/-mysql-white?style=flat-square&logo=mysql&logoColor=blue)](https://www.mysql.com/)
 [![](https://img.shields.io/badge/-springboot-white?style=flat-square&logo=spring&logoColor=green)](https://spring.io/projects/spring-boot)
 [![](https://img.shields.io/badge/-gradle-white?style=flat-square&logo=gradle&logoColor=green)](https://gradle.org/)
