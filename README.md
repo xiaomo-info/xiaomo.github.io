@@ -22,8 +22,8 @@ a game developer live in tokyo/Japan.
 
 **Develop Languages:**   
 [![](https://img.shields.io/badge/-Java-white?style=flat-square&logo=java&logoColor=red)](https://nodejs.org/)
-[![](https://img.shields.io/badge/-typescript-blue?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![](https://img.shields.io/badge/-c++-blue?style=flat-square&logo=c&logoColor=white)](https://www.cplusplus.com/)
+[![](https://img.shields.io/badge/-typescript-white?style=flat-square&logo=typescript&logoColor=blue)](https://www.typescriptlang.org/)
+[![](https://img.shields.io/badge/-c++-white?style=flat-square&logo=c&logoColor=blue)](https://www.cplusplus.com/)
 
 **Develop Kit:**  
 [![](https://img.shields.io/badge/-Git-white?style=flat-square&logo=git&logoColor=f05032)](https://git-scm.com/)
