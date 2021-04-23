@@ -11,6 +11,7 @@ cache:
     - node_modules
 after_script:
   - cp -f CNAME ./public/CNAME
+  - cp -f .gitignore ./public/gitignore
   - cp -f README.md ./public/README.md
   - cd ./public
   - git init
