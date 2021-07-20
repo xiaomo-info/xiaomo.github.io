@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><link rel=manifest href=/manifest.json><meta name="generator" content="Hexo 3.9.0"><link rel="manifest" href="/manifest.json">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="小莫">
+<meta name="baidu-site-verification" content="qp2dTXVqvj">
+
+
+
+<meta name="keywords" content="小莫的博客, java, 日语, 动漫, 技术, unity3d, nginx, https, angular, 游戏, 服务器, tomcat, IDEA, javaweb, spring, hibernate, spring boot, 开源中国, github, linux, 主程">
+
+
+<meta name="description" content="restful 是目前最流行的 API 设计规范，用于 Web 数据接口的设计。它的大原则容易把握，但是细节不容易做对。">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="restful最佳实践">
+<meta property="og:url" content="https://blog.xiaomo.info/2019/restfulBestUse/index.html">
+<meta property="og:site_name" content="小莫的博客-fighting(技术分享、生活随笔)">
+<meta property="og:description" content="restful 是目前最流行的 API 设计规范，用于 Web 数据接口的设计。它的大原则容易把握，但是细节不容易做对。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-07-20T20:08:26.468Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="restful最佳实践">
+<meta name="twitter:description" content="restful 是目前最流行的 API 设计规范，用于 Web 数据接口的设计。它的大原则容易把握，但是细节不容易做对。">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternative" href="/atom.xml" title="小莫的博客-fighting(技术分享、生活随笔)" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="//image.xiaomo.info/logo/avatar.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/green/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>restful最佳实践 | 小莫的博客-fighting(技术分享、生活随笔)</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        open_in_new: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+</html>
+<body oncontextmenu="return false" onselectstart="return false">
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="https://blog.xiaomo.info" target="_self" class="profilepic">
+            <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">小莫</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">行百里者半九十</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" results="0" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="//xiaomo.info">回到主站</a></li>
+                        
+                            <li><a href="/tags/japan/">日本生活系列</a></li>
+                        
+                            <li><a href="/categories/summary/">年度总结系列</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about.html">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA/">IDEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK源码系列/">JDK源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OCJP/">OCJP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alime/">alime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/">aws</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doTween/">doTween</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es5/">es5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/">excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/game/">game</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/japan/">japan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/">lombok</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxt/">nuxt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/onenote/">onenote</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postman/">postman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sso/">sso</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stackoverflow/">stackoverflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/">technology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ugui/">ugui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动漫/">动漫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字体/">字体</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码系列/">源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件/">软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑苹果/">黑苹果</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">技术宅、 杭州、 夜猫子、 爱动漫、 爱日语 2015年毕业、 java开发、 web前端、 前沿技术发烧友、 生命不息折腾不止、</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">小莫</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">小莫</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">行百里者半九十</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="//xiaomo.info">回到主站</a></li>
+                
+                    <li><a href="/tags/japan/">日本生活系列</a></li>
+                
+                    <li><a href="/categories/summary/">年度总结系列</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about.html">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><style>
+    .background-cover {
+        float: left;
+        width: 400px;
+        height: 250px;
+    }
+
+    .article img {
+        margin: -1px 20px 5px -1px;
+        border-top-left-radius: 3px;
+        -webkit-border-radius-topleft: 3%;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -o-transition: all 0.5s;
+    }
+
+    /*.article img:hover{*/
+    /*transform: scale(1, 1.05);*/
+    /*-webkit-transition:all 0.5s;*/
+    /*-moz-transition:all 0.5s;*/
+    /*-o-transition:all 0.5s;*/
+    /*}*/
+</style>
+
+
+<article id="post-restfulBestUse" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        function getPgjs() {
+            const agent = navigator.userAgent.toLowerCase()
+            let res = agent.match(/android/)
+            if (res === "android")
+                return res;
+            res = agent.match(/iphone/);
+            if (res === "iphone")
+                return "ios";
+            res = agent.match(/ipad/);
+            if (res === "ipad")
+                return "ios";
+            res = agent.match(/windows/);
+            if (res === "windows")
+                return "wp";
+            console.info('pc......')
+            return "pc";
+        }
+
+        function loadImage(id) {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                return;
+            }
+            var backgroundnum = 40;
+            var randomIndex = Math.ceil(Math.random() * backgroundnum);
+            var result = randomIndex + "?version=" + (new Date() / 1000);
+            var backgroundimg = "https://image.xiaomo.info/cover/bg-number.jpg".replace(/number/gi, randomIndex);
+            var key = "#" + id;
+            $(key).attr("src", backgroundimg);
+            $(".background-cover").show();
+        }
+
+        (function () {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                console.log(page)
+                $(".background-cover").hide();
+            }
+        })()
+    </script>
+    
+    <div class="article-meta">
+        <a href="/2019/restfulBestUse/" class="article-date">
+      <time datetime="2019-07-22T00:00:00.000Z" itemprop="datePublished">2019-07-22</time>
+</a>
+    </div>
+    
+    <div class="article-inner">
+        
+        <input type="hidden" class="isFancy"/>
+        
+        <div class="background-cover">
+            <img class="fengmian-image" id="restfulBestUse" src="https://image.xiaomo.info/cover/bg-5.jpg" alt="封面" onload="loadImage(this.id)"/>
+        </div>
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      restful最佳实践
+    </h1>
+  
+
+        </header>
+        
+        <div class="article-info article-info-post">
+            
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a>
+    </div>
+
+
+            
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul> </div>
+
+
+
+            <!-- 访问量  -->
+            <!--<span id="busuanzi_container_page_pv" style='display:none'>-->
+            <!--<span id="page-visit"><i class="fa fa-eye" style="float: left;margin-top:5px" aria-hidden="true" title="文章访问量"></i>-->
+            <!--<span id="busuanzi_value_page_pv"></span>-->
+            <!--</span>-->
+            <!--</span>-->
+
+            <div class="clearfix"></div>
+        </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+            
+            <p>restful 是目前最流行的 API 设计规范，用于 Web 数据接口的设计。它的大原则容易把握，但是细节不容易做对。</p>
+<a id="more"></a>
+<h4 id="不要纠结于无意义的规范"><a href="#不要纠结于无意义的规范" class="headerlink" title="不要纠结于无意义的规范"></a>不要纠结于无意义的规范</h4><p>  在开始本文之前，我想先说这么一句：RESTful 真的很好，但它只是一种软件架构风格，过度纠结如何遵守规范只是徒增烦恼，也违背了使用它的初衷。</p>
+<p>  就像 Elasticsearch 的 API 会在 GET 请求中直接传 JSON，但这是它的业务需要，因为普通的 Query Param 根本无法构造如此复杂的查询 DSL。Github 的 V3 API 中也有很多不符合标准的地方，这也并不会妨碍它成为业界 RESTful API 的参考标准。</p>
+<p>  我接下来要介绍的一些东西也会跟标准不符，但这是我在实际开发中遇到过、困扰过、思考过所得出的结论，所以才是<q>我所认为的</q>RESTful API 最佳实践。</p>
+<h1 id="为什么要用-RESTful"><a href="#为什么要用-RESTful" class="headerlink" title="为什么要用 RESTful"></a>为什么要用 RESTful</h1><p> RESTful 给我的最大感觉就是规范、易懂和优雅，一个结构清晰、易于理解的 API 完全可以省去许多无意义的沟通和文档。并且 RESTful 现在越来越流行，也有越来越多优秀的周边工具（例如文档工具 Swagger）。</p>
+<h1 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h1><p>  如果能全站 HTTPS 当然是最好的，不能的话也请尽量将登录、注册等涉及密码的接口使用 HTTPS。</p>
+<h1 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h1><p> API 的版本号和客户端 APP 的版本号是毫无关系的，不要让 APP 将它们用于提交应用市场的版本号传递到服务器，而是提供类似于<code>v1</code>、<code>v2</code>之类的 API 版本号。版本号只允许枚举，不允许判断区间。</p>
+<p>  版本号拼接在 URL 中或是放在 Header 中都可以。例如：</p>
+ <figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">api.xxx.com</span>/<span class="built_in">v1</span>/users</span><br></pre></td></tr></table></figure>
+
+<p>  或：</p>
+ <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">api.xxx.com/users</span><br><span class="line"> <span class="attribute">version</span>=v1</span><br></pre></td></tr></table></figure>
+
+<h1 id="URL-设计"><a href="#URL-设计" class="headerlink" title="URL 设计"></a>URL 设计</h1><h3 id="动词-宾语"><a href="#动词-宾语" class="headerlink" title="动词+宾语"></a>动词+宾语</h3><p>RESTful 的核心思想就是，客户端发出的数据操作指令都是”动词 + 宾语”的结构。比如，GET /articles这个命令，GET是动词，/articles是宾语。<br>动词通常就是五种 HTTP 方法，对应 CRUD 操作。</p>
+<h3 id="动词的覆盖"><a href="#动词的覆盖" class="headerlink" title="动词的覆盖"></a>动词的覆盖</h3><p>有些客户端只能使用GET和POST这两种方法。服务器必须接受POST模拟其他三个方法（PUT、PATCH、DELETE）。<br>这时，客户端发出的 HTTP 请求，要加上X-HTTP-Method-Override属性，告诉服务器应该使用哪一个动词，覆盖POST方法。</p>
+<h3 id="宾语必须是名词"><a href="#宾语必须是名词" class="headerlink" title="宾语必须是名词"></a>宾语必须是名词</h3><p>宾语就是 API 的 URL，是 HTTP 动词作用的对象。它应该是名词，不能是动词。比如，/articles这个 URL 就是正确的，而下面的 URL 不是名词，所以都是错误的。</p>
+<h3 id="复数-URL"><a href="#复数-URL" class="headerlink" title="复数 URL"></a>复数 URL</h3><p>既然 URL 是名词，那么应该使用复数，还是单数？<br>这没有统一的规定，但是常见的操作是读取一个集合，比如GET /articles（读取所有文章），这里明显应该是复数。<br>为了统一起见，建议都使用复数 URL，比如GET /articles/2要好于GET /article/2。</p>
+<h3 id="避免多级-URL"><a href="#避免多级-URL" class="headerlink" title="避免多级 URL"></a>避免多级 URL</h3><p>常见的情况是，资源需要多级分类，因此很容易写出多级的 URL，比如获取某个作者的某一类文章。</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">GET <span class="regexp">/authors/</span><span class="number">12</span><span class="regexp">/categories/</span><span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>这种 URL 不利于扩展，语义也不明确，往往要想一会，才能明白含义。<br>更好的做法是，除了第一级，其他级别都用查询字符串表达。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="builtin-name">GET</span> /authors/12?<span class="attribute">categories</span>=2</span><br></pre></td></tr></table></figure>
+
+<h1 id="请求"><a href="#请求" class="headerlink" title="请求"></a>请求</h1><p>一般来说 API 的外在形式无非就是增删改查（当然具体的业务逻辑肯定要复杂得多），而查询又分为详情和列表两种，在 RESTful 中这就相当于通用的模板。例如针对文章（Article）设计 API，那么最基础的 URL 就是这几种：</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line">GET <span class="meta-keyword">/articles/</span>list： 文章列表</span><br><span class="line">GET <span class="meta-keyword">/articles/</span>detail<span class="class">/&#123;id&#125;：文章详情</span></span><br><span class="line"><span class="class">POST <span class="meta-keyword">/articles/</span>create/： 创建文章</span></span><br><span class="line"><span class="class">PUT <span class="meta-keyword">/articles/</span>update/&#123;id&#125;：修改文章</span></span><br><span class="line"><span class="class">DELETE <span class="meta-keyword">/articles/</span>delete/&#123;id&#125;：删除文章</span></span><br></pre></td></tr></table></figure>
+
+<p> RESTful 中使用 GET、POST、PUT 和 DELETE 来表示资源的查询、创建、更改、删除，并且除了 POST 其他三种请求都具备幂等性（多次请求的效果相同）。需要注意的是 POST 和 PUT 最大的区别就是幂等性，所以 PUT 也可以用于创建操作，只要在创建前就可以确定资源的 id。</p>
+<p>  将 id 放在 URL 中而不是 Query Param 的其中一个好处是可以表示资源之间的层级关系，例如文章下面会有评论（Comment）和点赞（Like），这两项资源必然会属于一篇文章，所以它们的 URL 应该是这样的：</p>
+<p>评论：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">GET <span class="string">/articles/</span>&#123;aid&#125;<span class="string">/comments</span>： 某篇文章的评论列表</span><br><span class="line">GET <span class="string">/comments/</span>&#123;cid&#125;<span class="string">/get</span>： 获取</span><br><span class="line">POST <span class="string">/articles/</span>&#123;aid&#125;<span class="string">/comments/create</span>： 在某篇文章中创建评论</span><br><span class="line">PUT <span class="string">/comments/</span>&#123;cid&#125;<span class="string">/update</span>： 修改评论</span><br><span class="line">DELETE <span class="string">/comments/</span>&#123;cid&#125;<span class="string">/delete</span>： 删除评论</span><br></pre></td></tr></table></figure>
+
+<p>  这里有一点比较特殊，永远去使用可以指向资源的的最短 URL 路径，也就是说既然<code>/comments/{cid}</code>已经可以指向一条评论了，就不需要再用<code>/articles/{aid}/comments/{cid}</code>特意的指出所属文章了。</p>
+<p>点赞：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">GET <span class="string">/articles/</span>&#123;id&#125;<span class="string">/like</span>：查看文章是否被点赞</span><br><span class="line">PUT <span class="string">/articles/</span>&#123;id&#125;<span class="string">/like</span>：点赞文章</span><br><span class="line">DELETE <span class="string">/articles/</span>&#123;id&#125;<span class="string">/like</span>：取消点赞</span><br></pre></td></tr></table></figure>
+
+<p>由于大部分的关系查询都与当前的登录用户有关，所以也可以直接在关系所属的资源中返回关系状态。例如点赞状态就可以直接在获取文章详情时返回。注意这里我选择了 PUT 而不是 POST，因为我觉得点赞这种行为应该是幂等的，多次操作的结果应该相同。</p>
+<h1 id="Token-和-Sign"><a href="#Token-和-Sign" class="headerlink" title="Token 和 Sign"></a>Token 和 Sign</h1><p>API 需要设计成无状态，所以客户端在每次请求时都需要提供有效的 Token 和 Sign，在我看来它们的用途分别是：</p>
+<ul>
+<li>Token 用于证明请求所属的用户，一般都是服务端在登录后随机生成一段字符串（UUID）和登录用户进行绑定，再将其返回给客户端。Token 的状态保持一般有两种方式实现：一种是在用户每次操作都会延长或重置 TOKEN 的生存时间（类似于缓存的机制），另一种是 Token 的生存时间固定不变，但是同时返回一个刷新用的 Token，当 Token 过期时可以将其刷新而不是重新登录。</li>
+<li>Sign 用于证明该次请求合理，所以一般客户端会把请求参数拼接后并加密作为 Sign 传给服务端，这样即使被抓包了，对方只修改参数而无法生成对应的 Sign 也会被服务端识破。当然也可以将时间戳、请求地址和 Token 也混入 Sign，这样 Sign 也拥有了所属人、时效性和目的地。</li>
+</ul>
+<h1 id="统计性参数"><a href="#统计性参数" class="headerlink" title="统计性参数"></a>统计性参数</h1><p>  我不太清楚这类参数具体该被称为什么，总之就是用户的各种隐私【误。类似于经纬度、手机系统、型号、IMEI、网络状态、客户端版本、渠道等，这些参数会经常收集然后用作运营、统计等平台，但是在大部分情况下他们是与业务无关的。这类参数变化不频繁的可以在登录时提交，变化比较频繁的可以用轮训或是在其他请求中附加提交。</p>
+<h1 id="业务参数"><a href="#业务参数" class="headerlink" title="业务参数"></a>业务参数</h1><p>  在 RESTful 的标准中，PUT 和 PATCH 都可以用于修改操作，它们的区别是 PUT 需要提交整个对象，而 PATCH 只需要提交修改的信息。但是在我看来实际应用中不需要这么麻烦，所以我一律使用 PUT，并且只提交修改的信息。<br>  另一个问题是在 POST 创建对象时，究竟该用表单提交更好些还是用 JSON 提交更好些。其实两者都可以，在我看来它们唯一的区别是 JSON 可以比较方便的表示更为复杂的结构（有嵌套对象）。另外无论使用哪种，请保持统一，不要两者混用。<br>  还有一个建议是最好将过滤、分页和排序的相关信息全权交给客户端，包括过滤条件、页数或是游标、每页的数量、排序方式、升降序等，这样可以使 API 更加灵活。但是对于过滤条件、排序方式等，不需要支持所有方式，只需要支持目前用得上的和以后可能会用上的方式即可，并通过字符串枚举解析，这样可见性要更好些。例如：<br>  搜索，客户端只提供关键词，具体搜索的字段，和搜索方式（前缀、全文、精确）由服务端决定：</p>
+ <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">/users/?<span class="attribute">query</span>=ScienJus</span><br></pre></td></tr></table></figure>
+
+<p>  过滤，只需要对已有的情况进行支持：</p>
+ <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">/users/?<span class="attribute">gender</span>=1</span><br></pre></td></tr></table></figure>
+
+<p>  对于某些特定且复杂的业务逻辑，不要试图让客户端用复杂的查询参数表示，而是在 URL 使用别名：</p>
+ <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="regexp">/users/</span>recommend</span><br></pre></td></tr></table></figure>
+
+<p>  分页：</p>
+ <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">/users/?<span class="attribute">offset</span>=10&amp;limit=10</span><br><span class="line"> /articles/?<span class="attribute">cursor</span>=2015-01-01 15:20:30&amp;<span class="attribute">limit</span>=10</span><br><span class="line"> /users/?<span class="attribute">page</span>=2&amp;pre_page=20</span><br></pre></td></tr></table></figure>
+
+<p>  排序，只需要对已有的情况进行支持：</p>
+ <figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="regexp">/articles/</span><span class="keyword">sort</span>=-create_date</span><br></pre></td></tr></table></figure>
+
+<p> PS：我很喜欢这种在字段名前面加<code>-</code>表示降序排列的方式。</p>
+<h1 id="响应"><a href="#响应" class="headerlink" title="响应"></a>响应</h1><p>HTTP 状态码就是一个三位数，分成五个类别。</p>
+<figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>xx：相关信息</span><br><span class="line"><span class="number">2</span>xx：操作成功</span><br><span class="line"><span class="number">3</span>xx：重定向</span><br><span class="line"><span class="number">4</span>xx：客户端错误</span><br><span class="line"><span class="number">5</span>xx：服务器错误</span><br></pre></td></tr></table></figure>
+
+<p>这五大类总共包含100多种状态码，覆盖了绝大部分可能遇到的情况。每一种状态码都有标准的（或者约定的）解释，客户端只需查看状态码，就可以判断出发生了什么情况，所以服务器应该返回尽可能精确的状态码。<br>API 不需要1xx状态码，下面介绍其他四类状态码的精确含义。</p>
+<h3 id="2xx-状态码"><a href="#2xx-状态码" class="headerlink" title="2xx 状态码"></a>2xx 状态码</h3><p>200状态码表示操作成功，但是不同的方法可以返回更精确的状态码。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">GET:</span> <span class="number">200</span> <span class="string">OK</span></span><br><span class="line"><span class="attr">POST:</span> <span class="number">201</span> <span class="string">Created</span></span><br><span class="line"><span class="attr">PUT:</span> <span class="number">200</span> <span class="string">OK</span></span><br><span class="line"><span class="attr">PATCH:</span> <span class="number">200</span> <span class="string">OK</span></span><br><span class="line"><span class="attr">DELETE:</span> <span class="number">204</span> <span class="literal">No</span> <span class="string">Content</span></span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，POST返回201状态码，表示生成了新的资源；DELETE返回204状态码，表示资源已经不存在。<br>此外，202 Accepted状态码表示服务器已经收到请求，但还未进行处理，会在未来再处理，通常用于异步操作。下面是一个例子</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 <span class="number">202</span> Accepted</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "task": &#123;</span><br><span class="line">    "href": "/api/company/job-management/jobs/2130040",</span><br><span class="line">    "id": "2130040"</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3xx-状态码"><a href="#3xx-状态码" class="headerlink" title="3xx 状态码"></a>3xx 状态码</h3><p>API 用不到301状态码（永久重定向）和302状态码（暂时重定向，307也是这个含义），因为它们可以由应用级别返回，浏览器会直接跳转，API 级别可以不考虑这两种情况。<br>API 用到的3xx状态码，主要是303 See Other，表示参考另一个 URL。它与302和307的含义一样，也是”暂时重定向”，区别在于302和307用于GET请求，而303用于POST、PUT和DELETE请求。收到303以后，浏览器不会自动跳转，而会让用户</p>
+<figure class="highlight http"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 <span class="number">303</span> See Other</span><br><span class="line"><span class="attribute">Location</span>: /api/orders/12345</span><br></pre></td></tr></table></figure>
+
+<h3 id="4xx-状态码"><a href="#4xx-状态码" class="headerlink" title="4xx 状态码"></a>4xx 状态码</h3><figure class="highlight basic"><table><tr><td class="code"><pre><span class="line"><span class="number">4</span>xx状态码表示客户端错误，主要有下面几种。</span><br><span class="line"><span class="symbol">400 </span>Bad Request：服务器不理解客户端的请求，未做任何处理。</span><br><span class="line"><span class="symbol">401 </span>Unauthorized：用户未提供身份验证凭据，或者没有通过身份验证。</span><br><span class="line"><span class="symbol">403 </span>Forbidden：用户通过了身份验证，但是不具有访问资源所需的权限。</span><br><span class="line"><span class="symbol">404 </span><span class="keyword">Not</span> Found：所请求的资源不存在，或不可用。</span><br><span class="line"><span class="symbol">405 </span>Method <span class="keyword">Not</span> Allowed：用户已经通过身份验证，但是所用的 HTTP 方法不在他的权限之内。</span><br><span class="line"><span class="symbol">410 </span>Gone：所请求的资源已从这个地址转移，不再可用。</span><br><span class="line"><span class="symbol">415 </span>Unsupported Media Type：客户端要求的返回格式不支持。比如，API 只能返回 JSON 格式，但是客户端要求返回 XML 格式。</span><br><span class="line"><span class="symbol">422 </span>Unprocessable Entity ：客户端上传的附件无法处理，导致请求失败。</span><br><span class="line"><span class="symbol">429 </span>Too Many Requests：客户端的请求次数超过限额。</span><br></pre></td></tr></table></figure>
+
+<h3 id="5xx-状态码"><a href="#5xx-状态码" class="headerlink" title="5xx 状态码"></a>5xx 状态码</h3><figure class="highlight basic"><table><tr><td class="code"><pre><span class="line"><span class="number">5</span>xx状态码表示服务端错误。一般来说，API 不会向用户透露服务器的详细信息，所以只要两个状态码就够了。</span><br><span class="line"><span class="symbol">500 </span>Internal Server <span class="keyword">Error</span>：客户端请求有效，服务器处理时发生了意外。</span><br><span class="line"><span class="symbol">503 </span>Service Unavailable：服务器无法处理请求，一般用于网站维护状态。</span><br></pre></td></tr></table></figure>
+
+<p>  但是有些时候仅仅使用 HTTP 状态码没有办法明确的表达错误信息，所以我倾向于在里面再包一层自定义的返回码，例如：</p>
+<p>  成功时：</p>
+ <figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"code"</span>: <span class="number">100</span>,</span><br><span class="line">    <span class="attr">"msg"</span>: <span class="string">"成功"</span>,</span><br><span class="line">    <span class="attr">"data"</span>: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  失败时：</p>
+ <figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"code"</span>: <span class="number">-1000</span>,</span><br><span class="line">    <span class="attr">"msg"</span>: <span class="string">"用户名或密码错误"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> <code>data</code>是真正需要返回的数据，并且只会在请求成功时才存在，<code>msg</code>只用在开发环境，并且只为了开发人员识别。客户端逻辑只允许识别<code>code</code>，并且不允许直接将<code>msg</code>的内容展示给用户。如果这个错误很复杂，无法使用一段话描述清楚，也可以在添加一个<code>doc</code>字段，包含指向该错误的文档的链接。</p>
+<h1 id="返回数据"><a href="#返回数据" class="headerlink" title="返回数据"></a>返回数据</h1><h3 id="不要返回纯本文"><a href="#不要返回纯本文" class="headerlink" title="不要返回纯本文"></a>不要返回纯本文</h3><p>API 返回的数据格式，不应该是纯文本，而应该是一个 JSON 对象，因为这样才能返回标准的结构化数据。所以，服务器回应的 HTTP 头的Content-Type属性要设为application/json。<br>客户端请求时，也要明确告诉服务器，可以接受 JSON 格式，即请求的 HTTP 头的ACCEPT属性也要设成application/json。下面是一个例子。</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line">GET <span class="meta-keyword">/orders/</span><span class="number">2</span> HTTP/<span class="number">1.1</span> </span><br><span class="line"><span class="symbol">Accept:</span> application/json</span><br></pre></td></tr></table></figure>
+
+<h3 id="发生错误时，不要返回-200-状态码"><a href="#发生错误时，不要返回-200-状态码" class="headerlink" title="发生错误时，不要返回 200 状态码"></a>发生错误时，不要返回 200 状态码</h3><p>有一种不恰当的做法是，即使发生错误，也返回200状态码，把错误信息放在数据体里面，就像下面这样。</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 <span class="number">200</span> OK</span><br><span class="line"><span class="attribute">Content-Type</span>: application/json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "status": "failure",</span><br><span class="line">  "data": &#123;</span><br><span class="line">    "error": "Expected at least two items in list."</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，解析数据体以后，才能得知操作失败。<br>这张做法实际上取消了状态码，这是完全不可取的。正确的做法是，状态码反映发生的错误，具体的错误信息放在数据体里面返回。下面是一个例子。</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">HTTP/1.1 <span class="number">400</span> Bad Request</span><br><span class="line"><span class="attribute">Content-Type</span>: application/json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "error": "Invalid payoad.",</span><br><span class="line">  "detail": &#123;</span><br><span class="line">     "surname": "This field is required."</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="提供链接"><a href="#提供链接" class="headerlink" title="提供链接"></a>提供链接</h3><p>API 的使用者未必知道，URL 是怎么设计的。一个解决方法就是，在回应中，给出相关链接，便于下一步操作。这样的话，用户只要记住一个 URL，就可以发现其他的 URL。这种方法叫做 HATEOAS。<br>举例来说，GitHub 的 API 都在 api.github.com 这个域名。访问它，就可以得到其他 URL。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">...</span></span><br><span class="line">  <span class="string">"feeds_url"</span>: <span class="string">"https://api.github.com/feeds"</span>,</span><br><span class="line">  <span class="string">"followers_url"</span>: <span class="string">"https://api.github.com/user/followers"</span>,</span><br><span class="line">  <span class="string">"following_url"</span>: <span class="string">"https://api.github.com/user/following&#123;/target&#125;"</span>,</span><br><span class="line">  <span class="string">"gists_url"</span>: <span class="string">"https://api.github.com/gists&#123;/gist_id&#125;"</span>,</span><br><span class="line">  <span class="string">"hub_url"</span>: <span class="string">"https://api.github.com/hub"</span>,</span><br><span class="line">  <span class="string">...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的回应中，挑一个 URL 访问，又可以得到别的 URL。对于用户来说，不需要记住 URL 设计，只要从 api.github.com 一步步查找就可以了。</p>
+<p>HATEOAS 的格式没有统一规定，上面例子中，GitHub 将它们与其他属性放在一起。更好的做法应该是，将相关链接与其他属性分开。</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 <span class="number">200</span> OK</span><br><span class="line"><span class="attribute">Content-Type</span>: application/json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "status": "In progress",</span><br><span class="line">   "links": &#123;[</span><br><span class="line">    &#123; "rel":"cancel", "method": "delete", "href":"/api/status/12345" &#125; ,</span><br><span class="line">    &#123; "rel":"edit", "method": "put", "href":"/api/status/12345" &#125;</span><br><span class="line">  ]&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>JSON 比 XML 可视化更好，也更加节约流量，所以尽量不要使用 XML。<br>创建和修改操作成功后，需要返回该资源的全部信息。<br>返回数据不要和客户端界面强耦合，不要在设计 API 时就考虑少查询一张关联表或是少查询 / 返回几个字段能带来多大的性能提升。并且一定要以资源为单位，即使客户端一个页面需要展示多个资源，也不要在一个接口中全部返回，而是让客户端分别请求多个接口。<br>最好将返回数据进行加密和压缩，尤其是压缩在移动应用中还是比较重要的。</p>
+<h1 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h1><p>  在 <a href="http://www.scienjus.com/app-server-paging/" target="_blank" rel="noopener">APP 后端分页设计</a> 中提到过，分页布局一般分为两种，一种是在 Web 端比较常见的有底部分页栏的电梯式分页，另一种是在 APP 中比较常见的上拉加载更多的流式分页。这两种分页的 API 到底该如何设计呢？</p>
+<p>  电梯式分页需要提供<code>page</code>（页数）和<code>pre_page</code>（每页的数量）。例如：</p>
+ <figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="meta-keyword">/users/</span>?page=<span class="number">2</span><span class="variable">&amp;pre_page</span>=<span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+<p>  而服务端则需要额外返回<code>total_count</code>（总记录数），以及可选的当前页数、每页的数量（这两个与客户端提交的相同）、总页数、是否有下一页、是否有上一页（这三个都可以通过总记录数计算出）。例如：</p>
+ <figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"pagination"</span>: &#123;</span><br><span class="line">       <span class="attr">"previous"</span>: <span class="number">1</span>,</span><br><span class="line">       <span class="attr">"next"</span>: <span class="number">3</span>,</span><br><span class="line">       <span class="attr">"current"</span>: <span class="number">2</span>,</span><br><span class="line">       <span class="attr">"per_page"</span>: <span class="number">20</span>,</span><br><span class="line">       <span class="attr">"total"</span>: <span class="number">200</span>,</span><br><span class="line">       <span class="attr">"pages"</span>: <span class="number">10</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"data"</span>: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  流式布局也完全可以使用这种方式，并且不需要查询总记录数（好处是减少一次数据库操作，坏处时客户端需要多请求一次才能判断是否到最后一页）。但是会出现数据重复和缺失的情况，所以更推荐使用游标分页。</p>
+<p>  游标分页需要提供<code>cursor</code>(下一页的起点游标) 和<code>limit</code>(数量) 参数。例如：</p>
+ <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">/articles/?<span class="attribute">cursor</span>=2015-01-01 15:20:30&amp;<span class="attribute">limit</span>=10</span><br></pre></td></tr></table></figure>
+
+<p>  如果文章列表默认是以创建时间为倒序排列的，那么<code>cursor</code>就是当前列表最后一条的创建时间（第一页为当前时间）。</p>
+<p>  服务端需要返回的数据也很简单，只需要以此游标为起点的总记录数和下一个起点游标就可以了。例如：</p>
+ <figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"pagination"</span>: &#123;</span><br><span class="line">       <span class="attr">"next"</span>: <span class="string">"2015-01-01 12:20:30"</span>,</span><br><span class="line">       <span class="attr">"limit"</span>: <span class="number">10</span>,</span><br><span class="line">       <span class="attr">"total"</span>: <span class="number">100</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"data"</span>: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  如果<code>total</code>小于<code>limit</code>，就说明已经没有数据了。</p>
+<p>  流式布局的分页 API 还有一种情况很常见，就是下拉刷新的增量更新。它的业务逻辑正好和游标分页相反，但是参数基本一样：</p>
+ <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">/articles/?<span class="attribute">cursor</span>=2015-01-01 15:20:30&amp;<span class="attribute">limit</span>=20</span><br></pre></td></tr></table></figure>
+
+<p>  返回数据有两种可能，一种是增量更新的数据小于指定的数量，就直接将全部数据返回（这个数量可以设置的相对大一些），客户端会将这些增量更新的数据添加在已有列表的顶部。但是如果增量更新的数据要大于指定的数量，就会只返回最新的 n 条数据作为第一页，这时候客户端需要清空之前的列表。例如：</p>
+ <figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"pagination"</span>: &#123;</span><br><span class="line">       <span class="attr">"limit"</span>: <span class="number">20</span>,</span><br><span class="line">       <span class="attr">"total"</span>: <span class="number">100</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"data"</span>: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  如果<code>total</code>大于<code>limit</code>，说明增量的数据太多所以只返回了第一页，需要清空旧的列表。</p>
+
+            
+        </div>
+        
+    </div>
+    
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/restfulBestUse/">restful最佳实践</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">小莫</a></p>
+        <p><span>发布时间:</span>2019-07-22, 00:00:00</p>
+        <p><span>最后更新:</span>2021-07-20, 20:08:26</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/restfulBestUse/" title="restful最佳实践">https://blog.xiaomo.info/2019/restfulBestUse/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://blog.xiaomo.info/2019/restfulBestUse/　　作者: 小莫" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019/jdkSourceCodeReadThreadSleep/">
+                    jdk源码系列-Thread.sleep(0)和Thread.sleep(1)的区别
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/nihonnmennkyo/">
+                    小莫的日本换驾照攻略
+                </a>
+            </div>
+        
+    </nav>
+
+    
+</article>
+
+
+
+<!-- 代码2：用来读取评论框配置，此代码需放置在代码1之后。 -->
+<!-- 如果当前页面有评论框，代码2请勿放置在评论框代码之前。 -->
+<!-- 如果页面同时使用多个实验室项目，以下代码只需要引入一次，只配置上面的div标签即可 -->
+<!--<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cysUkgluO"></script>-->
+
+<div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#不要纠结于无意义的规范"><span class="toc-number">1.</span> <span class="toc-text">不要纠结于无意义的规范</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#为什么要用-RESTful"><span class="toc-number"></span> <span class="toc-text">为什么要用 RESTful</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#协议"><span class="toc-number"></span> <span class="toc-text">协议</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#版本"><span class="toc-number"></span> <span class="toc-text">版本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#URL-设计"><span class="toc-number"></span> <span class="toc-text">URL 设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#动词-宾语"><span class="toc-number"></span> <span class="toc-text">动词+宾语</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动词的覆盖"><span class="toc-number"></span> <span class="toc-text">动词的覆盖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#宾语必须是名词"><span class="toc-number"></span> <span class="toc-text">宾语必须是名词</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#复数-URL"><span class="toc-number"></span> <span class="toc-text">复数 URL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#避免多级-URL"><span class="toc-number"></span> <span class="toc-text">避免多级 URL</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#请求"><span class="toc-number"></span> <span class="toc-text">请求</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Token-和-Sign"><span class="toc-number"></span> <span class="toc-text">Token 和 Sign</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#统计性参数"><span class="toc-number"></span> <span class="toc-text">统计性参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#业务参数"><span class="toc-number"></span> <span class="toc-text">业务参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#响应"><span class="toc-number"></span> <span class="toc-text">响应</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2xx-状态码"><span class="toc-number"></span> <span class="toc-text">2xx 状态码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3xx-状态码"><span class="toc-number"></span> <span class="toc-text">3xx 状态码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4xx-状态码"><span class="toc-number"></span> <span class="toc-text">4xx 状态码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5xx-状态码"><span class="toc-number"></span> <span class="toc-text">5xx 状态码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#返回数据"><span class="toc-number"></span> <span class="toc-text">返回数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#不要返回纯本文"><span class="toc-number"></span> <span class="toc-text">不要返回纯本文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发生错误时，不要返回-200-状态码"><span class="toc-number"></span> <span class="toc-text">发生错误时，不要返回 200 状态码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提供链接"><span class="toc-number"></span> <span class="toc-text">提供链接</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分页"><span class="toc-number"></span> <span class="toc-text">分页</span></a>
+</div>
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script>
+    yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+</script>
+
+
+
+<div class="share">
+    
+
+    
+</div>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<hr/>
+<br/>
+<div style="display:block;text-align: center">
+    <a href="javascript:window.open('https://twitter.com/share?url='+encodeURIComponent(document.location.href)+'&text='+encodeURIComponent(document.title),'_blank','toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=600, height=450,top=100,left=350');void(0)"
+       style="background-color: lightskyblue;border-radius: 45px;box-shadow: #767676;font-size: 14px;font-family: '微软雅黑',serif;color: whitesmoke;padding: 10px 15px;"
+    >
+        twitter分享
+    </a>
+</div>
+<br/>
+<br/>
+<div id="gitalk-container" style="margin: 1% 3%"></div>
+<h3 style="text-align: center">如果想及时收到回复,可在 <a href="https://github.com/settings/notifications" target="_blank">订阅中心</a>的 <code>Participating</code>中勾选Email</h3>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '9772f6a6fdb199a60ba1',
+        clientSecret: '9a606af21688d2d4ff2efa2467ee82e76e1e9865',
+        id: window.location.pathname,
+        repo: 'blog',
+        owner: 'houko',
+        admin: 'houko',
+        distractionFreeMode: false
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019/jdkSourceCodeReadThreadSleep/" title="上一篇: jdk源码系列-Thread.sleep(0)和Thread.sleep(1)的区别">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/nihonnmennkyo/" title="下一篇: 小莫的日本换驾照攻略">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuyin2/">日本医疗制度之限度額適用認定証</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/ohmytmux/">我的tmux之旅（tmux使用详解）</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/redisPubSub/">nodejs中使用redis的订阅分发功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuuinn/">小莫的日本(东京)住院回忆录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/doTween/">(转)doTween插件使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/mySecondFiveYearsLifePlan/">2020年年终总结和第二个长期学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/newmanCommandLine/">postman和commandline tools（newman）用法介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/ctwJobs/">【日本东京六本木】【CTW株式会社】招聘Node全栈/Java后端/SRE/大数据工程师/UI设计师</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/npmPackageCollection/">npm优秀库使用收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/jsCommonUtilsMethods/">js/ts常用公有方法收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/springBootWithSpringSecurity/">spring cloud集成spring security</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/flyway/">使用flyway版本控制工具维护数据库表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/autoFormatOnSvae/">使用IDEA保存时自动格式化代码配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/dynamoDB/">aws dynamoDB使用总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueSSRNuxt/">nuxt.js使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/pm2UseApi/">node项目监控工具之pm2</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/webAppleSignIn/">web端接入apple Sign in流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/browserEventLoop/">聊聊Javascript的事件循环(转载)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/AwsSqsUse/">AWS SQS/SNS/Redis的pub/sub用法总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsSSo/">AWS SSO用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsCommandLineUse/">aws command line 用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueFrameworkVuex/">vue框架状态管理之vuex</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/backToJapan/">疫情下的回日坎坷路</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/unityInterviewQuestions/">unity常见面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/my2019Summary/">2019年年终总结（作为前端开发这一年）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/worldServerGame/">经历了几场面试后的全球同服架构思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/japanKannjiIndex/">日语汉字速查表</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/aboutAllVisa/">签证总结大全（工作签、在留卡加汉字、工作签证更新、家族签证等）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/javaPassByValueAndReference/">jdk源码系列-Java到底是值传递还是引用传递？</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/event20190729/">没想到有一天我逼停了电车</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/jdkSourceCodeReadThreadSleep/">jdk源码系列-Thread.sleep(0)和Thread.sleep(1)的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/restfulBestUse/">restful最佳实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/nihonnmennkyo/">小莫的日本换驾照攻略</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/nihonnkita2kagetsu/">2018年终总结（从杭州到日本工作的心路历程）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unityFpsCommonMethod/">Fps游戏常用功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unitySceneFarAndNear/">镜头拉远拉近</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unity3dMiniMap/">unity3d小地图</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUISorting/">使用UGUI中的层级问题——以背包为例</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUIServerList/">使用UGUI制作滚动列表-选服列表</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/aboutDockerUse/">docker应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadArrayListAndLinkedArrayList/">jdk源码系列-Java中ArrayList、LinkedList和Vector的联系与区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadCreateObject/">jdk源码系列-创建对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadClassInitOrder/">jdk源码系列-类的初始化顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadStringDifferent/">jdk源码系列-String,StringBuffer,StringBuilder</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadAtomicInteger/">jdk源码系列-AtomicInteger</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadInteger/">jdk源码系列-Integer</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadLocal/">jdk源码系列-ThreadLocal</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadMemoryActor/">jdk源码系列-内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadConcurrentHashMap/">jdk源码系列-ConcurrentHashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadPool/">jdk源码系列-线程池</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadIO/">jdk源码系列-深入了解IO的工作机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadObject/">jdk源码系列-Object</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadNIO/">jdk源码系列-NIO</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/throwableAndException/">jdk源码系列-throwable和Exception的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeRead/">jdk源码系列-顺序索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/myBookSheet/">我的书架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/onlineProjectKen/">项目上线之后遇到的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/mainProjectJobs/">主程职责总结和反思</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/fastjson/">fastjson的key为非字符串的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/saikennokoto/">2017年终总结(作为主程的这一年)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AngularEnvironment/">angular2学习笔记之基础环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/HowToAskQuestionOnStackOverFlow/">StackOverFlow提问的艺术</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/oracleJavaSeSliver/">java的oracle考试认证(OCJP)之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/blackAppleSystem/">安装黑苹果的历程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JapanTravel/">日本游记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/GameServerType/">游戏服务器的常用架构</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaLombok/">lombok常用注解整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SwiftProjectBuild/">swift项目初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MySoftware/">我的常用软件清单</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AboutObject/">关于对象的一些思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MyKindle/">kindle初体验.</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SomethingForNewCar/">我的新车常备用品</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/VimTabAutoComplete/">使用vim打开文件时tab补全忽略大小写设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/Win7OneNote/">win7系统登录不上onenote的解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/FormatDisk/">在linux系统下格式化移动硬盘的操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/LinuxIdeaSetting/">linux系统环境下使用idea遇到的问题及解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaApiJsonFormat/">接口格式返回大小写处理.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/StartMy2017/">2016年终总结(进入游戏行业)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MysqlCommon/">mysql常用操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NormalShell/">常用shell脚本.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidUsersPermission/">Android users-permission权限列表.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidAsyncTask/">android异步任务AsyncTask.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidEnvironment/">android环境搭建.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/blogToXiaomo/">博客域名迁移(从二级域名迁移到一级域名).</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/SublimeConfig/">Sublime Text 3 使用配置与插件安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/HttpToHttps/">拥抱https(http全面切换到https)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootSwaggerUi/">swagger ui和spring boot集成生成api文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringVideo/">spring4免费全套视频教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaLombok/">lombok简化java代码注解的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSeiyou/">日本动漫声优公演,来看看什么叫专业声优</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootDataFormat/">spring boot做前后分离时间格式化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootCors/">spring boot做前后分离的跨域问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringZiliao/">spring boot相关资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaIdeaMaven/">Maven 与 IntelliJ IDEA 的完美结合</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaServletUpload/">使用Servlet做简单的上传功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonAnime/">喜欢的动漫</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSekaku/">生活习惯的不同，造就了丰富多彩的世界</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/BangumiDongli/">《东离剑游记》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmYargs/">yargs插件的使用，node.js 命令行框架 yargs 和你的程序实现交互</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiRouter/">angular2 api整理之路由模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiCommon/">angular2 api整理之通用模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptRxjsStudy/">rxjs全接触</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptDesignPattern/">javascript设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/2016StudyPlan/">5年学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2studyAnimate/">angular2学习笔记之动画效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyServiceHttp/">angular2学习笔记之服务和http</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteOther/">angular2学习笔记之小技巧</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteNgTag/">angular2学习笔记之ng2标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteEvent/">angular2学习笔记之事件和多组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteComponent/">angular2学习笔记之基本组件和ngFor</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/PublicDns/">几个国内专用的公共 DNS</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxDisk/">阿里云服务器磁盘挂载</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxChmod/">linux权限详细解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownTableStyle/">Markdown 表格样式调整与自适应优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/GulpUse/">gulp构建工具的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/FrontEndTools/">前端工程化工具初选</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AnkiExcelShortcuts/">Anki 记忆库之 Excel 快捷键大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/CssFontFamily/">CSS font-family 网页字体使用小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeSpider/">nodejs爬虫项目实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Package.jsonScripts/">package.json常用script</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmModulesShare/">npm模块分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MongodbUse/">mongodb数据库的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/KoaGenerator/">koa生成器,一键生成koa和koa2项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeKoa/">nodejs框架koa学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptSyntax/">javascript学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Es6Syntax/">es6语法快速上手</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackLLink/">webpack进阶之loader篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackPlugins/">webpack进阶之插件篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackParams/">webpack相关命令参数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeProcess/">nodejs的process模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackBasicUse/">webpack使用之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeOnlineChat/">使用nodejs搭建一个简易的即时聊天软件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxCrontab/">linux下使用定时器跑任务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AngularKeyboardEvent/">angularjs键盘事件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownSyntax/">markdown语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NgCheckbox/">angularjs复选框</a></li></ul>
+
+<style>
+    #post-nav-button a{
+        background-color: skyblue;
+    }
+</style>
+
+
+
+<script>
+    
+</script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i>
+                
+                    2016-
+                
+                2021 小莫
+                <!--                <a href="http://www.miibeian.gov.cn/" target="_blank">浙ICP备15009606号</a>-->
+            </div>
+            <div class="footer-right">
+                <a href="https://blog.xiaomo.info/" target="_blank" title="欢迎来到小莫的博客">Blog </a> Created by <a
+                        href="https://github.com/houko" target="_blank" rel="external nofollow"
+                        title="希望这里的文章对你有所帮助  v3.0">xiaomo</a>
+                <a href="/record.html"><i class="fa fa-heart animated infinite pulse"></i></a>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit">总访问数:
+                            <span id="busuanzi_value_site_pv"></span>
+                        </span>
+                    </span>
+                
+                <span style="color: grey;">(<a href="https://www.upyun.com/" rel="external nofollow" target="_blank">背景随机加载-资源存储于又拍云</a>) | 本站己运行<span
+                            id="day_count">222</span>天<span id="time_now">1</span></span>
+            </div>
+        
+    </div>
+    <script src="/js/activate-power-mode.js" ></script>
+</footer>
+<script>
+    // 添加输入效果
+    POWERMODE.colorful = true; // make power mode colorful
+    POWERMODE.shake = false; // turn off shake
+    document.body.addEventListener('input', POWERMODE);
+
+    (function () {
+        function current() {
+            var d = new Date(), str = '';
+            str += d.getHours() + '小时';
+            str += d.getMinutes() + '分';
+            str += d.getSeconds() + '秒';
+            return str;
+        }
+
+        setInterval(function () {
+            $("#time_now").html(current)
+        }, 1000);
+
+        var dateFrom = new Date(2015, 9, 12);
+        var dateTo = new Date();
+        var diff = dateTo.valueOf() - dateFrom.valueOf();
+        var diff_day = parseInt(diff / (1000 * 60 * 60 * 24));
+        $("#day_count").html(diff_day);
+    })();
+</script>
+<a href="https://github.com/houko/blog"><img style="position: fixed; top: 0;left: 0;" width="140" height="140" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_gray_6d6d6d.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 36;
+                var randomIndex = Math.ceil(Math.random() * backgroundnum);
+                var result = randomIndex+".jpg?version="+(new Date()/1000);
+                var backgroundimg = "url(https://image.xiaomo.info/background/bg-number)".replace(/number/gi,result);
+//                console.info("加载图片"+backgroundimg);
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover","background-color":"rgba(255,255,255,0.5)","background-blend-mode":"lighten"});
+            }
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80824007-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+<script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1626811730142')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body>
+</html>

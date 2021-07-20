@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><link rel=manifest href=/manifest.json><meta name="generator" content="Hexo 3.9.0"><link rel="manifest" href="/manifest.json">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="小莫">
+<meta name="baidu-site-verification" content="qp2dTXVqvj">
+
+
+
+<meta name="keywords" content="小莫的博客, java, 日语, 动漫, 技术, unity3d, nginx, https, angular, 游戏, 服务器, tomcat, IDEA, javaweb, spring, hibernate, spring boot, 开源中国, github, linux, 主程">
+
+
+<meta name="description" content="截至到上一篇博客到现在为止差不多有一个月了,时光飞逝,从来没有觉得时间过的如此之快。在这一个月中其实发生了很多事:学完了日语中级上册,记了整整一本笔记;装上了黑苹果,因此也有机会接触到IOS相关的内容,所以大致过了一遍swift3的语法;养了一只小仓鼠,生活变的有趣许多;整理了一下github,切换了主邮箱。其他来说,生活依旧在继续，折腾一直未停止,为了生活,为了编程.我一直在努力,也从未放弃。记">
+<meta name="keywords" content="swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="swift项目初探">
+<meta property="og:url" content="https://blog.xiaomo.info/2017/SwiftProjectBuild/index.html">
+<meta property="og:site_name" content="小莫的博客-fighting(技术分享、生活随笔)">
+<meta property="og:description" content="截至到上一篇博客到现在为止差不多有一个月了,时光飞逝,从来没有觉得时间过的如此之快。在这一个月中其实发生了很多事:学完了日语中级上册,记了整整一本笔记;装上了黑苹果,因此也有机会接触到IOS相关的内容,所以大致过了一遍swift3的语法;养了一只小仓鼠,生活变的有趣许多;整理了一下github,切换了主邮箱。其他来说,生活依旧在继续，折腾一直未停止,为了生活,为了编程.我一直在努力,也从未放弃。记">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://image.xiaomo.info/swift/spg-category.png">
+<meta property="og:image" content="https://image.xiaomo.info/swift/cocoapodsDemo.png">
+<meta property="og:image" content="https://image.xiaomo.info/swift/addSchemes.png">
+<meta property="og:image" content="https://image.xiaomo.info/swift/addcarthageframework.png">
+<meta property="og:updated_time" content="2021-07-20T20:08:26.464Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="swift项目初探">
+<meta name="twitter:description" content="截至到上一篇博客到现在为止差不多有一个月了,时光飞逝,从来没有觉得时间过的如此之快。在这一个月中其实发生了很多事:学完了日语中级上册,记了整整一本笔记;装上了黑苹果,因此也有机会接触到IOS相关的内容,所以大致过了一遍swift3的语法;养了一只小仓鼠,生活变的有趣许多;整理了一下github,切换了主邮箱。其他来说,生活依旧在继续，折腾一直未停止,为了生活,为了编程.我一直在努力,也从未放弃。记">
+<meta name="twitter:image" content="https://image.xiaomo.info/swift/spg-category.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternative" href="/atom.xml" title="小莫的博客-fighting(技术分享、生活随笔)" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="//image.xiaomo.info/logo/avatar.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/green/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>swift项目初探 | 小莫的博客-fighting(技术分享、生活随笔)</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        open_in_new: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+</html>
+<body oncontextmenu="return false" onselectstart="return false">
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="https://blog.xiaomo.info" target="_self" class="profilepic">
+            <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">小莫</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">行百里者半九十</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" results="0" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="//xiaomo.info">回到主站</a></li>
+                        
+                            <li><a href="/tags/japan/">日本生活系列</a></li>
+                        
+                            <li><a href="/categories/summary/">年度总结系列</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about.html">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA/">IDEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK源码系列/">JDK源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OCJP/">OCJP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alime/">alime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/">aws</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doTween/">doTween</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es5/">es5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/">excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/game/">game</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/japan/">japan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/">lombok</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxt/">nuxt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/onenote/">onenote</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postman/">postman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sso/">sso</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stackoverflow/">stackoverflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/">technology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ugui/">ugui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动漫/">动漫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字体/">字体</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码系列/">源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件/">软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑苹果/">黑苹果</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">技术宅、 杭州、 夜猫子、 爱动漫、 爱日语 2015年毕业、 java开发、 web前端、 前沿技术发烧友、 生命不息折腾不止、</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">小莫</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">小莫</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">行百里者半九十</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="//xiaomo.info">回到主站</a></li>
+                
+                    <li><a href="/tags/japan/">日本生活系列</a></li>
+                
+                    <li><a href="/categories/summary/">年度总结系列</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about.html">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><style>
+    .background-cover {
+        float: left;
+        width: 400px;
+        height: 250px;
+    }
+
+    .article img {
+        margin: -1px 20px 5px -1px;
+        border-top-left-radius: 3px;
+        -webkit-border-radius-topleft: 3%;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -o-transition: all 0.5s;
+    }
+
+    /*.article img:hover{*/
+    /*transform: scale(1, 1.05);*/
+    /*-webkit-transition:all 0.5s;*/
+    /*-moz-transition:all 0.5s;*/
+    /*-o-transition:all 0.5s;*/
+    /*}*/
+</style>
+
+
+<article id="post-SwiftProjectBuild" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        function getPgjs() {
+            const agent = navigator.userAgent.toLowerCase()
+            let res = agent.match(/android/)
+            if (res === "android")
+                return res;
+            res = agent.match(/iphone/);
+            if (res === "iphone")
+                return "ios";
+            res = agent.match(/ipad/);
+            if (res === "ipad")
+                return "ios";
+            res = agent.match(/windows/);
+            if (res === "windows")
+                return "wp";
+            console.info('pc......')
+            return "pc";
+        }
+
+        function loadImage(id) {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                return;
+            }
+            var backgroundnum = 40;
+            var randomIndex = Math.ceil(Math.random() * backgroundnum);
+            var result = randomIndex + "?version=" + (new Date() / 1000);
+            var backgroundimg = "https://image.xiaomo.info/cover/bg-number.jpg".replace(/number/gi, randomIndex);
+            var key = "#" + id;
+            $(key).attr("src", backgroundimg);
+            $(".background-cover").show();
+        }
+
+        (function () {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                console.log(page)
+                $(".background-cover").hide();
+            }
+        })()
+    </script>
+    
+    <div class="article-meta">
+        <a href="/2017/SwiftProjectBuild/" class="article-date">
+      <time datetime="2017-04-17T00:00:00.000Z" itemprop="datePublished">2017-04-17</time>
+</a>
+    </div>
+    
+    <div class="article-inner">
+        
+        <input type="hidden" class="isFancy"/>
+        
+        <div class="background-cover">
+            <img class="fengmian-image" id="SwiftProjectBuild" src="https://image.xiaomo.info/cover/bg-5.jpg" alt="封面" onload="loadImage(this.id)"/>
+        </div>
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      swift项目初探
+    </h1>
+  
+
+        </header>
+        
+        <div class="article-info article-info-post">
+            
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/swift/">swift</a>
+    </div>
+
+
+            
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul> </div>
+
+
+
+            <!-- 访问量  -->
+            <!--<span id="busuanzi_container_page_pv" style='display:none'>-->
+            <!--<span id="page-visit"><i class="fa fa-eye" style="float: left;margin-top:5px" aria-hidden="true" title="文章访问量"></i>-->
+            <!--<span id="busuanzi_value_page_pv"></span>-->
+            <!--</span>-->
+            <!--</span>-->
+
+            <div class="clearfix"></div>
+        </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+            
+            <p>截至到上一篇博客到现在为止差不多有一个月了,时光飞逝,从来没有觉得时间过的如此之快。在这一个月中其实发生了很多事:学完了日语中级上册,记了整整一本笔记;装上了黑苹果,因此也有机会接触到IOS相关的内容,所以大致过了一遍swift3的语法;养了一只小仓鼠,生活变的有趣许多;整理了一下github,切换了主邮箱。其他来说,生活依旧在继续，折腾一直未停止,为了生活,为了编程.我一直在努力,也从未放弃。记一篇swift入门的博客以作慰藉。</p>
+<a id="more"></a>
+
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>因为本人是在学习swift中,所以这篇文章更多的成份算是自己的笔记,只是将自己的经历分享出来。请大牛们勿喷,小白们别当权威。如果有错误请指出，我一定会虚心改正。最后，与君共勉，早日成为独当一面的人物。</p>
+<h3 id="一-基本环境"><a href="#一-基本环境" class="headerlink" title="一.基本环境"></a>一.基本环境</h3><blockquote>
+<p>OS x 10.11.6<br> Xcode 8.2.1<br> swift 3.0.2<br> swift package manager 3.0.2<br> pod 1.2.1<br> carthage 0.20.1 </p>
+</blockquote>
+<p> 因为xcode是严格和os x版本对照的,所以我的10.11.6黑苹果就止步于8.2.1版本的xcode,因此swift3.1也玩不了,表示很心痛.</p>
+<h3 id="二-swift能做些什么"><a href="#二-swift能做些什么" class="headerlink" title="二 swift能做些什么"></a>二 swift能做些什么</h3><ol>
+<li>IOS手机APP开发(据说也能开发android应用,期待大一统)</li>
+<li>Mac电脑应用,同样的软件,在mac上看着就是高雅,这不得不说是apple的功劳</li>
+<li>watchOS和TvOS,暂时没接触到</li>
+<li>服务端开发,也就是说可以开发网站或者其他各种东西,对应框架有Perfect，Vapor，Kitura 和 Zewo. <a href="https://sdk.cn/news/4150" target="_blank" rel="noopener">附一篇文章介绍</a></li>
+<li>其他待挖掘,世界各国的计算机科学家们可不是打酱油的.<h3 id="三-SPM是什么鬼"><a href="#三-SPM是什么鬼" class="headerlink" title="三. SPM是什么鬼"></a>三. SPM是什么鬼</h3>Swift Package Manager(SPM)是苹果最新的官方工具,可以用来管理 Swift 代码的分配，它为 Swift 编译系统集成了自动进行下载、编译和连接依赖的过程,不过目前还处于早期开发阶段。</li>
+</ol>
+<p>支持的平台</p>
+<p>✔ macOS<br>✔ Linux<br>✘ iOS<br>✘ watchOS<br>✘ tvOS      </p>
+<p>在此之前我们常用的工具是<code>Cocoapods</code>和<code>Carthage</code>。</p>
+<ol>
+<li><p>如何下载<br><a href="https://swift.org/download/#releases" target="_blank" rel="noopener">下载对应版本</a>,然后安装<br>在终端中执行 <code>export PATH=/Library/Developer/Toolchains/swift-latest.xctoolchain/usr/bin:&quot;${PATH}&quot;</code></p>
+</li>
+<li><p>验证是否安装成功</p>
+</li>
+</ol>
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line">$ <span class="keyword">swift </span><span class="keyword">build </span>--version</span><br><span class="line"><span class="keyword">Swift </span>Package Manager - <span class="keyword">Swift </span><span class="number">3</span>.<span class="number">0</span>.<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>怎么使用<br>首先，使用 <code>mkdir</code> 创建一个新的目录，用来放置你的包或者应用。<br>这里我们使用 <code>helloworld</code> 作为例子：<code>mkdir helloworld</code>。<br>然后，使用 <code>cd</code> 命令进入 <code>helloworld</code> 目录，运行命令：<code>swift build --init</code>。</li>
+</ol>
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"># cd helloworld</span><br><span class="line"># <span class="keyword">swift </span><span class="keyword">build </span>--init</span><br><span class="line"><span class="symbol">Creating</span> Package.<span class="keyword">swift</span></span><br><span class="line"><span class="keyword">Creating </span>.gitignore</span><br><span class="line"><span class="symbol">Creating</span> Sources/</span><br><span class="line"><span class="symbol">Creating</span> Sources/main.<span class="keyword">swift</span></span><br><span class="line"><span class="keyword">Creating </span>Tests/</span><br></pre></td></tr></table></figure>
+
+<p>我们看看 <code>swift build --init</code> 生成的内容：</p>
+<ol>
+<li><code>Package.swift</code>：包的”配置信息”（manifest）。<code>swift build --init</code>使用你创建的目录名作为包名。   </li>
+<li><code>Sources</code>目录：按照 SwiftPM 的要求，所有的源代码文件都放到 Sources 目录下。   </li>
+<li><code>main.swift</code>：Swift 应用使用 <code>main.swift</code>（有且只有一个）作为程序执行的入口。   </li>
+<li><code>Tests</code> 目录：存放应用的测试用例。</li>
+<li><code>.gitignore</code>：一个便捷的 <code>git gitignore</code> 文件，忽略一些本地编译时用到的配置目录和文件，比如: <code>.build</code> 和 <code>Packages</code> 目录（一些你不想加入到 git 库的东西）。</li>
+</ol>
+<p>在这个 <code>helloword</code> 例子中，<code>Package.swift</code> 文件内容如下：</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">import PackageDescription</span><br><span class="line"></span><br><span class="line">let <span class="keyword">package</span> <span class="title">= <span class="keyword">Package</span>(</span></span><br><span class="line">    name: <span class="string">"helloworld"</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>运行 <code>swift build</code> 会创建可执行文件 <code>.build/debug/helloworld</code>，运行这个文件就会在终端输出 <code>Hello, world!</code>.<br>如果你想编译一个 Swift 库，只需要删除 <code>main.swift</code> 文件，然后替换成你的库代码。在没有 <code>main.swift</code> 的情况下，<code>SwiftPM</code> 会创建一个静态的库。</p>
+<ol start="4">
+<li><p>怎么在xcode中打开<br>在项目根目录运行 <code>swift package generate-xcodeproj</code>,会生成<code>xcodeproj</code>,此时可以用xcode打开这个项目<br>我们来看看生成的代码是什么样子的<br><img src="https://image.xiaomo.info/swift/spg-category.png"></p>
+</li>
+<li><p>怎么添加其他依赖<br>我们以引入Alamofire为例<br>项目根目录有一个<code>Package.swift</code>的文件,打开这个文件,加入Alamofire的地址 <code>.Package(url: &quot;https://github.com/Alamofire/Alamofire.git&quot;, majorVersion: 4) </code></p>
+</li>
+</ol>
+<p>文件内容如下</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> PackageDescription</span><br><span class="line"></span><br><span class="line">let <span class="keyword">package</span> = <span class="keyword">Package</span>(</span><br><span class="line">    name: <span class="string">"spg"</span>,</span><br><span class="line">    <span class="keyword">dependencies</span>: [</span><br><span class="line">        .<span class="keyword">Package</span>(url: <span class="string">"https://github.com/Alamofire/Alamofire.git"</span>, majorVersion: <span class="number">4</span>)</span><br><span class="line">    ]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>然后运行再次在项目根目录运行 <code>swift build</code> 就会下载Alamofire的依赖</p>
+<h3 id="四-pod又是干咩的"><a href="#四-pod又是干咩的" class="headerlink" title="四. pod又是干咩的"></a>四. pod又是干咩的</h3><ol>
+<li>CocoaPods是什么？<br>当你开发iOS应用时，会经常使用到很多第三方开源类库，比如JSONKit，AFNetWorking等等。可能某个类库又用到其他类库，所以要使用它，必须得另外下载其他类库，而其他类库又用到其他类库，“子子孙孙无穷尽也”，这也许是比较特殊的情况。总之我的意思就是，手动一个个去下载所需类库十分麻烦。另外一种常见情况是，你项目中用到的类库有更新，你必须得重新下载新版本，重新加入到项目中，十分麻烦。如果能有什么工具能解决这些恼人的问题，那将“善莫大焉”。所以，你需要 CocoaPods。<br>CocoaPods应该是iOS最常用最有名的类库管理工具了，上述两个烦人的问题，通过cocoaPods，只需要一行命令就可以完全解决，当然前提是你必须正确设置它。重要的是，绝大部分有名的开源类库，都支持CocoaPods。所以，作为iOS程序员的我们，掌握CocoaPods的使用是必不可少的基本技能了。</li>
+<li>如何下载和安装CocoaPods？<br>在安装CocoaPods之前，首先要在本地安装好Ruby环境。至于如何在Mac中安装好Ruby环境，请google一下，本文不再涉及。<br>假如你在本地已经安装好Ruby环境，那么下载和安装CocoaPods将十分简单，只需要一行命令。在Terminator（也就是终端）中输入以下命令（注意，本文所有命令都是在终端中输入并运行的。什么，你不知道什么是终端？那请我吃饭，我告诉你）：<br> <code>sudo gem install cocoapods</code><br>如果下载不了可能又是伟大的墙在发挥作用,请自行翻墙或修改国内镜像源.<br>正常来说,等上十几秒钟，CocoaPods就可以在你本地下载并且安装好了，不再需要其他设置。</li>
+</ol>
+<p>好了，安装好CocoPods之后，接下来就是使用它。所幸，使用CocoPods和安装它一样简单，也是通过一两行命令就可以搞定。</p>
+<p>我在这里用两种使用场景来具体说明如何使用CocoaPods。</p>
+<h4 id="场景1：利用CocoaPods，在项目中导入Alamofire类库"><a href="#场景1：利用CocoaPods，在项目中导入Alamofire类库" class="headerlink" title="场景1：利用CocoaPods，在项目中导入Alamofire类库"></a>场景1：利用CocoaPods，在项目中导入Alamofire类库</h4><p>Alamofire类库在GitHub地址是：<a href="https://github.com/Alamofire/Alamofire.git" target="_blank" rel="noopener">https://github.com/Alamofire/Alamofire.git</a></p>
+<p>为了确定Alamofire是否支持CocoaPods，可以用CocoaPods的搜索功能验证一下。在终端中输入：<br><code>pod search Alamofire</code></p>
+<p>如果能正确返回<code>Alamofire </code>相关信息。这说明，Alamofire是支持CocoaPods，所以我们可以利用CocoaPods将Alamofire导入你的项目中。</p>
+<p>我们创建一个swift的ios项目,然后在终端中切换到该项目的根目录,运行以下命令:<br><code>pod init</code></p>
+<p>这个命令会在根目录下生成一个<code>Podfile</code>,我们在这个文件中添加相应的依赖就可以了.</p>
+<p>修改Podfile文件,添加依赖</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Uncomment the next line to define a global platform for your project</span></span><br><span class="line">source <span class="string">'https://github.com/CocoaPods/Specs.git'</span></span><br><span class="line">platform <span class="symbol">:ios</span>, ’<span class="number">10.2</span>’</span><br><span class="line"></span><br><span class="line">target <span class="string">'cocopodsDemo'</span> <span class="keyword">do</span></span><br><span class="line">  pod <span class="string">'Alamofire'</span>, <span class="string">'~&gt; 4.4'</span></span><br><span class="line">  <span class="comment"># Comment the next line if you're not using Swift and don't want to use dynamic frameworks</span></span><br><span class="line">  use_frameworks!</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Pods for cocopodsDemo</span></span><br><span class="line"></span><br><span class="line">  target <span class="string">'cocopodsDemoTests'</span> <span class="keyword">do</span></span><br><span class="line">    inherit! <span class="symbol">:search_paths</span></span><br><span class="line">    <span class="comment"># Pods for testing</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  target <span class="string">'cocopodsDemoUITests'</span> <span class="keyword">do</span></span><br><span class="line">    inherit! <span class="symbol">:search_paths</span></span><br><span class="line">    <span class="comment"># Pods for testing</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>然后运行 <code>pod install</code></p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">Analyzing dependencies</span><br><span class="line">Downloading dependencies</span><br><span class="line">Installing Alamofire (4.4.0)</span><br><span class="line">Generating Pods project</span><br><span class="line">Integrating<span class="built_in"> client </span>project</span><br><span class="line"></span><br><span class="line">[!] Please close any current Xcode sessions <span class="keyword">and</span> use `cocopodsDemo.xcworkspace` <span class="keyword">for</span> this project <span class="keyword">from</span> now on.</span><br><span class="line">Sending stats</span><br><span class="line">Pod installation complete! There is 1 dependency <span class="keyword">from</span> the Podfile <span class="keyword">and</span> 1 total pod installed.</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意提示: 告诉我们要关掉xocode,选择<code>cocopodsDemo.xcworkspace</code>打开项目,目录结构现在应该是这个样子的.</p>
+</blockquote>
+<p><img src="https://image.xiaomo.info/swift/cocoapodsDemo.png"></p>
+<p>添加<code>Alamofile </code>依赖<br><code>Product</code>=&gt;<code>Schemes</code>=&gt;<code>Manage Schemes</code>,将<code>Alamofile</code>勾上,<br><img src="https://image.xiaomo.info/swift/addSchemes.png"></p>
+<p>此时,我们就可以使用<code>Alamofile </code>来做些有趣的事情了。</p>
+<h5 id="关于-Podfile-lock"><a href="#关于-Podfile-lock" class="headerlink" title="关于 Podfile.lock"></a>关于 Podfile.lock</h5><p>当你执行pod install之后，除了 Podfile 外，CocoaPods 还会生成一个名为Podfile.lock的文件，Podfile.lock 应该加入到版本控制里面，不应该把这个文件加入到.gitignore中。因为Podfile.lock会锁定当前各依赖库的版本，之后如果多次执行pod install 不会更改版本，要pod update才会改Podfile.lock了。这样多人协作的时候，可以防止第三方库升级时造成大家各自的第三方库版本不一致</p>
+<h4 id="场景2：如何正确编译运行一个包含CocoPods类库的项目"><a href="#场景2：如何正确编译运行一个包含CocoPods类库的项目" class="headerlink" title="场景2：如何正确编译运行一个包含CocoPods类库的项目"></a>场景2：如何正确编译运行一个包含CocoPods类库的项目</h4><p>你也许曾经遇到过（特别是新手iOS开发者）这种情况，好不容易在GitHub上找到一份代码符合自己想需求，兴冲冲下载下来，一编译，傻眼了，发现有各种各样错误。一看，原来是缺失了各种其他第三方类库。这时候莫慌，你再仔细一看，会发现你下载的代码包含了Podfile。没错，这意味着你可以用CocoaPods很方便下载所需要的类库。</p>
+<p>下面，我以代码 <a href="https://github.com/UrbanApps/UAAppReviewManager" target="_blank" rel="noopener">UAAppReviewManager</a> 为例来说明如何正确编译运行一个包含CocoPods类库的项目。<br>UAAppReviewManager是一个能够让你方便地将提醒用户评分的功能加入你的应用中。当你去UAAppReviewManager的GitHub地址下载这份代码之后，打开Example工程（UAAppReviewManagerExample），编译，你会发现Xcode报告一大堆错误，基本都是说你编译的这份代码找不到某某头文件，这就意味着你要成功编译UAAppReviewManager的Example代码，必须先导入一些第三方类库。同时你会发现在UAAppReviewManagerExample文件夹下面有三个跟CocosPods相关的文件（文件夹）：Podfile，Podfile.lock和Pods</p>
+<p>这时候，打开终端，进入UAAppReviewManagerExample所在的目录，也就是和Podfile在同一目录下，和场景1一样，输入以下命令（由于已经有Podfile，所以不需要再创建Podfile）：</p>
+<p><code>$ pod update</code></p>
+<p>这时候，再回到<code>UAAppReviewManagerExample</code>文件夹看一看，会看到多了一个文件<code>UAAppReviewManagerExample.xcworkspace</code><br>根据终端的信息提示，你以后就需用新产生的<code>UAAppReviewManagerExample.xcworkspace</code>来运行这个<code>Example</code>代码了。<br>打开<code>UAAppReviewManagerExample.xcworkspace</code>，编译运行，成功</p>
+<p>注意，这里有个小问题，如果刚刚你不是输入<code>$ pod update</code>，而是输入<code>$ pod install</code>，会发现类库导入不成功</p>
+<p>这里的意思大概是<code>Podfile</code>文件过期，类库有升级，但是<code>Podfile</code>没有更改。<code>$ pod install</code>只会按照<code>Podfile</code>的要求来请求类库，如果类库版本号有变化，那么将获取失败。但是 <code>$ pod update</code>会更新所有的类库，获取最新版本的类库。而且你会发现，如果用了 <code>$ pod update</code>，再用 <code>$ pod install</code> 就成功了。</p>
+<p>那你也许会问，什么时候用 <code>$ pod install</code>，什么时候用 <code>$ pod update</code> 呢，我又不知道类库有没有新版本。好吧，那你每次直接用 <code>$ pod update</code> 算了。或者先用 <code>$ pod install</code>，如果不行，再用 <code>$ pod update</code>。</p>
+<h3 id="五-Carthage"><a href="#五-Carthage" class="headerlink" title="五. Carthage"></a>五. Carthage</h3><p>说到Carthage,就要先说swift，2014年苹果发布swift初期，用swift编写的第三方库就只能通过拖动源代码到自己的项目中才能被调用， 由于当时只有寥寥无几的开源库，且不能打包，加上swift1.0并不是那么好用，许多人对swift持着观望的态度。随着swift逐步趋于稳定，并且从ios8.0开始支持将自己写的swift打包成framework，越来越多的纯swift编写框架开始出现，就在这时候carthage突然出现在人们的视野中，而且陆陆续续几乎所有的开源框架都开始支持carthage。</p>
+<p>安装使用Carthage</p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">$ <span class="keyword">brew </span>update</span><br><span class="line">$ <span class="keyword">brew </span><span class="keyword">install </span>carthage</span><br></pre></td></tr></table></figure>
+
+<p>如果你不喜欢使用终端，也可以从网站<a href="https://github.com/Carthage/Carthage/releases" target="_blank" rel="noopener">https://github.com/Carthage/Carthage/releases</a>下载最新版的Carthage.pkg来更新。</p>
+<p>当你安装好Carthage后，在终端执行<code>$ carthage version</code>   </p>
+<p>即可看到当前的carthage版本, 当我写这篇文章的时候，Carthage的版本为0.20.1 。现在，你已经安装好了Carthage，接下来就是在你的项目中使用carthage了：</p>
+<ul>
+<li>通过终端进入到项目所在的文件夹</li>
+<li>创建一个空的carthage文件</li>
+<li>使用xcode打开cartfile文件 <code>open -a Xcode Cartfile</code></li>
+<li>添加内容</li>
+</ul>
+<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">github <span class="string">"Alamofire/Alamofire"</span><span class="function"> ~&gt;</span> <span class="number">4.4</span></span><br><span class="line">github <span class="string">"SwiftyJSON/SwiftyJSON"</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>保存并关闭cart file文件，在终端执行命令 <code> carthage update --platform iOS</code>,carthage会为你下载和编译所需要的第三方库，当命令执行完毕，在你的项目文件夹中会创建一个名为Carthage的文件夹</li>
+<li>添加依赖<br><img src="https://image.xiaomo.info/swift/addcarthageframework.png"></li>
+</ul>
+<h3 id="六-如何选择"><a href="#六-如何选择" class="headerlink" title="六. 如何选择"></a>六. 如何选择</h3><p>google出来多半都是使用<code>SPM</code>和<code>cocoapods</code>,所以我们暂时也从这里面二选一吧。前面提到目前 <code>swift 3.0.1</code>只支持<code>mac os</code>和 <code>linux</code>系统,所以开发ios应用的话选用<code>cocoapods</code>会好一些,我会花了更多的时间在<code>cocoapods</code>上面。但是，我更期待<code>SPM</code>能够支持<code>IOS</code>,让我们拭目以待吧。</p>
+<h3 id="七-使用Alamofire来玩点有趣的吧"><a href="#七-使用Alamofire来玩点有趣的吧" class="headerlink" title="七. 使用Alamofire来玩点有趣的吧"></a>七. 使用Alamofire来玩点有趣的吧</h3><p>未完待续</p>
+
+            
+        </div>
+        
+    </div>
+    
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/SwiftProjectBuild/">swift项目初探</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">小莫</a></p>
+        <p><span>发布时间:</span>2017-04-17, 00:00:00</p>
+        <p><span>最后更新:</span>2021-07-20, 20:08:26</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/SwiftProjectBuild/" title="swift项目初探">https://blog.xiaomo.info/2017/SwiftProjectBuild/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://blog.xiaomo.info/2017/SwiftProjectBuild/　　作者: 小莫" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/JavaLombok/">
+                    lombok常用注解整理
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/MySoftware/">
+                    我的常用软件清单
+                </a>
+            </div>
+        
+    </nav>
+
+    
+</article>
+
+
+
+<!-- 代码2：用来读取评论框配置，此代码需放置在代码1之后。 -->
+<!-- 如果当前页面有评论框，代码2请勿放置在评论框代码之前。 -->
+<!-- 如果页面同时使用多个实验室项目，以下代码只需要引入一次，只配置上面的div标签即可 -->
+<!--<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cysUkgluO"></script>-->
+
+<div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一-基本环境"><span class="toc-number">2.</span> <span class="toc-text">一.基本环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-swift能做些什么"><span class="toc-number">3.</span> <span class="toc-text">二 swift能做些什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-SPM是什么鬼"><span class="toc-number">4.</span> <span class="toc-text">三. SPM是什么鬼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四-pod又是干咩的"><span class="toc-number">5.</span> <span class="toc-text">四. pod又是干咩的</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#场景1：利用CocoaPods，在项目中导入Alamofire类库"><span class="toc-number">5.1.</span> <span class="toc-text">场景1：利用CocoaPods，在项目中导入Alamofire类库</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#关于-Podfile-lock"><span class="toc-number">5.1.1.</span> <span class="toc-text">关于 Podfile.lock</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#场景2：如何正确编译运行一个包含CocoPods类库的项目"><span class="toc-number">5.2.</span> <span class="toc-text">场景2：如何正确编译运行一个包含CocoPods类库的项目</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五-Carthage"><span class="toc-number">6.</span> <span class="toc-text">五. Carthage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六-如何选择"><span class="toc-number">7.</span> <span class="toc-text">六. 如何选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七-使用Alamofire来玩点有趣的吧"><span class="toc-number">8.</span> <span class="toc-text">七. 使用Alamofire来玩点有趣的吧</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script>
+    yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+</script>
+
+
+
+<div class="share">
+    
+
+    
+</div>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<hr/>
+<br/>
+<div style="display:block;text-align: center">
+    <a href="javascript:window.open('https://twitter.com/share?url='+encodeURIComponent(document.location.href)+'&text='+encodeURIComponent(document.title),'_blank','toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=600, height=450,top=100,left=350');void(0)"
+       style="background-color: lightskyblue;border-radius: 45px;box-shadow: #767676;font-size: 14px;font-family: '微软雅黑',serif;color: whitesmoke;padding: 10px 15px;"
+    >
+        twitter分享
+    </a>
+</div>
+<br/>
+<br/>
+<div id="gitalk-container" style="margin: 1% 3%"></div>
+<h3 style="text-align: center">如果想及时收到回复,可在 <a href="https://github.com/settings/notifications" target="_blank">订阅中心</a>的 <code>Participating</code>中勾选Email</h3>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '9772f6a6fdb199a60ba1',
+        clientSecret: '9a606af21688d2d4ff2efa2467ee82e76e1e9865',
+        id: window.location.pathname,
+        repo: 'blog',
+        owner: 'houko',
+        admin: 'houko',
+        distractionFreeMode: false
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/JavaLombok/" title="上一篇: lombok常用注解整理">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/MySoftware/" title="下一篇: 我的常用软件清单">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuyin2/">日本医疗制度之限度額適用認定証</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/ohmytmux/">我的tmux之旅（tmux使用详解）</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/redisPubSub/">nodejs中使用redis的订阅分发功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuuinn/">小莫的日本(东京)住院回忆录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/doTween/">(转)doTween插件使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/mySecondFiveYearsLifePlan/">2020年年终总结和第二个长期学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/newmanCommandLine/">postman和commandline tools（newman）用法介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/ctwJobs/">【日本东京六本木】【CTW株式会社】招聘Node全栈/Java后端/SRE/大数据工程师/UI设计师</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/npmPackageCollection/">npm优秀库使用收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/jsCommonUtilsMethods/">js/ts常用公有方法收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/springBootWithSpringSecurity/">spring cloud集成spring security</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/flyway/">使用flyway版本控制工具维护数据库表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/autoFormatOnSvae/">使用IDEA保存时自动格式化代码配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/dynamoDB/">aws dynamoDB使用总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueSSRNuxt/">nuxt.js使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/pm2UseApi/">node项目监控工具之pm2</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/webAppleSignIn/">web端接入apple Sign in流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/browserEventLoop/">聊聊Javascript的事件循环(转载)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/AwsSqsUse/">AWS SQS/SNS/Redis的pub/sub用法总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsSSo/">AWS SSO用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsCommandLineUse/">aws command line 用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueFrameworkVuex/">vue框架状态管理之vuex</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/backToJapan/">疫情下的回日坎坷路</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/unityInterviewQuestions/">unity常见面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/my2019Summary/">2019年年终总结（作为前端开发这一年）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/worldServerGame/">经历了几场面试后的全球同服架构思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/japanKannjiIndex/">日语汉字速查表</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/aboutAllVisa/">签证总结大全（工作签、在留卡加汉字、工作签证更新、家族签证等）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/javaPassByValueAndReference/">jdk源码系列-Java到底是值传递还是引用传递？</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/event20190729/">没想到有一天我逼停了电车</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/jdkSourceCodeReadThreadSleep/">jdk源码系列-Thread.sleep(0)和Thread.sleep(1)的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/restfulBestUse/">restful最佳实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/nihonnmennkyo/">小莫的日本换驾照攻略</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/nihonnkita2kagetsu/">2018年终总结（从杭州到日本工作的心路历程）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unityFpsCommonMethod/">Fps游戏常用功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unitySceneFarAndNear/">镜头拉远拉近</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unity3dMiniMap/">unity3d小地图</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUISorting/">使用UGUI中的层级问题——以背包为例</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUIServerList/">使用UGUI制作滚动列表-选服列表</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/aboutDockerUse/">docker应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadArrayListAndLinkedArrayList/">jdk源码系列-Java中ArrayList、LinkedList和Vector的联系与区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadCreateObject/">jdk源码系列-创建对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadClassInitOrder/">jdk源码系列-类的初始化顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadStringDifferent/">jdk源码系列-String,StringBuffer,StringBuilder</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadAtomicInteger/">jdk源码系列-AtomicInteger</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadInteger/">jdk源码系列-Integer</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadLocal/">jdk源码系列-ThreadLocal</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadMemoryActor/">jdk源码系列-内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadConcurrentHashMap/">jdk源码系列-ConcurrentHashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadPool/">jdk源码系列-线程池</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadIO/">jdk源码系列-深入了解IO的工作机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadObject/">jdk源码系列-Object</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadNIO/">jdk源码系列-NIO</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/throwableAndException/">jdk源码系列-throwable和Exception的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeRead/">jdk源码系列-顺序索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/myBookSheet/">我的书架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/onlineProjectKen/">项目上线之后遇到的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/mainProjectJobs/">主程职责总结和反思</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/fastjson/">fastjson的key为非字符串的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/saikennokoto/">2017年终总结(作为主程的这一年)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AngularEnvironment/">angular2学习笔记之基础环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/HowToAskQuestionOnStackOverFlow/">StackOverFlow提问的艺术</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/oracleJavaSeSliver/">java的oracle考试认证(OCJP)之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/blackAppleSystem/">安装黑苹果的历程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JapanTravel/">日本游记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/GameServerType/">游戏服务器的常用架构</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaLombok/">lombok常用注解整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SwiftProjectBuild/">swift项目初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MySoftware/">我的常用软件清单</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AboutObject/">关于对象的一些思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MyKindle/">kindle初体验.</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SomethingForNewCar/">我的新车常备用品</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/VimTabAutoComplete/">使用vim打开文件时tab补全忽略大小写设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/Win7OneNote/">win7系统登录不上onenote的解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/FormatDisk/">在linux系统下格式化移动硬盘的操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/LinuxIdeaSetting/">linux系统环境下使用idea遇到的问题及解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaApiJsonFormat/">接口格式返回大小写处理.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/StartMy2017/">2016年终总结(进入游戏行业)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MysqlCommon/">mysql常用操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NormalShell/">常用shell脚本.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidUsersPermission/">Android users-permission权限列表.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidAsyncTask/">android异步任务AsyncTask.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidEnvironment/">android环境搭建.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/blogToXiaomo/">博客域名迁移(从二级域名迁移到一级域名).</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/SublimeConfig/">Sublime Text 3 使用配置与插件安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/HttpToHttps/">拥抱https(http全面切换到https)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootSwaggerUi/">swagger ui和spring boot集成生成api文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringVideo/">spring4免费全套视频教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaLombok/">lombok简化java代码注解的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSeiyou/">日本动漫声优公演,来看看什么叫专业声优</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootDataFormat/">spring boot做前后分离时间格式化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootCors/">spring boot做前后分离的跨域问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringZiliao/">spring boot相关资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaIdeaMaven/">Maven 与 IntelliJ IDEA 的完美结合</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaServletUpload/">使用Servlet做简单的上传功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonAnime/">喜欢的动漫</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSekaku/">生活习惯的不同，造就了丰富多彩的世界</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/BangumiDongli/">《东离剑游记》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmYargs/">yargs插件的使用，node.js 命令行框架 yargs 和你的程序实现交互</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiRouter/">angular2 api整理之路由模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiCommon/">angular2 api整理之通用模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptRxjsStudy/">rxjs全接触</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptDesignPattern/">javascript设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/2016StudyPlan/">5年学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2studyAnimate/">angular2学习笔记之动画效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyServiceHttp/">angular2学习笔记之服务和http</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteOther/">angular2学习笔记之小技巧</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteNgTag/">angular2学习笔记之ng2标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteEvent/">angular2学习笔记之事件和多组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteComponent/">angular2学习笔记之基本组件和ngFor</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/PublicDns/">几个国内专用的公共 DNS</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxDisk/">阿里云服务器磁盘挂载</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxChmod/">linux权限详细解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownTableStyle/">Markdown 表格样式调整与自适应优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/GulpUse/">gulp构建工具的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/FrontEndTools/">前端工程化工具初选</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AnkiExcelShortcuts/">Anki 记忆库之 Excel 快捷键大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/CssFontFamily/">CSS font-family 网页字体使用小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeSpider/">nodejs爬虫项目实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Package.jsonScripts/">package.json常用script</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmModulesShare/">npm模块分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MongodbUse/">mongodb数据库的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/KoaGenerator/">koa生成器,一键生成koa和koa2项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeKoa/">nodejs框架koa学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptSyntax/">javascript学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Es6Syntax/">es6语法快速上手</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackLLink/">webpack进阶之loader篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackPlugins/">webpack进阶之插件篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackParams/">webpack相关命令参数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeProcess/">nodejs的process模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackBasicUse/">webpack使用之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeOnlineChat/">使用nodejs搭建一个简易的即时聊天软件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxCrontab/">linux下使用定时器跑任务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AngularKeyboardEvent/">angularjs键盘事件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownSyntax/">markdown语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NgCheckbox/">angularjs复选框</a></li></ul>
+
+<style>
+    #post-nav-button a{
+        background-color: skyblue;
+    }
+</style>
+
+
+
+<script>
+    
+</script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i>
+                
+                    2016-
+                
+                2021 小莫
+                <!--                <a href="http://www.miibeian.gov.cn/" target="_blank">浙ICP备15009606号</a>-->
+            </div>
+            <div class="footer-right">
+                <a href="https://blog.xiaomo.info/" target="_blank" title="欢迎来到小莫的博客">Blog </a> Created by <a
+                        href="https://github.com/houko" target="_blank" rel="external nofollow"
+                        title="希望这里的文章对你有所帮助  v3.0">xiaomo</a>
+                <a href="/record.html"><i class="fa fa-heart animated infinite pulse"></i></a>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit">总访问数:
+                            <span id="busuanzi_value_site_pv"></span>
+                        </span>
+                    </span>
+                
+                <span style="color: grey;">(<a href="https://www.upyun.com/" rel="external nofollow" target="_blank">背景随机加载-资源存储于又拍云</a>) | 本站己运行<span
+                            id="day_count">222</span>天<span id="time_now">1</span></span>
+            </div>
+        
+    </div>
+    <script src="/js/activate-power-mode.js" ></script>
+</footer>
+<script>
+    // 添加输入效果
+    POWERMODE.colorful = true; // make power mode colorful
+    POWERMODE.shake = false; // turn off shake
+    document.body.addEventListener('input', POWERMODE);
+
+    (function () {
+        function current() {
+            var d = new Date(), str = '';
+            str += d.getHours() + '小时';
+            str += d.getMinutes() + '分';
+            str += d.getSeconds() + '秒';
+            return str;
+        }
+
+        setInterval(function () {
+            $("#time_now").html(current)
+        }, 1000);
+
+        var dateFrom = new Date(2015, 9, 12);
+        var dateTo = new Date();
+        var diff = dateTo.valueOf() - dateFrom.valueOf();
+        var diff_day = parseInt(diff / (1000 * 60 * 60 * 24));
+        $("#day_count").html(diff_day);
+    })();
+</script>
+<a href="https://github.com/houko/blog"><img style="position: fixed; top: 0;left: 0;" width="140" height="140" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_gray_6d6d6d.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 36;
+                var randomIndex = Math.ceil(Math.random() * backgroundnum);
+                var result = randomIndex+".jpg?version="+(new Date()/1000);
+                var backgroundimg = "url(https://image.xiaomo.info/background/bg-number)".replace(/number/gi,result);
+//                console.info("加载图片"+backgroundimg);
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover","background-color":"rgba(255,255,255,0.5)","background-blend-mode":"lighten"});
+            }
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80824007-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+<script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1626811730142')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body>
+</html>

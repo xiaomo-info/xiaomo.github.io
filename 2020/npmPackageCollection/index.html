@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><link rel=manifest href=/manifest.json><meta name="generator" content="Hexo 3.9.0"><link rel="manifest" href="/manifest.json">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="小莫">
+<meta name="baidu-site-verification" content="qp2dTXVqvj">
+
+
+
+<meta name="keywords" content="小莫的博客, java, 日语, 动漫, 技术, unity3d, nginx, https, angular, 游戏, 服务器, tomcat, IDEA, javaweb, spring, hibernate, spring boot, 开源中国, github, linux, 主程">
+
+
+<meta name="description" content="虽然自栩全沾工程师，但是对于前端圈的了解还是相对缺乏的，尤其是大量的npm包。java的maven/gradle， node的npm， swift的pod,，python的pip，php的Composer，c++的Conan等等。基本上每一种开发语言都有自己的包管理器。开源三方库汇集了全世界的智慧结晶，有了这些优秀的三方库能够让我们很容易的完成复杂的功能。所以打算开一个长期向的优秀库的使用收集博客">
+<meta name="keywords" content="npm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="npm优秀库使用收集整理(长期向)">
+<meta property="og:url" content="https://blog.xiaomo.info/2020/npmPackageCollection/index.html">
+<meta property="og:site_name" content="小莫的博客-fighting(技术分享、生活随笔)">
+<meta property="og:description" content="虽然自栩全沾工程师，但是对于前端圈的了解还是相对缺乏的，尤其是大量的npm包。java的maven/gradle， node的npm， swift的pod,，python的pip，php的Composer，c++的Conan等等。基本上每一种开发语言都有自己的包管理器。开源三方库汇集了全世界的智慧结晶，有了这些优秀的三方库能够让我们很容易的完成复杂的功能。所以打算开一个长期向的优秀库的使用收集博客">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://image.xiaomo.info//blog/bV3yyE.png">
+<meta property="og:image" content="https://image.xiaomo.info//blog/chalk.png">
+<meta property="og:image" content="https://image.xiaomo.info//blog/image-20201204181923326.png">
+<meta property="og:image" content="https://image.xiaomo.info//blog/ora.gif">
+<meta property="og:image" content="https://image.xiaomo.info//blog/image-20201204182909081.png">
+<meta property="og:image" content="https://image.xiaomo.info//blog/image-20201204183307440.png">
+<meta property="og:image" content="https://image.xiaomo.info//blog/image-20201204190948866.png">
+<meta property="og:image" content="https://image.xiaomo.info//blog/1.jpg">
+<meta property="og:image" content="https://image.xiaomo.info//blog/2.jpg">
+<meta property="og:image" content="https://image.xiaomo.info//blog/2-20201208145544618.jpg">
+<meta property="og:image" content="https://image.xiaomo.info//blog/3.jpg">
+<meta property="og:image" content="https://image.xiaomo.info//blog/4.jpg">
+<meta property="og:image" content="https://image.xiaomo.info//blog/5.jpg">
+<meta property="og:image" content="https://image.xiaomo.info//blog/6.jpg">
+<meta property="og:updated_time" content="2021-07-20T20:08:26.468Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="npm优秀库使用收集整理(长期向)">
+<meta name="twitter:description" content="虽然自栩全沾工程师，但是对于前端圈的了解还是相对缺乏的，尤其是大量的npm包。java的maven/gradle， node的npm， swift的pod,，python的pip，php的Composer，c++的Conan等等。基本上每一种开发语言都有自己的包管理器。开源三方库汇集了全世界的智慧结晶，有了这些优秀的三方库能够让我们很容易的完成复杂的功能。所以打算开一个长期向的优秀库的使用收集博客">
+<meta name="twitter:image" content="https://image.xiaomo.info//blog/bV3yyE.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternative" href="/atom.xml" title="小莫的博客-fighting(技术分享、生活随笔)" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="//image.xiaomo.info/logo/avatar.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/green/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>npm优秀库使用收集整理(长期向) | 小莫的博客-fighting(技术分享、生活随笔)</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        open_in_new: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+</html>
+<body oncontextmenu="return false" onselectstart="return false">
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="https://blog.xiaomo.info" target="_self" class="profilepic">
+            <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">小莫</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">行百里者半九十</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" results="0" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="//xiaomo.info">回到主站</a></li>
+                        
+                            <li><a href="/tags/japan/">日本生活系列</a></li>
+                        
+                            <li><a href="/categories/summary/">年度总结系列</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about.html">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA/">IDEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK源码系列/">JDK源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OCJP/">OCJP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alime/">alime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/">aws</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doTween/">doTween</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es5/">es5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/">excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/game/">game</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/japan/">japan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/">lombok</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxt/">nuxt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/onenote/">onenote</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postman/">postman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sso/">sso</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stackoverflow/">stackoverflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/">technology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ugui/">ugui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动漫/">动漫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字体/">字体</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码系列/">源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件/">软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑苹果/">黑苹果</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">技术宅、 杭州、 夜猫子、 爱动漫、 爱日语 2015年毕业、 java开发、 web前端、 前沿技术发烧友、 生命不息折腾不止、</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">小莫</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">小莫</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">行百里者半九十</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="//xiaomo.info">回到主站</a></li>
+                
+                    <li><a href="/tags/japan/">日本生活系列</a></li>
+                
+                    <li><a href="/categories/summary/">年度总结系列</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about.html">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><style>
+    .background-cover {
+        float: left;
+        width: 400px;
+        height: 250px;
+    }
+
+    .article img {
+        margin: -1px 20px 5px -1px;
+        border-top-left-radius: 3px;
+        -webkit-border-radius-topleft: 3%;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -o-transition: all 0.5s;
+    }
+
+    /*.article img:hover{*/
+    /*transform: scale(1, 1.05);*/
+    /*-webkit-transition:all 0.5s;*/
+    /*-moz-transition:all 0.5s;*/
+    /*-o-transition:all 0.5s;*/
+    /*}*/
+</style>
+
+
+<article id="post-npmPackageCollection" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        function getPgjs() {
+            const agent = navigator.userAgent.toLowerCase()
+            let res = agent.match(/android/)
+            if (res === "android")
+                return res;
+            res = agent.match(/iphone/);
+            if (res === "iphone")
+                return "ios";
+            res = agent.match(/ipad/);
+            if (res === "ipad")
+                return "ios";
+            res = agent.match(/windows/);
+            if (res === "windows")
+                return "wp";
+            console.info('pc......')
+            return "pc";
+        }
+
+        function loadImage(id) {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                return;
+            }
+            var backgroundnum = 40;
+            var randomIndex = Math.ceil(Math.random() * backgroundnum);
+            var result = randomIndex + "?version=" + (new Date() / 1000);
+            var backgroundimg = "https://image.xiaomo.info/cover/bg-number.jpg".replace(/number/gi, randomIndex);
+            var key = "#" + id;
+            $(key).attr("src", backgroundimg);
+            $(".background-cover").show();
+        }
+
+        (function () {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                console.log(page)
+                $(".background-cover").hide();
+            }
+        })()
+    </script>
+    
+    <div class="article-meta">
+        <a href="/2020/npmPackageCollection/" class="article-date">
+      <time datetime="2020-12-08T00:00:00.000Z" itemprop="datePublished">2020-12-08</time>
+</a>
+    </div>
+    
+    <div class="article-inner">
+        
+        <input type="hidden" class="isFancy"/>
+        
+        <div class="background-cover">
+            <img class="fengmian-image" id="npmPackageCollection" src="https://image.xiaomo.info/cover/bg-5.jpg" alt="封面" onload="loadImage(this.id)"/>
+        </div>
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      npm优秀库使用收集整理(长期向)
+    </h1>
+  
+
+        </header>
+        
+        <div class="article-info article-info-post">
+            
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/web/">web</a>
+    </div>
+
+
+            
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/">npm</a></li></ul> </div>
+
+
+
+            <!-- 访问量  -->
+            <!--<span id="busuanzi_container_page_pv" style='display:none'>-->
+            <!--<span id="page-visit"><i class="fa fa-eye" style="float: left;margin-top:5px" aria-hidden="true" title="文章访问量"></i>-->
+            <!--<span id="busuanzi_value_page_pv"></span>-->
+            <!--</span>-->
+            <!--</span>-->
+
+            <div class="clearfix"></div>
+        </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+            
+            <p>虽然自栩全沾工程师，但是对于前端圈的了解还是相对缺乏的，尤其是大量的npm包。java的maven/gradle， node的npm， swift的pod,，python的pip，php的Composer，c++的<a href="https://github.com/conan-io/conan" target="_blank" rel="noopener">Conan</a>等等。基本上每一种开发语言都有自己的包管理器。开源三方库汇集了全世界的智慧结晶，有了这些优秀的三方库能够让我们很容易的完成复杂的功能。所以打算开一个长期向的优秀库的使用收集博客。大部分内容是搜索到的优秀博文整理而来。</p>
+<a id="more"></a>
+
+<p>注： 本篇文章开始于2020年11月20，每次修改或新增时都会将时间更新时最新的时间，每个库的使用也会标注版本和来源。</p>
+<h1 id="ajv-v6-12-6"><a href="#ajv-v6-12-6" class="headerlink" title="ajv(v6.12.6)"></a>ajv(v6.12.6)</h1><p>作用 </p>
+<p>ajv 是一个非常流行的JSON Schema验证工具，并且拥有非常出众的性能表现。下方的例子中，我们使用ajv来验证用户输入的表单数据是否合法。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Ajv = <span class="built_in">require</span>(<span class="string">'ajv'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> schema = &#123;</span><br><span class="line">  type: <span class="string">'object'</span>,</span><br><span class="line">  required: [<span class="string">'username'</span>, <span class="string">'email'</span>, <span class="string">'password'</span>],</span><br><span class="line">  properties: &#123;</span><br><span class="line">    username: &#123;</span><br><span class="line">      type: <span class="string">'string'</span>,</span><br><span class="line">      minLength: <span class="number">4</span></span><br><span class="line">    &#125;,</span><br><span class="line">    email: &#123;</span><br><span class="line">      type: <span class="string">'string'</span>,</span><br><span class="line">      format: <span class="string">'email'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    password: &#123;</span><br><span class="line">      type: <span class="string">'string'</span>,</span><br><span class="line">      minLength: <span class="number">6</span></span><br><span class="line">    &#125;,</span><br><span class="line">    age: &#123;</span><br><span class="line">      type: <span class="string">'integer'</span>,</span><br><span class="line">      minimum: <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    sex: &#123;</span><br><span class="line">      enum: [<span class="string">'boy'</span>, <span class="string">'girl'</span>, <span class="string">'secret'</span>],</span><br><span class="line">      <span class="keyword">default</span>: <span class="string">'secret'</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> ajv = <span class="keyword">new</span> Ajv();</span><br><span class="line"><span class="keyword">let</span> validate = ajv.compile(schema);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> valid = validate(data);</span><br><span class="line"><span class="keyword">if</span> (!valid) <span class="built_in">console</span>.log(validate.errors);</span><br></pre></td></tr></table></figure>
+
+<p>在上述代码中，我们声明了一个数据模式<code>schema</code> ，这个模式要求目标数据为一个对象，对象可以有五个字段 <code>username</code>、<code>email</code>、<code>password</code>、<code>age</code>、<code>sex</code>，并分别定义了五个字段的类型和数据格式要求，并且其中 <code>username</code>、<code>email</code>、<code>password</code> 必填。然后我们使用这个模式去验证用户输入的数据 <code>data</code> 是否满足我们的需求。</p>
+<p>注意：</p>
+<ol>
+<li><p>JSON Schema 是一个声明模式描述对象的标准，并非一个库</p>
+</li>
+<li><p>ajv 是一个JSON Schema标准验证器的实现，除了ajv还有很多其他的库</p>
+</li>
+<li><p>代码中的 <code>schema</code> 是使用 JSON Schema 生成的模式描述对象</p>
+</li>
+<li><p> 代码中 <code>data</code> 是我们要进行检查的数据</p>
+</li>
+</ol>
+<p>参考资料</p>
+<p>JSON Schema <a href="http://json-schema.org/" target="_blank" rel="noopener">http://json-schema.org</a></p>
+<p>AJV <a href="https://github.com/epoberezkin/ajv" target="_blank" rel="noopener">https://github.com/epoberezkin/ajv</a>    </p>
+<p>来源: <a href="https://segmentfault.com/a/1190000013265287" target="_blank" rel="noopener">https://segmentfault.com/a/1190000013265287</a>    </p>
+<h1 id="accounting-0-4-2"><a href="#accounting-0-4-2" class="headerlink" title="accounting(0.4.2)"></a>accounting(0.4.2)</h1><p>作用</p>
+<p>accounting是用来格式化数字的库， 主要提供的方法有 <code>formatMoney()</code> <code>formatColumn()</code> <code>formatNumber()</code> <code>toFixed()</code> <code>unformat()</code></p>
+<p>接下来我们一一介绍：</p>
+<p>formatMoney() 格式化货币</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 默认货币格式：货币符号$，保留两位小数，每千位加逗号</span></span><br><span class="line">accounting.formatMoney(<span class="number">12345678</span>); <span class="comment">// $12,345,678.00</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 指定货币符号、保留小数位、千位间隔符</span></span><br><span class="line">accounting.formatMoney(<span class="number">12345678</span>, <span class="string">'￥'</span>, <span class="number">2</span>, <span class="string">''</span>); <span class="comment">// ￥12345678.00</span></span><br></pre></td></tr></table></figure>
+
+<p>formatColumn() 格式化并按列对齐</p>
+<p>在制表时，<code>formatColumn()</code> 方法方便我们按照表格列对齐数字和货币符号：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">accounting.formatColumn([<span class="number">123.5</span>, <span class="number">3456.615</span>, <span class="number">777888.99</span>, <span class="number">-5432</span>, <span class="number">-1234567</span>, <span class="number">0</span>], <span class="string">"$ "</span>);</span><br></pre></td></tr></table></figure>
+
+<p>格式化后的效果：</p>
+<p><img src="https://image.xiaomo.info//blog/bV3yyE.png" alt="图片描述"></p>
+<p>formatNumber() 格式化数字</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">accounting.formatNumber(<span class="number">5318008</span>); <span class="comment">// 5,318,008</span></span><br><span class="line">accounting.formatNumber(<span class="number">9876543.21</span>, <span class="number">3</span>, <span class="string">" "</span>); <span class="comment">// 9 876 543.210</span></span><br></pre></td></tr></table></figure>
+
+<p>toFixed() 保留小数位</p>
+<p>和JavaScript内置 <code>Number.prototype.toFixed()</code> 不同的是，<code>accounting.toFixed()</code> 有四舍五入的效果：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">0.615</span>).toFixed(<span class="number">2</span>); <span class="comment">// "0.61"</span></span><br><span class="line">accounting.toFixed(<span class="number">0.615</span>, <span class="number">2</span>); <span class="comment">// "0.62"</span></span><br></pre></td></tr></table></figure>
+
+<p>unformat() 解析数字</p>
+<p><code>unformat()</code> 方法能够从任何格式的字符串中解析出原始数字：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">accounting.unformat(<span class="string">"£ 12,345,678.90 GBP"</span>); <span class="comment">// 12345678.9</span></span><br></pre></td></tr></table></figure>
+
+<p>参考资料</p>
+<p><a href="http://openexchangerates.github.io/accounting.js/" target="_blank" rel="noopener">http://openexchangerates.github.io/accounting.js/</a></p>
+<p><a href="https://github.com/openexchangerates/accounting.js" target="_blank" rel="noopener">https://github.com/openexchangerates/accounting.js</a>    </p>
+<p>来源: <a href="https://segmentfault.com/a/1190000013201803" target="_blank" rel="noopener">https://segmentfault.com/a/1190000013201803</a></p>
+<h1 id="async-retry-1-3-1"><a href="#async-retry-1-3-1" class="headerlink" title="async-retry(1.3.1)"></a>async-retry(1.3.1)</h1><p>作用</p>
+<p>异步的执行对某个操作的重试，可以设置重试次数。</p>
+<p>使用demo</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Packages</span></span><br><span class="line"><span class="keyword">const</span> retry = <span class="built_in">require</span>(<span class="string">'async-retry'</span>)</span><br><span class="line"><span class="keyword">const</span> fetch = <span class="built_in">require</span>(<span class="string">'node-fetch'</span>)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">await</span> retry(<span class="keyword">async</span> bail =&gt; &#123;</span><br><span class="line">  <span class="comment">// if anything throws, we retry</span></span><br><span class="line">  <span class="keyword">const</span> res = <span class="keyword">await</span> fetch(<span class="string">'https://google.com'</span>)</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">if</span> (<span class="number">403</span> === res.status) &#123;</span><br><span class="line">    <span class="comment">// don't retry upon 403</span></span><br><span class="line">    bail(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Unauthorized'</span>))</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">const</span> data = <span class="keyword">await</span> res.text()</span><br><span class="line">  <span class="keyword">return</span> data.substr(<span class="number">0</span>, <span class="number">500</span>)</span><br><span class="line">&#125;, &#123;</span><br><span class="line">  retries: <span class="number">5</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<ol>
+<li><p> 提供的功能可以是async或不是。换句话说，它可以是返回Promise或值的函数。</p>
+</li>
+<li><p>提供的函数接收两个参数</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Function您可以调用A以中止重试（保释）</span><br><span class="line"></span><br><span class="line">Number识别尝试。绝对的首次尝试（在重试之前）为<span class="number">1</span>。</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>将opts被传递到node-retry。阅读<a href="https://github.com/tim-kos/node-retry" target="_blank" rel="noopener">其文档</a></p>
+</li>
+<li><p> retries：重试该操作的最大次数。默认值为10。</p>
+</li>
+<li><p> factor：要使用的指数因子。默认值为2。</p>
+</li>
+<li><p> minTimeout：开始第一次重试之前的毫秒数。默认值为1000。</p>
+</li>
+<li><p> maxTimeout：两次重试之间的最大毫秒数。默认值为Infinity。</p>
+</li>
+<li><p> randomize：通过乘以介于之间的因数1来随机化超时2。默认值为true。</p>
+</li>
+<li><p> onRetry：可选Function，在执行新的重试后调用。它传递了Error触发它的参数。</p>
+</li>
+</ol>
+<h1 id="chalk-4-1-0"><a href="#chalk-4-1-0" class="headerlink" title="chalk(4.1.0)"></a>chalk(4.1.0)</h1><p>将在终端中输出蓝色带下划线的MCC。</p>
+<p><img src="https://image.xiaomo.info//blog/chalk.png" alt="chalk"></p>
+<p><code>echo -e &quot;\e[34;4mMCC\e[0m&quot; </code></p>
+<p>虽然我们已经学会了，在终端中控制字符颜色的原理和方法，但是这种操作太过于繁琐，每一次都需要查颜色样式手册，然后写出一堆无法阅读的火星文，抓狂！</p>
+<p>今天介绍的NPM库chalk就是用来优雅地输出带颜色的文本，<strong>不需要记忆、查阅样式手册</strong>。</p>
+<p>安装</p>
+<p><code>npm install chalk </code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> ctx = <span class="keyword">new</span> chalk.Instance(&#123;<span class="attr">level</span>: <span class="number">0</span>&#125;);</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">Level</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>0</code></td>
+<td align="left">All colors disabled</td>
+</tr>
+<tr>
+<td align="center"><code>1</code></td>
+<td align="left">Basic color support (16 colors)</td>
+</tr>
+<tr>
+<td align="center"><code>2</code></td>
+<td align="left">256 color support</td>
+</tr>
+<tr>
+<td align="center"><code>3</code></td>
+<td align="left">Truecolor support (16 million colors)</td>
+</tr>
+</tbody></table>
+<p>使用</p>
+<p>chalk 将各种颜色和样式修饰符实现为各个函数，并且支持链式调用。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">const</span> chalk = <span class="built_in">require</span>(<span class="string">'chalk'</span>);          </span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出蓝色的MCC     </span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(chalk.blue(<span class="string">'MCC'</span>));         </span><br><span class="line"></span><br><span class="line"> <span class="comment">// 输出蓝色带下划线的MCC     </span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(chalk.blue.underline(<span class="string">'MCC'</span>));    </span><br><span class="line"></span><br><span class="line"> <span class="comment">// 使用RGB颜色输出  </span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(chalk.rgb(<span class="number">4</span>,  <span class="number">156</span>, <span class="number">219</span>).underline(<span class="string">'MCC'</span>));     </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(chalk.hex(<span class="string">'#049CDB'</span>).bold(<span class="string">'MCC'</span>));     </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(chalk.bgHex(<span class="string">'#049CDB'</span>).bold(<span class="string">'MCC'</span>));</span><br></pre></td></tr></table></figure>
+
+<p>效果</p>
+<p><img src="https://image.xiaomo.info//blog/image-20201204181923326.png" alt="image-20201204181923326"></p>
+<p>文本样式修饰符函数</p>
+<figure class="highlight scss"><table><tr><td class="code"><pre><span class="line">reset 重置样式    </span><br><span class="line"></span><br><span class="line">bold 加粗    </span><br><span class="line"></span><br><span class="line">dim 昏暗    </span><br><span class="line"></span><br><span class="line">italic 斜体    </span><br><span class="line"></span><br><span class="line">underline 下划线    </span><br><span class="line"></span><br><span class="line">inverse 反色    </span><br><span class="line"></span><br><span class="line">hidden 隐藏    </span><br><span class="line"></span><br><span class="line">strikethrough 删除线    </span><br><span class="line"></span><br><span class="line">visible 可见</span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<p>颜色函数</p>
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">black </span>   </span><br><span class="line"></span><br><span class="line"><span class="symbol">red</span>    </span><br><span class="line"></span><br><span class="line"><span class="symbol">green</span>    </span><br><span class="line"></span><br><span class="line"><span class="symbol">yellow</span>    </span><br><span class="line"></span><br><span class="line"><span class="keyword">blue </span>   </span><br><span class="line"></span><br><span class="line"><span class="symbol">magenta</span>    </span><br><span class="line"></span><br><span class="line"><span class="symbol">cyan</span>    </span><br><span class="line"></span><br><span class="line"><span class="symbol">white</span>    </span><br><span class="line"></span><br><span class="line"><span class="symbol">gray</span> (<span class="string">"bright black"</span>)    </span><br><span class="line"></span><br><span class="line"><span class="symbol">redBright</span>    </span><br><span class="line"></span><br><span class="line"><span class="symbol">greenBright</span>    </span><br><span class="line"></span><br><span class="line"><span class="symbol">yellowBright</span>    </span><br><span class="line"></span><br><span class="line"><span class="keyword">blueBright </span>   </span><br><span class="line"></span><br><span class="line"><span class="symbol">magentaBright</span>    </span><br><span class="line"></span><br><span class="line"><span class="symbol">cyanBright</span>    </span><br><span class="line"></span><br><span class="line"><span class="symbol">whiteBright</span></span><br></pre></td></tr></table></figure>
+
+<p>​       </p>
+<p>背景色函数</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">bgBlack    </span><br><span class="line"></span><br><span class="line">bgRed    </span><br><span class="line"></span><br><span class="line">bgGreen    </span><br><span class="line"></span><br><span class="line">bgYellow    </span><br><span class="line"></span><br><span class="line">bgBlue    </span><br><span class="line"></span><br><span class="line">bgMagenta    </span><br><span class="line"></span><br><span class="line">bgCyan    </span><br><span class="line"></span><br><span class="line">bgWhite    </span><br><span class="line"></span><br><span class="line">bgBlackBright    </span><br><span class="line"></span><br><span class="line">bgRedBright    </span><br><span class="line"></span><br><span class="line">bgGreenBright    </span><br><span class="line"></span><br><span class="line">bgYellowBright    </span><br><span class="line"></span><br><span class="line">bgBlueBright    </span><br><span class="line"></span><br><span class="line">bgMagentaBright    </span><br><span class="line"></span><br><span class="line">bgCyanBright    </span><br><span class="line"></span><br><span class="line">bgWhiteBright</span><br></pre></td></tr></table></figure>
+
+<p>​      </p>
+<p>源码</p>
+<p><a href="https://github.com/chalk/chalk" target="_blank" rel="noopener">https://github.com/chalk/chalk</a></p>
+<h1 id="ora-5-1-0"><a href="#ora-5-1-0" class="headerlink" title="ora(5.1.0)"></a>ora(5.1.0)</h1><p>优雅的转圈圈,让你的等待不再煎熬～</p>
+<p><img src="https://image.xiaomo.info//blog/ora.gif" alt="ora"></p>
+<p><code>yarn add ora</code></p>
+<p>使用</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> ora = <span class="built_in">require</span>(<span class="string">'ora'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> spinner = ora(<span class="string">'Loading unicorns'</span>).start();</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    spinner.color = <span class="string">'yellow'</span>;</span><br><span class="line">    spinner.text = <span class="string">'Loading rainbows'</span>;</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://github.com/sindresorhus/ora" target="_blank" rel="noopener">https://github.com/sindresorhus/ora</a></p>
+<h1 id="figlet-1-5-0"><a href="#figlet-1-5-0" class="headerlink" title="figlet(1.5.0)"></a>figlet(1.5.0)</h1><p><code>yarn add figlet</code></p>
+<p>使用</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">figlet(<span class="string">'Hello World!!'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Something went wrong...'</span>);</span><br><span class="line">        <span class="built_in">console</span>.dir(err);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(data)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>效果</p>
+<p><img src="https://image.xiaomo.info//blog/image-20201204182909081.png" alt="image-20201204182909081"></p>
+<h1 id="boxen-4-2-0"><a href="#boxen-4-2-0" class="headerlink" title="boxen(4.2.0)"></a>boxen(4.2.0)</h1><p>给你的代码画上界限,守护自己的地盘～</p>
+<p><code>yarn add boxen</code></p>
+<p>使用</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> boxen = <span class="built_in">require</span>(<span class="string">'boxen'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(boxen(<span class="string">'unicorn'</span>, &#123;<span class="attr">padding</span>: <span class="number">1</span>&#125;));</span><br></pre></td></tr></table></figure>
+
+<p>效果</p>
+<p><img src="https://image.xiaomo.info//blog/image-20201204183307440.png" alt="image-20201204183307440"></p>
+<p><a href="https://github.com/sindresorhus/boxen" target="_blank" rel="noopener">https://github.com/sindresorhus/boxen</a></p>
+<h1 id="classnames（2-2-6）"><a href="#classnames（2-2-6）" class="headerlink" title="classnames（2.2.6）"></a>classnames（2.2.6）</h1><p>快速的组合class name</p>
+<p>在前端开发中，我们经常需要JS来判断生成DOM节点CSS类，比如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> className=<span class="string">'btn-primary'</span>;</span><br><span class="line"><span class="keyword">if</span>(active)&#123;</span><br><span class="line">  className+=<span class="string">' active'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;className&#125;</span>&gt;</span>Save<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>在上述代码中，我们需要判断active变量来控制生成的按钮的CSS样式是否是激活状态，在实际开发中，可能会有更多的类似这样的样式控制逻辑，从而干扰阅读业务逻辑代码，使得代码变得很“脏”。<br>classnames<br>classnames 库对CSS样式类操作进行了封装，方便我们快速使用：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> classNames = <span class="built_in">require</span>(<span class="string">'classnames'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;classNames(</span>'<span class="attr">btn-primary</span>',&#123; <span class="attr">active</span> &#125;)&#125;&gt;</span>Save<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>更多调用方式：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">classNames(<span class="string">'foo'</span>, <span class="string">'bar'</span>); <span class="comment">// =&gt; 'foo bar' </span></span><br><span class="line">classNames(<span class="string">'foo'</span>, &#123; <span class="attr">bar</span>: <span class="literal">true</span> &#125;); <span class="comment">// =&gt; 'foo bar' </span></span><br><span class="line">classNames(&#123; <span class="string">'foo-bar'</span>: <span class="literal">true</span> &#125;); <span class="comment">// =&gt; 'foo-bar' </span></span><br><span class="line">classNames(&#123; <span class="string">'foo-bar'</span>: <span class="literal">false</span> &#125;); <span class="comment">// =&gt; '' </span></span><br><span class="line">classNames(&#123; <span class="attr">foo</span>: <span class="literal">true</span> &#125;, &#123; <span class="attr">bar</span>: <span class="literal">true</span> &#125;); <span class="comment">// =&gt; 'foo bar' </span></span><br><span class="line">classNames(&#123; <span class="attr">foo</span>: <span class="literal">true</span>, <span class="attr">bar</span>: <span class="literal">true</span> &#125;); <span class="comment">// =&gt; 'foo bar'</span></span><br></pre></td></tr></table></figure>
+
+<p><a href="https://github.com/JedWatson/classnames" target="_blank" rel="noopener">https://github.com/JedWatson/classnames</a></p>
+<h1 id="concurrently（5-3-0）"><a href="#concurrently（5-3-0）" class="headerlink" title="concurrently（5.3.0）"></a>concurrently（5.3.0）</h1><p>主要是方便我们写前端工程化的时候，我们可以同时启动多个命令用。<br>比如我的前端代码运行起来，既要有一个web工程，同时又要启动一个mock进程。这时候我们就可以使用这个并行解决方案。<br>文档地址：<a href="https://www.npmjs.com/package/concurrently" target="_blank" rel="noopener">https://www.npmjs.com/package/concurrently</a><br>github地址：<a href="https://github.com/kimmobrunfeldt/concurrently" target="_blank" rel="noopener">https://github.com/kimmobrunfeldt/concurrently</a></p>
+<p>全局安装<br><code>npm install concurrently -g</code></p>
+<p>项目安装<br><code>npm install concurrently -D</code></p>
+<p>以上果是开发阶段写工具用的时候的安装方法。<br>如果比如node项目在生产环境使用则用以下安装方法：<br><code>npm install concurrently -s</code></p>
+<p>三、使用方法<br>3.1 命令行使用方式<br>语法:<br><code>concurrently &quot;command1 arg&quot; &quot;command2 arg&quot;</code></p>
+<p>比如我要启动两个node程序:</p>
+<p>然后当我们ctrl + c后，他就会把两个进程都停止了。</p>
+<p>方式1：<br>如果我们在package.json里面则要注意引号的问题:<br><code>&quot;start&quot;: &quot;concurrently \&quot;command1 arg\&quot; \&quot;command2 arg\&quot;&quot;</code><br>就是将”变成&quot;.<br>方式2：</p>
+<p>然后我们要让这个进行并行有两个方式，在命令行执行:</p>
+<p>或者:</p>
+<p>这块-n之后的两个单词，只能用,间隔，不能加空格。<br>方式三：<br>如果我们的package.json里面有以下三个watch类型的</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        <span class="attr">"watch-js"</span>: <span class="string">"..."</span>,</span><br><span class="line">        <span class="attr">"watch-css"</span>: <span class="string">"..."</span>,</span><br><span class="line">        <span class="attr">"watch-node"</span>: <span class="string">"..."</span>,</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那可以批量执行的方式:<br><code>concurrently &quot;npm:watch-*&quot;</code></p>
+<p>我们可以书写一个node程序来调用concurrently。<br>我们写一个main.js的代码</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> concurrently = <span class="built_in">require</span>(<span class="string">'concurrently'</span>);</span><br><span class="line"></span><br><span class="line">concurrently([<span class="string">'npm:index'</span>, <span class="string">"npm:hello"</span>]).then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"success"</span>);</span><br><span class="line">&#125;, ()=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"fail"</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>然后它的效果，就是<code>concurrently &quot;npm:index&quot; &quot;npm:hello&quot;</code></p>
+<p>然后当我们按了ctrl + c之后，他会打出success.</p>
+<p>上面的index和hello对应的代码是:<br>index:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">var</span> axios = <span class="built_in">require</span>(<span class="string">'axios'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> koa();</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> (ctx, next)=&gt;&#123;</span><br><span class="line">    ctx.body = (<span class="keyword">await</span> axios.get(<span class="string">"http://127.0.0.1:8001/hello"</span>)).data;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">8000</span>)</span><br><span class="line">hello:</span><br><span class="line"><span class="keyword">var</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> koa();</span><br><span class="line"></span><br><span class="line">app.use(<span class="function">(<span class="params">ctx, next</span>)=&gt;</span>&#123;</span><br><span class="line">    ctx.body = <span class="string">'hello world2'</span>;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">8001</span>)</span><br></pre></td></tr></table></figure>
+
+<p>3.2.2 构建失败场景<br>我们修改上面的hello的代码:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// hello:</span></span><br><span class="line"><span class="keyword">var</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> koa();</span><br><span class="line"></span><br><span class="line">app.use(<span class="function">(<span class="params">ctx, next</span>)=&gt;</span>&#123;</span><br><span class="line">    ctx.body = <span class="string">'hello world2'</span>;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">process.exit(<span class="number">-1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>然后我们在运行”node ./main.js”<br>我们会看到报错，但是程序不会退出。</p>
+<p>然后当我们再按ctrl + c后，效果如下：</p>
+<p>所以得出一个结论：当我们有一个进程返回失败的话，总体会进入fail的callback中。</p>
+<p>应用场景</p>
+<p>开发工具<br>比如当我们跑npm run start的时候，我们同时需要让sass编译，同时webpack也要跑hot 模式，则这个使用可以使用concurrently运行这两个command。<br>这块我们可以查看grafana里面的前端代码中，关于工具这块代码查看一下就可以看到这块的使用。<br>grafana地址: <a href="https://github.com/grafana/grafana" target="_blank" rel="noopener">https://github.com/grafana/grafana</a></p>
+<p>常见需求</p>
+<p>当一个进程起来失败，整体concurrently失败?</p>
+<p>我们可以通过killOthers这个参数来解决。<br>这样当我们有一个程序失败，则直接进入fail callback。也就把所有进程关闭了。<br>6.2 当一个进程起来失败，但是有可能是跟另外进程有关，这时候需要尝试几次？</p>
+<p>这种情况，如上比如npm:index能启动的，npm:hello不能启动，虽然试了三次npm:hello，一直失败，但整体最终不会退出，只有我们按ctrl + c才有用，相当于killOthers就失效了。</p>
+<h1 id="cors-2-8-5"><a href="#cors-2-8-5" class="headerlink" title="cors(2.8.5)"></a>cors(2.8.5)</h1><p>CORS是一个node.js软件包，用于提供可用于通过各种选项启用<a href="http://en.wikipedia.org/wiki/Cross-origin_resource_sharing" target="_blank" rel="noopener">CORS</a>的<a href="http://www.senchalabs.org/connect/" target="_blank" rel="noopener">Connect</a> / <a href="http://expressjs.com/" target="_blank" rel="noopener">Express</a>中间件。</p>
+<p>安装</p>
+<p><code>yarn add cors</code></p>
+<p>开启所有的CORS</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> cors = <span class="built_in">require</span>(<span class="string">'cors'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"> </span><br><span class="line">app.use(cors())</span><br><span class="line"> </span><br><span class="line">app.get(<span class="string">'/products/:id'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">  res.json(&#123;<span class="attr">msg</span>: <span class="string">'This is CORS-enabled for all origins!'</span>&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line">app.listen(<span class="number">80</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'CORS-enabled web server listening on port 80'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>开启单路由的CORS</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> cors = <span class="built_in">require</span>(<span class="string">'cors'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"> </span><br><span class="line">app.get(<span class="string">'/products/:id'</span>, cors(), <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">  res.json(&#123;<span class="attr">msg</span>: <span class="string">'This is CORS-enabled for a Single Route'</span>&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line">app.listen(<span class="number">80</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'CORS-enabled web server listening on port 80'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>配置CORS</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> cors = <span class="built_in">require</span>(<span class="string">'cors'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"> </span><br><span class="line"><span class="keyword">var</span> corsOptions = &#123;</span><br><span class="line">  origin: <span class="string">'http://example.com'</span>,</span><br><span class="line">  optionsSuccessStatus: <span class="number">200</span> <span class="comment">// some legacy browsers (IE11, various SmartTVs) choke on 204</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">app.get(<span class="string">'/products/:id'</span>, cors(corsOptions), <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">  res.json(&#123;<span class="attr">msg</span>: <span class="string">'This is CORS-enabled for only example.com.'</span>&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line">app.listen(<span class="number">80</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'CORS-enabled web server listening on port 80'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>配置多个跨域白名单</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> cors = <span class="built_in">require</span>(<span class="string">'cors'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"> </span><br><span class="line"><span class="keyword">var</span> whitelist = [<span class="string">'http://example1.com'</span>, <span class="string">'http://example2.com'</span>]</span><br><span class="line"><span class="keyword">var</span> corsOptions = &#123;</span><br><span class="line">  origin: <span class="function"><span class="keyword">function</span> (<span class="params">origin, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (whitelist.indexOf(origin) !== <span class="number">-1</span>) &#123;</span><br><span class="line">      callback(<span class="literal">null</span>, <span class="literal">true</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      callback(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Not allowed by CORS'</span>))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">app.get(<span class="string">'/products/:id'</span>, cors(corsOptions), <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">  res.json(&#123;<span class="attr">msg</span>: <span class="string">'This is CORS-enabled for a whitelisted domain.'</span>&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line">app.listen(<span class="number">80</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'CORS-enabled web server listening on port 80'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>如果您不想阻止REST工具或服务器到服务器的请求，<code>!origin</code>请在源函数中添加一个检查，如下所示：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> corsOptions = &#123;</span><br><span class="line">  origin: <span class="function"><span class="keyword">function</span> (<span class="params">origin, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (whitelist.indexOf(origin) !== <span class="number">-1</span> || !origin) &#123;</span><br><span class="line">      callback(<span class="literal">null</span>, <span class="literal">true</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      callback(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Not allowed by CORS'</span>))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>异步CORS</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> cors = <span class="built_in">require</span>(<span class="string">'cors'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"> </span><br><span class="line"><span class="keyword">var</span> whitelist = [<span class="string">'http://example1.com'</span>, <span class="string">'http://example2.com'</span>]</span><br><span class="line"><span class="keyword">var</span> corsOptionsDelegate = <span class="function"><span class="keyword">function</span> (<span class="params">req, callback</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> corsOptions;</span><br><span class="line">  <span class="keyword">if</span> (whitelist.indexOf(req.header(<span class="string">'Origin'</span>)) !== <span class="number">-1</span>) &#123;</span><br><span class="line">    corsOptions = &#123; <span class="attr">origin</span>: <span class="literal">true</span> &#125; <span class="comment">// reflect (enable) the requested origin in the CORS response</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    corsOptions = &#123; <span class="attr">origin</span>: <span class="literal">false</span> &#125; <span class="comment">// disable CORS for this request</span></span><br><span class="line">  &#125;</span><br><span class="line">  callback(<span class="literal">null</span>, corsOptions) <span class="comment">// callback expects two parameters: error and options</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">app.get(<span class="string">'/products/:id'</span>, cors(corsOptionsDelegate), <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">  res.json(&#123;<span class="attr">msg</span>: <span class="string">'This is CORS-enabled for a whitelisted domain.'</span>&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line">app.listen(<span class="number">80</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'CORS-enabled web server listening on port 80'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://github.com/expressjs/cors#readme" target="_blank" rel="noopener">https://github.com/expressjs/cors#readme</a></p>
+<h1 id="cross-env（7-0-3）"><a href="#cross-env（7-0-3）" class="headerlink" title="cross-env（7.0.3）"></a>cross-env（7.0.3）</h1><p><code>NODE_ENV=production</code>像这样设置环境变量时，大多数Windows命令提示符找不到命令，我们使用跨平台环境时能够抹平这个不同。</p>
+<p>安装</p>
+<p><code>yarn add corss-env</code></p>
+<p>使用</p>
+<p>直接在原来的脚本前加上<code>corss-env</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"build"</span>: <span class="string">"cross-env NODE_ENV=production webpack --config build/webpack.config.js"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="cssnao-4-1-10"><a href="#cssnao-4-1-10" class="headerlink" title="cssnao(4.1.10)"></a>cssnao(4.1.10)</h1><p>什么是缩减（minification）？<a href="https://www.cssnano.cn/docs/introduction#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%A9%E5%87%8F%EF%BC%88minification%EF%BC%89%EF%BC%9F" target="_blank" rel="noopener">#</a></p>
+<p>缩减（minification）是指利用各种方法来 减少代码体积的过程。和 gzip 之类的保留 CSS 文件的原始语义（即无损失）的技术不同，缩减（minification） 天生是一个有损失的过程，例如，其中某些值可能会被替换为更简化的 等价语法，或者选择器被合并。</p>
+<p>缩减（minification）步骤的最终结果是生成的代码将与 原始代码行为相同，但是某些部分被修改以 尽可能减少代码体积。</p>
+<p>将 gzip 压缩和缩减（minification）相结合，可以最大限度的减少 文件体积，但是不要耳听为虚、眼见为实，为什么不去试试 <a href="https://npmjs.org/package/css-size" target="_blank" rel="noopener">css-size</a> ？ css-size 是一个专门对比缩减（minification）前后文件体积大小变化的模块。</p>
+<p>cssnano 是什么？<a href="https://www.cssnano.cn/docs/introduction#cssnano-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F" target="_blank" rel="noopener">#</a></p>
+<p>cssnano 就是这样的一个缩减器，它使基于 <a href="https://nodejs.org/" target="_blank" rel="noopener">Node.js</a> 开发的。cssnano 是一个 <a href="http://postcss.org/" target="_blank" rel="noopener">PostCSS</a> 插件，可以添加到你的构建流程中，用于确保最终生成的 用于生产环境的 CSS 样式表文件尽可能的小。</p>
+<p>如果你不了解什么是构建流程，没关系，我们在 <a href="https://www.cssnano.cn/guides/getting-started" target="_blank" rel="noopener">入门指南</a> 中做了讲解。</p>
+<p>这对我有什么好处？<a href="https://www.cssnano.cn/docs/introduction#%E8%BF%99%E5%AF%B9%E6%88%91%E6%9C%89%E4%BB%80%E4%B9%88%E5%A5%BD%E5%A4%84%EF%BC%9F" target="_blank" rel="noopener">#</a></p>
+<p>大量的代码优化<a href="https://www.cssnano.cn/docs/introduction#%E5%A4%A7%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96" target="_blank" rel="noopener">#</a></p>
+<p>我们提供了众多不同的优化，从简单的 清除空白符到复杂的不同名称的同一 keyframes 的合并等。 更多信息请参考 <a href="https://www.cssnano.cn/guides/presets" target="_blank" rel="noopener">预设指南</a>。</p>
+<p>统一的 CSS 处理<a href="https://www.cssnano.cn/docs/introduction#%E7%BB%9F%E4%B8%80%E7%9A%84-css-%E5%A4%84%E7%90%86" target="_blank" rel="noopener">#</a></p>
+<p>cssnano 基于 <a href="http://postcss.org/" target="_blank" rel="noopener">PostCSS</a> 来处理 CSS 代码。因为很多 现代化的 CSS 工具都是基于 <a href="http://postcss.org/" target="_blank" rel="noopener">PostCSS</a> 开发的，因此你可以把这些工具组合起来 并生成一棵单一的抽象语法树（AST）。这就意味着总的处理时间 减少了，因为 CSS 不再需要进行多次解析了。</p>
+<p>现代化的架构以及模块化<a href="https://www.cssnano.cn/docs/introduction#%E7%8E%B0%E4%BB%A3%E5%8C%96%E7%9A%84%E6%9E%B6%E6%9E%84%E4%BB%A5%E5%8F%8A%E6%A8%A1%E5%9D%97%E5%8C%96" target="_blank" rel="noopener">#</a></p>
+<p>因为 cssnano 是基于 <a href="http://postcss.org/" target="_blank" rel="noopener">PostCSS</a> 的，因此我们可以将 cssnano 的功能拆解为多个 插件，每个插件只需负责执行一项小的优化即可。并且许多优化可以限定 到某一组特定的 CSS 属性上，这就比利用正则表达式对 CSS 做全局处理更加安全。</p>
+<h1 id="dotenv-8-2-0"><a href="#dotenv-8-2-0" class="headerlink" title="dotenv(8.2.0)"></a>dotenv(8.2.0)</h1><p>我们经常需要Node.js程序运行时加载不同的配置，比如开发环境和生产环境的数据数据库配置就可能不一样，使process.env.DB_HOST 环境变量，可以在Node.js程序内部方便获取参数信息。但是，程序启动时，怎样将环境变量传递给程序，这可能会是一个相对麻烦的事情，因为这关系到操作系统层的配置问题。</p>
+<p>安装</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># with npm </span></span><br><span class="line">npm install dotenv</span><br><span class="line"> </span><br><span class="line"><span class="comment"># or with Yarn </span></span><br><span class="line">yarn add dotenv</span><br></pre></td></tr></table></figure>
+
+<p>配置文件</p>
+<p>在项目根路径下新建<code>.env</code>文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DB_HOST=localhost</span><br><span class="line">DB_USER=root</span><br><span class="line">DB_PASS=s1mpl3</span><br></pre></td></tr></table></figure>
+
+<p>然后，在Node.js程序启动时运行：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">'dotenv'</span>).config()</span><br></pre></td></tr></table></figure>
+
+<p>接着，我们就可以在接下来的程序中方便地使用环境变量了：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> db = <span class="built_in">require</span>(<span class="string">'db'</span>)</span><br><span class="line">db.connect(&#123;</span><br><span class="line">  host: process.env.DB_HOST,</span><br><span class="line">  username: process.env.DB_USER,</span><br><span class="line">  password: process.env.DB_PASS</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>因此，我们可以创建不同的配置文件并提并git，然后在开发的时候copy一份<code>local.env</code>到根路径重命名为<code>.env</code>就可以做本地开发了，线上部署同理。</p>
+<p><img src="https://image.xiaomo.info//blog/image-20201204190948866.png" alt="image-20201204190948866"></p>
+<p><a href="https://github.com/motdotla/dotenv#readme" target="_blank" rel="noopener">https://github.com/motdotla/dotenv#readme</a></p>
+<h1 id="ini-1-3-5"><a href="#ini-1-3-5" class="headerlink" title="ini(1.3.5)"></a>ini(1.3.5)</h1><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="comment">; this comment is being ignored</span></span><br><span class="line"><span class="attr">scope</span> = global</span><br><span class="line"></span><br><span class="line"><span class="section">[database]</span></span><br><span class="line"><span class="attr">user</span> = dbuser</span><br><span class="line"><span class="attr">password</span> = dbpassword</span><br><span class="line"><span class="attr">database</span> = use_this_database</span><br><span class="line"></span><br><span class="line"><span class="section">[paths.default]</span></span><br><span class="line"><span class="attr">datadir</span> = /var/lib/data</span><br><span class="line"><span class="attr">array[]</span> = first value</span><br><span class="line"><span class="attr">array[]</span> = second value</span><br><span class="line"><span class="attr">array[]</span> = third value</span><br></pre></td></tr></table></figure>
+
+<p>读取ini文件</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> ini = <span class="built_in">require</span>(<span class="string">'ini'</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> config = ini.parse(fs.readFileSync(<span class="string">'config.ini'</span>, <span class="string">'utf-8'</span>));</span><br></pre></td></tr></table></figure>
+
+<p>写入ini文件</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line">  , ini = <span class="built_in">require</span>(<span class="string">'ini'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> config = ini.parse(fs.readFileSync(<span class="string">'./config.ini'</span>, <span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line">config.scope = <span class="string">'local'</span></span><br><span class="line">config.database.database = <span class="string">'use_another_database'</span></span><br><span class="line">config.paths.default.tmpdir = <span class="string">'/tmp'</span></span><br><span class="line"><span class="keyword">delete</span> config.paths.default.datadir</span><br><span class="line">config.paths.default.array.push(<span class="string">'fourth value'</span>)</span><br><span class="line"></span><br><span class="line">fs.writeFileSync(<span class="string">'./config_modified.ini'</span>, ini.stringify(config, &#123; <span class="attr">section</span>: <span class="string">'section'</span> &#125;))</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://github.com/npm/ini" target="_blank" rel="noopener">https://github.com/npm/ini</a></p>
+<h1 id="ip-1-1-5"><a href="#ip-1-1-5" class="headerlink" title="ip(1.1.5)"></a>ip(1.1.5)</h1><p>ip库能够获取本机IP地址、比较、转换、掩码/子网计算等各种和网络IP相关的操作：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> ip = <span class="built_in">require</span>(<span class="string">'ip'</span>);</span><br><span class="line"><span class="comment">// 获取本机网卡IP</span></span><br><span class="line">ip.address();</span><br><span class="line"><span class="comment">// 比较两个IP是否相同</span></span><br><span class="line">ip.isEqual(<span class="string">'::1'</span>, <span class="string">'::0:1'</span>); <span class="comment">// true </span></span><br><span class="line"><span class="comment">// IP 表示格式互转</span></span><br><span class="line">ip.toBuffer(<span class="string">'127.0.0.1'</span>) <span class="comment">// Buffer([127, 0, 0, 1]) </span></span><br><span class="line">ip.toString(<span class="keyword">new</span> Buffer([<span class="number">127</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>])) <span class="comment">// 127.0.0.1 </span></span><br><span class="line">ip.toLong(<span class="string">'127.0.0.1'</span>); <span class="comment">// 2130706433 </span></span><br><span class="line">ip.fromLong(<span class="number">2130706433</span>); <span class="comment">// '127.0.0.1' </span></span><br><span class="line"><span class="comment">// 判断是否是内网IP</span></span><br><span class="line">ip.isPrivate(<span class="string">'127.0.0.1'</span>) <span class="comment">// true </span></span><br><span class="line"><span class="comment">// 判断IP版本</span></span><br><span class="line">ip.isV4Format(<span class="string">'127.0.0.1'</span>); <span class="comment">// true </span></span><br><span class="line">ip.isV6Format(<span class="string">'::ffff:127.0.0.1'</span>); <span class="comment">// true </span></span><br><span class="line"><span class="comment">// 掩码计算</span></span><br><span class="line">ip.fromPrefixLen(<span class="number">24</span>) <span class="comment">// 255.255.255.0 </span></span><br><span class="line">ip.mask(<span class="string">'192.168.1.134'</span>, <span class="string">'255.255.255.0'</span>) <span class="comment">// 192.168.1.0 </span></span><br><span class="line">ip.cidr(<span class="string">'192.168.1.134/26'</span>) <span class="comment">// 192.168.1.128 </span></span><br><span class="line">ip.not(<span class="string">'255.255.255.0'</span>) <span class="comment">// 0.0.0.255 </span></span><br><span class="line">ip.or(<span class="string">'192.168.1.134'</span>, <span class="string">'0.0.0.255'</span>) <span class="comment">// 192.168.1.255 </span></span><br><span class="line"><span class="comment">// 子网计算</span></span><br><span class="line">ip.subnet(<span class="string">'192.168.1.134'</span>, <span class="string">'255.255.255.192'</span>);</span><br><span class="line"><span class="comment">// &#123; networkAddress: '192.168.1.128', </span></span><br><span class="line"><span class="comment">// firstAddress: '192.168.1.129', </span></span><br><span class="line"><span class="comment">// lastAddress: '192.168.1.190', </span></span><br><span class="line"><span class="comment">// broadcastAddress: '192.168.1.191', </span></span><br><span class="line"><span class="comment">// subnetMask: '255.255.255.192', </span></span><br><span class="line"><span class="comment">// subnetMaskLength: 26, </span></span><br><span class="line"><span class="comment">// numHosts: 62, </span></span><br><span class="line"><span class="comment">// length: 64, </span></span><br><span class="line"><span class="comment">// contains: function(addr)&#123;...&#125; &#125; </span></span><br><span class="line"><span class="comment">// 子网范围判断</span></span><br><span class="line">ip.cidrSubnet(<span class="string">'192.168.1.134/26'</span>).contains(<span class="string">'192.168.1.190'</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>参考资料</p>
+<p><a href="https://github.com/indutny/node-ip" target="_blank" rel="noopener">https://github.com/indutny/node-ip</a></p>
+<h1 id="jschardet（2-2-1）"><a href="#jschardet（2-2-1）" class="headerlink" title="jschardet（2.2.1）"></a>jschardet（2.2.1）</h1><p>识别字符编码</p>
+<p><code>yarn add jschardet</code></p>
+<p>jschardet 可以识别出一个Buffer数据所使用的编码格式，具体支持的格式包括：</p>
+<ul>
+<li>  Big5, GB2312/GB18030,     EUC-TW, HZ-GB-2312, and ISO-2022-CN (Traditional and Simplified Chinese)</li>
+<li>  EUC-JP, SHIFT_JIS, and     ISO-2022-JP (Japanese)</li>
+<li>  EUC-KR and ISO-2022-KR     (Korean)</li>
+<li>  KOI8-R, MacCyrillic,     IBM855, IBM866, ISO-8859-5, and windows-1251 (Russian)</li>
+<li>  ISO-8859-2 and     windows-1250 (Hungarian)</li>
+<li>  ISO-8859-5 and     windows-1251 (Bulgarian)</li>
+<li>  windows-1252</li>
+<li>  ISO-8859-7 and     windows-1253 (Greek)</li>
+<li>  ISO-8859-8 and     windows-1255 (Visual and Logical Hebrew)</li>
+<li>  TIS-620 (Thai)</li>
+<li>  UTF-32 BE, LE,     3412-ordered, or 2143-ordered (with a BOM)</li>
+<li>  UTF-16 BE or LE (with a     BOM)</li>
+<li>  UTF-8 (with or without a     BOM)</li>
+<li>  ASCII</li>
+</ul>
+<p>我们能方便地使用 jschardet 库：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> jschardet = <span class="built_in">require</span>(<span class="string">"jschardet"</span>);</span><br><span class="line"> </span><br><span class="line"> <span class="comment">// "次常用國字標準字體表" in Big5</span></span><br><span class="line"> jschardet.detect(<span class="string">"\xa6\xb8\xb1\x60\xa5\xce\xb0\xea\xa6\x72\xbc\xd0\xb7\xc7\xa6\x72\xc5\xe9\xaa\xed"</span>);</span><br><span class="line"> <span class="comment">// &#123; encoding: "Big5", confidence: 0.99 &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><a href="https://github.com/aadsm/jschardet" target="_blank" rel="noopener">https://github.com/aadsm/jschardet</a></p>
+<h1 id="iconv-lite-0-6-2"><a href="#iconv-lite-0-6-2" class="headerlink" title="iconv-lite(0.6.2)"></a>iconv-lite(0.6.2)</h1><p>将转换任意的字符编码到JavaScript内置的Unicode编码，以便于我们的程序和外部系统友好对接。</p>
+<ul>
+<li>  所有node.js本机编码：utf8，ucs2 / utf16-le，ASCII，二进制，base64，十六进制。</li>
+<li>  其他Unicode编码：utf16，utf16-be，utf-7，utf-7-imap，utf32，utf32-le和utf32-be。</li>
+<li>  所有广泛的单字节编码：Windows 125x家族，ISO-8859家族，IBM / DOS代码页，Macintosh家族，KOI8家族，以及iconv库支持的所有其他字符。还支持“ latin1”，“ us-ascii”之类的别名。</li>
+<li>  所有广泛使用的多字节编码：CP932，CP936，CP949，CP950，GB2312，GBK，GB18030，Big5，Shift_JIS，EUC-JP。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> iconv = <span class="built_in">require</span>(<span class="string">'iconv-lite'</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Convert from an encoded buffer to a js string.</span></span><br><span class="line">str = iconv.decode(Buffer.from([<span class="number">0x68</span>, <span class="number">0x65</span>, <span class="number">0x6c</span>, <span class="number">0x6c</span>, <span class="number">0x6f</span>]), <span class="string">'win1251'</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Convert from a js string to an encoded buffer.</span></span><br><span class="line">buf = iconv.encode(<span class="string">"Sample input string"</span>, <span class="string">'win1251'</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Check if encoding is supported</span></span><br><span class="line">iconv.encodingExists(<span class="string">"us-ascii"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>流API</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> converterStream = iconv.decodeStream(<span class="string">'win1251'</span>);</span><br><span class="line">    req.pipe(converterStream);</span><br><span class="line"> </span><br><span class="line">    converterStream.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(str); <span class="comment">// Do something with decoded strings, chunk-by-chunk.</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Convert encoding streaming example</span></span><br><span class="line">fs.createReadStream(<span class="string">'file-in-win1251.txt'</span>)</span><br><span class="line">    .pipe(iconv.decodeStream(<span class="string">'win1251'</span>))</span><br><span class="line">    .pipe(iconv.encodeStream(<span class="string">'ucs2'</span>))</span><br><span class="line">    .pipe(fs.createWriteStream(<span class="string">'file-in-ucs2.txt'</span>));</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Sugar: all encode/decode streams have .collect(cb) method to accumulate data.</span></span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    req.pipe(iconv.decodeStream(<span class="string">'win1251'</span>)).collect(<span class="function"><span class="keyword">function</span>(<span class="params">err, body</span>) </span>&#123;</span><br><span class="line">        assert(<span class="keyword">typeof</span> body == <span class="string">'string'</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(body); <span class="comment">// full request body string</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="js-cookie-2-2"><a href="#js-cookie-2-2" class="headerlink" title="js-cookie(2.2)"></a>js-cookie(2.2)</h1><p>一个简单，轻巧的JavaScript API，用于处理Cookie</p>
+<p><code>yarn add js-cookie</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Cookies <span class="keyword">from</span> <span class="string">'js-cookie'</span></span><br><span class="line"></span><br><span class="line">Cookies.set(<span class="string">'foo'</span>, <span class="string">'bar'</span>) </span><br><span class="line">Cookies.set(<span class="string">'name'</span>, <span class="string">'value'</span>, &#123; <span class="attr">expires</span>: <span class="number">7</span> &#125;) <span class="comment">//Create a cookie that expires 7 days from now, valid across the entire site:</span></span><br><span class="line">Cookies.get(<span class="string">'name'</span>) <span class="comment">// =&gt; 'value'</span></span><br><span class="line">Cookies.get(<span class="string">'nothing'</span>) <span class="comment">// =&gt; undefined</span></span><br><span class="line">Cookies.get() <span class="comment">// =&gt; &#123; name: 'value' &#125;  //Cookies.get() // =&gt; &#123; name: 'value' &#125;</span></span><br><span class="line">Cookies.get(<span class="string">'foo'</span>, &#123; <span class="attr">domain</span>: <span class="string">'sub.example.com'</span> &#125;) <span class="comment">// `domain` won't have any effect...!</span></span><br><span class="line">Cookies.remove(<span class="string">'name'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>demo</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// cookies.ts 使用示例，给的api己经很精简了，没有再封装的必要，如果想要隔离原则的话也可以封一下</span></span><br><span class="line"><span class="keyword">import</span> Cookies <span class="keyword">from</span> <span class="string">'js-cookie'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// App</span></span><br><span class="line"><span class="keyword">const</span> sidebarStatusKey = <span class="string">'sidebar_status'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getSidebarStatus = <span class="function"><span class="params">()</span> =&gt;</span> Cookies.get(sidebarStatusKey)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> setSidebarStatus = <span class="function">(<span class="params">sidebarStatus: <span class="built_in">string</span></span>) =&gt;</span> Cookies.set(sidebarStatusKey, sidebarStatus)</span><br><span class="line"></span><br><span class="line"><span class="comment">// User</span></span><br><span class="line"><span class="keyword">const</span> tokenKey = <span class="string">'pinpinle_token'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getToken = <span class="function"><span class="params">()</span> =&gt;</span> Cookies.get(tokenKey)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> setToken = <span class="function">(<span class="params">token: <span class="built_in">string</span></span>) =&gt;</span> Cookies.set(tokenKey, token)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> removeToken = <span class="function"><span class="params">()</span> =&gt;</span> Cookies.remove(tokenKey)</span><br></pre></td></tr></table></figure>
+
+<h1 id="js-yaml-3-14-1"><a href="#js-yaml-3-14-1" class="headerlink" title="js-yaml(3.14.1)"></a>js-yaml(3.14.1)</h1><p>js-yaml 是一个专门用来读写YAML格式数据的库，他可以将JS对象转换成YAML字符串，也可以将YAML字符串转换为JS对象。</p>
+<p>example.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">receipt:</span>     <span class="string">Oz-Ware</span> <span class="string">Purchase</span> <span class="string">Invoice</span></span><br><span class="line"><span class="attr">date:</span>        <span class="number">2012</span><span class="number">-08</span><span class="number">-06</span></span><br><span class="line"><span class="attr">customer:</span>  <span class="comment">#对象</span></span><br><span class="line">    <span class="attr">given:</span>   <span class="string">Dorothy</span></span><br><span class="line">    <span class="attr">family:</span>  <span class="string">Gale</span></span><br><span class="line"></span><br><span class="line"><span class="attr">items:</span>  <span class="comment"># 对象数组</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">part_no:</span>   <span class="string">A4786</span></span><br><span class="line">      <span class="attr">descrip:</span>   <span class="string">Water</span> <span class="string">Bucket</span> <span class="string">(Filled)</span></span><br><span class="line">      <span class="attr">price:</span>     <span class="number">1.47</span></span><br><span class="line">      <span class="attr">quantity:</span>  <span class="number">4</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">part_no:</span>   <span class="string">E1628</span></span><br><span class="line">      <span class="attr">descrip:</span>   <span class="string">High</span> <span class="string">Heeled</span> <span class="string">"Ruby"</span> <span class="string">Slippers</span></span><br><span class="line">      <span class="attr">size:</span>      <span class="number">8</span></span><br><span class="line">      <span class="attr">price:</span>     <span class="number">133.7</span></span><br><span class="line">      <span class="attr">quantity:</span>  <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="attr">bill-to:</span>  <span class="string">&amp;id001</span> <span class="comment"># 锚点标记 id001</span></span><br><span class="line">    <span class="attr">street:</span> <span class="string">|</span>  <span class="comment"># 多行字符串</span></span><br><span class="line">            <span class="number">123</span> <span class="string">Tornado</span> <span class="string">Alley</span></span><br><span class="line">            <span class="string">Suite</span> <span class="number">16</span></span><br><span class="line">    <span class="attr">city:</span>   <span class="string">East</span> <span class="string">Centerville</span></span><br><span class="line">    <span class="attr">state:</span>  <span class="string">KS</span></span><br><span class="line"></span><br><span class="line"><span class="attr">ship-to:</span>  <span class="string">*id001</span> <span class="comment"># 引用锚点标记id001的数据</span></span><br><span class="line"></span><br><span class="line"><span class="attr">specialDelivery:</span>  <span class="string">&gt;</span> <span class="comment"># 多行字符串</span></span><br><span class="line">    <span class="string">Follow</span> <span class="string">the</span> <span class="string">Yellow</span> <span class="string">Brick</span></span><br><span class="line">    <span class="string">Road</span> <span class="string">to</span> <span class="string">the</span> <span class="string">Emerald</span> <span class="string">City.</span></span><br><span class="line">    <span class="string">Pay</span> <span class="literal">no</span> <span class="string">attention</span> <span class="string">to</span> <span class="string">the</span></span><br><span class="line">    <span class="string">man</span> <span class="string">behind</span> <span class="string">the</span> <span class="string">curtain.</span></span><br></pre></td></tr></table></figure>
+
+<p>读取yaml</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> yaml = <span class="built_in">require</span>(<span class="string">'js-yaml'</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = yaml.safeLoad(fs.readFileSync(<span class="string">'example.yml'</span>, <span class="string">'utf8'</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> str = yaml.safeDump(obj);</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://github.com/nodeca/js-yaml" target="_blank" rel="noopener">https://github.com/nodeca/js-yaml</a></p>
+<h1 id="log4jsdd-1-0-2"><a href="#log4jsdd-1-0-2" class="headerlink" title="log4jsdd(1.0.2)"></a>log4jsdd(1.0.2)</h1><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> log4js = <span class="built_in">require</span>(<span class="string">'log4js'</span>);</span><br><span class="line">log4js.configure(&#123;</span><br><span class="line">    appenders: &#123;</span><br><span class="line">        out: &#123; <span class="attr">type</span>: <span class="string">'stdout'</span>&#125;,</span><br><span class="line">        dingding: &#123;</span><br><span class="line">            type: <span class="string">'log4jsdd'</span>,</span><br><span class="line">            hookUrl: <span class="string">'填写获取钉钉里面设置的 webhook 地址'</span>,</span><br><span class="line">            title: <span class="string">'Node 消息'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    categories: &#123; <span class="attr">default</span>: &#123; <span class="attr">appenders</span>: [<span class="string">'out'</span>, <span class="string">'dingding'</span>], <span class="attr">level</span>: <span class="string">'debug'</span> &#125;&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> app = log4js.getLogger();</span><br><span class="line">app.info(<span class="string">'测试发送到钉钉'</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.xiaomo.info//blog/1.jpg" alt="图片"></p>
+<p><img src="https://image.xiaomo.info//blog/2.jpg" alt="图片"></p>
+<p><img src="https://image.xiaomo.info//blog/2-20201208145544618.jpg" alt="图片"></p>
+<p><img src="https://image.xiaomo.info//blog/3.jpg" alt="图片"></p>
+<p><img src="https://image.xiaomo.info//blog/4.jpg" alt="图片"></p>
+<p><img src="https://image.xiaomo.info//blog/5.jpg" alt="图片"></p>
+<p><img src="https://image.xiaomo.info//blog/6.jpg" alt="图片"></p>
+<h1 id="material-ui-4-11-1"><a href="#material-ui-4-11-1" class="headerlink" title="material-ui(4.11.1)"></a>material-ui(4.11.1)</h1><p> 安装material-ui<br> <code>npm install @material-ui/core</code></p>
+<p>安装material icons<br><code>npm install @material-ui/icons</code></p>
+<p>Material-UI组件是相互独立的，自支持的，工作时仅注入当前组件所需要的样式。这些Material-UI组件并依赖于任何全局的样式表，尽管Material-UI提供了可选的CssBaseline组件。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> Button <span class="keyword">from</span> <span class="string">'@material-ui/core/Button'</span>;  <span class="comment">// 导入Button组件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Button variant=<span class="string">'contained'</span> color=<span class="string">'primary'</span>&gt;按钮&lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">ReactDOM.render(&lt;App /</span>&gt;, <span class="built_in">document</span>.querySelector(<span class="string">'#app'</span>));</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://material-ui.com/getting-started/supported-components/" target="_blank" rel="noopener">对组件的支持</a></p>
+<p>Materail-UI在努力遵循实际的指导规范时，却并不期望支持每一个组件或者组件的每一个特征。Materail-UI更希望能提供一套能帮助开发者创建引人注目的用户界面所需要的构建模块和经验。</p>
+<p><a href="https://material-ui.com/getting-started/supported-platforms/" target="_blank" rel="noopener">Material-UI 支持哪些平台？</a></p>
+<p>Material-UI支持所有主流的稳定的浏览器，支持IE11以上。Material-UI还支持node.js v6.x以上的服务端渲染。</p>
+<p><a href="https://material-ui.com/getting-started/example-projects/" target="_blank" rel="noopener">在哪里可以获取到demo资源？</a></p>
+<p>参见 <a href="https://github.com/mui-org/material-ui" target="_blank" rel="noopener">Material-UI 的GitHub仓库</a></p>
+<p><a href="https://material-ui.com/getting-started/faq/" target="_blank" rel="noopener">Material-UI常见的问题列表</a></p>
+<ol>
+<li> 类名冲突时怎么处理？</li>
+<li> 当打开Modal时，为什么fixed定位的元素会移动？</li>
+<li> 如何禁用掉app中的波浪效果？</li>
+<li> 必须使用JSS来控制样式？</li>
+<li> 什么时候使用行内样式？什么时候使用类名？</li>
+<li> 在Material项目中如何使用React-Router？</li>
+<li> 如何合并withStyles() 和     withTheme() ？</li>
+<li> 如何获取DOM元素？</li>
+<li> 为什么项目中的色彩和官方效果有差异？</li>
+<li> Material-UI令人疯狂，我该如何支持这个项目？</li>
+</ol>
+<p><a href="https://material-ui.com/getting-started/comparison/" target="_blank" rel="noopener">与其它UI库进行优势劣势对比</a></p>
+<ol>
+<li> Material-UI</li>
+<li> Material Design Lite     (MDL)</li>
+<li> Material Components Web</li>
+<li> Materialize</li>
+<li>React Toolbox</li>
+</ol>
+<p><strong>二、</strong>样式</p>
+<p><a href="https://material-ui.com/style/css-baseline/" target="_blank" rel="noopener">什么是 CssBaseline ？</a></p>
+<p>Material-UI提供了一个CssBaseline组件以建立统一的简单的样式基准。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> CssBaseline <span class="keyword">from</span> <span class="string">'@material-ui/core/CssBaseline'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span>(</span><br><span class="line">    &lt;CssBaseline&gt;</span><br><span class="line">      &#123;<span class="comment">/* 页面元素 */</span>&#125;</span><br><span class="line">    &lt;<span class="regexp">/CssBaseline&gt;</span></span><br><span class="line"><span class="regexp">  )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>有关Material-UI默认样式的详细说明：</p>
+<ol>
+<li> 元素的margin为零。</li>
+<li> 在标准设备上，使用默认的背景色。在打印时，使用白色作为背景色。</li>
+<li> 所有元素的box-sizing都被默认设置为”border-box”。所有元素都包含     ::before 和 ::after 样式，以保证元素的width 和 height     包含padding 和 border。</li>
+<li> 使用Roboto字体，以避免了打印时的字体堆叠。</li>
+<li> 打印时，不会为<html>标签声明基准字号，但会使用浏览器支持的默认字号16px。</html></li>
+</ol>
+<p><a href="https://material-ui.com/style/color/" target="_blank" rel="noopener">认识Material-UI中的色彩系统</a></p>
+<p>在Material-UI中，色彩系统是非常强大的。它支持粗色调、深阴影和鲜亮的强调色彩。</p>
+<p>色彩系统中的重要组成：</p>
+<ol>
+<li> Palette，主色调。</li>
+<li> Hue / Shade 色调、色度。</li>
+</ol>
+<p><a href="https://material-ui.com/style/icons/" target="_blank" rel="noopener">Icon系统</a></p>
+<p>Material-UI提供了两个组件用于icon系统。Icon组件用于渲染icons，SvgIcon用于渲染SVG路径。推荐使用<strong>SVG Material icons</strong>。</p>
+<p>// 安装@material-ui/icons<br><code>npm install -S @material-ui/icons</code></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> DeleteIcon <span class="keyword">from</span> <span class="string">'@material-ui/icons/Delete'</span>;</span><br></pre></td></tr></table></figure>
+
+<p> <strong>三、布局</strong></p>
+<p><a href="https://material-ui.com/layout/basics/" target="_blank" rel="noopener">Material-UI的布局设计基础</a></p>
+<p>Material-UI布局，使用统一的组件和间距，实现了多平台、多环境和屏幕尺寸的统一性。</p>
+<p>1、使用 <strong>Grid / Hidden / Breakpoints</strong> 这三类组件，实现响应式UI，适配各种尺寸的屏幕。</p>
+<p>2、组件使用 z-index属性，实现 Z 轴上的空间层次排布。</p>
+<p><a href="https://material-ui.com/layout/grid/" target="_blank" rel="noopener">Grid 组件</a></p>
+<p>Material-UI的响应式UI，是基于12列的栅格布局。Material-UI的栅格系统是由 Grid 组件实现的，它使用了 CSS 弹性盒模型，它有两种类型的布局，分别是 containers 和 items。item的宽度被设置为百分比，因此它们总是基于父元素而流动、动态地变换大小。items使用内边距padding生成元素之间的间距空间。Material-UI栅格系统支持五种断点模式，分别是 xs / sm / md / lg / xl 。</p>
+<p><a href="https://material-ui.com/layout/hidden/" target="_blank" rel="noopener">Hidden 组件</a></p>
+<p>Hidden组件用于隐藏任何内容，它可以结合Grid / Breakpoints组件一起使用。它的实现原理是，基于breakpoints进行显示与隐藏。</p>
+<p><a href="https://material-ui.com/layout/breakpoints/" target="_blank" rel="noopener">Breakpoints 组件</a></p>
+<p>一个 breakpoint 就是一组预定义的屏幕尺寸范围，它决定了特定了布局需求。为了最适宜的用户体验，material design要实现多屏幕适配。Material-UI对material design规范进行了简化实现。每一个breakpoint都会匹配一定范围的屏幕尺寸。</p>
+<ol>
+<li> xs,     特别小的屏幕，0px or larger</li>
+<li> sm, 小屏幕，600px or larger</li>
+<li> md, 中等屏幕，960px or larger</li>
+<li> lg, 大屏幕， 1280px or larger</li>
+<li> xl, 超大屏幕， 1920px or     larger</li>
+</ol>
+<p>以上这些取值，在Material-UI中，还支持自定义。Material-UI支持媒体查询，根据屏幕尺寸变化动态地变化元素样式。有时候，仅使用 CSS 是不够的，你或许还需要在屏幕尺寸发生变化时改变DOM内容。这个时候，可以使用 Material-UI 提供的 withWidth() 来实现。</p>
+<p><strong>四、工具</strong></p>
+<p><a href="https://material-ui.com/utils/modals/" target="_blank" rel="noopener">Modal 组件</a></p>
+<p>用于创建对话框、lightbox 和 popover。</p>
+<p><a href="https://material-ui.com/utils/popovers/" target="_blank" rel="noopener">Popover 组件</a></p>
+<p>用于给元素提供额外的展示/提示信息，类似于html元素的title属性。</p>
+<p><a href="https://material-ui.com/utils/portal/" target="_blank" rel="noopener">Portal 组件</a></p>
+<p>The portal component renders its children into a new “subtree” outside of current component hierarchy.</p>
+<p><a href="https://material-ui.com/utils/transitions/" target="_blank" rel="noopener">Transitions 过渡效果</a></p>
+<p>Transition提供了一系列的动画效果。如折叠效果、渐显渐现、Grow效果、Slide效果、Zoom效果等。</p>
+<p><a href="https://material-ui.com/utils/click-away-listener/" target="_blank" rel="noopener">Click away listener</a></p>
+<p>监听DOM页面上的所有事件，元素之内、元素之外。比如，在元素之外点击页面时，应该让弹框消失等。</p>
+<p><strong>五、Component Demos / Api</strong></p>
+<p>如何使用Material-UI组件？</p>
+<p>代码演示如下：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; withStyles &#125; <span class="keyword">from</span> <span class="string">'@material-ui/core/styles'</span>;</span><br><span class="line"><span class="comment">// 导入组件</span></span><br><span class="line"><span class="keyword">import</span> AppBar <span class="keyword">from</span> <span class="string">'@material-ui/core/AppBar'</span>;</span><br><span class="line"><span class="keyword">const</span> App = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &#123; <span class="comment">/* 使用组件 */</span>&#125;</span><br><span class="line">            &lt;AppBar position=<span class="string">'static'</span> color=<span class="string">'default'</span>&gt;title&lt;<span class="regexp">/AppBar&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>));</span><br></pre></td></tr></table></figure>
+
+<p>在使用 Material-UI 组件时，常需要参考<a href="https://material-ui.com/api/app-bar/" target="_blank" rel="noopener">组件的api文档</a>，可查看相关属性的使用。</p>
+<p><strong>六、定制化</strong></p>
+<p><a href="https://material-ui.com/customization/overrides/" target="_blank" rel="noopener">概览</a></p>
+<p>由于组件会被用于各种不同的环境中，Material-UI支持不同类型的定制化需求，从最特殊的到最普通的场景。</p>
+<ol>
+<li>定制一次性样式<pre><code>       在一些特别的场景下，你或许需要改变一个组件的样式。定制方案有：覆盖组件的类名，重写组件样式，使用内联样式等。
+</code></pre>
+</li>
+<li>定制动态样式<pre><code>       在一些场景下，你需要使用动态的样式。可选的方案有：使用withStyles，类名切换，CSS变量，行内样式，主题嵌套等。
+</code></pre>
+</li>
+<li> 为某个组件定制样式</li>
+<li> Material Design 样式</li>
+<li>全局的主题样式</li>
+</ol>
+<p><a href="https://material-ui.com/customization/themes/" target="_blank" rel="noopener">主题</a></p>
+<p>主题特指组件的主体颜色、组件表面的墨色、阴影的级别和元素适合的透明度等。主题使得你的应用具有统一的色调。它允许你定制所有的设计方面，以满足你的商业或品牌需求。为了促进应用更高的统一性，Material-UI提供了 light 和 dark 两种主题类型。默认情况下，组件使用 light 主题类型。</p>
+<p>什么时候使用 MuiThemeProvider 组件？</p>
+<p>如果你想定制主题样式，你需要使用 MuiThemeProvider 组件来包裹那些需要定制样式的组件，用以把主题注入到你的应用中。然而这是可选的，当不使用 MuiThemeProvider 组件时，Material-UI 会使用默认主题。</p>
+<p>如何使用主题配置变量？</p>
+<p>改变主题配置变量，是匹配Material-UI定制样式最高效的方式。如下几个配置变量是非常重要的：</p>
+<ol>
+<li> Palette</li>
+<li> Type ( light / dark )</li>
+<li> Typography</li>
+<li> Other varialbles</li>
+<li> Custom variables</li>
+</ol>
+<p><a href="https://material-ui.com/customization/default-theme/" target="_blank" rel="noopener">查看 Material-UI 的默认主题样式</a></p>
+<p><a href="https://material-ui.com/customization/css-in-js/" target="_blank" rel="noopener">CSS in JS</a></p>
+<p><a href="https://material-ui.com/zh/getting-started/installation/" target="_blank" rel="noopener">https://material-ui.com/zh/getting-started/installation/</a></p>
+<h1 id="nodemon（2-0-6）"><a href="#nodemon（2-0-6）" class="headerlink" title="nodemon（2.0.6）"></a>nodemon（2.0.6）</h1><p>nodemon用来监视node.js应用程序中的任何更改并自动重启服务,非常适合用在开发环境中。nodemon将监视启动目录中的文件，如果有任何文件更改，nodemon将自动重新启动node应用程序。</p>
+<p>nodemon不需要对代码或开发方式进行任何更改。 nodemon只是简单的包装你的node应用程序，并监控任何已经改变的文件。nodemon只是node的替换包，只是在运行脚本时将其替换命令行上的node。</p>
+<p>在项目目录下创建 nodemon.json 文件</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"restartable"</span>: <span class="string">"rs"</span>,</span><br><span class="line">    <span class="attr">"ignore"</span>: [</span><br><span class="line">        <span class="string">".git"</span>,</span><br><span class="line">        <span class="string">".svn"</span>,</span><br><span class="line">        <span class="string">"node_modules/**/node_modules"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"verbose"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"execMap"</span>: &#123;</span><br><span class="line">        <span class="attr">"js"</span>: <span class="string">"node --harmony"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"watch"</span>: [</span><br><span class="line"></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"env"</span>: &#123;</span><br><span class="line">        <span class="attr">"NODE_ENV"</span>: <span class="string">"development"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"ext"</span>: <span class="string">"js json"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">restartable-设置重启模式 </span><br><span class="line">ignore-设置忽略文件 </span><br><span class="line"><span class="built_in">verbose</span>-设置日志输出模式，<span class="literal">true</span> 详细模式 </span><br><span class="line">execMap-设置运行服务的后缀名与对应的命令</span><br></pre></td></tr></table></figure>
+
+<p>修改app.js文件<br> 记得注释最后一行的：module.exports = app;</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> debug = <span class="built_in">require</span>(<span class="string">'debug'</span>)(<span class="string">'my-application'</span>); <span class="comment">// debug模块</span></span><br><span class="line">app.set(<span class="string">'port'</span>, process.env.PORT || <span class="number">3000</span>); <span class="comment">// 设定监听端口</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//启动监听</span></span><br><span class="line"><span class="keyword">var</span> server = app.listen(app.get(<span class="string">'port'</span>), <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  debug(<span class="string">'Express server listening on port '</span> + server.address().port);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//module.exports = app;//这是 4.x 默认的配置，分离了 app 模块,将它注释即可，上线时可以重新改回来</span></span><br></pre></td></tr></table></figure>
+
+<p>在package.json中添加脚本</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"start": "nodemon app.js"</span><br></pre></td></tr></table></figure>
+
+<h1 id="pkg-dir-5-0-0"><a href="#pkg-dir-5-0-0" class="headerlink" title="pkg-dir(5.0.0)"></a>pkg-dir(5.0.0)</h1><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">/</span><br><span class="line">└── Users</span><br><span class="line">    └── xiaomo</span><br><span class="line">        └── foo</span><br><span class="line">            ├── package.json</span><br><span class="line">            └── bar</span><br><span class="line">                ├── baz</span><br><span class="line">                └── example.js</span><br></pre></td></tr></table></figure>
+
+<p><code>npm install pkg-dir</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// example.js</span></span><br><span class="line"><span class="keyword">const</span> pkgDir = <span class="built_in">require</span>(<span class="string">'pkg-dir'</span>);</span><br><span class="line"> </span><br><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> rootDir = <span class="keyword">await</span> pkgDir(__dirname);</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">console</span>.log(rootDir);</span><br><span class="line">    <span class="comment">//=&gt; '/Users/xiaomo/foo'</span></span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>返回Promise项目根路径或undefined找不到的根路径。</p>
+<p>返回项目的根路径，或者undefined找不到它。</p>
+<p>类型：string<br> 默认值：process.cwd()</p>
+<p>起始目录。</p>
+<ul>
+<li>  <a href="https://github.com/sindresorhus/pkg-dir-cli" target="_blank" rel="noopener">pkg-dir-cli-</a>此模块的CLI</li>
+<li>  <a href="https://github.com/sindresorhus/pkg-up" target="_blank" rel="noopener">pkg-</a> up-查找最近的package.json文件</li>
+<li>  <a href="https://github.com/sindresorhus/find-up" target="_blank" rel="noopener">查找</a>-通过上级父目录查找文件</li>
+</ul>
+<h1 id="qs-6-9-4"><a href="#qs-6-9-4" class="headerlink" title="qs(6.9.4)"></a>qs(6.9.4)</h1><p>Node.js 标准库中有一个库叫querystring，这个库用来处理URL查询字符串：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> querystring = <span class="built_in">require</span>(<span class="string">'querystring'</span>);</span><br><span class="line"> </span><br><span class="line"> querystring.parse(<span class="string">'foo=bar&amp;baz=1'</span>);</span><br><span class="line"> <span class="comment">// &#123; foo:'bar', baz: '1' &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>但是很遗憾，querystring 不支持内嵌对象和数组：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> querystring = <span class="built_in">require</span>(<span class="string">'querystring'</span>);</span><br><span class="line"> </span><br><span class="line"> querystring.parse(<span class="string">'foo[bar]=1&amp;baz[]=2'</span>);</span><br><span class="line"> <span class="comment">// &#123; 'foo[bar]': '1', 'baz[]': '2' &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果我们程序的前端界面form表单中存在数组，标准库的querystring就无法满足我们的需求了。</p>
+<p>qs 是querystring的增强版本，最重要的特性就是支持内嵌对象和数组：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> qs = <span class="built_in">require</span>(<span class="string">'qs'</span>);</span><br><span class="line"><span class="keyword">var</span> assert = <span class="built_in">require</span>(<span class="string">'assert'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = qs.parse(<span class="string">'a=c'</span>);</span><br><span class="line">assert.deepEqual(obj, &#123; <span class="attr">a</span>: <span class="string">'c'</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = qs.stringify(obj);</span><br><span class="line">assert.equal(str, <span class="string">'a=c'</span>);</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://github.com/ljharb/qs" target="_blank" rel="noopener">https://github.com/ljharb/qs</a></p>
+<h1 id="redux-toolkit-1-5-0"><a href="#redux-toolkit-1-5-0" class="headerlink" title="redux-toolkit(1.5.0)"></a><strong>redux-toolkit</strong>(1.5.0)</h1><p>如果你的React项目中使用react hook、redux、redux-thunk，可能你需要用 redux-toolkit （以下简称RTK）优化你的项目结构，它看起来可以这么清爽</p>
+<p>Redux 使用常见问题</p>
+<ul>
+<li>  配置复杂，devtool…</li>
+<li>  模板代码太多，创建constant，action，reducer…</li>
+<li>  需要添加很多依赖包，如redux-thunk、immer…</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"># 优化前</span><br><span class="line"> /counter</span><br><span class="line">    constants.ts</span><br><span class="line">    actions.ts</span><br><span class="line">    reducer.ts</span><br><span class="line">    saga.ts</span><br><span class="line">    index.tsxÏ</span><br><span class="line"># 优化后</span><br><span class="line">/counter</span><br><span class="line">    slice.ts</span><br><span class="line">    index.tsx</span><br></pre></td></tr></table></figure>
+
+<p><strong>RTK干了哪些事？</strong></p>
+<ul>
+<li>  configureStore() 包裹createStore，并集成了redux-thunk、Redux     DevTools Extension，默认开启</li>
+<li>  createReducer() 创建一个reducer，action     type 映射到 case reducer 函数中，不用写switch-case，并集成immer</li>
+<li>  createAction() 创建一个action，传入动作类型字符串，返回动作函数</li>
+<li>  createSlice() 创建一个slice，包含     createReducer、createAction的所有功能</li>
+<li>  createAsyncThunk() 创建一个thunk，接受一个动作类型字符串和一个Promise的函数</li>
+</ul>
+<p>新的项目</p>
+<p>create-react-app 初始化项目，最受欢迎的脚手架之一</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用 redux-typescript 模板，推荐使用typescript</span></span><br><span class="line">npx create-react-app react-rtk-ts --template redux-typescript</span><br><span class="line"><span class="comment"># 使用redux 模板</span></span><br><span class="line"><span class="comment"># npx create-react-app react-rtk-ts --template redux</span></span><br></pre></td></tr></table></figure>
+
+<p>老的项目</p>
+<ol>
+<li> 安装 @reduxjs/toolkit</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用 npm</span></span><br><span class="line">npm install @reduxjs/toolkit</span><br><span class="line"><span class="comment"># 使用 yarn</span></span><br><span class="line">yarn add @reduxjs/toolkit</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li> configureStore 替换 createStore</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; render &#125; <span class="keyword">from</span> <span class="string">"react-dom"</span>;</span><br><span class="line">- <span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">"redux"</span>;</span><br><span class="line">+ <span class="keyword">import</span> &#123; configureStore &#125; <span class="keyword">from</span> <span class="string">"@reduxjs/toolkit"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Provider &#125; <span class="keyword">from</span> <span class="string">"react-redux"</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">"./components/App"</span>;</span><br><span class="line"><span class="keyword">import</span> rootReducer <span class="keyword">from</span> <span class="string">"./reducers"</span>;</span><br><span class="line">- <span class="keyword">const</span> store = createStore(rootReducer);</span><br><span class="line">+ <span class="keyword">const</span> store = configureStore(&#123;</span><br><span class="line">+   reducer: rootReducer,</span><br><span class="line">+&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>创建action</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"># 创建 action</span><br><span class="line"><span class="keyword">const</span> increment = createAction(<span class="string">'INCREMENT'</span>)</span><br><span class="line"><span class="keyword">const</span> decrement = createAction(<span class="string">'DECREMENT'</span>)</span><br><span class="line"># 创建reducer</span><br><span class="line"><span class="keyword">const</span> counter = createReducer(<span class="number">0</span>, &#123;</span><br><span class="line">  [increment]: <span class="function"><span class="params">state</span> =&gt;</span> state + <span class="number">1</span>,</span><br><span class="line">  [decrement]: <span class="function"><span class="params">state</span> =&gt;</span> state - <span class="number">1</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>以上看起比原来结构上好一些，创建action、reducer方便了，但是看着还是不爽，action也可以去掉</p>
+<p>创建Slice</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> counterSlice = createSlice(&#123;</span><br><span class="line">  name: <span class="string">'counter'</span>,</span><br><span class="line">  initialState: <span class="number">0</span>,</span><br><span class="line">  reducers: &#123;</span><br><span class="line">    increment: <span class="function"><span class="params">state</span> =&gt;</span> state + <span class="number">1</span>,</span><br><span class="line">    decrement: <span class="function"><span class="params">state</span> =&gt;</span> state - <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"># action</span><br><span class="line">counterSlice.action;</span><br><span class="line"># reducer</span><br><span class="line">counterSlice.reducer;</span><br></pre></td></tr></table></figure>
+
+<p>counterSlice 看起起来像</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  name: <span class="string">"counter"</span>,</span><br><span class="line">  reducer: <span class="function">(<span class="params">state, action</span>) =&gt;</span> newState,</span><br><span class="line">  actions: &#123;</span><br><span class="line">    increment: <span class="function">(<span class="params">payload</span>) =&gt;</span> (&#123;<span class="attr">type</span>: <span class="string">"counter/increment"</span>, payload&#125;),</span><br><span class="line">    increment: <span class="function">(<span class="params">payload</span>) =&gt;</span> (&#123;<span class="attr">type</span>: <span class="string">"counter/increment"</span>, payload&#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  caseReducers: &#123;</span><br><span class="line">    increment: <span class="function">(<span class="params">state, action</span>) =&gt;</span> newState,</span><br><span class="line">    increment: <span class="function">(<span class="params">state, action</span>) =&gt;</span> newState,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只需要createSlice，包含着 action，reducer的创建</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"># 对于一部请求API，可以配合async/await使用</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> incrementAsync = (amount: number): <span class="function"><span class="params">AppThunk</span> =&gt;</span> <span class="function"><span class="params">dispatch</span> =&gt;</span> &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    dispatch(incrementByAmount(amount));</span><br><span class="line">  &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>创建 selecter</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"># 配合 react-redux 中 useSelector hook使用</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> selectCount = <span class="function">(<span class="params">state: RootState</span>) =&gt;</span> state.counter.value;</span><br></pre></td></tr></table></figure>
+
+<p><strong>完整 slice文件</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createSlice, PayloadAction &#125; <span class="keyword">from</span> <span class="string">'@reduxjs/toolkit'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; AppThunk, RootState &#125; <span class="keyword">from</span> <span class="string">'../../app/store'</span>;</span><br><span class="line">interface CounterState &#123;</span><br><span class="line">  value: number;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> initialState: CounterState = &#123;</span><br><span class="line">  value: <span class="number">0</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> counterSlice = createSlice(&#123;</span><br><span class="line">  name: <span class="string">'counter'</span>,</span><br><span class="line">  initialState,</span><br><span class="line">  reducers: &#123;</span><br><span class="line">    increment: <span class="function"><span class="params">state</span> =&gt;</span> &#123;</span><br><span class="line">      state.value += <span class="number">1</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    decrement: <span class="function"><span class="params">state</span> =&gt;</span> &#123;</span><br><span class="line">      state.value -= <span class="number">1</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    incrementByAmount: <span class="function">(<span class="params">state, action: PayloadAction&lt;number&gt;</span>) =&gt;</span> &#123;</span><br><span class="line">      state.value += action.payload;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> &#123; increment, decrement, incrementByAmount &#125; = counterSlice.actions;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> incrementAsync = (amount: number): <span class="function"><span class="params">AppThunk</span> =&gt;</span> <span class="function"><span class="params">dispatch</span> =&gt;</span> &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    dispatch(incrementByAmount(amount));</span><br><span class="line">  &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> selectCount = <span class="function">(<span class="params">state: RootState</span>) =&gt;</span> state.counter.value;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> counterSlice.reducer;</span><br></pre></td></tr></table></figure>
+
+
+            
+        </div>
+        
+    </div>
+    
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2020/npmPackageCollection/">npm优秀库使用收集整理(长期向)</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">小莫</a></p>
+        <p><span>发布时间:</span>2020-12-08, 00:00:00</p>
+        <p><span>最后更新:</span>2021-07-20, 20:08:26</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2020/npmPackageCollection/" title="npm优秀库使用收集整理(长期向)">https://blog.xiaomo.info/2020/npmPackageCollection/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://blog.xiaomo.info/2020/npmPackageCollection/　　作者: 小莫" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2020/ctwJobs/">
+                    【日本东京六本木】【CTW株式会社】招聘Node全栈/Java后端/SRE/大数据工程师/UI设计师
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2020/jsCommonUtilsMethods/">
+                    js/ts常用公有方法收集整理(长期向)
+                </a>
+            </div>
+        
+    </nav>
+
+    
+</article>
+
+
+
+<!-- 代码2：用来读取评论框配置，此代码需放置在代码1之后。 -->
+<!-- 如果当前页面有评论框，代码2请勿放置在评论框代码之前。 -->
+<!-- 如果页面同时使用多个实验室项目，以下代码只需要引入一次，只配置上面的div标签即可 -->
+<!--<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cysUkgluO"></script>-->
+
+<div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ajv-v6-12-6"><span class="toc-number">1.</span> <span class="toc-text">ajv(v6.12.6)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#accounting-0-4-2"><span class="toc-number">2.</span> <span class="toc-text">accounting(0.4.2)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#async-retry-1-3-1"><span class="toc-number">3.</span> <span class="toc-text">async-retry(1.3.1)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chalk-4-1-0"><span class="toc-number">4.</span> <span class="toc-text">chalk(4.1.0)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ora-5-1-0"><span class="toc-number">5.</span> <span class="toc-text">ora(5.1.0)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#figlet-1-5-0"><span class="toc-number">6.</span> <span class="toc-text">figlet(1.5.0)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#boxen-4-2-0"><span class="toc-number">7.</span> <span class="toc-text">boxen(4.2.0)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#classnames（2-2-6）"><span class="toc-number">8.</span> <span class="toc-text">classnames（2.2.6）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#concurrently（5-3-0）"><span class="toc-number">9.</span> <span class="toc-text">concurrently（5.3.0）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cors-2-8-5"><span class="toc-number">10.</span> <span class="toc-text">cors(2.8.5)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cross-env（7-0-3）"><span class="toc-number">11.</span> <span class="toc-text">cross-env（7.0.3）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cssnao-4-1-10"><span class="toc-number">12.</span> <span class="toc-text">cssnao(4.1.10)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#dotenv-8-2-0"><span class="toc-number">13.</span> <span class="toc-text">dotenv(8.2.0)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ini-1-3-5"><span class="toc-number">14.</span> <span class="toc-text">ini(1.3.5)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ip-1-1-5"><span class="toc-number">15.</span> <span class="toc-text">ip(1.1.5)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jschardet（2-2-1）"><span class="toc-number">16.</span> <span class="toc-text">jschardet（2.2.1）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iconv-lite-0-6-2"><span class="toc-number">17.</span> <span class="toc-text">iconv-lite(0.6.2)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#js-cookie-2-2"><span class="toc-number">18.</span> <span class="toc-text">js-cookie(2.2)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#js-yaml-3-14-1"><span class="toc-number">19.</span> <span class="toc-text">js-yaml(3.14.1)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#log4jsdd-1-0-2"><span class="toc-number">20.</span> <span class="toc-text">log4jsdd(1.0.2)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#material-ui-4-11-1"><span class="toc-number">21.</span> <span class="toc-text">material-ui(4.11.1)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nodemon（2-0-6）"><span class="toc-number">22.</span> <span class="toc-text">nodemon（2.0.6）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pkg-dir-5-0-0"><span class="toc-number">23.</span> <span class="toc-text">pkg-dir(5.0.0)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#qs-6-9-4"><span class="toc-number">24.</span> <span class="toc-text">qs(6.9.4)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redux-toolkit-1-5-0"><span class="toc-number">25.</span> <span class="toc-text">redux-toolkit(1.5.0)</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script>
+    yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+</script>
+
+
+
+<div class="share">
+    
+
+    
+</div>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<hr/>
+<br/>
+<div style="display:block;text-align: center">
+    <a href="javascript:window.open('https://twitter.com/share?url='+encodeURIComponent(document.location.href)+'&text='+encodeURIComponent(document.title),'_blank','toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=600, height=450,top=100,left=350');void(0)"
+       style="background-color: lightskyblue;border-radius: 45px;box-shadow: #767676;font-size: 14px;font-family: '微软雅黑',serif;color: whitesmoke;padding: 10px 15px;"
+    >
+        twitter分享
+    </a>
+</div>
+<br/>
+<br/>
+<div id="gitalk-container" style="margin: 1% 3%"></div>
+<h3 style="text-align: center">如果想及时收到回复,可在 <a href="https://github.com/settings/notifications" target="_blank">订阅中心</a>的 <code>Participating</code>中勾选Email</h3>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '9772f6a6fdb199a60ba1',
+        clientSecret: '9a606af21688d2d4ff2efa2467ee82e76e1e9865',
+        id: window.location.pathname,
+        repo: 'blog',
+        owner: 'houko',
+        admin: 'houko',
+        distractionFreeMode: false
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2020/ctwJobs/" title="上一篇: 【日本东京六本木】【CTW株式会社】招聘Node全栈/Java后端/SRE/大数据工程师/UI设计师">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2020/jsCommonUtilsMethods/" title="下一篇: js/ts常用公有方法收集整理(长期向)">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuyin2/">日本医疗制度之限度額適用認定証</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/ohmytmux/">我的tmux之旅（tmux使用详解）</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/redisPubSub/">nodejs中使用redis的订阅分发功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuuinn/">小莫的日本(东京)住院回忆录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/doTween/">(转)doTween插件使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/mySecondFiveYearsLifePlan/">2020年年终总结和第二个长期学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/newmanCommandLine/">postman和commandline tools（newman）用法介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/ctwJobs/">【日本东京六本木】【CTW株式会社】招聘Node全栈/Java后端/SRE/大数据工程师/UI设计师</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/npmPackageCollection/">npm优秀库使用收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/jsCommonUtilsMethods/">js/ts常用公有方法收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/springBootWithSpringSecurity/">spring cloud集成spring security</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/flyway/">使用flyway版本控制工具维护数据库表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/autoFormatOnSvae/">使用IDEA保存时自动格式化代码配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/dynamoDB/">aws dynamoDB使用总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueSSRNuxt/">nuxt.js使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/pm2UseApi/">node项目监控工具之pm2</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/webAppleSignIn/">web端接入apple Sign in流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/browserEventLoop/">聊聊Javascript的事件循环(转载)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/AwsSqsUse/">AWS SQS/SNS/Redis的pub/sub用法总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsSSo/">AWS SSO用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsCommandLineUse/">aws command line 用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueFrameworkVuex/">vue框架状态管理之vuex</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/backToJapan/">疫情下的回日坎坷路</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/unityInterviewQuestions/">unity常见面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/my2019Summary/">2019年年终总结（作为前端开发这一年）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/worldServerGame/">经历了几场面试后的全球同服架构思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/japanKannjiIndex/">日语汉字速查表</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/aboutAllVisa/">签证总结大全（工作签、在留卡加汉字、工作签证更新、家族签证等）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/javaPassByValueAndReference/">jdk源码系列-Java到底是值传递还是引用传递？</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/event20190729/">没想到有一天我逼停了电车</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/jdkSourceCodeReadThreadSleep/">jdk源码系列-Thread.sleep(0)和Thread.sleep(1)的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/restfulBestUse/">restful最佳实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/nihonnmennkyo/">小莫的日本换驾照攻略</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/nihonnkita2kagetsu/">2018年终总结（从杭州到日本工作的心路历程）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unityFpsCommonMethod/">Fps游戏常用功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unitySceneFarAndNear/">镜头拉远拉近</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unity3dMiniMap/">unity3d小地图</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUISorting/">使用UGUI中的层级问题——以背包为例</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUIServerList/">使用UGUI制作滚动列表-选服列表</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/aboutDockerUse/">docker应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadArrayListAndLinkedArrayList/">jdk源码系列-Java中ArrayList、LinkedList和Vector的联系与区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadCreateObject/">jdk源码系列-创建对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadClassInitOrder/">jdk源码系列-类的初始化顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadStringDifferent/">jdk源码系列-String,StringBuffer,StringBuilder</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadAtomicInteger/">jdk源码系列-AtomicInteger</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadInteger/">jdk源码系列-Integer</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadLocal/">jdk源码系列-ThreadLocal</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadMemoryActor/">jdk源码系列-内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadConcurrentHashMap/">jdk源码系列-ConcurrentHashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadPool/">jdk源码系列-线程池</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadIO/">jdk源码系列-深入了解IO的工作机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadObject/">jdk源码系列-Object</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadNIO/">jdk源码系列-NIO</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/throwableAndException/">jdk源码系列-throwable和Exception的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeRead/">jdk源码系列-顺序索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/myBookSheet/">我的书架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/onlineProjectKen/">项目上线之后遇到的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/mainProjectJobs/">主程职责总结和反思</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/fastjson/">fastjson的key为非字符串的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/saikennokoto/">2017年终总结(作为主程的这一年)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AngularEnvironment/">angular2学习笔记之基础环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/HowToAskQuestionOnStackOverFlow/">StackOverFlow提问的艺术</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/oracleJavaSeSliver/">java的oracle考试认证(OCJP)之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/blackAppleSystem/">安装黑苹果的历程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JapanTravel/">日本游记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/GameServerType/">游戏服务器的常用架构</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaLombok/">lombok常用注解整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SwiftProjectBuild/">swift项目初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MySoftware/">我的常用软件清单</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AboutObject/">关于对象的一些思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MyKindle/">kindle初体验.</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SomethingForNewCar/">我的新车常备用品</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/VimTabAutoComplete/">使用vim打开文件时tab补全忽略大小写设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/Win7OneNote/">win7系统登录不上onenote的解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/FormatDisk/">在linux系统下格式化移动硬盘的操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/LinuxIdeaSetting/">linux系统环境下使用idea遇到的问题及解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaApiJsonFormat/">接口格式返回大小写处理.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/StartMy2017/">2016年终总结(进入游戏行业)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MysqlCommon/">mysql常用操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NormalShell/">常用shell脚本.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidUsersPermission/">Android users-permission权限列表.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidAsyncTask/">android异步任务AsyncTask.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidEnvironment/">android环境搭建.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/blogToXiaomo/">博客域名迁移(从二级域名迁移到一级域名).</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/SublimeConfig/">Sublime Text 3 使用配置与插件安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/HttpToHttps/">拥抱https(http全面切换到https)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootSwaggerUi/">swagger ui和spring boot集成生成api文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringVideo/">spring4免费全套视频教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaLombok/">lombok简化java代码注解的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSeiyou/">日本动漫声优公演,来看看什么叫专业声优</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootDataFormat/">spring boot做前后分离时间格式化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootCors/">spring boot做前后分离的跨域问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringZiliao/">spring boot相关资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaIdeaMaven/">Maven 与 IntelliJ IDEA 的完美结合</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaServletUpload/">使用Servlet做简单的上传功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonAnime/">喜欢的动漫</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSekaku/">生活习惯的不同，造就了丰富多彩的世界</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/BangumiDongli/">《东离剑游记》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmYargs/">yargs插件的使用，node.js 命令行框架 yargs 和你的程序实现交互</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiRouter/">angular2 api整理之路由模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiCommon/">angular2 api整理之通用模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptRxjsStudy/">rxjs全接触</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptDesignPattern/">javascript设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/2016StudyPlan/">5年学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2studyAnimate/">angular2学习笔记之动画效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyServiceHttp/">angular2学习笔记之服务和http</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteOther/">angular2学习笔记之小技巧</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteNgTag/">angular2学习笔记之ng2标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteEvent/">angular2学习笔记之事件和多组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteComponent/">angular2学习笔记之基本组件和ngFor</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/PublicDns/">几个国内专用的公共 DNS</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxDisk/">阿里云服务器磁盘挂载</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxChmod/">linux权限详细解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownTableStyle/">Markdown 表格样式调整与自适应优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/GulpUse/">gulp构建工具的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/FrontEndTools/">前端工程化工具初选</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AnkiExcelShortcuts/">Anki 记忆库之 Excel 快捷键大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/CssFontFamily/">CSS font-family 网页字体使用小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeSpider/">nodejs爬虫项目实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Package.jsonScripts/">package.json常用script</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmModulesShare/">npm模块分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MongodbUse/">mongodb数据库的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/KoaGenerator/">koa生成器,一键生成koa和koa2项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeKoa/">nodejs框架koa学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptSyntax/">javascript学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Es6Syntax/">es6语法快速上手</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackLLink/">webpack进阶之loader篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackPlugins/">webpack进阶之插件篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackParams/">webpack相关命令参数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeProcess/">nodejs的process模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackBasicUse/">webpack使用之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeOnlineChat/">使用nodejs搭建一个简易的即时聊天软件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxCrontab/">linux下使用定时器跑任务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AngularKeyboardEvent/">angularjs键盘事件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownSyntax/">markdown语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NgCheckbox/">angularjs复选框</a></li></ul>
+
+<style>
+    #post-nav-button a{
+        background-color: skyblue;
+    }
+</style>
+
+
+
+<script>
+    
+</script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i>
+                
+                    2016-
+                
+                2021 小莫
+                <!--                <a href="http://www.miibeian.gov.cn/" target="_blank">浙ICP备15009606号</a>-->
+            </div>
+            <div class="footer-right">
+                <a href="https://blog.xiaomo.info/" target="_blank" title="欢迎来到小莫的博客">Blog </a> Created by <a
+                        href="https://github.com/houko" target="_blank" rel="external nofollow"
+                        title="希望这里的文章对你有所帮助  v3.0">xiaomo</a>
+                <a href="/record.html"><i class="fa fa-heart animated infinite pulse"></i></a>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit">总访问数:
+                            <span id="busuanzi_value_site_pv"></span>
+                        </span>
+                    </span>
+                
+                <span style="color: grey;">(<a href="https://www.upyun.com/" rel="external nofollow" target="_blank">背景随机加载-资源存储于又拍云</a>) | 本站己运行<span
+                            id="day_count">222</span>天<span id="time_now">1</span></span>
+            </div>
+        
+    </div>
+    <script src="/js/activate-power-mode.js" ></script>
+</footer>
+<script>
+    // 添加输入效果
+    POWERMODE.colorful = true; // make power mode colorful
+    POWERMODE.shake = false; // turn off shake
+    document.body.addEventListener('input', POWERMODE);
+
+    (function () {
+        function current() {
+            var d = new Date(), str = '';
+            str += d.getHours() + '小时';
+            str += d.getMinutes() + '分';
+            str += d.getSeconds() + '秒';
+            return str;
+        }
+
+        setInterval(function () {
+            $("#time_now").html(current)
+        }, 1000);
+
+        var dateFrom = new Date(2015, 9, 12);
+        var dateTo = new Date();
+        var diff = dateTo.valueOf() - dateFrom.valueOf();
+        var diff_day = parseInt(diff / (1000 * 60 * 60 * 24));
+        $("#day_count").html(diff_day);
+    })();
+</script>
+<a href="https://github.com/houko/blog"><img style="position: fixed; top: 0;left: 0;" width="140" height="140" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_gray_6d6d6d.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 36;
+                var randomIndex = Math.ceil(Math.random() * backgroundnum);
+                var result = randomIndex+".jpg?version="+(new Date()/1000);
+                var backgroundimg = "url(https://image.xiaomo.info/background/bg-number)".replace(/number/gi,result);
+//                console.info("加载图片"+backgroundimg);
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover","background-color":"rgba(255,255,255,0.5)","background-blend-mode":"lighten"});
+            }
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80824007-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+<script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1626811730142')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body>
+</html>

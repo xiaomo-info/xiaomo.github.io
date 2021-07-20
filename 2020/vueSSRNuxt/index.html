@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><link rel=manifest href=/manifest.json><meta name="generator" content="Hexo 3.9.0"><link rel="manifest" href="/manifest.json">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="小莫">
+<meta name="baidu-site-verification" content="qp2dTXVqvj">
+
+
+
+<meta name="keywords" content="小莫的博客, java, 日语, 动漫, 技术, unity3d, nginx, https, angular, 游戏, 服务器, tomcat, IDEA, javaweb, spring, hibernate, spring boot, 开源中国, github, linux, 主程">
+
+
+<meta name="description" content="vue全家桶还算是比较全面的，从构建工具vue-cli、vite，到vue-router、vuex、element-ui，vue-dev-tools，最后服务器渲染方案nuxt.js等等构成了一个完整的开发生态，用着还是比较省心的。总结一下nux.js用法以供参考。">
+<meta name="keywords" content="nuxt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nuxt.js使用介绍">
+<meta property="og:url" content="https://blog.xiaomo.info/2020/vueSSRNuxt/index.html">
+<meta property="og:site_name" content="小莫的博客-fighting(技术分享、生活随笔)">
+<meta property="og:description" content="vue全家桶还算是比较全面的，从构建工具vue-cli、vite，到vue-router、vuex、element-ui，vue-dev-tools，最后服务器渲染方案nuxt.js等等构成了一个完整的开发生态，用着还是比较省心的。总结一下nux.js用法以供参考。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://image.xiaomo.info//blog/image-20201106154440746.png">
+<meta property="og:image" content="https://image.xiaomo.info//blog/image-20201106154506477.png">
+<meta property="og:image" content="https://image.xiaomo.info//blog/image-20201124160222403.png">
+<meta property="og:updated_time" content="2021-07-20T20:08:26.468Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nuxt.js使用介绍">
+<meta name="twitter:description" content="vue全家桶还算是比较全面的，从构建工具vue-cli、vite，到vue-router、vuex、element-ui，vue-dev-tools，最后服务器渲染方案nuxt.js等等构成了一个完整的开发生态，用着还是比较省心的。总结一下nux.js用法以供参考。">
+<meta name="twitter:image" content="https://image.xiaomo.info//blog/image-20201106154440746.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternative" href="/atom.xml" title="小莫的博客-fighting(技术分享、生活随笔)" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="//image.xiaomo.info/logo/avatar.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/green/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>nuxt.js使用介绍 | 小莫的博客-fighting(技术分享、生活随笔)</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        open_in_new: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+</html>
+<body oncontextmenu="return false" onselectstart="return false">
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="https://blog.xiaomo.info" target="_self" class="profilepic">
+            <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">小莫</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">行百里者半九十</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" results="0" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="//xiaomo.info">回到主站</a></li>
+                        
+                            <li><a href="/tags/japan/">日本生活系列</a></li>
+                        
+                            <li><a href="/categories/summary/">年度总结系列</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about.html">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA/">IDEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK源码系列/">JDK源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OCJP/">OCJP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alime/">alime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/">aws</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doTween/">doTween</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es5/">es5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/">excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/game/">game</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/japan/">japan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/">lombok</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxt/">nuxt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/onenote/">onenote</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postman/">postman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sso/">sso</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stackoverflow/">stackoverflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/">technology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ugui/">ugui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动漫/">动漫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字体/">字体</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码系列/">源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件/">软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑苹果/">黑苹果</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">技术宅、 杭州、 夜猫子、 爱动漫、 爱日语 2015年毕业、 java开发、 web前端、 前沿技术发烧友、 生命不息折腾不止、</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">小莫</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">小莫</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">行百里者半九十</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="//xiaomo.info">回到主站</a></li>
+                
+                    <li><a href="/tags/japan/">日本生活系列</a></li>
+                
+                    <li><a href="/categories/summary/">年度总结系列</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about.html">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><style>
+    .background-cover {
+        float: left;
+        width: 400px;
+        height: 250px;
+    }
+
+    .article img {
+        margin: -1px 20px 5px -1px;
+        border-top-left-radius: 3px;
+        -webkit-border-radius-topleft: 3%;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -o-transition: all 0.5s;
+    }
+
+    /*.article img:hover{*/
+    /*transform: scale(1, 1.05);*/
+    /*-webkit-transition:all 0.5s;*/
+    /*-moz-transition:all 0.5s;*/
+    /*-o-transition:all 0.5s;*/
+    /*}*/
+</style>
+
+
+<article id="post-vueSSRNuxt" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        function getPgjs() {
+            const agent = navigator.userAgent.toLowerCase()
+            let res = agent.match(/android/)
+            if (res === "android")
+                return res;
+            res = agent.match(/iphone/);
+            if (res === "iphone")
+                return "ios";
+            res = agent.match(/ipad/);
+            if (res === "ipad")
+                return "ios";
+            res = agent.match(/windows/);
+            if (res === "windows")
+                return "wp";
+            console.info('pc......')
+            return "pc";
+        }
+
+        function loadImage(id) {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                return;
+            }
+            var backgroundnum = 40;
+            var randomIndex = Math.ceil(Math.random() * backgroundnum);
+            var result = randomIndex + "?version=" + (new Date() / 1000);
+            var backgroundimg = "https://image.xiaomo.info/cover/bg-number.jpg".replace(/number/gi, randomIndex);
+            var key = "#" + id;
+            $(key).attr("src", backgroundimg);
+            $(".background-cover").show();
+        }
+
+        (function () {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                console.log(page)
+                $(".background-cover").hide();
+            }
+        })()
+    </script>
+    
+    <div class="article-meta">
+        <a href="/2020/vueSSRNuxt/" class="article-date">
+      <time datetime="2020-11-08T00:00:00.000Z" itemprop="datePublished">2020-11-08</time>
+</a>
+    </div>
+    
+    <div class="article-inner">
+        
+        <input type="hidden" class="isFancy"/>
+        
+        <div class="background-cover">
+            <img class="fengmian-image" id="vueSSRNuxt" src="https://image.xiaomo.info/cover/bg-5.jpg" alt="封面" onload="loadImage(this.id)"/>
+        </div>
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      nuxt.js使用介绍
+    </h1>
+  
+
+        </header>
+        
+        <div class="article-info article-info-post">
+            
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+    </div>
+
+
+            
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nuxt/">nuxt</a></li></ul> </div>
+
+
+
+            <!-- 访问量  -->
+            <!--<span id="busuanzi_container_page_pv" style='display:none'>-->
+            <!--<span id="page-visit"><i class="fa fa-eye" style="float: left;margin-top:5px" aria-hidden="true" title="文章访问量"></i>-->
+            <!--<span id="busuanzi_value_page_pv"></span>-->
+            <!--</span>-->
+            <!--</span>-->
+
+            <div class="clearfix"></div>
+        </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+            
+            <p>vue全家桶还算是比较全面的，从构建工具vue-cli、vite，到vue-router、vuex、element-ui，vue-dev-tools，最后服务器渲染方案nuxt.js等等构成了一个完整的开发生态，用着还是比较省心的。总结一下nux.js用法以供参考。</p>
+<a id="more"></a>
+
+<h1 id="什么是SSR"><a href="#什么是SSR" class="headerlink" title="什么是SSR"></a>什么是SSR</h1><p>服务端渲染（Server Side Render），即：网页是通过服务端渲染生成后输出给客户端。</p>
+<p>在 SPA(Single Page Application，即单页面应用) 之前的时代，我们的Web架构大都是 SSR，如：Wordpress（PHP）、JSP技术、JavaWeb…或者 DEDE CMS、Discuz! 等这些程序都是传统典型的 SSR 架构， 即：服务端取出数据和模板组合生成 html 输出给前端，前端发生请求时，重新向服务端请求 html 资源，路由也由服务端来控制。</p>
+<p>其次，有个概念叫预渲染（Prerendering）。</p>
+<p>如果你只是用服务端渲染来改善一个少数的营销页面（如 首页，关于，联系 等等）的 SEO，那你可以用预渲染来实现。 预渲染不像服务器渲染那样即时编译 HTML，它只在构建时为了特定的路由生成特定的几个静态页面，等于我们可以通过 Webpack 插件将一些特定页面组件 build 时就编译为 html 文件，直接以静态资源的形式输出给搜索引擎。</p>
+<p>但实际的商业应用中，大部分时候我们需要的是即时渲染，这也是我们今天讨论的主题。</p>
+<h1 id="为什么需要SSR"><a href="#为什么需要SSR" class="headerlink" title="为什么需要SSR"></a>为什么需要SSR</h1><ol>
+<li><p>为了兼容性      </p>
+<p> 虽然现在大部分的浏览器对单页面应用支持优化，但还有一少部分浏览器比较古老。对于世界上的一些地区人，可能只能用1998年产的电脑访问互联网的方式使用计算机。 而 Vue 只能运行在 IE9 以上的浏览器，你可能也想为那些老式浏览器提供基础内容 - 或者是在命令行中使用 Lynx 的时髦的黑客。</p>
+</li>
+<li><p>为了SEO     </p>
+<p> SEO是流量是变现的快车道，SEO 是低成本获取流量的最佳方法。</p>
+<p> 目前大部分的搜索引擎仅能抓取URI直接输出的数据资源，对于 Ajax 类的异步请求的数据无法抓取；Google 除外，Google 有自己的<a href="https://developers.google.com/webmasters/ajax-crawling/" target="_blank" rel="noopener">Google’s Webmaster AJAX Crawling Guidelines.</a>技术支持。在大部分的商业应用中，我们有 SEO 的需求，我们需要搜索引擎更多地抓取到我们的内容，更详细地认识到我们的网页结构，而不是仅对首页或特定静态页进行索引，这是 SSR 最重要的意义。</p>
+<p> 简单说就是，我们需要搜素引擎看到这样的代码：</p>
+<p> <img src="https://image.xiaomo.info//blog/image-20201106154440746.png" alt="image-20201106154440746"></p>
+<p> 而不是这样的代码：</p>
+<p> <img src="https://image.xiaomo.info//blog/image-20201106154506477.png" alt="image-20201106154506477"></p>
+<ol start="3">
+<li><p>为了数据安全      </p>
+<p>现在基本上B/S架构的应用都是前后端分离方式开发的，即前端使用XHR异步获取数据并渲染到页面上，如果我们不使用SSR的话，用户可以直接在调试控制台拿到我们的接口数据。但如果是我们使用的是SSR渲染的话，浏览器收到的就是一个填充好数据的HTML，如果别有用心的人想拿我们的数据。要么人肉复制，要么使用jsonp等技术定位我们的元素。当我们发现有spider在偷我们的数据的时候，稍微换下html的dom结构，偷数据的人就得吭赤吭赤的更新他们的爬虫代码。</p>
+<p>此外，我们还需要在 SSR 的基础上实现 SPA，即：<strong>首屏渲染</strong>。</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>基本流程是：</p>
+<p>在浏览器第一次访问某个 URI 资源的时候（首屏），Web 服务器根据路由拿到对应数据渲染并输出，且输出的数据中包含两部分：</p>
+<p>路由页对应的页面及已渲染好的数据</p>
+<p>完整的SPA程序代码</p>
+<p>在客户端首屏渲染完成之后，此时我们看到的其实已经是一个和之前的 SPA 相差无几的应用程序了，接下来我们进行的任何操作都只是客户端的应用进行交互， 页面/组件由Web端渲染，路由也由浏览器控制，用户只需要和当前浏览器内的应用打交道就可以了。</p>
+<p>之前在各大 SPA 框架还未正式官方支持 SSR 时，有一些第三方的解决方案，如：<a href="https://prerender.io/" target="_blank" rel="noopener">prerender.io</a>， 它们做的事情就是建立HTTP一个中间层，在判断到访问来源是蜘蛛时，输出已缓存好的html数据，此数据若不存在，则调用第三方服务对 html 进行缓存，往复进行。</p>
+<p>另一方法是自行构建蜘蛛渲染逻辑，当识别 UA 为搜索引擎时，拿服务端已准备好的模板和数据进行渲染输出 html 数据，反之，则输出 SPA 应用代码；</p>
+<p>我当时也考虑过此方法，但有很多弊端，如：</p>
+<p>需要针对蜘蛛编写一套独立的渲染模板，因为大部分情况下 SPA 的代码是没法直接在服务端使用的</p>
+<p>搜索引擎若检测到蜘蛛抓取数据和真实访问数据不一致，会做降权惩罚，也就意味着渲染模板还必须和SPA预期输出一模一样</p>
+<p>所以，最好的方法是 SPA 能和服务端使用同一套模板，且使用同一个服务端逻辑分支，再简单说：<strong>最好 Vue、Ng2… 能直接在服务端跑起来</strong>。</p>
+<p>于是，陆续诞生了基于 React 的<a href="https://github.com/zeit/next.js/" target="_blank" rel="noopener">Next.js</a>、基于 Vue 的<a href="https://cn.nuxtjs.org/" target="_blank" rel="noopener">Nuxt.js</a>、Ng2 诞生之日便支持。</p>
+<h1 id="VUE的SSR方案-nuxt"><a href="#VUE的SSR方案-nuxt" class="headerlink" title="VUE的SSR方案(nuxt)"></a>VUE的SSR方案(nuxt)</h1><p>Nuxt.js是使用 Webpack 和 Node.js 进行封装的基于Vue的SSR框架，使用它，你可以不需要自己搭建一套 SSR 程序，而是通过其约定好的文件结构和API就可以实现一个首屏渲染的 Web 应用。之所以叫 Nuxt.js 也是因为受到了 Next.js 的启发。作者是法国的兄弟俩，EvenYou 在微博多次提到，也在欧洲见过哥俩。</p>
+<p>在此之前，国内有一些对 Vue SSR 的整合尝试，但都没有成功，主要在于 Webpack 和 Node 的结合上没有实践出最佳方案， 当我看到 Nuxt.js 以约束文件夹和配置文件<code>nuxt.config.js</code>的方式来管理多个程序组件之间的关系时，就觉得，很酷！</p>
+<p>Nuxt.js 是一个 Node 程序，就像上面说的，我们是要把 Vue 跑在服务端，所以必须使用 Node 环境。我们对 Nuxt.js 应用的访问，实际上是在访问这个 Node.js 程序的路由，程序输出首屏渲染内容 + 用以重新渲染的 SPA 的脚本代码，而路由是由 Nuxt.js 约定好的 pages 文件夹生成的。</p>
+<p>所以，整体上，Nuxt.js 通过各个文件夹和配置文件的约束来管理我们的程序，而又不失扩展性，其有自己的<a href="https://nuxtjs.org/guide/plugins/" target="_blank" rel="noopener">插件机制</a>。</p>
+<h1 id="Nuxt项目的创建"><a href="#Nuxt项目的创建" class="headerlink" title="Nuxt项目的创建"></a>Nuxt项目的创建</h1><ol>
+<li><p>npx</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npx create-nuxt-app &lt;project-name&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>yarn</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yarn create nuxt-app &lt;project-name&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>npm</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm init nuxt-app &lt;project-name&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><ol>
+<li><p>yarn</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;project-name&gt;</span><br><span class="line">yarn dev</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>npm </p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;project-name&gt;</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h1 id="nuxt项目结构介绍"><a href="#nuxt项目结构介绍" class="headerlink" title="nuxt项目结构介绍"></a>nuxt项目结构介绍</h1><p>按照目前的版本，Nuxt.js 的程序的文件结构大概分为以下部分：</p>
+<p><strong>pages</strong>：各页面组件，用于生成对应路由，支持嵌套，支持动态路由</p>
+<p><strong>components</strong>：各组件，用于你自己管理公共组件或非公共组件</p>
+<p><strong>layouts</strong>：宿主布局页面模板组件，用于你可以把不同的页面指定使用不同的布局</p>
+<p><strong>assets</strong>：用于 Webpack 编译的各类资源，通常是一些小的资源，如代替雪碧图之类的图片等东西</p>
+<p><strong>middleware</strong>：中间件，首屏渲染和路由跳转前均执行对应中间件，可以返回promise或直接next（像是一个网关，很实用！）</p>
+<p><strong>plugins</strong>：插件，SPA中用的各类第三方组件和一些node模块都可以在这引入，甚至可以引入自己编写的第三方库</p>
+<p><strong>store</strong>：内置了vuex，可以直接返回数据模块或返回一个自建vuex根对象，具体要翻文档</p>
+<p><strong>其他</strong>：你可以自定义文件夹和别名映射，文档都有提及，这里有<a href="https://github.com/surmon-china/surmon.me/blob/master/nuxt.config.js#L18" target="_blank" rel="noopener">配置代码</a></p>
+<h1 id="nuxt-js-配置文件介绍"><a href="#nuxt-js-配置文件介绍" class="headerlink" title="nuxt.js 配置文件介绍"></a>nuxt.js 配置文件介绍</h1><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)</span></span><br><span class="line">  ssr: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Global page headers (https://go.nuxtjs.dev/config-head)</span></span><br><span class="line">  head: &#123;</span><br><span class="line">    title: <span class="string">'hello-nuxt'</span>,</span><br><span class="line">    meta: [</span><br><span class="line">      &#123; <span class="attr">charset</span>: <span class="string">'utf-8'</span> &#125;,</span><br><span class="line">      &#123; <span class="attr">name</span>: <span class="string">'viewport'</span>, <span class="attr">content</span>: <span class="string">'width=device-width, initial-scale=1'</span> &#125;,</span><br><span class="line">      &#123; <span class="attr">hid</span>: <span class="string">'description'</span>, <span class="attr">name</span>: <span class="string">'description'</span>, <span class="attr">content</span>: <span class="string">''</span> &#125;,</span><br><span class="line">    ],</span><br><span class="line">    link: [&#123; <span class="attr">rel</span>: <span class="string">'icon'</span>, <span class="attr">type</span>: <span class="string">'image/x-icon'</span>, <span class="attr">href</span>: <span class="string">'/favicon.ico'</span> &#125;],</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Global CSS (https://go.nuxtjs.dev/config-css)</span></span><br><span class="line">  css: [<span class="string">'element-ui/lib/theme-chalk/index.css'</span>],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)</span></span><br><span class="line">  plugins: [<span class="string">'@/plugins/element-ui'</span>],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Auto import components (https://go.nuxtjs.dev/config-components)</span></span><br><span class="line">  components: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)</span></span><br><span class="line">  buildModules: [</span><br><span class="line">    <span class="comment">// https://go.nuxtjs.dev/typescript</span></span><br><span class="line">    <span class="string">'@nuxt/typescript-build'</span>,</span><br><span class="line">  ],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Modules (https://go.nuxtjs.dev/config-modules)</span></span><br><span class="line">  modules: [</span><br><span class="line">    <span class="comment">// https://go.nuxtjs.dev/axios</span></span><br><span class="line">    <span class="string">'@nuxtjs/axios'</span>,</span><br><span class="line">    <span class="comment">// https://go.nuxtjs.dev/pwa</span></span><br><span class="line">    <span class="string">'@nuxtjs/pwa'</span>,</span><br><span class="line">  ],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Axios module configuration (https://go.nuxtjs.dev/config-axios)</span></span><br><span class="line">  axios: &#123;&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Build Configuration (https://go.nuxtjs.dev/config-build)</span></span><br><span class="line">  build: &#123;</span><br><span class="line">    transpile: [<span class="regexp">/^element-ui/</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://zh.nuxtjs.org/docs/2.x/directory-structure/nuxt-config/" target="_blank" rel="noopener"><code>nuxt.config.js</code></a>对程序的扩展管理可大概分为以下类：</p>
+<p><strong>build</strong>：主要对应 Webpack 中的各配置项，可以对默认的 Webpack 配置进行扩展，如<a href="https://github.com/surmon-china/surmon.me/blob/master/nuxt.config.js#L17" target="_blank" rel="noopener">这里代码</a></p>
+<p><strong>cache</strong>：主要对应内置的组件缓存模块<code>lru-cache</code>的配置对象，有默认值，可选关闭</p>
+<p><strong>css</strong>：对应我们在SPA随处引用样式文件的<code>require</code>语句</p>
+<p><strong>dev</strong>：用于自定义配置环境变量，对应之前<code>webpack.config.js</code>相关文件中的变量语句</p>
+<p><strong>env</strong>：同上息息相关</p>
+<p><strong>generate</strong>：对<code>generate</code>命令执行时的行为做一些定制</p>
+<p><strong>head</strong>：对应<code>vue-meta</code>插件的全局配置，<code>vue-meta</code>用于VUE/SSR程序的文档元信息的管理</p>
+<p><strong>loading</strong>：用于定制化Nuxt.js内置的进度条组件</p>
+<p><strong>performance</strong>：用于配置Node.js服务器性能上的配置</p>
+<p><strong>plugins</strong>：用于管理和应用对应<code>plugins</code>文件夹中的插件</p>
+<p><strong>rootdir</strong>：用于设置 Nuxt.js 应用的根目录（这俩api有很大合并的意义）</p>
+<p><strong>srcdir</strong>：用于设置 Nuxt.js 应用的源码目录（这俩api有很大合并的意义）</p>
+<p><strong>router</strong>：用于对<code>vue-router</code>的扩展和定制，其中还包括了中间件的配置，但并不完美（后面说）</p>
+<p><strong>transition</strong>：用于定制Nuxt.js内置的页面切换过渡效果的默认属性值</p>
+<p><strong>watchers</strong>：用于定制Nuxt.js内置的文件监听模块<code>chokidar</code>和 Webpack 的相关配置项</p>
+<h1 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h1><p>nuxt的没有固定配置路由的文件，它是根据约定自动生成的路由，所有的页面都在pages目录下。</p>
+<ol>
+<li><p>首页 （url:port）</p>
+<p> 对应 pages/index.vue</p>
+</li>
+<li><p>订单列表( url:port/order)</p>
+<p> 对应 pages/order/index.vue</p>
+</li>
+</ol>
+<p>使用时</p>
+<p><code>&lt;nuxt-link to=&quot;/order&quot;&gt;订单&lt;/nuxt-link&gt;</code></p>
+<h1 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a><a href="https://www.nuxtjs.cn/guide/routing" target="_blank" rel="noopener">动态路由</a></h1><p>在 Nuxt.js 里面定义带参数的动态路由，需要创建对应的<strong>以下划线作为前缀</strong>的 Vue 文件 或 目录。</p>
+<p>在 Nuxt.js 里面定义带参数的动态路由，需要创建对应的<strong>以下划线作为前缀</strong>的 Vue 文件 或 目录。</p>
+<p>以下目录结构：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pages/</span><br><span class="line">--| _slug/</span><br><span class="line">-----| comments.vue</span><br><span class="line">-----| index.vue</span><br><span class="line">--| users/</span><br><span class="line">-----| _id.vue</span><br><span class="line">--| index.vue</span><br></pre></td></tr></table></figure>
+
+<p>Nuxt.js 生成对应的路由配置表为：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">router: &#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      name: <span class="string">'index'</span>,</span><br><span class="line">      path: <span class="string">'/'</span>,</span><br><span class="line">      component: <span class="string">'pages/index.vue'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      name: <span class="string">'users-id'</span>,</span><br><span class="line">      path: <span class="string">'/users/:id?'</span>,</span><br><span class="line">      component: <span class="string">'pages/users/_id.vue'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      name: <span class="string">'slug'</span>,</span><br><span class="line">      path: <span class="string">'/:slug'</span>,</span><br><span class="line">      component: <span class="string">'pages/_slug/index.vue'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      name: <span class="string">'slug-comments'</span>,</span><br><span class="line">      path: <span class="string">'/:slug/comments'</span>,</span><br><span class="line">      component: <span class="string">'pages/_slug/comments.vue'</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你会发现名称为 <code>users-id</code> 的路由路径带有 <code>:id?</code> 参数，表示该路由是可选的。如果你想将它设置为必选的路由，需要在 <code>users/_id</code> 目录内创建一个 <code>index.vue</code> 文件。</p>
+<p>举例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// layouts/default.vue 配置菜单</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;nuxt-link to=&quot;/&quot;&gt;home&lt;/nuxt-link&gt;</span><br><span class="line">    &lt;nuxt-link to=&quot;/order&quot;&gt;order&lt;/nuxt-link&gt;</span><br><span class="line">    &lt;Nuxt /&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// pages/order/index.vue  对应/order</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">      &lt;li v-for=&quot;phone in phones&quot; :key=&quot;phone&quot;&gt;</span><br><span class="line">        &lt;nuxt-link :to=&quot;&apos;/detail/&apos; + phone&quot;&gt;&#123;&#123; phone &#125;&#125;&lt;/nuxt-link&gt;</span><br><span class="line">      &lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang=&quot;ts&quot;&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      phones: [&apos;锤子&apos;, &apos;iphone&apos;, &apos;google&apos;],</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// pages/detail/_id.vue   对应 /detail/:id   动态路由</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h2&gt;详情&lt;/h2&gt;</span><br><span class="line">    &lt;!-- 因为文件名是/detail/_id.vue，所以这里的参数是id --&gt;</span><br><span class="line">    &#123;&#123; $route.params.id &#125;&#125;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h1><p>创建内嵌子路由，你需要添加一个 Vue 文件，同时添加一个<strong>与该文件同名</strong>的目录用来存放子视图组件。别忘了在父组件(<code>.vue</code>文件) 内增加 <code>&lt;nuxt-child/&gt;</code> 用于显示子视图内容。</p>
+<p>父路由</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// pages/users.vue 这是父路由，还需要创建一个同名的users文件夹。子路由/users和/users/profile2，别忘了&lt;nuxt-child/&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h2&gt;parent users&lt;/h2&gt;</span><br><span class="line">    &lt;nuxt-link to=&quot;/users&quot;&gt;user&lt;/nuxt-link&gt;</span><br><span class="line">    &lt;nuxt-link to=&quot;/users/profile&quot;&gt;user detail&lt;/nuxt-link&gt;</span><br><span class="line">    &lt;nuxt-child /&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2个子路由</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// pages/users/index.vue</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;用户列表&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// pages/users/profile.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;用户详情&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="404-页面"><a href="#404-页面" class="headerlink" title="404 页面"></a>404 页面</h1><p><code>_.vue</code>意思是无限次嵌套，因此在pages下创建如下文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// pages/_.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;404&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h1><p>使用中间件做权限认证</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// middleware/auth.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> (<span class="params">context</span>) </span>&#123;</span><br><span class="line">  context.userAgent = process.server</span><br><span class="line">    ? context.req.headers[<span class="string">'user-agent'</span>]</span><br><span class="line">    : navigator.userAgent</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// nutx.config.js 配置</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;  </span><br><span class="line">  router: &#123;</span><br><span class="line">      middleware: <span class="string">'auth'</span>,   <span class="comment">// 对应middleware/auth.js</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="使用插件"><a href="#使用插件" class="headerlink" title="使用插件"></a>使用插件</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yarn add vue-notifications</span><br><span class="line">yarn add mini-toastr</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> VueNotification <span class="keyword">from</span> <span class="string">'vue-notifications'</span></span><br><span class="line"><span class="keyword">import</span> miniToastr <span class="keyword">from</span> <span class="string">'mini-toastr'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> toastTypes = &#123;</span><br><span class="line">  success: <span class="string">'success'</span>,</span><br><span class="line">  error: <span class="string">'error'</span>,</span><br><span class="line">  info: <span class="string">'info'</span>,</span><br><span class="line">  warn: <span class="string">'warn'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">miniToastr.init(&#123; <span class="attr">types</span>: toastTypes &#125;)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toast</span>(<span class="params">&#123; title, message, type, timeout, cb &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> miniToastr[type](message, title, timeout, cb)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  success: toast,</span><br><span class="line">  error: toast,</span><br><span class="line">  info: toast,</span><br><span class="line">  warn: toast,</span><br><span class="line">&#125;</span><br><span class="line">Vue.use(VueNotifications, options)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// nutx.config.js 配置</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="comment">// Build Configuration (https://go.nuxtjs.dev/config-build)</span></span><br><span class="line">  	<span class="comment">// 如果插件位于node_modules并导出模块，需要将其添加到transpile构建选项：</span></span><br><span class="line">    build: &#123;</span><br><span class="line">      transpile: [<span class="regexp">/^element-ui/</span>, <span class="string">'vue-notifications'</span>],</span><br><span class="line">    &#125;,</span><br><span class="line">      <span class="comment">// Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)</span></span><br><span class="line">  	plugins: [</span><br><span class="line">    &#123; <span class="attr">src</span>: <span class="string">'@/plugins/element-ui'</span>, <span class="attr">ssr</span>: <span class="literal">false</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">src</span>: <span class="string">'@/plugins/vue-notifications'</span>, <span class="attr">ssr</span>: <span class="literal">false</span> &#125;,   <span class="comment">// 对应/plugins/vue-notifications.js</span></span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="ts扩展"><a href="#ts扩展" class="headerlink" title="ts扩展"></a>ts扩展</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yarn add --dev @nuxt/typescript-build @nuxt/types</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">npm install --save-dev @nuxt/typescript-build @nuxt/types</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// /vue-shim.d.ts</span></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">module</span> "*.vue" &#123;</span><br><span class="line">  <span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line">  <span class="keyword">export</span> <span class="keyword">default</span> Vue</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// nuxt.config.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    buildModules: [</span><br><span class="line">    <span class="comment">// https://go.nuxtjs.dev/typescript</span></span><br><span class="line">    <span class="string">'@nuxt/typescript-build'</span>,</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="comment">// tsconfig.json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">    <span class="attr">"target"</span>: <span class="string">"ES2018"</span>,</span><br><span class="line">    <span class="attr">"module"</span>: <span class="string">"ESNext"</span>,</span><br><span class="line">    <span class="attr">"moduleResolution"</span>: <span class="string">"Node"</span>,</span><br><span class="line">    <span class="attr">"lib"</span>: [</span><br><span class="line">      <span class="string">"ESNext"</span>,</span><br><span class="line">      <span class="string">"ESNext.AsyncIterable"</span>,</span><br><span class="line">      <span class="string">"DOM"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"esModuleInterop"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"allowJs"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"sourceMap"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"strict"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"noEmit"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"experimentalDecorators"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"baseUrl"</span>: <span class="string">"."</span>,</span><br><span class="line">    <span class="attr">"paths"</span>: &#123;</span><br><span class="line">      <span class="attr">"~/*"</span>: [</span><br><span class="line">        <span class="string">"./*"</span></span><br><span class="line">      ],</span><br><span class="line">      <span class="attr">"@/*"</span>: [</span><br><span class="line">        <span class="string">"./*"</span></span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"types"</span>: [</span><br><span class="line">      <span class="string">"@types/node"</span>,</span><br><span class="line">      <span class="string">"@nuxt/types"</span></span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"exclude"</span>: [</span><br><span class="line">    <span class="string">"node_modules"</span>,</span><br><span class="line">    <span class="string">".nuxt"</span>,</span><br><span class="line">    <span class="string">"dist"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="修改端口号"><a href="#修改端口号" class="headerlink" title="修改端口号"></a>修改端口号</h1><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// nuxt.config.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  server: &#123;</span><br><span class="line">    port: <span class="number">3030</span>, <span class="comment">// default: 3000</span></span><br><span class="line">    host: <span class="string">'0.0.0.0'</span>, <span class="comment">// default: localhost</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="异步加载数据的hook-nuxt自动调用"><a href="#异步加载数据的hook-nuxt自动调用" class="headerlink" title="异步加载数据的hook(nuxt自动调用)"></a>异步加载数据的hook(nuxt自动调用)</h1><p><code>yarn add @nuxt/http</code></p>
+<p>需要添加nuxt的http模块</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// nuxt.config.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    modules: [</span><br><span class="line">    <span class="comment">// https://go.nuxtjs.dev/axios</span></span><br><span class="line">    <span class="string">'@nuxtjs/axios'</span>,</span><br><span class="line">    <span class="comment">// https://go.nuxtjs.dev/pwa</span></span><br><span class="line">    <span class="string">'@nuxtjs/pwa'</span>,</span><br><span class="line">    <span class="string">'@nuxt/http'</span>,</span><br><span class="line">  ],</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h1&gt;Data fetched using asyncData&lt;/h1&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">      &lt;li v-for=&quot;mountain in mountains&quot; :key=&quot;mountain.title&quot;&gt;</span><br><span class="line">        &#123;&#123; mountain.title &#125;&#125;</span><br><span class="line">      &lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  async asyncData(&#123; $http &#125;) &#123;</span><br><span class="line">    const mountains = await $http.$get(&apos;https://api.nuxtjs.dev/mountains&apos;)</span><br><span class="line">    return &#123; mountains &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.xiaomo.info//blog/image-20201124160222403.png" alt="image-20201124160222403"></p>
+
+            
+        </div>
+        
+    </div>
+    
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2020/vueSSRNuxt/">nuxt.js使用介绍</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">小莫</a></p>
+        <p><span>发布时间:</span>2020-11-08, 00:00:00</p>
+        <p><span>最后更新:</span>2021-07-20, 20:08:26</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2020/vueSSRNuxt/" title="nuxt.js使用介绍">https://blog.xiaomo.info/2020/vueSSRNuxt/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://blog.xiaomo.info/2020/vueSSRNuxt/　　作者: 小莫" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2020/dynamoDB/">
+                    aws dynamoDB使用总结
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2020/pm2UseApi/">
+                    node项目监控工具之pm2
+                </a>
+            </div>
+        
+    </nav>
+
+    
+</article>
+
+
+
+<!-- 代码2：用来读取评论框配置，此代码需放置在代码1之后。 -->
+<!-- 如果当前页面有评论框，代码2请勿放置在评论框代码之前。 -->
+<!-- 如果页面同时使用多个实验室项目，以下代码只需要引入一次，只配置上面的div标签即可 -->
+<!--<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cysUkgluO"></script>-->
+
+<div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是SSR"><span class="toc-number">1.</span> <span class="toc-text">什么是SSR</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#为什么需要SSR"><span class="toc-number">2.</span> <span class="toc-text">为什么需要SSR</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#VUE的SSR方案-nuxt"><span class="toc-number">3.</span> <span class="toc-text">VUE的SSR方案(nuxt)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Nuxt项目的创建"><span class="toc-number">4.</span> <span class="toc-text">Nuxt项目的创建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#启动"><span class="toc-number">5.</span> <span class="toc-text">启动</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nuxt项目结构介绍"><span class="toc-number">6.</span> <span class="toc-text">nuxt项目结构介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nuxt-js-配置文件介绍"><span class="toc-number">7.</span> <span class="toc-text">nuxt.js 配置文件介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#路由"><span class="toc-number">8.</span> <span class="toc-text">路由</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#动态路由"><span class="toc-number">9.</span> <span class="toc-text">动态路由</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#嵌套路由"><span class="toc-number">10.</span> <span class="toc-text">嵌套路由</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#404-页面"><span class="toc-number">11.</span> <span class="toc-text">404 页面</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#中间件"><span class="toc-number">12.</span> <span class="toc-text">中间件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用插件"><span class="toc-number">13.</span> <span class="toc-text">使用插件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ts扩展"><span class="toc-number">14.</span> <span class="toc-text">ts扩展</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#修改端口号"><span class="toc-number">15.</span> <span class="toc-text">修改端口号</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#异步加载数据的hook-nuxt自动调用"><span class="toc-number">16.</span> <span class="toc-text">异步加载数据的hook(nuxt自动调用)</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script>
+    yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+</script>
+
+
+
+<div class="share">
+    
+
+    
+</div>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<hr/>
+<br/>
+<div style="display:block;text-align: center">
+    <a href="javascript:window.open('https://twitter.com/share?url='+encodeURIComponent(document.location.href)+'&text='+encodeURIComponent(document.title),'_blank','toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=600, height=450,top=100,left=350');void(0)"
+       style="background-color: lightskyblue;border-radius: 45px;box-shadow: #767676;font-size: 14px;font-family: '微软雅黑',serif;color: whitesmoke;padding: 10px 15px;"
+    >
+        twitter分享
+    </a>
+</div>
+<br/>
+<br/>
+<div id="gitalk-container" style="margin: 1% 3%"></div>
+<h3 style="text-align: center">如果想及时收到回复,可在 <a href="https://github.com/settings/notifications" target="_blank">订阅中心</a>的 <code>Participating</code>中勾选Email</h3>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '9772f6a6fdb199a60ba1',
+        clientSecret: '9a606af21688d2d4ff2efa2467ee82e76e1e9865',
+        id: window.location.pathname,
+        repo: 'blog',
+        owner: 'houko',
+        admin: 'houko',
+        distractionFreeMode: false
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2020/dynamoDB/" title="上一篇: aws dynamoDB使用总结">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2020/pm2UseApi/" title="下一篇: node项目监控工具之pm2">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuyin2/">日本医疗制度之限度額適用認定証</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/ohmytmux/">我的tmux之旅（tmux使用详解）</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/redisPubSub/">nodejs中使用redis的订阅分发功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuuinn/">小莫的日本(东京)住院回忆录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/doTween/">(转)doTween插件使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/mySecondFiveYearsLifePlan/">2020年年终总结和第二个长期学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/newmanCommandLine/">postman和commandline tools（newman）用法介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/ctwJobs/">【日本东京六本木】【CTW株式会社】招聘Node全栈/Java后端/SRE/大数据工程师/UI设计师</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/npmPackageCollection/">npm优秀库使用收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/jsCommonUtilsMethods/">js/ts常用公有方法收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/springBootWithSpringSecurity/">spring cloud集成spring security</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/flyway/">使用flyway版本控制工具维护数据库表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/autoFormatOnSvae/">使用IDEA保存时自动格式化代码配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/dynamoDB/">aws dynamoDB使用总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueSSRNuxt/">nuxt.js使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/pm2UseApi/">node项目监控工具之pm2</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/webAppleSignIn/">web端接入apple Sign in流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/browserEventLoop/">聊聊Javascript的事件循环(转载)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/AwsSqsUse/">AWS SQS/SNS/Redis的pub/sub用法总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsSSo/">AWS SSO用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsCommandLineUse/">aws command line 用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueFrameworkVuex/">vue框架状态管理之vuex</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/backToJapan/">疫情下的回日坎坷路</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/unityInterviewQuestions/">unity常见面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/my2019Summary/">2019年年终总结（作为前端开发这一年）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/worldServerGame/">经历了几场面试后的全球同服架构思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/japanKannjiIndex/">日语汉字速查表</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/aboutAllVisa/">签证总结大全（工作签、在留卡加汉字、工作签证更新、家族签证等）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/javaPassByValueAndReference/">jdk源码系列-Java到底是值传递还是引用传递？</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/event20190729/">没想到有一天我逼停了电车</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/jdkSourceCodeReadThreadSleep/">jdk源码系列-Thread.sleep(0)和Thread.sleep(1)的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/restfulBestUse/">restful最佳实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/nihonnmennkyo/">小莫的日本换驾照攻略</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/nihonnkita2kagetsu/">2018年终总结（从杭州到日本工作的心路历程）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unityFpsCommonMethod/">Fps游戏常用功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unitySceneFarAndNear/">镜头拉远拉近</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unity3dMiniMap/">unity3d小地图</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUISorting/">使用UGUI中的层级问题——以背包为例</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUIServerList/">使用UGUI制作滚动列表-选服列表</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/aboutDockerUse/">docker应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadArrayListAndLinkedArrayList/">jdk源码系列-Java中ArrayList、LinkedList和Vector的联系与区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadCreateObject/">jdk源码系列-创建对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadClassInitOrder/">jdk源码系列-类的初始化顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadStringDifferent/">jdk源码系列-String,StringBuffer,StringBuilder</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadAtomicInteger/">jdk源码系列-AtomicInteger</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadInteger/">jdk源码系列-Integer</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadLocal/">jdk源码系列-ThreadLocal</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadMemoryActor/">jdk源码系列-内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadConcurrentHashMap/">jdk源码系列-ConcurrentHashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadPool/">jdk源码系列-线程池</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadIO/">jdk源码系列-深入了解IO的工作机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadObject/">jdk源码系列-Object</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadNIO/">jdk源码系列-NIO</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/throwableAndException/">jdk源码系列-throwable和Exception的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeRead/">jdk源码系列-顺序索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/myBookSheet/">我的书架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/onlineProjectKen/">项目上线之后遇到的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/mainProjectJobs/">主程职责总结和反思</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/fastjson/">fastjson的key为非字符串的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/saikennokoto/">2017年终总结(作为主程的这一年)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AngularEnvironment/">angular2学习笔记之基础环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/HowToAskQuestionOnStackOverFlow/">StackOverFlow提问的艺术</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/oracleJavaSeSliver/">java的oracle考试认证(OCJP)之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/blackAppleSystem/">安装黑苹果的历程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JapanTravel/">日本游记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/GameServerType/">游戏服务器的常用架构</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaLombok/">lombok常用注解整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SwiftProjectBuild/">swift项目初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MySoftware/">我的常用软件清单</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AboutObject/">关于对象的一些思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MyKindle/">kindle初体验.</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SomethingForNewCar/">我的新车常备用品</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/VimTabAutoComplete/">使用vim打开文件时tab补全忽略大小写设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/Win7OneNote/">win7系统登录不上onenote的解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/FormatDisk/">在linux系统下格式化移动硬盘的操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/LinuxIdeaSetting/">linux系统环境下使用idea遇到的问题及解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaApiJsonFormat/">接口格式返回大小写处理.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/StartMy2017/">2016年终总结(进入游戏行业)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MysqlCommon/">mysql常用操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NormalShell/">常用shell脚本.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidUsersPermission/">Android users-permission权限列表.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidAsyncTask/">android异步任务AsyncTask.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidEnvironment/">android环境搭建.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/blogToXiaomo/">博客域名迁移(从二级域名迁移到一级域名).</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/SublimeConfig/">Sublime Text 3 使用配置与插件安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/HttpToHttps/">拥抱https(http全面切换到https)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootSwaggerUi/">swagger ui和spring boot集成生成api文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringVideo/">spring4免费全套视频教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaLombok/">lombok简化java代码注解的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSeiyou/">日本动漫声优公演,来看看什么叫专业声优</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootDataFormat/">spring boot做前后分离时间格式化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootCors/">spring boot做前后分离的跨域问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringZiliao/">spring boot相关资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaIdeaMaven/">Maven 与 IntelliJ IDEA 的完美结合</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaServletUpload/">使用Servlet做简单的上传功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonAnime/">喜欢的动漫</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSekaku/">生活习惯的不同，造就了丰富多彩的世界</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/BangumiDongli/">《东离剑游记》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmYargs/">yargs插件的使用，node.js 命令行框架 yargs 和你的程序实现交互</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiRouter/">angular2 api整理之路由模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiCommon/">angular2 api整理之通用模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptRxjsStudy/">rxjs全接触</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptDesignPattern/">javascript设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/2016StudyPlan/">5年学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2studyAnimate/">angular2学习笔记之动画效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyServiceHttp/">angular2学习笔记之服务和http</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteOther/">angular2学习笔记之小技巧</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteNgTag/">angular2学习笔记之ng2标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteEvent/">angular2学习笔记之事件和多组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteComponent/">angular2学习笔记之基本组件和ngFor</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/PublicDns/">几个国内专用的公共 DNS</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxDisk/">阿里云服务器磁盘挂载</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxChmod/">linux权限详细解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownTableStyle/">Markdown 表格样式调整与自适应优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/GulpUse/">gulp构建工具的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/FrontEndTools/">前端工程化工具初选</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AnkiExcelShortcuts/">Anki 记忆库之 Excel 快捷键大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/CssFontFamily/">CSS font-family 网页字体使用小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeSpider/">nodejs爬虫项目实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Package.jsonScripts/">package.json常用script</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmModulesShare/">npm模块分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MongodbUse/">mongodb数据库的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/KoaGenerator/">koa生成器,一键生成koa和koa2项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeKoa/">nodejs框架koa学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptSyntax/">javascript学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Es6Syntax/">es6语法快速上手</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackLLink/">webpack进阶之loader篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackPlugins/">webpack进阶之插件篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackParams/">webpack相关命令参数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeProcess/">nodejs的process模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackBasicUse/">webpack使用之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeOnlineChat/">使用nodejs搭建一个简易的即时聊天软件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxCrontab/">linux下使用定时器跑任务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AngularKeyboardEvent/">angularjs键盘事件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownSyntax/">markdown语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NgCheckbox/">angularjs复选框</a></li></ul>
+
+<style>
+    #post-nav-button a{
+        background-color: skyblue;
+    }
+</style>
+
+
+
+<script>
+    
+</script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i>
+                
+                    2016-
+                
+                2021 小莫
+                <!--                <a href="http://www.miibeian.gov.cn/" target="_blank">浙ICP备15009606号</a>-->
+            </div>
+            <div class="footer-right">
+                <a href="https://blog.xiaomo.info/" target="_blank" title="欢迎来到小莫的博客">Blog </a> Created by <a
+                        href="https://github.com/houko" target="_blank" rel="external nofollow"
+                        title="希望这里的文章对你有所帮助  v3.0">xiaomo</a>
+                <a href="/record.html"><i class="fa fa-heart animated infinite pulse"></i></a>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit">总访问数:
+                            <span id="busuanzi_value_site_pv"></span>
+                        </span>
+                    </span>
+                
+                <span style="color: grey;">(<a href="https://www.upyun.com/" rel="external nofollow" target="_blank">背景随机加载-资源存储于又拍云</a>) | 本站己运行<span
+                            id="day_count">222</span>天<span id="time_now">1</span></span>
+            </div>
+        
+    </div>
+    <script src="/js/activate-power-mode.js" ></script>
+</footer>
+<script>
+    // 添加输入效果
+    POWERMODE.colorful = true; // make power mode colorful
+    POWERMODE.shake = false; // turn off shake
+    document.body.addEventListener('input', POWERMODE);
+
+    (function () {
+        function current() {
+            var d = new Date(), str = '';
+            str += d.getHours() + '小时';
+            str += d.getMinutes() + '分';
+            str += d.getSeconds() + '秒';
+            return str;
+        }
+
+        setInterval(function () {
+            $("#time_now").html(current)
+        }, 1000);
+
+        var dateFrom = new Date(2015, 9, 12);
+        var dateTo = new Date();
+        var diff = dateTo.valueOf() - dateFrom.valueOf();
+        var diff_day = parseInt(diff / (1000 * 60 * 60 * 24));
+        $("#day_count").html(diff_day);
+    })();
+</script>
+<a href="https://github.com/houko/blog"><img style="position: fixed; top: 0;left: 0;" width="140" height="140" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_gray_6d6d6d.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 36;
+                var randomIndex = Math.ceil(Math.random() * backgroundnum);
+                var result = randomIndex+".jpg?version="+(new Date()/1000);
+                var backgroundimg = "url(https://image.xiaomo.info/background/bg-number)".replace(/number/gi,result);
+//                console.info("加载图片"+backgroundimg);
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover","background-color":"rgba(255,255,255,0.5)","background-blend-mode":"lighten"});
+            }
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80824007-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+<script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1626811730142')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body>
+</html>

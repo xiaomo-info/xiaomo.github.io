@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><link rel=manifest href=/manifest.json><meta name="generator" content="Hexo 3.9.0"><link rel="manifest" href="/manifest.json">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="小莫">
+<meta name="baidu-site-verification" content="qp2dTXVqvj">
+
+
+
+<meta name="keywords" content="小莫的博客, java, 日语, 动漫, 技术, unity3d, nginx, https, angular, 游戏, 服务器, tomcat, IDEA, javaweb, spring, hibernate, spring boot, 开源中国, github, linux, 主程">
+
+
+<meta name="description" content="最近做一个功能的时候需要用到消息队列，提起消息队列首先想到的就是mq系列的rabbitMQ或者rockMQ,Kafuka之类的服务。另外aws也有自己的消息队列服务SNS和SQS，今天简单记录一下SQS/SNS/Redis的用法。">
+<meta name="keywords" content="aws">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AWS SQS&#x2F;SNS&#x2F;Redis的pub&#x2F;sub用法总结">
+<meta property="og:url" content="https://blog.xiaomo.info/2020/AwsSqsUse/index.html">
+<meta property="og:site_name" content="小莫的博客-fighting(技术分享、生活随笔)">
+<meta property="og:description" content="最近做一个功能的时候需要用到消息队列，提起消息队列首先想到的就是mq系列的rabbitMQ或者rockMQ,Kafuka之类的服务。另外aws也有自己的消息队列服务SNS和SQS，今天简单记录一下SQS/SNS/Redis的用法。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-a97ab4d23db1a20da423b5bca98da5c9_180x120.jpg">
+<meta property="og:image" content="https://image.xiaomo.info//blog/sns-how-works.png">
+<meta property="og:updated_time" content="2021-07-20T20:08:26.468Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AWS SQS&#x2F;SNS&#x2F;Redis的pub&#x2F;sub用法总结">
+<meta name="twitter:description" content="最近做一个功能的时候需要用到消息队列，提起消息队列首先想到的就是mq系列的rabbitMQ或者rockMQ,Kafuka之类的服务。另外aws也有自己的消息队列服务SNS和SQS，今天简单记录一下SQS/SNS/Redis的用法。">
+<meta name="twitter:image" content="https://pic2.zhimg.com/v2-a97ab4d23db1a20da423b5bca98da5c9_180x120.jpg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternative" href="/atom.xml" title="小莫的博客-fighting(技术分享、生活随笔)" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="//image.xiaomo.info/logo/avatar.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/green/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>AWS SQS/SNS/Redis的pub/sub用法总结 | 小莫的博客-fighting(技术分享、生活随笔)</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        open_in_new: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+</html>
+<body oncontextmenu="return false" onselectstart="return false">
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="https://blog.xiaomo.info" target="_self" class="profilepic">
+            <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">小莫</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">行百里者半九十</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" results="0" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="//xiaomo.info">回到主站</a></li>
+                        
+                            <li><a href="/tags/japan/">日本生活系列</a></li>
+                        
+                            <li><a href="/categories/summary/">年度总结系列</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about.html">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA/">IDEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK源码系列/">JDK源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OCJP/">OCJP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alime/">alime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/">aws</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doTween/">doTween</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es5/">es5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/">excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/game/">game</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/japan/">japan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/">lombok</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxt/">nuxt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/onenote/">onenote</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postman/">postman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sso/">sso</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stackoverflow/">stackoverflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/">technology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ugui/">ugui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动漫/">动漫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字体/">字体</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码系列/">源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件/">软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑苹果/">黑苹果</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">技术宅、 杭州、 夜猫子、 爱动漫、 爱日语 2015年毕业、 java开发、 web前端、 前沿技术发烧友、 生命不息折腾不止、</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">小莫</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">小莫</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">行百里者半九十</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="//xiaomo.info">回到主站</a></li>
+                
+                    <li><a href="/tags/japan/">日本生活系列</a></li>
+                
+                    <li><a href="/categories/summary/">年度总结系列</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about.html">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><style>
+    .background-cover {
+        float: left;
+        width: 400px;
+        height: 250px;
+    }
+
+    .article img {
+        margin: -1px 20px 5px -1px;
+        border-top-left-radius: 3px;
+        -webkit-border-radius-topleft: 3%;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -o-transition: all 0.5s;
+    }
+
+    /*.article img:hover{*/
+    /*transform: scale(1, 1.05);*/
+    /*-webkit-transition:all 0.5s;*/
+    /*-moz-transition:all 0.5s;*/
+    /*-o-transition:all 0.5s;*/
+    /*}*/
+</style>
+
+
+<article id="post-AwsSqsUse" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        function getPgjs() {
+            const agent = navigator.userAgent.toLowerCase()
+            let res = agent.match(/android/)
+            if (res === "android")
+                return res;
+            res = agent.match(/iphone/);
+            if (res === "iphone")
+                return "ios";
+            res = agent.match(/ipad/);
+            if (res === "ipad")
+                return "ios";
+            res = agent.match(/windows/);
+            if (res === "windows")
+                return "wp";
+            console.info('pc......')
+            return "pc";
+        }
+
+        function loadImage(id) {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                return;
+            }
+            var backgroundnum = 40;
+            var randomIndex = Math.ceil(Math.random() * backgroundnum);
+            var result = randomIndex + "?version=" + (new Date() / 1000);
+            var backgroundimg = "https://image.xiaomo.info/cover/bg-number.jpg".replace(/number/gi, randomIndex);
+            var key = "#" + id;
+            $(key).attr("src", backgroundimg);
+            $(".background-cover").show();
+        }
+
+        (function () {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                console.log(page)
+                $(".background-cover").hide();
+            }
+        })()
+    </script>
+    
+    <div class="article-meta">
+        <a href="/2020/AwsSqsUse/" class="article-date">
+      <time datetime="2020-11-01T00:00:00.000Z" itemprop="datePublished">2020-11-01</time>
+</a>
+    </div>
+    
+    <div class="article-inner">
+        
+        <input type="hidden" class="isFancy"/>
+        
+        <div class="background-cover">
+            <img class="fengmian-image" id="AwsSqsUse" src="https://image.xiaomo.info/cover/bg-5.jpg" alt="封面" onload="loadImage(this.id)"/>
+        </div>
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      AWS SQS/SNS/Redis的pub/sub用法总结
+    </h1>
+  
+
+        </header>
+        
+        <div class="article-info article-info-post">
+            
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/aws/">aws</a>
+    </div>
+
+
+            
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/aws/">aws</a></li></ul> </div>
+
+
+
+            <!-- 访问量  -->
+            <!--<span id="busuanzi_container_page_pv" style='display:none'>-->
+            <!--<span id="page-visit"><i class="fa fa-eye" style="float: left;margin-top:5px" aria-hidden="true" title="文章访问量"></i>-->
+            <!--<span id="busuanzi_value_page_pv"></span>-->
+            <!--</span>-->
+            <!--</span>-->
+
+            <div class="clearfix"></div>
+        </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+            
+            <p>最近做一个功能的时候需要用到消息队列，提起消息队列首先想到的就是mq系列的rabbitMQ或者rockMQ,Kafuka之类的服务。另外aws也有自己的消息队列服务SNS和SQS，今天简单记录一下SQS/SNS/Redis的用法。</p>
+<a id="more"></a>
+
+<h1 id="mq和kafuka对比"><a href="#mq和kafuka对比" class="headerlink" title="mq和kafuka对比"></a>mq和kafuka对比</h1><h2 id="业务场景分析"><a href="#业务场景分析" class="headerlink" title="业务场景分析"></a>业务场景分析</h2><p>kafka 适合简单业务，性能极强，用于大数据领域的实时计算以及日志采集。</p>
+<p>rocketmq 功能多，坑多，性能好， 用于大公司的业务</p>
+<p>rabbitmq 功能多，简单易用，性能较差。用于中小公司的业务</p>
+<p>activeMQ, 它是消息队列，叫做messagequeen，我们是使用在电商平台上。比如当用户商品上架的时候，它将用户的商品信息，它就是一个消息服务中间件，里面保存了参数值，就是商品上架的同时，将商品的ID信息保存到消息服务的中间件中，这是这一端，然后我到另一端，solr服务端和我的freemarker服务端都会反复不断的监听，监听activeMQ中的一些相应的参数信息，就是ID，如果找到了ID信息,那么我就会相应处理，而且activeMQ可以采用一对一模式和主题订阅模式。当引用了activeMQ的时候，它将用户的商品信息保存到消息服务中间件，然后我的另外2个，一个solr，一个freemarker这2个服务器都可以同时或者很短的时间内异步监听到ID信息，同时取出这个信息，异步的进行先相关处理，这样可以节约大量的时间，这就是为什么用,activeMQ是节省时间的。</p>
+<h3 id="社区"><a href="#社区" class="headerlink" title="社区"></a>社区</h3><p>rocketmq 社区不太活跃，文档少，相对不太成熟，需要<strong>踩坑</strong>，不过是用 java 编写。</p>
+<p>其他两个比较活跃，rabbitmq 是 erlang 编写，源码学习成本较高。</p>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p>rocketmq 和 rabbitmq 支持的功能较多，更适合业务。</p>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><p>rocketmq 自己一套接口，有学习成本。</p>
+<h3 id="延迟和性能"><a href="#延迟和性能" class="headerlink" title="延迟和性能"></a>延迟和性能</h3><p>rabbitmq 延迟低，性能差 rocketmq 一倍。kafka 最强。</p>
+<p>rabbitmq 的集群模式感觉不太合理， producer 不知道 queue 数据在哪台机器上，只能挑一台发送，broker如果发现queue数据不在当前节点上就帮你转发，这样产生一次转发的开销。</p>
+<p><a href="https://link.zhihu.com/?target=https://blog.csdn.net/yunfeng482/article/details/72856762" target="_blank" rel="noopener">Kafka、RabbitMQ、RocketMQ等消息中间件的介绍和对比_Brave Soul Blog-CSDN博客blog.csdn.net<img src="https://pic2.zhimg.com/v2-a97ab4d23db1a20da423b5bca98da5c9_180x120.jpg" alt="图标"></a></p>
+<h3 id="队列数对性能的影响"><a href="#队列数对性能的影响" class="headerlink" title="队列数对性能的影响"></a>队列数对性能的影响</h3><ul>
+<li>  kafka 单台机器 队列数量大于 64的时候，负载大幅增加。</li>
+<li>  rabbitmq 的集群模式下，会在所有集群节点中同步队列的元信息。有一定的开销，也意味着队列数不宜过多。</li>
+<li>  rocketmq 单台机器撑住五万的队列，由于有专门的namesrv节点存储元信息。所以集群能够存储很多很多队列。</li>
+</ul>
+<p>kafka 表现最差，但是得益于性能高，还是适用于队列数少，数据量大的场景。</p>
+<h3 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h3><p>rocketmq 可以很容易实现消息有序性。</p>
+<p>rabbitmq 很麻烦</p>
+<p>kafka 不清楚。</p>
+<h3 id="支持事务"><a href="#支持事务" class="headerlink" title="支持事务"></a>支持事务</h3><p>mq 支持这个功能不是刚需，有别的办法可以实现类似事务的效果。</p>
+<h1 id="SQS是什么"><a href="#SQS是什么" class="headerlink" title="SQS是什么"></a>SQS是什么</h1><p>SQS(Simple Queue Service)提供高吞吐量的系统到系统消息收发队列。您可以使用队列来解耦高开销流程，并实现作业的缓冲和批处理。Amazon SQS 会在微服务和无服务器应用程序完成处理前一直存储消息。</p>
+<h1 id="SQS作用"><a href="#SQS作用" class="headerlink" title="SQS作用"></a>SQS作用</h1><h3 id="高度可扩展的标准队列和-FIFO-队列"><a href="#高度可扩展的标准队列和-FIFO-队列" class="headerlink" title="高度可扩展的标准队列和 FIFO 队列"></a>高度可扩展的标准队列和 FIFO 队列</h3><p>队列可根据应用程序的需要弹性扩展。标准队列提供几乎无限的吞吐量，每个队列的消息数量也无限制。FIFO 队列按先进先出原则传送消息，并确保仅处理一次。</p>
+<h3 id="持久性和可用性"><a href="#持久性和可用性" class="headerlink" title="持久性和可用性"></a>持久性和可用性</h3><p>在多个服务器上分布队列。冗余基础设施确保了对消息的高度并发访问。</p>
+<h3 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h3><p>保护传输中的数据和静态数据。通过加密队列传输敏感数据。在 Virtual Private Cloud 中发送消息。    </p>
+<h3 id="批处理"><a href="#批处理" class="headerlink" title="批处理"></a>批处理</h3><p>批量发送、接收或删除消息，每批最多 10 条消息或 256KB。</p>
+<h1 id="SQS用法"><a href="#SQS用法" class="headerlink" title="SQS用法"></a>SQS用法</h1><p>spring 读取配置文件</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> com.amazonaws.regions.Regions;</span><br><span class="line"><span class="keyword">import</span> javax.validation.constraints.NotBlank;</span><br><span class="line"><span class="keyword">import</span> javax.validation.constraints.NotNull;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.validation.annotation.Validated;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Validated</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(<span class="string">"aws.credentials"</span>)</span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AwsCredentialsProperties</span> </span>&#123;</span><br><span class="line">    <span class="meta">@NotBlank</span> <span class="keyword">private</span> String accessKey;</span><br><span class="line">    <span class="meta">@NotBlank</span> <span class="keyword">private</span> String secretKey;</span><br><span class="line">    <span class="meta">@NotNull</span> <span class="keyword">private</span> Regions region;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>设置用于开发的 AWS 凭证和区域 将读取到的配置文件填入snsClient中，注入一个bean</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> info.xiamo.property.AwsCredentialsProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> software.amazon.awssdk.auth.credentials.AwsBasicCredentials;</span><br><span class="line"><span class="keyword">import</span> software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;</span><br><span class="line"><span class="keyword">import</span> software.amazon.awssdk.regions.Region;</span><br><span class="line"><span class="keyword">import</span> software.amazon.awssdk.services.sns.SnsClient;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AwsSnsConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SnsClient <span class="title">sqsClient</span><span class="params">(AwsCredentialsProperties awsCredentialsProperties)</span> </span>&#123;</span><br><span class="line">        AwsBasicCredentials credentials =</span><br><span class="line">                AwsBasicCredentials.create(</span><br><span class="line">                        awsCredentialsProperties.getAccessKey(),</span><br><span class="line">                        awsCredentialsProperties.getSecretKey());</span><br><span class="line"></span><br><span class="line">        StaticCredentialsProvider credentialsProvider =</span><br><span class="line">                StaticCredentialsProvider.create(credentials);</span><br><span class="line"></span><br><span class="line">        String name = awsCredentialsProperties.getRegion().name();</span><br><span class="line">        <span class="keyword">return</span> SnsClient.builder()</span><br><span class="line">                .region(Region.of(name))</span><br><span class="line">                .credentialsProvider(credentialsProvider)</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> info.xiaomo.property.AwsCredentialsProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> software.amazon.awssdk.auth.credentials.AwsBasicCredentials;</span><br><span class="line"><span class="keyword">import</span> software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;</span><br><span class="line"><span class="keyword">import</span> software.amazon.awssdk.regions.Region;</span><br><span class="line"><span class="keyword">import</span> software.amazon.awssdk.services.sqs.SqsClient;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AwsSqsConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SqsClient <span class="title">sqsClient</span><span class="params">(AwsCredentialsProperties awsCredentialsProperties)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SqsClient.builder()</span><br><span class="line">            .region(Region.of(awsCredentialsProperties.getRegion().getName()))</span><br><span class="line">                .credentialsProvider(</span><br><span class="line">                        StaticCredentialsProvider.create(</span><br><span class="line">                                AwsBasicCredentials.create(</span><br><span class="line">                                        awsCredentialsProperties.getAccessKey(),</span><br><span class="line">                                        awsCredentialsProperties.getSecretKey())))</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.AllArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> lombok.NoArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"><span class="keyword">import</span> org.w3c.dom.Document;</span><br><span class="line"><span class="keyword">import</span> org.w3c.dom.Element;</span><br><span class="line"><span class="keyword">import</span> software.amazon.awssdk.services.sqs.SqsClient;</span><br><span class="line"><span class="keyword">import</span> software.amazon.awssdk.services.sqs.model.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.xml.parsers.DocumentBuilder;</span><br><span class="line"><span class="keyword">import</span> javax.xml.parsers.DocumentBuilderFactory;</span><br><span class="line"><span class="keyword">import</span> javax.xml.parsers.ParserConfigurationException;</span><br><span class="line"><span class="keyword">import</span> javax.xml.transform.Transformer;</span><br><span class="line"><span class="keyword">import</span> javax.xml.transform.TransformerException;</span><br><span class="line"><span class="keyword">import</span> javax.xml.transform.TransformerFactory;</span><br><span class="line"><span class="keyword">import</span> javax.xml.transform.dom.DOMSource;</span><br><span class="line"><span class="keyword">import</span> javax.xml.transform.stream.StreamResult;</span><br><span class="line"><span class="keyword">import</span> java.io.StringWriter;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AwsSqsClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String QUEUE_NAME = <span class="string">"clearCacheQueue"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SqsClient sqsClient;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 清除消息队列 */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">purgeMyQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        GetQueueUrlRequest getQueueRequest =</span><br><span class="line">                GetQueueUrlRequest.builder().queueName(QUEUE_NAME).build();</span><br><span class="line"></span><br><span class="line">        PurgeQueueRequest queueRequest =</span><br><span class="line">                PurgeQueueRequest.builder()</span><br><span class="line">                        .queueUrl(sqsClient.getQueueUrl(getQueueRequest).queueUrl())</span><br><span class="line">                        .build();</span><br><span class="line"></span><br><span class="line">        sqsClient.purgeQueue(queueRequest);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取消息</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> String</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getMessages</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;String&gt; attr = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        attr.add(<span class="string">"Name"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line"></span><br><span class="line">            GetQueueUrlRequest getQueueRequest =</span><br><span class="line">                    GetQueueUrlRequest.builder().queueName(QUEUE_NAME).build();</span><br><span class="line"></span><br><span class="line">            String queueUrl = sqsClient.getQueueUrl(getQueueRequest).queueUrl();</span><br><span class="line"></span><br><span class="line">            ReceiveMessageRequest receiveRequest =</span><br><span class="line">                    ReceiveMessageRequest.builder()</span><br><span class="line">                            .queueUrl(queueUrl)</span><br><span class="line">                            .maxNumberOfMessages(<span class="number">10</span>)</span><br><span class="line">                            .messageAttributeNames(attr)</span><br><span class="line">                            .build();</span><br><span class="line">            List&lt;Message&gt; messages = sqsClient.receiveMessage(receiveRequest).messages();</span><br><span class="line"></span><br><span class="line">            SqsMessage myMessage;</span><br><span class="line"></span><br><span class="line">            List&lt;SqsMessage&gt; allMessages = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (Message m : messages) &#123;</span><br><span class="line"></span><br><span class="line">                myMessage = <span class="keyword">new</span> SqsMessage();</span><br><span class="line">                myMessage.setBody(m.body());</span><br><span class="line"></span><br><span class="line">                Map&lt;String, MessageAttributeValue&gt; map = m.messageAttributes();</span><br><span class="line">                MessageAttributeValue val = map.get(<span class="string">"Name"</span>);</span><br><span class="line">                myMessage.setName(val.stringValue());</span><br><span class="line"></span><br><span class="line">                allMessages.add(myMessage);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> convertToString(toXml(allMessages));</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (SqsException e) &#123;</span><br><span class="line">            e.getStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">processMessage</span><span class="params">(SqsMessage msg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            MessageAttributeValue attributeValue =</span><br><span class="line">                    MessageAttributeValue.builder()</span><br><span class="line">                            .stringValue(msg.getName())</span><br><span class="line">                            .dataType(<span class="string">"String"</span>)</span><br><span class="line">                            .build();</span><br><span class="line"></span><br><span class="line">            Map&lt;String, MessageAttributeValue&gt; myMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">            myMap.put(<span class="string">"Name"</span>, attributeValue);</span><br><span class="line"></span><br><span class="line">            GetQueueUrlRequest getQueueRequest =</span><br><span class="line">                    GetQueueUrlRequest.builder().queueName(QUEUE_NAME).build();</span><br><span class="line"></span><br><span class="line">            String queueUrl = sqsClient.getQueueUrl(getQueueRequest).queueUrl();</span><br><span class="line"></span><br><span class="line">            UUID uuid = UUID.randomUUID();</span><br><span class="line">            String msgId1 = uuid.toString();</span><br><span class="line"></span><br><span class="line">            SendMessageRequest sendMsgRequest =</span><br><span class="line">                    SendMessageRequest.builder()</span><br><span class="line">                            .queueUrl(queueUrl)</span><br><span class="line">                            .messageAttributes(myMap)</span><br><span class="line">                            .messageGroupId(<span class="string">"GroupA"</span>)</span><br><span class="line">                            .messageDeduplicationId(msgId1)</span><br><span class="line">                            .messageBody(msg.getBody())</span><br><span class="line">                            .build();</span><br><span class="line">            sqsClient.sendMessage(sendMsgRequest);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (SqsException e) &#123;</span><br><span class="line">            e.getStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Document <span class="title">toXml</span><span class="params">(List&lt;SqsMessage&gt; itemList)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span><br><span class="line">            DocumentBuilder builder = factory.newDocumentBuilder();</span><br><span class="line">            Document doc = builder.newDocument();</span><br><span class="line"></span><br><span class="line">            Element root = doc.createElement(<span class="string">"Messages"</span>);</span><br><span class="line">            doc.appendChild(root);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (SqsMessage myMessage : itemList) &#123;</span><br><span class="line"></span><br><span class="line">                Element item = doc.createElement(<span class="string">"Message"</span>);</span><br><span class="line">                root.appendChild(item);</span><br><span class="line"></span><br><span class="line">                Element id = doc.createElement(<span class="string">"Data"</span>);</span><br><span class="line">                id.appendChild(doc.createTextNode(myMessage.getBody()));</span><br><span class="line">                item.appendChild(id);</span><br><span class="line"></span><br><span class="line">                Element name = doc.createElement(<span class="string">"User"</span>);</span><br><span class="line">                name.appendChild(doc.createTextNode(myMessage.getName()));</span><br><span class="line">                item.appendChild(name);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> doc;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ParserConfigurationException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">convertToString</span><span class="params">(Document xml)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Transformer transformer = TransformerFactory.newInstance().newTransformer();</span><br><span class="line">            StreamResult result = <span class="keyword">new</span> StreamResult(<span class="keyword">new</span> StringWriter());</span><br><span class="line">            DOMSource source = <span class="keyword">new</span> DOMSource(xml);</span><br><span class="line">            transformer.transform(source, result);</span><br><span class="line">            <span class="keyword">return</span> result.getWriter().toString();</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (TransformerException ex) &#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Data</span></span><br><span class="line">    <span class="meta">@AllArgsConstructor</span></span><br><span class="line">    <span class="meta">@NoArgsConstructor</span></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SqsMessage</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> String id;</span><br><span class="line">        <span class="keyword">private</span> String body;</span><br><span class="line">        <span class="keyword">private</span> String name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="SNS-是什么"><a href="#SNS-是什么" class="headerlink" title="SNS 是什么"></a>SNS 是什么</h1><p>SNS(Simple Notification Service)是发布/订阅主题的消息托管消息收发服务，可让您将发布者与订阅者分离。这对于用于微服务、分布式架构和无服务器应用程序的系统到系统消息收发很有用。</p>
+<p><img src="https://image.xiaomo.info//blog/sns-how-works.png" alt="sns-how-works"></p>
+<h1 id="SNS作用"><a href="#SNS作用" class="headerlink" title="SNS作用"></a>SNS作用</h1><p>Amazon SNS 可让您将推送通知发送到移动应用程序，将文本消息发送到电话号码，并将纯文本电子邮件发送到电子邮件地址。您可以通过主题来散发消息，或直接将消息发布到移动终端节点。</p>
+<h1 id="SQS-VS-SNS-区别"><a href="#SQS-VS-SNS-区别" class="headerlink" title="SQS VS SNS 区别"></a>SQS VS SNS 区别</h1><p>Amazon SQS 和 Amazon SNS 都是 AWS 中的消息发送服务，但为开发人员提供了不同的优势。Amazon SNS 允许应用程序通过“推送”机制向多个订阅者发送时间关键型消息，并且无需定期检查或“轮询”更新。Amazon SQS 是供分布式应用程序使用的消息队列服务，它通过轮询模式交换消息，可用于解耦收发组件。Amazon SQS 使应用程序的分布式组件可以灵活地收发消息，并且不要求每个组件同时可用。</p>
+<p>SNS重点在推送，需要接收组件同时可用</p>
+<p>SQS更多是一个消息队列服务，需要使用组件通过轮询模式交换消息，不要求每个组件同时可用</p>
+<h1 id="SNS用法"><a href="#SNS用法" class="headerlink" title="SNS用法"></a>SNS用法</h1><p><a href="https://docs.aws.amazon.com/zh_cn/sns/latest/dg/sns-dg.pdf#welcome" target="_blank" rel="noopener">pdf文档</a></p>
+<h2 id="sns-命令行"><a href="#sns-命令行" class="headerlink" title="sns 命令行"></a>sns 命令行</h2><p>您可以使用 AWS Command Line Interface (AWS CLI) 访问 Amazon Simple Notification Service (Amazon SNS) 的功能。要列出 Amazon SNS 的 AWS CLI 命令，请使用以下命令。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">aws sns <span class="built_in">help</span></span><br></pre></td></tr></table></figure>
+
+<p>在运行任何命令之前，请设置默认证书。有关更多信息，请参阅 <a href="https://docs.aws.amazon.com/zh_cn/cli/latest/userguide/cli-chap-configure.html" target="_blank" rel="noopener">配置 AWS CLI</a>。</p>
+<p>本主题显示执行 Amazon SNS 常见任务的 CLI 命令。</p>
+<p><strong>主题</strong></p>
+<ul>
+<li>  <a href="https://docs.aws.amazon.com/zh_cn/cli/latest/userguide/cli-services-sns.html#cli-create-sns-topic" target="_blank" rel="noopener">创建主题</a></li>
+<li>  <a href="https://docs.aws.amazon.com/zh_cn/cli/latest/userguide/cli-services-sns.html#cli-subscribe-sns-topic" target="_blank" rel="noopener">订阅主题</a></li>
+<li>  <a href="https://docs.aws.amazon.com/zh_cn/cli/latest/userguide/cli-services-sns.html#cli-publish-sns-topic" target="_blank" rel="noopener">向主题发布</a></li>
+<li>  <a href="https://docs.aws.amazon.com/zh_cn/cli/latest/userguide/cli-services-sns.html#cli-unsubscribe-sns-topic" target="_blank" rel="noopener">取消订阅主题</a></li>
+<li>  <a href="https://docs.aws.amazon.com/zh_cn/cli/latest/userguide/cli-services-sns.html#cli-delete-sns-topic" target="_blank" rel="noopener">删除主题</a></li>
+</ul>
+<h2 id="创建主题"><a href="#创建主题" class="headerlink" title="创建主题"></a>创建主题</h2><p>要创建主题，请使用 <a href="https://docs.aws.amazon.com/cli/latest/reference/sns/create-topic.html" target="_blank" rel="noopener"><code>create-topic</code></a> 命令并指定要分配给该主题的名称。</p>
+<figure class="highlight dsconfig"><table><tr><td class="code"><pre><span class="line">$ <span class="string">aws </span><span class="string">sns </span><span class="built_in">create-topic</span> <span class="built_in">--name</span> <span class="string">my-topic</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line">    <span class="string">"TopicArn"</span>: <span class="string">"arn:aws:sns:us-west-2:123456789012:my-topic"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>记下响应的 <code>TopicArn</code>，您随后将用它来发布消息。</p>
+<h2 id="订阅主题"><a href="#订阅主题" class="headerlink" title="订阅主题"></a>订阅主题</h2><p>要订阅主题，请使用 <a href="https://docs.aws.amazon.com/cli/latest/reference/sns/subscribe.html" target="_blank" rel="noopener"><code>subscribe</code></a> 命令。</p>
+<p>以下示例为 <code>notification-endpoint</code> 指定 <code>email</code> 协议和电子邮件地址。</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>aws sns subscribe --topic-arn <span class="symbol">arn:</span><span class="symbol">aws:</span><span class="symbol">sns:</span>us-west<span class="number">-2:123456789012</span><span class="symbol">:my-topic</span> --protocol email --notification-endpoint saanvi<span class="variable">@example</span>.com</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"SubscriptionArn"</span>: <span class="string">"pending confirmation"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>AWS 通过向您在 <code>subscribe</code> 命令中指定的地址发送电子邮件，立即发送确认电子邮件。电子邮件具有以下文本。</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">You have chosen to subscribe to the <span class="string">topic:</span></span><br><span class="line"><span class="string">arn:</span><span class="string">aws:</span><span class="string">sns:</span>us-west<span class="number">-2</span>:<span class="number">123456789012</span>:my-topic</span><br><span class="line">To confirm <span class="keyword">this</span> subscription, click or visit the following link (If <span class="keyword">this</span> was <span class="keyword">in</span> error no action is necessary):</span><br><span class="line">Confirm subscription</span><br></pre></td></tr></table></figure>
+
+<p>收件人单击<strong>确认订阅</strong>链接后，收件人的浏览器显示通知消息，信息类似于以下内容。</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">Subscription confirmed!</span><br><span class="line"></span><br><span class="line">You have subscribed saanvi@example.com <span class="keyword">to</span> <span class="keyword">the</span> topic:<span class="keyword">my</span>-topic.</span><br><span class="line"></span><br><span class="line">Your subscription's <span class="built_in">id</span> <span class="keyword">is</span>:</span><br><span class="line">arn:aws:sns:us-west<span class="number">-2</span>:<span class="number">123456789012</span>:<span class="keyword">my</span>-topic:<span class="number">1328</span>f057-de93<span class="number">-4</span>c15<span class="number">-512e-8</span>bb22EXAMPLE</span><br><span class="line"></span><br><span class="line">If <span class="keyword">it</span> was <span class="keyword">not</span> your intention <span class="keyword">to</span> subscribe, click here <span class="keyword">to</span> unsubscribe.</span><br></pre></td></tr></table></figure>
+
+<h2 id="向主题发布"><a href="#向主题发布" class="headerlink" title="向主题发布"></a>向主题发布</h2><p>要将消息发送给某一主题的所有订阅者，请使用 <a href="https://docs.aws.amazon.com/cli/latest/reference/sns/publish.html" target="_blank" rel="noopener">publish</a> 命令。</p>
+<p>以下示例向指定主题的所有订阅者发送消息“Hello World!”。</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>aws sns publish --topic-arn <span class="symbol">arn:</span><span class="symbol">aws:</span><span class="symbol">sns:</span>us-west<span class="number">-2:123456789012</span><span class="symbol">:my-topic</span> --message <span class="string">"Hello World!"</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"MessageId"</span>: <span class="string">"4e41661d-5eec-5ddf-8dab-2c867EXAMPLE"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在本示例中，AWS 将包含文本“Hello World!”的电子邮件发送到 <code>saanvi@example.com</code>。</p>
+<h2 id="取消订阅主题"><a href="#取消订阅主题" class="headerlink" title="取消订阅主题"></a>取消订阅主题</h2><p>要取消订阅某个主题并停止接收向该主题发布的消息，请使用 <a href="https://docs.aws.amazon.com/cli/latest/reference/sns/unsubscribe.html" target="_blank" rel="noopener">unsubscribe</a> 命令并指定您要取消订阅的主题的 ARN。</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>aws sns unsubscribe --subscription-arn <span class="symbol">arn:</span><span class="symbol">aws:</span><span class="symbol">sns:</span>us-west<span class="number">-2:123456789012</span><span class="symbol">:my-topic</span><span class="symbol">:</span><span class="number">1328f057</span>-de93<span class="number">-4c15</span><span class="number">-512</span>e<span class="number">-8</span>bb22EXAMPLE</span><br></pre></td></tr></table></figure>
+
+<p>要验证您已成功取消订阅，请使用 <a href="https://docs.aws.amazon.com/cli/latest/reference/sns/list-subscriptions.html" target="_blank" rel="noopener">list-subscriptions</a> 命令以确认该 ARN 不再显示在列表中。</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">$ aws sns <span class="built_in">list</span>-subscriptions</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除主题"><a href="#删除主题" class="headerlink" title="删除主题"></a>删除主题</h2><p>要删除主题，请运行 <a href="https://docs.aws.amazon.com/cli/latest/reference/sns/delete-topic.html" target="_blank" rel="noopener">delete-topic</a> 命令。</p>
+<figure class="highlight dsconfig"><table><tr><td class="code"><pre><span class="line">$ <span class="string">aws </span><span class="string">sns </span><span class="built_in">delete-topic</span> <span class="built_in">--topic-arn</span> <span class="string">arn:aws:</span><span class="string">sns:us-</span><span class="string">west-2:123456789012:</span><span class="string">my-topic</span></span><br></pre></td></tr></table></figure>
+
+<p>要验证 AWS 已成功删除主题，请使用 <a href="https://docs.aws.amazon.com/cli/latest/reference/sns/list-topics.html" target="_blank" rel="noopener">list-topics</a> 命令以确认该主题不再显示在列表中。</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">$ aws sns <span class="built_in">list</span>-topics</span><br></pre></td></tr></table></figure>
+
+<h2 id="java集成SNS-警告触发"><a href="#java集成SNS-警告触发" class="headerlink" title="java集成SNS(警告触发)"></a>java集成SNS(警告触发)</h2><p>gradle</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">implementation (<span class="string">"software.amazon.awssdk:sns:2.15.19"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>maven</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/software.amazon.awssdk/sns --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>software.amazon.awssdk<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sns<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.15.19<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>yaml配置文件</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">//</span> <span class="string">application.yml</span> <span class="string">配置文件</span></span><br><span class="line"><span class="attr">aws:</span></span><br><span class="line">  <span class="attr">credentials:</span></span><br><span class="line">    <span class="attr">region:</span> <span class="string">ap_northeast_1</span></span><br><span class="line">    <span class="attr">accessKey:</span> <span class="string">your</span> <span class="string">accessKey</span></span><br><span class="line">    <span class="attr">secretKey:</span> <span class="string">you</span> <span class="string">secretKey</span></span><br></pre></td></tr></table></figure>
+
+<p>spring 读取配置文件</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> com.amazonaws.regions.Regions;</span><br><span class="line"><span class="keyword">import</span> javax.validation.constraints.NotBlank;</span><br><span class="line"><span class="keyword">import</span> javax.validation.constraints.NotNull;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.validation.annotation.Validated;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Validated</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(<span class="string">"aws.credentials"</span>)</span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AwsCredentialsProperties</span> </span>&#123;</span><br><span class="line">    <span class="meta">@NotBlank</span> <span class="keyword">private</span> String accessKey;</span><br><span class="line">    <span class="meta">@NotBlank</span> <span class="keyword">private</span> String secretKey;</span><br><span class="line">    <span class="meta">@NotNull</span> <span class="keyword">private</span> Regions region;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>设置用于开发的 AWS 凭证和区域 将读取到的配置文件填入snsClient中，注入一个bean</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> info.xiamo.property.AwsCredentialsProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> software.amazon.awssdk.auth.credentials.AwsBasicCredentials;</span><br><span class="line"><span class="keyword">import</span> software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;</span><br><span class="line"><span class="keyword">import</span> software.amazon.awssdk.regions.Region;</span><br><span class="line"><span class="keyword">import</span> software.amazon.awssdk.services.sns.SnsClient;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AwsSnsConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SnsClient <span class="title">snsClient</span><span class="params">(AwsCredentialsProperties awsCredentialsProperties)</span> </span>&#123;</span><br><span class="line">        AwsBasicCredentials credentials =</span><br><span class="line">                AwsBasicCredentials.create(</span><br><span class="line">                        awsCredentialsProperties.getAccessKey(),</span><br><span class="line">                        awsCredentialsProperties.getSecretKey());</span><br><span class="line"></span><br><span class="line">        StaticCredentialsProvider credentialsProvider =</span><br><span class="line">                StaticCredentialsProvider.create(credentials);</span><br><span class="line"></span><br><span class="line">        String name = awsCredentialsProperties.getRegion().getName();</span><br><span class="line">        <span class="keyword">return</span> SnsClient.builder()</span><br><span class="line">                .region(Region.of(name))</span><br><span class="line">                .credentialsProvider(credentialsProvider)</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用注册好的SnsClient调用api</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"><span class="keyword">import</span> software.amazon.awssdk.services.sns.SnsClient;</span><br><span class="line"><span class="keyword">import</span> software.amazon.awssdk.services.sns.model.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AwsSnsClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span> <span class="keyword">private</span> SnsClient snsClient;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建主题</span></span><br><span class="line">  	<span class="comment">//主题是通信通道的逻辑分组，可定义要将消息发送到的系统，例如，将消息发送到 AWS Lambda 和 HTTP Webhook。将消息发送到 Amazon SNS 之后，这些消息将分发到主题中定义的各个通道。这将使订阅者能够收到这些消息。要创建主题，请先构建一个 CreateTopicRequest 对象，并使用构建器中的 name() 方法设置主题的名称。然后，使用 SnsClient 的 createTopic() 方法将请求对象发送到 Amazon SNS。可以将此请求的结果作为 CreateTopicResponse 对象捕获，如以下代码段中所示。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">createSNSTopic</span><span class="params">(String topicName)</span> </span>&#123;</span><br><span class="line">        CreateTopicResponse result;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            CreateTopicRequest request = CreateTopicRequest.builder().name(topicName).build();</span><br><span class="line"></span><br><span class="line">            result = snsClient.createTopic(request);</span><br><span class="line">            <span class="keyword">return</span> result.topicArn();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SnsException e) &#123;</span><br><span class="line">            log.error(<span class="string">"create sns topic error:&#123;&#125;"</span>, e.awsErrorDetails().errorMessage());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 删除主题</span></span><br><span class="line">   <span class="comment">// 要删除 Amazon SNS 主题，请先构建一个 DeleteTopicRequest 对象，并将主题的 ARN 设置为构建器中的 topicArn() 方法。然后，使用 SnsClient 的 deleteTopic() 方法将请求对象发送到 Amazon SNS。可以将此请求的结果作为 DeleteTopicResponse 对象捕获，如以下代码段中所示。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DeleteTopicResponse <span class="title">deleteSNSTopic</span><span class="params">(String topicArn)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            DeleteTopicRequest request = DeleteTopicRequest.builder().topicArn(topicArn).build();</span><br><span class="line"></span><br><span class="line">            DeleteTopicResponse result = snsClient.deleteTopic(request);</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (SnsException e) &#123;</span><br><span class="line">            log.error(<span class="string">"delete sns topic error:&#123;&#125;"</span>, e.awsErrorDetails().errorMessage());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, String&gt; <span class="title">getSNSAttributes</span><span class="params">(String topicArn)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            GetSubscriptionAttributesRequest request =</span><br><span class="line">                    GetSubscriptionAttributesRequest.builder().subscriptionArn(topicArn).build();</span><br><span class="line"></span><br><span class="line">            GetSubscriptionAttributesResponse res = snsClient.getSubscriptionAttributes(request);</span><br><span class="line">            <span class="keyword">return</span> res.attributes();</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (SnsException e) &#123;</span><br><span class="line">            log.error(<span class="string">"get sns attribute error:&#123;&#125;"</span>, e.awsErrorDetails().errorMessage());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 获取sns属性</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, String&gt; <span class="title">getSNSTopicAttributes</span><span class="params">(String topicArn)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            GetTopicAttributesRequest request =</span><br><span class="line">                    GetTopicAttributesRequest.builder().topicArn(topicArn).build();</span><br><span class="line"></span><br><span class="line">            GetTopicAttributesResponse result = snsClient.getTopicAttributes(request);</span><br><span class="line">            <span class="keyword">return</span> result.attributes();</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (SnsException e) &#123;</span><br><span class="line">            log.error(<span class="string">"get sns topic attributes error:&#123;&#125;"</span>, e.awsErrorDetails().errorMessage());</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Subscription&gt; <span class="title">listSNSSubscriptions</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ListSubscriptionsRequest request = ListSubscriptionsRequest.builder().build();</span><br><span class="line">            ListSubscriptionsResponse result = snsClient.listSubscriptions(request);</span><br><span class="line">            <span class="keyword">return</span> result.subscriptions();</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (SnsException e) &#123;</span><br><span class="line">            log.error(<span class="string">"list sns subscriptions error:&#123;&#125;"</span>, e.awsErrorDetails().errorMessage());</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  	<span class="comment">// 展示主题列表</span></span><br><span class="line">  	<span class="comment">// 要检索现有 Amazon SNS 主题的列表，请构建一个 ListTopicsRequest 对象。然后，使用 SnsClient 的 listTopics() 方法将请求对象发送到 Amazon SNS。可以将此请求的结果作为 ListTopicsResponse 对象捕获。以下代码段输出请求的 HTTP 状态代码以及您的 Amazon SNS 主题的 Amazon 资源名称 (ARN) 列表。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Topic&gt; <span class="title">listSNSTopics</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ListTopicsRequest request = ListTopicsRequest.builder().build();</span><br><span class="line"></span><br><span class="line">            ListTopicsResponse result = snsClient.listTopics(request);</span><br><span class="line">            log.info(</span><br><span class="line">                    <span class="string">"Status was &#123;&#125; Topics :&#123;&#125;"</span>,</span><br><span class="line">                    result.sdkHttpResponse().statusCode(),</span><br><span class="line">                    result.topics());</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> result.topics();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SnsException e) &#123;</span><br><span class="line">            log.error(<span class="string">"list sns topics error: &#123;&#125;"</span>, e.awsErrorDetails().errorMessage());</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"> 		<span class="comment">// 发布消息</span></span><br><span class="line">  	<span class="comment">// 如果您拥有一个主题并且已为该主题配置一个或多个终端节点，则可向该主题发布消息。首先，请构建一个 PublishRequest 对象。指定要发送的 message()，并指定要将消息发送到的主题的 ARN (topicArn())。然后，使用 SnsClient 的 publish() 方法将请求对象发送到 Amazon SNS。可以将此请求的结果作为 PublishResponse 对象捕获。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> PublishResponse <span class="title">publishTopic</span><span class="params">(String message, String topicArn)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            PublishRequest request =</span><br><span class="line">                    PublishRequest.builder().message(message).topicArn(topicArn).build();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> snsClient.publish(request);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (SnsException e) &#123;</span><br><span class="line">            log.error(<span class="string">"public topic error:&#123;&#125;"</span>, e.awsErrorDetails().errorMessage());</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 订阅https</span></span><br><span class="line">  <span class="comment">// 创建主题后，您可以配置将哪些通信通道作为该主题的终端节点。在 Amazon SNS 收到消息后，消息将分发给这些终端节点。要将通信通道配置为主题的终端节点，请为该终端节点订阅主题。首先，请构建一个 SubscribeRequest 对象。将通信通道（例如，lambda 或 email）指定为 protocol()。将 endpoint() 设置为相关输出位置（例如，Lambda 函数的 ARN 或电子邮件地址），然后将要订阅的主题的 ARN 设置为 topicArn()。然后，使用 SnsClient 的 subscribe() 方法将请求对象发送到 SNS。可以将此请求的结果作为 SubscribeResponse 对象捕获。</span></span><br><span class="line"></span><br><span class="line">以下代码段说明如何为电子邮件地址订阅主题。</span><br><span class="line">    <span class="function"><span class="keyword">public</span> SubscribeResponse <span class="title">subscribeHttps</span><span class="params">(String topicArn, String url)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            SubscribeRequest request =</span><br><span class="line">                    SubscribeRequest.builder()</span><br><span class="line">                            .protocol(<span class="string">"https"</span>)</span><br><span class="line">                            .endpoint(url)</span><br><span class="line">                            .returnSubscriptionArn(<span class="keyword">true</span>)</span><br><span class="line">                            .topicArn(topicArn)</span><br><span class="line">                            .build();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> snsClient.subscribe(request);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (SnsException e) &#123;</span><br><span class="line">            log.error(<span class="string">"subscribe https error:&#123;&#125;"</span>, e.awsErrorDetails().errorMessage());</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 取消订阅</span></span><br><span class="line">    <span class="comment">// 可以删除配置为主题的终端节点的通信通道。执行此操作后，主题本身将继续存在，并会将消息分发到为该主题配置的任何其他终端节点。要删除作为主题的终端节点的通信通道，请为该终端节点取消订阅主题。首先，请构建一个 UnsubscribeRequest 对象，并将要取消订阅的主题的 ARN 设置为 subscriptionArn()。然后，使用 SnsClient 的 unsubscribe() 方法将请求对象发送到 SNS。可以将此请求的结果作为 UnsubscribeResponse 对象捕获。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> UnsubscribeResponse <span class="title">unSubscription</span><span class="params">(String subscriptionToken)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            UnsubscribeRequest request =</span><br><span class="line">                    UnsubscribeRequest.builder().subscriptionArn(subscriptionToken).build();</span><br><span class="line">            <span class="keyword">return</span> snsClient.unsubscribe(request);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SnsException e) &#123;</span><br><span class="line">            log.error(<span class="string">"unSubscription error:&#123;&#125;"</span>, e.awsErrorDetails().errorMessage());</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在controller中注入并测试</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> info.xiaomo.client.AwsSnsClient;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PathVariable;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"><span class="keyword">import</span> software.amazon.awssdk.services.sns.model.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/api/v1/sns"</span>)</span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SnsController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TOPIC_NAME = <span class="string">"clear-cache"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span> <span class="keyword">private</span> AwsSnsClient awsSnsClient;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查询所有的主题</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 主题列表</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/listSNSTopics"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Topic&gt; <span class="title">listSNSTopics</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> awsSnsClient.listSNSTopics();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查询所有的订阅</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 订阅列表</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/listSnsSubscriptions"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Subscription&gt; <span class="title">listSnsSubscriptions</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> awsSnsClient.listSNSSubscriptions();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建主题</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> CreateTopicResponse</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/createSnsTopic"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> CreateTopicResponse <span class="title">createSnsTopic</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> awsSnsClient.createSNSTopic(TOPIC_NAME);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除主题</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 删除结果</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/deleteSnsTopic"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">deleteSnsTopic</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        DeleteTopicResponse deleteTopicResponse = awsSnsClient.deleteSNSTopic(TOPIC_NAME);</span><br><span class="line">        <span class="keyword">return</span> deleteTopicResponse.sdkHttpResponse().isSuccessful();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发布主题 如果您拥有一个主题并且已为该主题配置一个或多个终端节点，则可向该主题发布消息。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> message message</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> message</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/publishTopic"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> PublishResponse <span class="title">publishTopic</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> awsSnsClient.publishTopic(message, TOPIC_NAME);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订阅 创建主题后，您可以配置将哪些通信通道作为该主题的终端节点。在 Amazon SNS 收到消息后，消息将分发给这些终端节点。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> url url</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> SubscribeResponse</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/subscribe/&#123;url&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> SubscribeResponse <span class="title">subscribe</span><span class="params">(@PathVariable String url)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> awsSnsClient.subscribeHttps(TOPIC_NAME, url);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 取消订阅</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> subscriptionToken subscriptionToken</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 是否取消成功</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/unSubscribe/&#123;subscriptionToken&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">unSubscribe</span><span class="params">(@PathVariable String subscriptionToken)</span> </span>&#123;</span><br><span class="line">        UnsubscribeResponse unsubscribeResponse = awsSnsClient.unSubscription(subscriptionToken);</span><br><span class="line">        <span class="keyword">return</span> unsubscribeResponse.sdkHttpResponse().isSuccessful();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查询所有的属性</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 属性Map</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/getSNSAttributes"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, String&gt; <span class="title">getSNSAttributes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> awsSnsClient.getSNSAttributes(TOPIC_NAME);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查询主题的属性</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 主题属性Map</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/getSNSTopicAttributes"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, String&gt; <span class="title">getSNSTopicAttributes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> awsSnsClient.getSNSTopicAttributes(TOPIC_NAME);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 测试 */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">""</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;Topic&gt; topics = awsSnsClient.listSNSTopics();</span><br><span class="line">        List&lt;Subscription&gt; subscriptions = awsSnsClient.listSNSSubscriptions();</span><br><span class="line">        System.out.println(topics);</span><br><span class="line">        System.out.println(subscriptions);</span><br><span class="line"></span><br><span class="line">        String topicName = <span class="string">"clearCacheTopic"</span>;</span><br><span class="line">        String topic = awsSnsClient.createSNSTopic(topicName).topicArn();</span><br><span class="line">        System.out.println(topic);</span><br><span class="line"></span><br><span class="line">        awsSnsClient.subscribeHttps(topicName, <span class="string">"xxx"</span>);</span><br><span class="line"></span><br><span class="line">        PublishResponse publishResponse = awsSnsClient.publishTopic(<span class="string">"hello"</span>, topicName);</span><br><span class="line">        <span class="keyword">if</span> (publishResponse != <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.println(publishResponse.messageId());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        UnsubscribeResponse unsubscribeResponse = awsSnsClient.unSubscription(<span class="string">"1123"</span>);</span><br><span class="line">        <span class="keyword">if</span> (unsubscribeResponse != <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.println(unsubscribeResponse.sdkHttpResponse().statusCode());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Map&lt;String, String&gt; clearCacheTopic = awsSnsClient.getSNSAttributes(topicName);</span><br><span class="line">        <span class="keyword">for</span> (String value : clearCacheTopic.values()) &#123;</span><br><span class="line">            System.out.println(value);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        DeleteTopicResponse deleteTopicResponse = awsSnsClient.deleteSNSTopic(topicName);</span><br><span class="line">        System.out.println(deleteTopicResponse.toString());</span><br><span class="line"></span><br><span class="line">        Map&lt;String, String&gt; attributes = awsSnsClient.getSNSTopicAttributes(topicName);</span><br><span class="line">        <span class="keyword">for</span> (String value : attributes.values()) &#123;</span><br><span class="line">            log.info(value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Amazon-ElastiCache-for-Redis"><a href="#Amazon-ElastiCache-for-Redis" class="headerlink" title="Amazon ElastiCache for Redis"></a>Amazon ElastiCache for Redis</h2><p>Amazon ElastiCache for Redis 是速度超快的内存数据存储，能够提供亚毫秒级延迟来支持 Internet 范围内的实时应用程序。适用于 Redis 的 ElastiCache 基于开源 Redis 构建，可与 Redis API 兼容，能够与 Redis 客户端配合工作，并使用开放的 Redis 数据格式来存储数据。自我管理型 Redis 应用程序可与适用于 Redis 的 ElastiCache 无缝配合使用，无需更改任何代码。适用于 Redis 的 ElastiCache 兼具开源 Redis 的速度、简单性和多功能性与 Amazon 的可管理性、安全性和可扩展性，能够在游戏、广告技术、电子商务、医疗保健、金融服务和物联网领域支持要求最严苛的实时应用程序。支持pub/sub模式。</p>
+<h2 id="极致性能"><a href="#极致性能" class="headerlink" title="极致性能"></a>极致性能</h2><p>适用于 Redis 的 Amazon ElastiCache 可以用作内存数据存储，能够支持要求最严苛且需要亚毫秒级响应时间的应用程序。与基于磁盘的数据库（其中大多数操作都需要往返于磁盘）相比，内存数据存储可以管理数据内存，其速度比磁盘提高了一个数量级。它可以提供超快的性能，读取或写入操作的平均时间不到一毫秒，并支持集群内每秒数亿次的操作。ElastiCache 可为您提供经过优化的端到端硬件和软件堆栈，以实现超快的性能。</p>
+<h3 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h3><p>从 Amazon ElastiCache for Redis 6 开始，ElastiCache 现在提供了创建和管理用户和用户组的功能，可用于为 Redis 命令设置基于角色的访问控制 (RBAC)。您现在可以在保持安全边界的同时简化架构，还可以利用精细访问控制来管理用户组。Amazon ElastiCache for Redis 支持 Amazon VPC，这使您能够将集群隔离在您为节点选择的 IP 范围内。ElastiCache 团队持续监控开源 Redis、操作系统和固件中已知的安全漏洞，以确保您的 Redis 环境安全无虞。它符合 PCI 和 HIPAA 要求，由 FedRAMP 授权，提供动态和静态加密（包括 AWS KMS 中存储的客户管理 CMK）以及 Redis AUTH 来实现安全的节点间通信，从而帮助保护个人身份识别信息 (PII) 等敏感数据的安全。</p>
+<p>详细了解<a href="https://docs-aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html" target="_blank" rel="noopener">基于角色的访问控制 (RBAC) »
+</a>详细了解<a href="https://aws.amazon.com/elasticache/faqs/#What_is_VPC_Why_Amazon_ElastiCache" target="_blank" rel="noopener">适用于 ElastiCache 的 VPC »</a></p>
+<h3 id="完全托管并已强化"><a href="#完全托管并已强化" class="headerlink" title="完全托管并已强化"></a>完全托管并已强化</h3><p>适用于 Redis 的 Amazon ElastiCache 是一项完全托管的服务。您无需执行硬件预置、软件修补、设置、配置、监控、故障恢复和备份等管理任务。ElastiCache 会持续监控您的集群，以保障您的 Redis 正常运行，使您可以集中精力开发更高价值的应用程序。其提供有关您 Redis 使用情况的详细监控指标，使您能够跟踪应用程序趋势并按需调整集群配置。ElastiCache 增加了自动写入限制、智能交换内存管理和故障转移增强功能，以便改进开源 Redis 的可用性和可管理性。详细了解<a href="https://aws.amazon.com/cn/elasticache/redis/faqs/" target="_blank" rel="noopener">适用于 Redis 的 Amazon ElastiCache »</a></p>
+<h3 id="与-REDIS-兼容"><a href="#与-REDIS-兼容" class="headerlink" title="与 REDIS 兼容"></a>与 REDIS 兼容</h3><p>Redis 是一种得到广泛采用的内存数据存储，可用作数据库、缓存、消息代理、队列、会话存储和排行榜。Amazon ElastiCache for Redis 可与开源 Redis 数据格式、Redis API 兼容，并与 Redis 客户端配合使用。您可以<a href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/OnlineMigration.html" target="_blank" rel="noopener">将自行管理的 Redis 工作负载迁移到 ElastiCache</a> for Redis，而无需更改任何代码。详细了解<a href="https://aws.amazon.com/redis" target="_blank" rel="noopener">开源 Redis »</a></p>
+<h3 id="高度可用且可靠"><a href="#高度可用且可靠" class="headerlink" title="高度可用且可靠"></a>高度可用且可靠</h3><p>Amazon ElastiCache for Redis 支持 Redis 集群和非集群模式，能够通过自动故障转移支持提供高可用性，而自动故障转移支持是通过检测主节点故障和在最大限度降低影响的情况下将副本提升为主节点来实现的。它通过跨可用区支持只读副本来为应用程序提供读取可用性，以便在主节点忙于应对增加的工作负载时提供读取内容。适用于 Redis 的 ElastiCache 支持增强的故障转移逻辑，能够在 Redis 集群模式的大多数主节点不可用时支持自动故障转移。从 Redis 5.0.5 开始，启用了自动故障转移的群集可为所有计划的操作提供在线配置更改。详细了解 <a href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html" target="_blank" rel="noopener">ElastiCache 的自动故障转移 »</a></p>
+<h3 id="轻松扩展"><a href="#轻松扩展" class="headerlink" title="轻松扩展"></a>轻松扩展</h3><p>借助 Amazon ElastiCache for Redis，您可以先从小规模起步，然后随应用程序的不断增多轻松扩展您的 Redis 数据 — 最终可扩展到一个内存数据高达 340 TB 的集群。它支持您将 Redis 集群环境扩展到 500 个节点和 500 个分片。它支持在线集群规模调整以扩展和缩减您的 Redis 集群，无需停机，可自动适应不断变化的需求。为扩展读取容量，ElastiCache 允许您跨多个可用区添加多达五个只读副本。为扩展写入容量，ElastiCache 支持 Redis 集群模式，这使您能够跨多个主节点对写入流量进行分区。详细了解<a href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Scaling.html" target="_blank" rel="noopener">扩展 ElastiCache »</a></p>
+<h2 id="使用案例"><a href="#使用案例" class="headerlink" title="使用案例"></a>使用案例</h2><p>适用于 Redis 的 Amazon ElastiCache 非常适用于实时事务和分析处理使用案例，例如<a href="https://aws.amazon.com/cn/elasticache/redis/#Caching" target="_blank" rel="noopener">缓存</a>、<a href="https://aws.amazon.com/cn/elasticache/redis/#Chat_and_Messaging" target="_blank" rel="noopener">聊天/消息收发</a>、<a href="https://aws.amazon.com/cn/elasticache/redis/#Gaming_Leaderboards" target="_blank" rel="noopener">游戏排行榜</a>、<a href="https://aws.amazon.com/cn/elasticache/redis/#Geospatial" target="_blank" rel="noopener">地理空间</a>、<a href="https://aws.amazon.com/cn/elasticache/redis/#Machine_Learning" target="_blank" rel="noopener">机器学习</a>、<a href="https://aws.amazon.com/cn/elasticache/redis/#Media_Streaming" target="_blank" rel="noopener">媒体流</a>、<a href="https://aws.amazon.com/cn/elasticache/redis/#Queues" target="_blank" rel="noopener">队列</a>、<a href="https://aws.amazon.com/cn/elasticache/redis/#Real-time_Analytics" target="_blank" rel="noopener">实时分析</a>，以及<a href="https://aws.amazon.com/cn/elasticache/redis/#Session_Store" target="_blank" rel="noopener">会话存储</a>。</p>
+<h3 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h3><p>适用于 Redis 的 Amazon ElastiCache 是实施高度可用且安全的分布式<a href="https://aws.amazon.com/blogs/database/caching-hudls-news-feed-with-amazon-elasticache-for-redis/" target="_blank" rel="noopener">内存中缓存</a>的上好选择，它可以降低访问延迟、提高吞吐量，并可以减轻关系数据库或 NoSQL 数据库和应用程序的负载。ElastiCache 能够以亚毫秒级响应时间为频繁请求的项目提供支持，并且无需增加昂贵的后端数据库，即可轻松扩展以满足更高负载的需求。数据库查询结果缓存、持久性会话缓存以及整页缓存都是适用于 Redis 的 ElastiCache 的常见缓存示例。了解如何利用适用于 Redis 的 ElastiCache 构建<a href="https://aws.amazon.com/blogs/database/latency-reduction-of-hybrid-architectures-with-amazon-elasticache/" target="_blank" rel="noopener">缓存应用程序</a>。</p>
+<h3 id="聊天和消息传送"><a href="#聊天和消息传送" class="headerlink" title="聊天和消息传送"></a>聊天和消息传送</h3><p>适用于 Redis 的 Amazon ElastiCache 支持 PUB/SUB 标准功能和模式匹配。这使得适用于 Redis 的 ElastiCache 能够支持高性能的聊天室、实时评论流以及服务器相互通信。您也可以使用 PUB/SUB 基于发布的事件触发操作。了解如何利用适用于 Redis 的 ElastiCache <a href="https://aws.amazon.com/blogs/database/how-to-build-a-chat-application-with-amazon-elasticache-for-redis/" target="_blank" rel="noopener">构建聊天应用程序</a>。</p>
+<h3 id="地理空间"><a href="#地理空间" class="headerlink" title="地理空间"></a>地理空间</h3><p>适用于 Redis 的 Amazon ElastiCache 提供专门构建的内存中数据结构和运算符，以便从规模和速度方面管理实时地理空间数据。您可以使用适用于 Redis 的 ElastiCache 向应用程序添加基于位置的功能，如驾驶时间、驾驶距离和兴趣点。了解如何利用适用于 Redis 的 ElastiCache <a href="https://aws.amazon.com/blogs/database/amazon-elasticache-utilizing-redis-geospatial-capabilities/" target="_blank" rel="noopener">构建地理空间应用程序</a>。</p>
+<h3 id="Machine-Learning"><a href="#Machine-Learning" class="headerlink" title="Machine Learning"></a>Machine Learning</h3><p>适用于 Redis 的 Amazon ElastiCache 为您提供了快速的内存中数据存储，可快速构建和部署机器学习模型。适用于 Redis 的 ElastiCache 可用于以下使用案例，例如游戏和金融服务中的欺诈检测、广告技术中的实时竞价，以及共享约会和共享单车中的配对，它能够在几十毫秒内处理实时数据并做出决策。了解 Coffee Meets Bagel 如何使用 ElastiCache <a href="https://www.youtube.com/watch?v=_Aniee-XpSQ" target="_blank" rel="noopener">提供基于机器学习的实时约会建议</a>。</p>
+<h3 id="媒体流"><a href="#媒体流" class="headerlink" title="媒体流"></a>媒体流</h3><p>适用于 Redis 的 Amazon ElastiCache 提供了一个快速的内存中数据存储，支持实时流使用案例。适用于 Redis 的 ElastiCache 可存储用于用户配置文件和查看历史记录的元数据、数百万用户的身份验证信息/令牌，以及清单文件，以便 CDN 能够将视频一次性流式传输到数百万移动和桌面用户。</p>
+<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p>适用于 Redis 的 Amazon ElastiCache 提供了列表数据结构，可轻松实施轻量级持久队列。这类列表提供了原子操作和屏蔽功能，适用于各种需要可靠消息代理或循环表的应用程序。</p>
+<h3 id="实时分析"><a href="#实时分析" class="headerlink" title="实时分析"></a>实时分析</h3><p>可将 Amazon ElastiCache for Redis 与流解决方案（例如 Apache Kafka 和 Amazon Kinesis）搭配使用来作为内存数据存储，从而以亚毫秒级延迟提取、处理和分析实时数据。ElastiCache 非常适合实时分析使用案例，比如社交媒体、广告定位、个性化及<a href="https://aws.amazon.com/blogs/database/managing-iot-and-time-series-data-with-amazon-elasticache-for-redis/" target="_blank" rel="noopener">物联网和时间序列数据分析</a>。</p>
+<h2 id="pub-sub"><a href="#pub-sub" class="headerlink" title="pub/sub"></a>pub/sub</h2><p>Pub/Sub功能（means Publish, Subscribe）即发布及订阅功能。基于事件的系统中，Pub/Sub是目前广泛使用的通信模型，它采用事件作为基本的通信机制，提供大规模系统所要求的松散耦合的交互模式：订阅者(如客户端)以事件订阅的方式表达出它有兴趣接收的一个事件或一类事件；发布者(如服务器)可将订阅者感兴趣的事件随时通知相关订阅者。熟悉设计模式的朋友应该了解这与23种设计模式中的观察者模式极为相似。 同样,Redis的pub/sub是一种消息通信模式，主要的目的是解除消息发布者和消息订阅者之间的耦合,Redis作为一个pub/sub的server,在订阅者和发布者之间起到了消息路由的功能。</p>
+<h2 id="Redis-pub-sub的实现"><a href="#Redis-pub-sub的实现" class="headerlink" title="Redis pub/sub的实现"></a>Redis pub/sub的实现</h2><p>Redis通过publish和subscribe命令实现订阅和发布的功能。订阅者可以通过subscribe向redis server订阅自己感兴趣的消息类型。redis将信息类型称为通道(channel)。当发布者通过publish命令向redis server发送特定类型的信息时，订阅该消息类型的全部订阅者都会收到此消息。</p>
+<p><strong>Pub/Sub在java中的实现</strong></p>
+<p>导入Redis驱动:</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.data<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.8.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>gradle </p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">compile <span class="string">group:</span> <span class="string">'redis.clients'</span>, <span class="string">name:</span> <span class="string">'jedis'</span>, <span class="string">version:</span> <span class="string">'3.3.0'</span></span><br><span class="line">compile <span class="string">group:</span> <span class="string">'org.springframework.data'</span>, <span class="string">name:</span> <span class="string">'spring-data-redis'</span>, <span class="string">version:</span> <span class="string">'2.4.0'</span></span><br></pre></td></tr></table></figure>
+
+<p>Redis驱动包提供了一个抽象类:JedisPubSub…继承这个类就完成了对客户端对订阅的监听。示例代码:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.JedisPubSub;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** redis发布订阅消息监听器 */</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisClient</span> <span class="keyword">extends</span> <span class="title">JedisPubSub</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unsubscribe</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.unsubscribe();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unsubscribe</span><span class="params">(String... channels)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.unsubscribe(channels);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(String... channels)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.subscribe(channels);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">psubscribe</span><span class="params">(String... patterns)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.psubscribe(patterns);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">punsubscribe</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.punsubscribe();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">punsubscribe</span><span class="params">(String... patterns)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.punsubscribe(patterns);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onMessage</span><span class="params">(String channel, String message)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"onMessage: channel[&#123;&#125;], message[&#123;&#125;]"</span>, channel, message);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPMessage</span><span class="params">(String pattern, String channel, String message)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"onPMessage: pattern[&#123;&#125;], channel[&#123;&#125;], message[&#123;&#125;]"</span>, pattern, channel, message);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSubscribe</span><span class="params">(String channel, <span class="keyword">int</span> subscribedChannels)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"onSubscribe: channel[&#123;&#125;], subscribedChannels[&#123;&#125;]"</span>, channel, subscribedChannels);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPUnsubscribe</span><span class="params">(String pattern, <span class="keyword">int</span> subscribedChannels)</span> </span>&#123;</span><br><span class="line">        log.info(</span><br><span class="line">                <span class="string">"onPUnsubscribe: pattern[&#123;&#125;], subscribedChannels[&#123;&#125;]"</span>, pattern, subscribedChannels);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPSubscribe</span><span class="params">(String pattern, <span class="keyword">int</span> subscribedChannels)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"onPSubscribe: pattern[&#123;&#125;], subscribedChannels[&#123;&#125;]"</span>, pattern, subscribedChannels);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onUnsubscribe</span><span class="params">(String channel, <span class="keyword">int</span> subscribedChannels)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"channel:&#123;&#125; is been subscribed:&#123;&#125;"</span>, channel, subscribedChannels);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上所示,抽象类中存在的方法。分别表示</p>
+<p>监听到订阅模式接受到消息时的回调 (onPMessage)</p>
+<p>监听到订阅频道接受到消息时的回调 (onMessage )</p>
+<p>订阅频道时的回调( onSubscribe )</p>
+<p>取消订阅频道时的回调( onUnsubscribe )</p>
+<p>订阅频道模式时的回调 ( onPSubscribe )</p>
+<p>取消订阅模式时的回调( onPUnsubscribe )</p>
+<p>配置Redis(RedisConfiguration)</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> info.xiaomo.redis.CustomerInfoSubscriber;</span><br><span class="line"><span class="keyword">import</span> info.xiaomo.redis.RedisCustomerInfoPublisher;</span><br><span class="line"><span class="keyword">import</span> info.xiaomo.service.AppService;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ComponentScan;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.connection.jedis.JedisConnectionFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.core.RedisTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.listener.ChannelTopic;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.listener.RedisMessageListenerContainer;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.listener.adapter.MessageListenerAdapter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.serializer.GenericToStringSerializer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan</span>(<span class="string">"info.xiaomo.redis"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> AppService appService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">JedisConnectionFactory <span class="title">jedisConnectionFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> JedisConnectionFactory();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedisTemplate&lt;String, Object&gt; <span class="title">redisTemplate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> RedisTemplate&lt;String, Object&gt; template = <span class="keyword">new</span> RedisTemplate&lt;&gt;();</span><br><span class="line">        template.setConnectionFactory(jedisConnectionFactory());</span><br><span class="line">        template.setValueSerializer(<span class="keyword">new</span> GenericToStringSerializer&lt;&gt;(Object<span class="class">.<span class="keyword">class</span>))</span>;</span><br><span class="line">        <span class="keyword">return</span> template;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">MessageListenerAdapter <span class="title">messageListener</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MessageListenerAdapter(<span class="keyword">new</span> CustomerInfoSubscriber(appService));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">RedisMessageListenerContainer <span class="title">redisContainer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> RedisMessageListenerContainer container = <span class="keyword">new</span> RedisMessageListenerContainer();</span><br><span class="line">        container.setConnectionFactory(jedisConnectionFactory());</span><br><span class="line">        container.addMessageListener(messageListener(), topic());</span><br><span class="line">        container.setTaskExecutor(Executors.newFixedThreadPool(<span class="number">4</span>));</span><br><span class="line">        <span class="keyword">return</span> container;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">RedisCustomerInfoPublisher <span class="title">redisPublisher</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> RedisCustomerInfoPublisher();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * </span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">ChannelTopic <span class="title">webTopic</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ChannelTopic(<span class="string">"pubsub:clear-web-cache"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">ChannelTopic <span class="title">authTopic</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ChannelTopic(<span class="string">"pubsub:clear-auth-cache"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>pub端（RedisCustomerInfoPublisher）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.core.RedisTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.listener.ChannelTopic;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisCustomerInfoPublisher</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span> <span class="keyword">private</span> RedisTemplate&lt;String, Object&gt; redisTemplate;</span><br><span class="line">    <span class="meta">@Autowired</span> <span class="keyword">private</span> ChannelTopic webApiTopic;</span><br><span class="line">    <span class="meta">@Autowired</span> <span class="keyword">private</span> ChannelTopic authTopic;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">publishWebApi</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        redisTemplate.convertAndSend(webApiTopic.getTopic(), RedisConst.clearWebCacheMessage);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">publicAuth</span><span class="params">()</span></span>&#123;</span><br><span class="line">        redisTemplate.convertAndSend(authTopic.getTopic(), RedisConst.clearAuthCacheMessage);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>sub端(CustomerInfoSubscriber)(注意直接在sub端使用@autowired的话会出现空指针)</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.RequiredArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.jetbrains.annotations.NotNull;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.connection.Message;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.connection.MessageListener;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomerInfoSubscriber</span> <span class="keyword">implements</span> <span class="title">MessageListener</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> OAuthService oAuthService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onMessage</span><span class="params">(@NotNull Message message, <span class="keyword">byte</span>[] pattern)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"Received &gt;&gt; &#123;&#125;, thread:&#123;&#125;"</span>, message, Thread.currentThread().getName());</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">new</span> String(message.getBody()).equals(RedisConst.clearAuthCacheMessage)) &#123;</span><br><span class="line">            oAuthService.reloadClients();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在sub接收到消息后，执行对应的操作</p>
+<p>测试控制器</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> info.xiaomo.redis.RedisCustomerInfoPublisher;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/admin/api/v2/redis"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisPubSubController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  	<span class="comment">// 这里的名字一定要和注入的名字一样</span></span><br><span class="line">    <span class="meta">@Autowired</span> <span class="keyword">private</span> RedisCustomerInfoPublisher redisPublisher;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 在当前项目中pub，在当前项目中sub(既做发送方又做接收方)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"clearWebCache"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">publishWebApi</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        redisPublisher.publishWebApi();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 在当前项目中发送，在auth中接收（当前项目只做为服务方）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"clearAuthCache"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">publicAuth</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        redisPublisher.publicAuth();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="思路整理"><a href="#思路整理" class="headerlink" title="思路整理"></a>思路整理</h2><p>服务端</p>
+<p>在RedisConfig中要定义一个topic，然后对外提供一个public的接口，用户触发publish。</p>
+<p>客户端</p>
+<p>在RedisConfig定义一个topic,名字要和服务的中定义的名字一致才能订阅到。用户在服务端publish，客户端收到后在onMessage中做对应的处理。</p>
+<p>即做服务端又做客户端</p>
+<p>需要在RedisConfig中监听(subscribe)（客户端的工作），然后提供一个接口给用户触发publish，如果只是作为服务端的话不需要监听消息。</p>
+
+            
+        </div>
+        
+    </div>
+    
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2020/AwsSqsUse/">AWS SQS/SNS/Redis的pub/sub用法总结</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">小莫</a></p>
+        <p><span>发布时间:</span>2020-11-01, 00:00:00</p>
+        <p><span>最后更新:</span>2021-07-20, 20:08:26</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2020/AwsSqsUse/" title="AWS SQS/SNS/Redis的pub/sub用法总结">https://blog.xiaomo.info/2020/AwsSqsUse/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://blog.xiaomo.info/2020/AwsSqsUse/　　作者: 小莫" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2020/browserEventLoop/">
+                    聊聊Javascript的事件循环(转载)
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2020/awsSSo/">
+                    AWS SSO用法
+                </a>
+            </div>
+        
+    </nav>
+
+    
+</article>
+
+
+
+<!-- 代码2：用来读取评论框配置，此代码需放置在代码1之后。 -->
+<!-- 如果当前页面有评论框，代码2请勿放置在评论框代码之前。 -->
+<!-- 如果页面同时使用多个实验室项目，以下代码只需要引入一次，只配置上面的div标签即可 -->
+<!--<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cysUkgluO"></script>-->
+
+<div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mq和kafuka对比"><span class="toc-number">1.</span> <span class="toc-text">mq和kafuka对比</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#业务场景分析"><span class="toc-number">1.1.</span> <span class="toc-text">业务场景分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#社区"><span class="toc-number">1.1.1.</span> <span class="toc-text">社区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#功能"><span class="toc-number">1.1.2.</span> <span class="toc-text">功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接口"><span class="toc-number">1.1.3.</span> <span class="toc-text">接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#延迟和性能"><span class="toc-number">1.1.4.</span> <span class="toc-text">延迟和性能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#队列数对性能的影响"><span class="toc-number">1.1.5.</span> <span class="toc-text">队列数对性能的影响</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#有序性"><span class="toc-number">1.1.6.</span> <span class="toc-text">有序性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持事务"><span class="toc-number">1.1.7.</span> <span class="toc-text">支持事务</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQS是什么"><span class="toc-number">2.</span> <span class="toc-text">SQS是什么</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQS作用"><span class="toc-number">3.</span> <span class="toc-text">SQS作用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#高度可扩展的标准队列和-FIFO-队列"><span class="toc-number">3.0.1.</span> <span class="toc-text">高度可扩展的标准队列和 FIFO 队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#持久性和可用性"><span class="toc-number">3.0.2.</span> <span class="toc-text">持久性和可用性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安全性"><span class="toc-number">3.0.3.</span> <span class="toc-text">安全性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#批处理"><span class="toc-number">3.0.4.</span> <span class="toc-text">批处理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQS用法"><span class="toc-number">4.</span> <span class="toc-text">SQS用法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SNS-是什么"><span class="toc-number">5.</span> <span class="toc-text">SNS 是什么</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SNS作用"><span class="toc-number">6.</span> <span class="toc-text">SNS作用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQS-VS-SNS-区别"><span class="toc-number">7.</span> <span class="toc-text">SQS VS SNS 区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SNS用法"><span class="toc-number">8.</span> <span class="toc-text">SNS用法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#sns-命令行"><span class="toc-number">8.1.</span> <span class="toc-text">sns 命令行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建主题"><span class="toc-number">8.2.</span> <span class="toc-text">创建主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#订阅主题"><span class="toc-number">8.3.</span> <span class="toc-text">订阅主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#向主题发布"><span class="toc-number">8.4.</span> <span class="toc-text">向主题发布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#取消订阅主题"><span class="toc-number">8.5.</span> <span class="toc-text">取消订阅主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除主题"><span class="toc-number">8.6.</span> <span class="toc-text">删除主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java集成SNS-警告触发"><span class="toc-number">8.7.</span> <span class="toc-text">java集成SNS(警告触发)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Amazon-ElastiCache-for-Redis"><span class="toc-number">8.8.</span> <span class="toc-text">Amazon ElastiCache for Redis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#极致性能"><span class="toc-number">8.9.</span> <span class="toc-text">极致性能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安全"><span class="toc-number">8.9.1.</span> <span class="toc-text">安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#完全托管并已强化"><span class="toc-number">8.9.2.</span> <span class="toc-text">完全托管并已强化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与-REDIS-兼容"><span class="toc-number">8.9.3.</span> <span class="toc-text">与 REDIS 兼容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高度可用且可靠"><span class="toc-number">8.9.4.</span> <span class="toc-text">高度可用且可靠</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#轻松扩展"><span class="toc-number">8.9.5.</span> <span class="toc-text">轻松扩展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用案例"><span class="toc-number">8.10.</span> <span class="toc-text">使用案例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#缓存"><span class="toc-number">8.10.1.</span> <span class="toc-text">缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聊天和消息传送"><span class="toc-number">8.10.2.</span> <span class="toc-text">聊天和消息传送</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#地理空间"><span class="toc-number">8.10.3.</span> <span class="toc-text">地理空间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Machine-Learning"><span class="toc-number">8.10.4.</span> <span class="toc-text">Machine Learning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#媒体流"><span class="toc-number">8.10.5.</span> <span class="toc-text">媒体流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#队列"><span class="toc-number">8.10.6.</span> <span class="toc-text">队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实时分析"><span class="toc-number">8.10.7.</span> <span class="toc-text">实时分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pub-sub"><span class="toc-number">8.11.</span> <span class="toc-text">pub/sub</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-pub-sub的实现"><span class="toc-number">8.12.</span> <span class="toc-text">Redis pub/sub的实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路整理"><span class="toc-number">8.13.</span> <span class="toc-text">思路整理</span></a></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script>
+    yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+</script>
+
+
+
+<div class="share">
+    
+
+    
+</div>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<hr/>
+<br/>
+<div style="display:block;text-align: center">
+    <a href="javascript:window.open('https://twitter.com/share?url='+encodeURIComponent(document.location.href)+'&text='+encodeURIComponent(document.title),'_blank','toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=600, height=450,top=100,left=350');void(0)"
+       style="background-color: lightskyblue;border-radius: 45px;box-shadow: #767676;font-size: 14px;font-family: '微软雅黑',serif;color: whitesmoke;padding: 10px 15px;"
+    >
+        twitter分享
+    </a>
+</div>
+<br/>
+<br/>
+<div id="gitalk-container" style="margin: 1% 3%"></div>
+<h3 style="text-align: center">如果想及时收到回复,可在 <a href="https://github.com/settings/notifications" target="_blank">订阅中心</a>的 <code>Participating</code>中勾选Email</h3>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '9772f6a6fdb199a60ba1',
+        clientSecret: '9a606af21688d2d4ff2efa2467ee82e76e1e9865',
+        id: window.location.pathname,
+        repo: 'blog',
+        owner: 'houko',
+        admin: 'houko',
+        distractionFreeMode: false
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2020/browserEventLoop/" title="上一篇: 聊聊Javascript的事件循环(转载)">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2020/awsSSo/" title="下一篇: AWS SSO用法">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuyin2/">日本医疗制度之限度額適用認定証</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/ohmytmux/">我的tmux之旅（tmux使用详解）</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/redisPubSub/">nodejs中使用redis的订阅分发功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuuinn/">小莫的日本(东京)住院回忆录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/doTween/">(转)doTween插件使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/mySecondFiveYearsLifePlan/">2020年年终总结和第二个长期学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/newmanCommandLine/">postman和commandline tools（newman）用法介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/ctwJobs/">【日本东京六本木】【CTW株式会社】招聘Node全栈/Java后端/SRE/大数据工程师/UI设计师</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/npmPackageCollection/">npm优秀库使用收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/jsCommonUtilsMethods/">js/ts常用公有方法收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/springBootWithSpringSecurity/">spring cloud集成spring security</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/flyway/">使用flyway版本控制工具维护数据库表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/autoFormatOnSvae/">使用IDEA保存时自动格式化代码配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/dynamoDB/">aws dynamoDB使用总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueSSRNuxt/">nuxt.js使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/pm2UseApi/">node项目监控工具之pm2</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/webAppleSignIn/">web端接入apple Sign in流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/browserEventLoop/">聊聊Javascript的事件循环(转载)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/AwsSqsUse/">AWS SQS/SNS/Redis的pub/sub用法总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsSSo/">AWS SSO用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsCommandLineUse/">aws command line 用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueFrameworkVuex/">vue框架状态管理之vuex</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/backToJapan/">疫情下的回日坎坷路</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/unityInterviewQuestions/">unity常见面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/my2019Summary/">2019年年终总结（作为前端开发这一年）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/worldServerGame/">经历了几场面试后的全球同服架构思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/japanKannjiIndex/">日语汉字速查表</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/aboutAllVisa/">签证总结大全（工作签、在留卡加汉字、工作签证更新、家族签证等）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/javaPassByValueAndReference/">jdk源码系列-Java到底是值传递还是引用传递？</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/event20190729/">没想到有一天我逼停了电车</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/jdkSourceCodeReadThreadSleep/">jdk源码系列-Thread.sleep(0)和Thread.sleep(1)的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/restfulBestUse/">restful最佳实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/nihonnmennkyo/">小莫的日本换驾照攻略</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/nihonnkita2kagetsu/">2018年终总结（从杭州到日本工作的心路历程）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unityFpsCommonMethod/">Fps游戏常用功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unitySceneFarAndNear/">镜头拉远拉近</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unity3dMiniMap/">unity3d小地图</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUISorting/">使用UGUI中的层级问题——以背包为例</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUIServerList/">使用UGUI制作滚动列表-选服列表</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/aboutDockerUse/">docker应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadArrayListAndLinkedArrayList/">jdk源码系列-Java中ArrayList、LinkedList和Vector的联系与区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadCreateObject/">jdk源码系列-创建对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadClassInitOrder/">jdk源码系列-类的初始化顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadStringDifferent/">jdk源码系列-String,StringBuffer,StringBuilder</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadAtomicInteger/">jdk源码系列-AtomicInteger</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadInteger/">jdk源码系列-Integer</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadLocal/">jdk源码系列-ThreadLocal</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadMemoryActor/">jdk源码系列-内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadConcurrentHashMap/">jdk源码系列-ConcurrentHashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadPool/">jdk源码系列-线程池</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadIO/">jdk源码系列-深入了解IO的工作机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadObject/">jdk源码系列-Object</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadNIO/">jdk源码系列-NIO</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/throwableAndException/">jdk源码系列-throwable和Exception的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeRead/">jdk源码系列-顺序索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/myBookSheet/">我的书架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/onlineProjectKen/">项目上线之后遇到的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/mainProjectJobs/">主程职责总结和反思</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/fastjson/">fastjson的key为非字符串的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/saikennokoto/">2017年终总结(作为主程的这一年)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AngularEnvironment/">angular2学习笔记之基础环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/HowToAskQuestionOnStackOverFlow/">StackOverFlow提问的艺术</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/oracleJavaSeSliver/">java的oracle考试认证(OCJP)之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/blackAppleSystem/">安装黑苹果的历程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JapanTravel/">日本游记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/GameServerType/">游戏服务器的常用架构</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaLombok/">lombok常用注解整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SwiftProjectBuild/">swift项目初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MySoftware/">我的常用软件清单</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AboutObject/">关于对象的一些思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MyKindle/">kindle初体验.</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SomethingForNewCar/">我的新车常备用品</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/VimTabAutoComplete/">使用vim打开文件时tab补全忽略大小写设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/Win7OneNote/">win7系统登录不上onenote的解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/FormatDisk/">在linux系统下格式化移动硬盘的操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/LinuxIdeaSetting/">linux系统环境下使用idea遇到的问题及解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaApiJsonFormat/">接口格式返回大小写处理.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/StartMy2017/">2016年终总结(进入游戏行业)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MysqlCommon/">mysql常用操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NormalShell/">常用shell脚本.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidUsersPermission/">Android users-permission权限列表.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidAsyncTask/">android异步任务AsyncTask.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidEnvironment/">android环境搭建.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/blogToXiaomo/">博客域名迁移(从二级域名迁移到一级域名).</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/SublimeConfig/">Sublime Text 3 使用配置与插件安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/HttpToHttps/">拥抱https(http全面切换到https)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootSwaggerUi/">swagger ui和spring boot集成生成api文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringVideo/">spring4免费全套视频教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaLombok/">lombok简化java代码注解的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSeiyou/">日本动漫声优公演,来看看什么叫专业声优</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootDataFormat/">spring boot做前后分离时间格式化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootCors/">spring boot做前后分离的跨域问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringZiliao/">spring boot相关资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaIdeaMaven/">Maven 与 IntelliJ IDEA 的完美结合</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaServletUpload/">使用Servlet做简单的上传功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonAnime/">喜欢的动漫</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSekaku/">生活习惯的不同，造就了丰富多彩的世界</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/BangumiDongli/">《东离剑游记》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmYargs/">yargs插件的使用，node.js 命令行框架 yargs 和你的程序实现交互</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiRouter/">angular2 api整理之路由模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiCommon/">angular2 api整理之通用模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptRxjsStudy/">rxjs全接触</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptDesignPattern/">javascript设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/2016StudyPlan/">5年学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2studyAnimate/">angular2学习笔记之动画效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyServiceHttp/">angular2学习笔记之服务和http</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteOther/">angular2学习笔记之小技巧</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteNgTag/">angular2学习笔记之ng2标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteEvent/">angular2学习笔记之事件和多组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteComponent/">angular2学习笔记之基本组件和ngFor</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/PublicDns/">几个国内专用的公共 DNS</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxDisk/">阿里云服务器磁盘挂载</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxChmod/">linux权限详细解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownTableStyle/">Markdown 表格样式调整与自适应优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/GulpUse/">gulp构建工具的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/FrontEndTools/">前端工程化工具初选</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AnkiExcelShortcuts/">Anki 记忆库之 Excel 快捷键大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/CssFontFamily/">CSS font-family 网页字体使用小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeSpider/">nodejs爬虫项目实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Package.jsonScripts/">package.json常用script</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmModulesShare/">npm模块分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MongodbUse/">mongodb数据库的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/KoaGenerator/">koa生成器,一键生成koa和koa2项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeKoa/">nodejs框架koa学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptSyntax/">javascript学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Es6Syntax/">es6语法快速上手</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackLLink/">webpack进阶之loader篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackPlugins/">webpack进阶之插件篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackParams/">webpack相关命令参数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeProcess/">nodejs的process模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackBasicUse/">webpack使用之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeOnlineChat/">使用nodejs搭建一个简易的即时聊天软件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxCrontab/">linux下使用定时器跑任务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AngularKeyboardEvent/">angularjs键盘事件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownSyntax/">markdown语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NgCheckbox/">angularjs复选框</a></li></ul>
+
+<style>
+    #post-nav-button a{
+        background-color: skyblue;
+    }
+</style>
+
+
+
+<script>
+    
+</script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i>
+                
+                    2016-
+                
+                2021 小莫
+                <!--                <a href="http://www.miibeian.gov.cn/" target="_blank">浙ICP备15009606号</a>-->
+            </div>
+            <div class="footer-right">
+                <a href="https://blog.xiaomo.info/" target="_blank" title="欢迎来到小莫的博客">Blog </a> Created by <a
+                        href="https://github.com/houko" target="_blank" rel="external nofollow"
+                        title="希望这里的文章对你有所帮助  v3.0">xiaomo</a>
+                <a href="/record.html"><i class="fa fa-heart animated infinite pulse"></i></a>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit">总访问数:
+                            <span id="busuanzi_value_site_pv"></span>
+                        </span>
+                    </span>
+                
+                <span style="color: grey;">(<a href="https://www.upyun.com/" rel="external nofollow" target="_blank">背景随机加载-资源存储于又拍云</a>) | 本站己运行<span
+                            id="day_count">222</span>天<span id="time_now">1</span></span>
+            </div>
+        
+    </div>
+    <script src="/js/activate-power-mode.js" ></script>
+</footer>
+<script>
+    // 添加输入效果
+    POWERMODE.colorful = true; // make power mode colorful
+    POWERMODE.shake = false; // turn off shake
+    document.body.addEventListener('input', POWERMODE);
+
+    (function () {
+        function current() {
+            var d = new Date(), str = '';
+            str += d.getHours() + '小时';
+            str += d.getMinutes() + '分';
+            str += d.getSeconds() + '秒';
+            return str;
+        }
+
+        setInterval(function () {
+            $("#time_now").html(current)
+        }, 1000);
+
+        var dateFrom = new Date(2015, 9, 12);
+        var dateTo = new Date();
+        var diff = dateTo.valueOf() - dateFrom.valueOf();
+        var diff_day = parseInt(diff / (1000 * 60 * 60 * 24));
+        $("#day_count").html(diff_day);
+    })();
+</script>
+<a href="https://github.com/houko/blog"><img style="position: fixed; top: 0;left: 0;" width="140" height="140" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_gray_6d6d6d.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 36;
+                var randomIndex = Math.ceil(Math.random() * backgroundnum);
+                var result = randomIndex+".jpg?version="+(new Date()/1000);
+                var backgroundimg = "url(https://image.xiaomo.info/background/bg-number)".replace(/number/gi,result);
+//                console.info("加载图片"+backgroundimg);
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover","background-color":"rgba(255,255,255,0.5)","background-blend-mode":"lighten"});
+            }
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80824007-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+<script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1626811730142')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body>
+</html>

@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><link rel=manifest href=/manifest.json><meta name="generator" content="Hexo 3.9.0"><link rel="manifest" href="/manifest.json">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="小莫">
+<meta name="baidu-site-verification" content="qp2dTXVqvj">
+
+
+
+<meta name="keywords" content="小莫的博客, java, 日语, 动漫, 技术, unity3d, nginx, https, angular, 游戏, 服务器, tomcat, IDEA, javaweb, spring, hibernate, spring boot, 开源中国, github, linux, 主程">
+
+
+<meta name="description" content="在spring boot/spring cloud成为java生态中绝对主流的开发框架时，spring家族其他的框架也开始变得越来越流行。对于认证授权的方案也有更多的小伙伴选择从shrio过渡到spring security。但是spring security的难度确实要比shiro高出不少，需要花费较多精力学习。">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring cloud集成spring security">
+<meta property="og:url" content="https://blog.xiaomo.info/2020/springBootWithSpringSecurity/index.html">
+<meta property="og:site_name" content="小莫的博客-fighting(技术分享、生活随笔)">
+<meta property="og:description" content="在spring boot/spring cloud成为java生态中绝对主流的开发框架时，spring家族其他的框架也开始变得越来越流行。对于认证授权的方案也有更多的小伙伴选择从shrio过渡到spring security。但是spring security的难度确实要比shiro高出不少，需要花费较多精力学习。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://image.xiaomo.info//blog/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM1MDY3MzIy,size_16,color_FFFFFF,t_70.png">
+<meta property="og:updated_time" content="2021-07-20T20:08:26.472Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="spring cloud集成spring security">
+<meta name="twitter:description" content="在spring boot/spring cloud成为java生态中绝对主流的开发框架时，spring家族其他的框架也开始变得越来越流行。对于认证授权的方案也有更多的小伙伴选择从shrio过渡到spring security。但是spring security的难度确实要比shiro高出不少，需要花费较多精力学习。">
+<meta name="twitter:image" content="https://image.xiaomo.info//blog/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM1MDY3MzIy,size_16,color_FFFFFF,t_70.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternative" href="/atom.xml" title="小莫的博客-fighting(技术分享、生活随笔)" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="//image.xiaomo.info/logo/avatar.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/green/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>spring cloud集成spring security | 小莫的博客-fighting(技术分享、生活随笔)</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        open_in_new: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+</html>
+<body oncontextmenu="return false" onselectstart="return false">
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="https://blog.xiaomo.info" target="_self" class="profilepic">
+            <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">小莫</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">行百里者半九十</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" results="0" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="//xiaomo.info">回到主站</a></li>
+                        
+                            <li><a href="/tags/japan/">日本生活系列</a></li>
+                        
+                            <li><a href="/categories/summary/">年度总结系列</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about.html">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA/">IDEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK源码系列/">JDK源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OCJP/">OCJP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alime/">alime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/">aws</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doTween/">doTween</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es5/">es5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/">excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/game/">game</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/japan/">japan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/">lombok</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxt/">nuxt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/onenote/">onenote</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postman/">postman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sso/">sso</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stackoverflow/">stackoverflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/">technology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ugui/">ugui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动漫/">动漫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字体/">字体</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码系列/">源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件/">软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑苹果/">黑苹果</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">技术宅、 杭州、 夜猫子、 爱动漫、 爱日语 2015年毕业、 java开发、 web前端、 前沿技术发烧友、 生命不息折腾不止、</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">小莫</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">小莫</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">行百里者半九十</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="//xiaomo.info">回到主站</a></li>
+                
+                    <li><a href="/tags/japan/">日本生活系列</a></li>
+                
+                    <li><a href="/categories/summary/">年度总结系列</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about.html">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><style>
+    .background-cover {
+        float: left;
+        width: 400px;
+        height: 250px;
+    }
+
+    .article img {
+        margin: -1px 20px 5px -1px;
+        border-top-left-radius: 3px;
+        -webkit-border-radius-topleft: 3%;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -o-transition: all 0.5s;
+    }
+
+    /*.article img:hover{*/
+    /*transform: scale(1, 1.05);*/
+    /*-webkit-transition:all 0.5s;*/
+    /*-moz-transition:all 0.5s;*/
+    /*-o-transition:all 0.5s;*/
+    /*}*/
+</style>
+
+
+<article id="post-springBootWithSpringSecurity" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        function getPgjs() {
+            const agent = navigator.userAgent.toLowerCase()
+            let res = agent.match(/android/)
+            if (res === "android")
+                return res;
+            res = agent.match(/iphone/);
+            if (res === "iphone")
+                return "ios";
+            res = agent.match(/ipad/);
+            if (res === "ipad")
+                return "ios";
+            res = agent.match(/windows/);
+            if (res === "windows")
+                return "wp";
+            console.info('pc......')
+            return "pc";
+        }
+
+        function loadImage(id) {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                return;
+            }
+            var backgroundnum = 40;
+            var randomIndex = Math.ceil(Math.random() * backgroundnum);
+            var result = randomIndex + "?version=" + (new Date() / 1000);
+            var backgroundimg = "https://image.xiaomo.info/cover/bg-number.jpg".replace(/number/gi, randomIndex);
+            var key = "#" + id;
+            $(key).attr("src", backgroundimg);
+            $(".background-cover").show();
+        }
+
+        (function () {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                console.log(page)
+                $(".background-cover").hide();
+            }
+        })()
+    </script>
+    
+    <div class="article-meta">
+        <a href="/2020/springBootWithSpringSecurity/" class="article-date">
+      <time datetime="2020-11-30T00:00:00.000Z" itemprop="datePublished">2020-11-30</time>
+</a>
+    </div>
+    
+    <div class="article-inner">
+        
+        <input type="hidden" class="isFancy"/>
+        
+        <div class="background-cover">
+            <img class="fengmian-image" id="springBootWithSpringSecurity" src="https://image.xiaomo.info/cover/bg-5.jpg" alt="封面" onload="loadImage(this.id)"/>
+        </div>
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      spring cloud集成spring security
+    </h1>
+  
+
+        </header>
+        
+        <div class="article-info article-info-post">
+            
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a>
+    </div>
+
+
+            
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul> </div>
+
+
+
+            <!-- 访问量  -->
+            <!--<span id="busuanzi_container_page_pv" style='display:none'>-->
+            <!--<span id="page-visit"><i class="fa fa-eye" style="float: left;margin-top:5px" aria-hidden="true" title="文章访问量"></i>-->
+            <!--<span id="busuanzi_value_page_pv"></span>-->
+            <!--</span>-->
+            <!--</span>-->
+
+            <div class="clearfix"></div>
+        </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+            
+            <p>在spring boot/spring cloud成为java生态中绝对主流的开发框架时，spring家族其他的框架也开始变得越来越流行。对于认证授权的方案也有更多的小伙伴选择从shrio过渡到spring security。但是spring security的难度确实要比shiro高出不少，需要花费较多精力学习。</p>
+<a id="more"></a>
+
+<h3 id="1-原理"><a href="#1-原理" class="headerlink" title="1.原理"></a>1.原理</h3><p><img src="https://image.xiaomo.info//blog/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM1MDY3MzIy,size_16,color_FFFFFF,t_70.png" alt="img"></p>
+<p><strong>Spring Security</strong> 内置了一些过滤器，他们各有各的本事。如果你掌握了这些过滤器，很多实际开发中的需求和问题都很容易解决。今天我们来见识一下这些内置的过滤器。</p>
+<h2 id="2-内置过滤器初始化"><a href="#2-内置过滤器初始化" class="headerlink" title="2. 内置过滤器初始化"></a>2. 内置过滤器初始化</h2><p>在 <strong>Spring Security</strong> 初始化核心过滤器时 <code>HttpSecurity</code> 会通过将 <strong>Spring Security</strong> 内置的一些过滤器以 <code>FilterComparator</code> 提供的规则进行比较按照比较结果进行排序注册。</p>
+<h3 id="2-1-排序规则"><a href="#2-1-排序规则" class="headerlink" title="2.1 排序规则"></a>2.1 排序规则</h3><p><code>FilterComparator</code> 维护了一个顺序的注册表 <code>filterToOrder</code> 。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">FilterComparator() &#123;</span><br><span class="line">    Step order = <span class="keyword">new</span> Step(INITIAL_ORDER, ORDER_STEP);</span><br><span class="line">    put(ChannelProcessingFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(ConcurrentSessionFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(WebAsyncManagerIntegrationFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(SecurityContextPersistenceFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(HeaderWriterFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(CorsFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(CsrfFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(LogoutFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    filterToOrder.put(</span><br><span class="line">        <span class="string">"org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter"</span>,</span><br><span class="line">            order.next());</span><br><span class="line">    filterToOrder.put(</span><br><span class="line">            <span class="string">"org.springframework.security.saml2.provider.service.servlet.filter.Saml2WebSsoAuthenticationRequestFilter"</span>,</span><br><span class="line">            order.next());</span><br><span class="line">    put(X509AuthenticationFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(AbstractPreAuthenticatedProcessingFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    filterToOrder.put(<span class="string">"org.springframework.security.cas.web.CasAuthenticationFilter"</span>,</span><br><span class="line">            order.next());</span><br><span class="line">    filterToOrder.put(</span><br><span class="line">        <span class="string">"org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter"</span>,</span><br><span class="line">            order.next());</span><br><span class="line">    filterToOrder.put(</span><br><span class="line">            <span class="string">"org.springframework.security.saml2.provider.service.servlet.filter.Saml2WebSsoAuthenticationFilter"</span>,</span><br><span class="line">            order.next());</span><br><span class="line">    put(UsernamePasswordAuthenticationFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(ConcurrentSessionFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    filterToOrder.put(</span><br><span class="line">            <span class="string">"org.springframework.security.openid.OpenIDAuthenticationFilter"</span>, order.next());</span><br><span class="line">    put(DefaultLoginPageGeneratingFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(DefaultLogoutPageGeneratingFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(ConcurrentSessionFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(DigestAuthenticationFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    filterToOrder.put(</span><br><span class="line">            <span class="string">"org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter"</span>, order.next());</span><br><span class="line">    put(BasicAuthenticationFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(RequestCacheAwareFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(SecurityContextHolderAwareRequestFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(JaasApiIntegrationFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(RememberMeAuthenticationFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(AnonymousAuthenticationFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    filterToOrder.put(</span><br><span class="line">        <span class="string">"org.springframework.security.oauth2.client.web.OAuth2AuthorizationCodeGrantFilter"</span>,</span><br><span class="line">            order.next());</span><br><span class="line">    put(SessionManagementFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(ExceptionTranslationFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(FilterSecurityInterceptor<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">    put(SwitchUserFilter<span class="class">.<span class="keyword">class</span>, <span class="title">order</span>.<span class="title">next</span>())</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这些就是所有内置的过滤器。 他们是通过下面的方法获取自己的序号：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Integer <span class="title">getOrder</span><span class="params">(Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (clazz != <span class="keyword">null</span>) &#123;</span><br><span class="line">        Integer result = filterToOrder.get(clazz.getName());</span><br><span class="line">        <span class="keyword">if</span> (result != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">        clazz = clazz.getSuperclass();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>通过过滤器的类全限定名从注册表 <code>filterToOrder</code> 中获取自己的序号，如果没有直接获取到序号通过递归获取父类在注册表中的序号作为自己的序号，序号越小优先级越高。上面的过滤器并非全部会被初始化。有的需要额外引入一些功能包，有的看 <code>HttpSecurity</code> 的配置情况。</strong> 在上一篇<a href="https://www.felord.cn/spring-security-login.html" target="_blank" rel="noopener">文章</a>中。我们禁用了 <code>CSRF</code> 功能，就意味着 <code>CsrfFilter</code> 不会被注册。</p>
+<h2 id="3-内置过滤器讲解"><a href="#3-内置过滤器讲解" class="headerlink" title="3. 内置过滤器讲解"></a>3. 内置过滤器讲解</h2><p>接下来我们就对这些内置过滤器进行一个系统的认识。<strong>我们将按照默认顺序进行讲解</strong>。</p>
+<h3 id="3-1-ChannelProcessingFilter"><a href="#3-1-ChannelProcessingFilter" class="headerlink" title="3.1 ChannelProcessingFilter"></a>3.1 ChannelProcessingFilter</h3><p><code>ChannelProcessingFilter</code> 通常是用来过滤哪些请求必须用 <code>https</code> 协议， 哪些请求必须用 <code>http</code> 协议， 哪些请求随便用哪个协议都行。它主要有两个属性：</p>
+<ul>
+<li>  <code>ChannelDecisionManager</code> 用来判断请求是否符合既定的协议规则。它维护了一个 <code>ChannelProcessor</code> 列表 这些<code>ChannelProcessor</code> 是具体用来执行 <code>ANY_CHANNEL</code> 策略 （任何通道都可以）, <code>REQUIRES_SECURE_CHANNEL</code> 策略 （只能通过<code>https</code> 通道）, <code>REQUIRES_INSECURE_CHANNEL</code> 策略 （只能通过 <code>http</code> 通道）。</li>
+<li>  <code>FilterInvocationSecurityMetadataSource</code> 用来存储 url 与 对应的<code>ANY_CHANNEL</code>、<code>REQUIRES_SECURE_CHANNEL</code>、<code>REQUIRES_INSECURE_CHANNEL</code> 的映射关系。</li>
+</ul>
+<p><code>ChannelProcessingFilter</code> 通过 <code>HttpScurity#requiresChannel()</code> 等相关方法引入其配置对象 <code>ChannelSecurityConfigurer</code> 来进行配置。</p>
+<h3 id="3-2-ConcurrentSessionFilter"><a href="#3-2-ConcurrentSessionFilter" class="headerlink" title="3.2 ConcurrentSessionFilter"></a>3.2 ConcurrentSessionFilter</h3><p><code>ConcurrentSessionFilter</code> 主要用来判断<code>session</code>是否过期以及更新最新的访问时间。其流程为：</p>
+<ol>
+<li> <code>session</code> 检测，如果不存在直接放行去执行下一个过滤器。存在则进行下一步。</li>
+<li>根据<code>sessionid</code>从<code>SessionRegistry</code>中获取<code>SessionInformation</code>，从<code>SessionInformation</code>中获取<code>session</code>是否过期；没有过期则更新<code>SessionInformation</code>中的访问日期；<br> 如果过期，则执行<code>doLogout()</code>方法，这个方法会将<code>session</code>无效，并将 <code>SecurityContext</code> 中的<code>Authentication</code>中的权限置空，同时在<code>SecurityContenxtHoloder</code>中清除<code>SecurityContext</code>然后查看是否有跳转的 <code>expiredUrl</code>，如果有就跳转，没有就输出提示信息。</li>
+</ol>
+<p><code>ConcurrentSessionFilter</code> 通过<code>SessionManagementConfigurer</code> 来进行配置。</p>
+<h3 id="3-3-WebAsyncManagerIntegrationFilter"><a href="#3-3-WebAsyncManagerIntegrationFilter" class="headerlink" title="3.3 WebAsyncManagerIntegrationFilter"></a>3.3 WebAsyncManagerIntegrationFilter</h3><p><code>WebAsyncManagerIntegrationFilter</code>用于集成SecurityContext到Spring异步执行机制中的WebAsyncManager。用来处理异步请求的安全上下文。具体逻辑为：</p>
+<ol>
+<li> 从请求属性上获取所绑定的<code>WebAsyncManager</code>，如果尚未绑定，先做绑定。</li>
+<li>从<code>asyncManager</code> 中获取 <code>key</code> 为 <code>CALLABLE_INTERCEPTOR_KEY</code> 的安全上下文多线程处理器 <code>SecurityContextCallableProcessingInterceptor</code>, 如果获取到的为 <code>null</code>，<br> 新建一个 <code>SecurityContextCallableProcessingInterceptor</code> 并绑定 <code>CALLABLE_INTERCEPTOR_KEY</code> 注册到 <code>asyncManager</code> 中。</li>
+</ol>
+<p>这里简单说一下 <code>SecurityContextCallableProcessingInterceptor</code> 。它实现了接口 <code>CallableProcessingInterceptor</code>，<br>当它被应用于一次异步执行时，<code>beforeConcurrentHandling()</code> 方法会在调用者线程执行，该方法会相应地从当前线程获取<code>SecurityContext</code>,然后被调用者线程中执行逻辑时，会使用这个 <code>SecurityContext</code>，从而实现安全上下文从调用者线程到被调用者线程的传输。</p>
+<p><code>WebAsyncManagerIntegrationFilter</code> 通过 <code>WebSecurityConfigurerAdapter#getHttp()</code>方法添加到 <code>HttpSecurity</code> 中成为 <code>DefaultSecurityFilterChain</code> 的一个链节。</p>
+<h3 id="3-4-SecurityContextPersistenceFilter"><a href="#3-4-SecurityContextPersistenceFilter" class="headerlink" title="3.4 SecurityContextPersistenceFilter"></a>3.4 SecurityContextPersistenceFilter</h3><p><code>SecurityContextPersistenceFilter</code> 主要控制 <code>SecurityContext</code> 的在一次请求中的生命周期 。 请求来临时，创建<code>SecurityContext</code> 安全上下文信息，请求结束时清空 <code>SecurityContextHolder</code>。</p>
+<p><code>SecurityContextPersistenceFilter</code> 通过 <code>HttpScurity#securityContext()</code> 及相关方法引入其配置对象 <code>SecurityContextConfigurer</code> 来进行配置。</p>
+<h3 id="3-5-HeaderWriterFilter"><a href="#3-5-HeaderWriterFilter" class="headerlink" title="3.5 HeaderWriterFilter"></a>3.5 HeaderWriterFilter</h3><p><code>HeaderWriterFilter</code> 用来给 <code>http</code> 响应添加一些 <code>Header</code>,比如 <code>X-Frame-Options</code>, <code>X-XSS-Protection</code> ，<code>X-Content-Type-Options</code>。</p>
+<p>你可以通过 <code>HttpScurity#headers()</code> 来定制请求<code>Header</code> 。</p>
+<h3 id="3-6-CorsFilter"><a href="#3-6-CorsFilter" class="headerlink" title="3.6 CorsFilter"></a>3.6 CorsFilter</h3><p>跨域相关的过滤器。这是<code>Spring MVC Java</code>配置和<code>XML</code> 命名空间 <code>CORS</code> 配置的替代方法， 仅对依赖于<code>spring-web</code>的应用程序有用（不适用于<code>spring-webmvc</code>）或 要求在<code>javax.servlet.Filter</code> 级别进行CORS检查的安全约束链接。这个是目前官方的一些解读，但是我还是不太清楚实际机制。</p>
+<p>你可以通过 <code>HttpSecurity#cors()</code> 来定制。</p>
+<h3 id="3-7-CsrfFilter"><a href="#3-7-CsrfFilter" class="headerlink" title="3.7 CsrfFilter"></a>3.7 CsrfFilter</h3><p><code>CsrfFilter</code> 用于防止<code>csrf</code>攻击，前后端使用json交互需要注意的一个问题。</p>
+<p>你可以通过 <code>HttpSecurity.csrf()</code> 来开启或者关闭它。在你使用 <code>jwt</code> 等 <code>token</code> 技术时，是不需要这个的。</p>
+<h3 id="3-8-LogoutFilter"><a href="#3-8-LogoutFilter" class="headerlink" title="3.8 LogoutFilter"></a>3.8 LogoutFilter</h3><p><code>LogoutFilter</code> 很明显这是处理注销的过滤器。</p>
+<p>你可以通过 <code>HttpSecurity.logout()</code> 来定制注销逻辑，非常有用。</p>
+<h3 id="3-9-OAuth2AuthorizationRequestRedirectFilter"><a href="#3-9-OAuth2AuthorizationRequestRedirectFilter" class="headerlink" title="3.9 OAuth2AuthorizationRequestRedirectFilter"></a>3.9 OAuth2AuthorizationRequestRedirectFilter</h3><p>和上面的有所不同，这个需要依赖 <code>spring-scurity-oauth2</code> 相关的模块。该过滤器是处理 <code>OAuth2</code> 请求首选重定向相关逻辑的。以后会我会带你们认识它，请多多关注公众号：<code>Felordcn</code> 。</p>
+<h3 id="3-10-Saml2WebSsoAuthenticationRequestFilter"><a href="#3-10-Saml2WebSsoAuthenticationRequestFilter" class="headerlink" title="3.10 Saml2WebSsoAuthenticationRequestFilter"></a>3.10 Saml2WebSsoAuthenticationRequestFilter</h3><p>这个需要用到 <code>Spring Security SAML</code> 模块，这是一个基于 <code>SMAL</code> 的 <code>SSO</code> 单点登录请求认证过滤器。</p>
+<h4 id="关于SAML"><a href="#关于SAML" class="headerlink" title="关于SAML"></a>关于SAML</h4><p><code>SAML</code> 即安全断言标记语言，英文全称是 <code>Security Assertion Markup Language</code>。它是一个基于 <code>XML</code> 的标准，用于在不同的安全域（<code>security domain</code>）之间交换认证和授权数据。在 <code>SAML</code> 标准定义了身份提供者 (<code>identity provider</code>) 和服务提供者 (<code>service provider</code>)，这两者构成了前面所说的不同的安全域。 <code>SAML</code> 是 <code>OASIS</code> 组织安全服务技术委员会(<strong>Security Services Technical Committee</strong>) 的产品。</p>
+<p><code>SAML</code>（<strong>Security Assertion Markup Language</strong>）是一个 <code>XML</code> 框架，也就是一组协议，可以用来传输安全声明。比如，两台远程机器之间要通讯，为了保证安全，我们可以采用加密等措施，也可以采用 <code>SAML</code> 来传输，传输的数据以 <code>XML</code> 形式，符合 <code>SAML</code> 规范，这样我们就可以不要求两台机器采用什么样的系统，只要求能理解 <code>SAML</code> 规范即可，显然比传统的方式更好。<code>SAML</code> 规范是一组 <code>Schema</code> 定义。</p>
+<p>可以这么说，在<code>Web Service</code> 领域，<code>schema</code> 就是规范，在 <code>Java</code> 领域，<code>API</code> 就是规范</p>
+<h3 id="3-11-X509AuthenticationFilter"><a href="#3-11-X509AuthenticationFilter" class="headerlink" title="3.11 X509AuthenticationFilter"></a>3.11 X509AuthenticationFilter</h3><p><code>X509</code> 认证过滤器。你可以通过 <code>HttpSecurity#X509()</code> 来启用和配置相关功能。</p>
+<h3 id="3-12-AbstractPreAuthenticatedProcessingFilter"><a href="#3-12-AbstractPreAuthenticatedProcessingFilter" class="headerlink" title="3.12 AbstractPreAuthenticatedProcessingFilter"></a>3.12 AbstractPreAuthenticatedProcessingFilter</h3><p><code>AbstractPreAuthenticatedProcessingFilter</code> 处理处理经过预先认证的身份验证请求的过滤器的基类，其中认证主体已经由外部系统进行了身份验证。 目的只是从传入请求中提取主体上的必要信息，而不是对它们进行身份验证。</p>
+<p>你可以继承该类进行具体实现并通过 <code>HttpSecurity#addFilter</code> 方法来添加个性化的<code>AbstractPreAuthenticatedProcessingFilter</code> 。</p>
+<h3 id="3-13-CasAuthenticationFilter"><a href="#3-13-CasAuthenticationFilter" class="headerlink" title="3.13 CasAuthenticationFilter"></a>3.13 CasAuthenticationFilter</h3><p><code>CAS</code> 单点登录认证过滤器 。依赖 Spring Security CAS 模块</p>
+<h3 id="3-14-OAuth2LoginAuthenticationFilter"><a href="#3-14-OAuth2LoginAuthenticationFilter" class="headerlink" title="3.14 OAuth2LoginAuthenticationFilter"></a>3.14 OAuth2LoginAuthenticationFilter</h3><p>这个需要依赖 <code>spring-scurity-oauth2</code> 相关的模块。<code>OAuth2</code> 登录认证过滤器。处理通过 <code>OAuth2</code> 进行认证登录的逻辑。</p>
+<h3 id="3-15-Saml2WebSsoAuthenticationFilter"><a href="#3-15-Saml2WebSsoAuthenticationFilter" class="headerlink" title="3.15 Saml2WebSsoAuthenticationFilter"></a>3.15 Saml2WebSsoAuthenticationFilter</h3><p>这个需要用到 <code>Spring Security SAML</code> 模块，这是一个基于 <code>SMAL</code> 的 <code>SSO</code> 单点登录认证过滤器。 <a href="https://www.cnblogs.com/felordcn/p/12142538.html#%E5%85%B3%E4%BA%8ESAML" target="_blank" rel="noopener">关于SAML</a></p>
+<h3 id="3-16-UsernamePasswordAuthenticationFilter"><a href="#3-16-UsernamePasswordAuthenticationFilter" class="headerlink" title="3.16 UsernamePasswordAuthenticationFilter"></a>3.16 UsernamePasswordAuthenticationFilter</h3><p>这个看过我相关文章的应该不陌生了。处理用户以及密码认证的核心过滤器。认证请求提交的<code>username</code>和 <code>password</code>，被封装成<code>token</code>进行一系列的认证，便是主要通过这个过滤器完成的，在表单认证的方法中，这是最最关键的过滤器。</p>
+<p>你可以通过 <code>HttpSecurity#formLogin()</code> 及相关方法引入其配置对象 <code>FormLoginConfigurer</code> 来进行配置。 我们在 <a href="https://www.felord.cn/spring-security-login.html" target="_blank" rel="noopener">Spring Security 实战干货： 玩转自定义登录</a> 已经对其进行过个性化的配置和魔改。</p>
+<h3 id="3-17-ConcurrentSessionFilter"><a href="#3-17-ConcurrentSessionFilter" class="headerlink" title="3.17 ConcurrentSessionFilter"></a>3.17 ConcurrentSessionFilter</h3><p>参见 <a href="https://www.cnblogs.com/felordcn/p/12142538.html#32_ConcurrentSessionFilter_104" target="_blank" rel="noopener">3.2 ConcurrentSessionFilter</a> 。 该过滤器可能会被多次执行。</p>
+<h3 id="3-18-OpenIDAuthenticationFilter"><a href="#3-18-OpenIDAuthenticationFilter" class="headerlink" title="3.18 OpenIDAuthenticationFilter"></a>3.18 OpenIDAuthenticationFilter</h3><p>基于<code>OpenID</code> 认证协议的认证过滤器。 你需要在依赖中依赖额外的相关模块才能启用它。</p>
+<h3 id="3-19-DefaultLoginPageGeneratingFilter"><a href="#3-19-DefaultLoginPageGeneratingFilter" class="headerlink" title="3.19 DefaultLoginPageGeneratingFilter"></a>3.19 DefaultLoginPageGeneratingFilter</h3><p>生成默认的登录页。默认 <code>/login</code> 。</p>
+<h3 id="3-20-DefaultLogoutPageGeneratingFilter"><a href="#3-20-DefaultLogoutPageGeneratingFilter" class="headerlink" title="3.20 DefaultLogoutPageGeneratingFilter"></a>3.20 DefaultLogoutPageGeneratingFilter</h3><p>生成默认的退出页。 默认 <code>/logout</code> 。</p>
+<h3 id="3-21-ConcurrentSessionFilter"><a href="#3-21-ConcurrentSessionFilter" class="headerlink" title="3.21 ConcurrentSessionFilter"></a>3.21 ConcurrentSessionFilter</h3><p>参见 <a href="https://www.cnblogs.com/felordcn/p/12142538.html#32_ConcurrentSessionFilter_104" target="_blank" rel="noopener">3.2 ConcurrentSessionFilter</a> 。 该过滤器可能会被多次执行。</p>
+<h3 id="3-23-DigestAuthenticationFilter"><a href="#3-23-DigestAuthenticationFilter" class="headerlink" title="3.23 DigestAuthenticationFilter"></a>3.23 DigestAuthenticationFilter</h3><p><code>Digest</code>身份验证是 <code>Web</code> 应用程序中流行的可选的身份验证机制 。<code>DigestAuthenticationFilter</code> 能够处理 <code>HTTP</code> 头中显示的摘要式身份验证凭据。你可以通过 <code>HttpSecurity#addFilter()</code> 来启用和配置相关功能。</p>
+<h3 id="3-24-BasicAuthenticationFilter"><a href="#3-24-BasicAuthenticationFilter" class="headerlink" title="3.24 BasicAuthenticationFilter"></a>3.24 BasicAuthenticationFilter</h3><p>和<code>Digest</code>身份验证一样都是<code>Web</code> 应用程序中流行的可选的身份验证机制 。 <code>BasicAuthenticationFilter</code> 负责处理 <code>HTTP</code> 头中显示的基本身份验证凭据。这个 <strong>Spring Security</strong> 的 <strong>Spring Boot</strong> 自动配置默认是启用的 。</p>
+<p><code>BasicAuthenticationFilter</code> 通过 <code>HttpSecurity#httpBasic()</code> 及相关方法引入其配置对象 <code>HttpBasicConfigurer</code> 来进行配置。</p>
+<h3 id="3-25-RequestCacheAwareFilter"><a href="#3-25-RequestCacheAwareFilter" class="headerlink" title="3.25 RequestCacheAwareFilter"></a>3.25 RequestCacheAwareFilter</h3><p>用于用户认证成功后，重新恢复因为登录被打断的请求。当匿名访问一个需要授权的资源时。会跳转到认证处理逻辑，此时请求被缓存。在认证逻辑处理完毕后，从缓存中获取最开始的资源请求进行再次请求。</p>
+<p><code>RequestCacheAwareFilter</code> 通过 <code>HttpScurity#requestCache()</code> 及相关方法引入其配置对象 <code>RequestCacheConfigurer</code> 来进行配置。</p>
+<h3 id="3-26-SecurityContextHolderAwareRequestFilter"><a href="#3-26-SecurityContextHolderAwareRequestFilter" class="headerlink" title="3.26 SecurityContextHolderAwareRequestFilter"></a>3.26 SecurityContextHolderAwareRequestFilter</h3><p>用来 实现<code>j2ee</code>中 <code>Servlet Api</code> 一些接口方法, 比如 <code>getRemoteUser</code> 方法、<code>isUserInRole</code> 方法，在使用 <strong>Spring Security</strong> 时其实就是通过这个过滤器来实现的。</p>
+<p><code>SecurityContextHolderAwareRequestFilter</code> 通过 <code>HttpSecurity.servletApi()</code> 及相关方法引入其配置对象 <code>ServletApiConfigurer</code> 来进行配置。</p>
+<h3 id="3-27-JaasApiIntegrationFilter"><a href="#3-27-JaasApiIntegrationFilter" class="headerlink" title="3.27 JaasApiIntegrationFilter"></a>3.27 JaasApiIntegrationFilter</h3><p>适用于<code>JAAS</code> （<code>Java</code> 认证授权服务）。 如果 <code>SecurityContextHolder</code> 中拥有的 <code>Authentication</code> 是一个 <code>JaasAuthenticationToken</code>，那么该 <code>JaasApiIntegrationFilter</code> 将使用包含在 <code>JaasAuthenticationToken</code> 中的 <code>Subject</code> 继续执行 <code>FilterChain</code>。</p>
+<h3 id="3-28-RememberMeAuthenticationFilter"><a href="#3-28-RememberMeAuthenticationFilter" class="headerlink" title="3.28 RememberMeAuthenticationFilter"></a>3.28 RememberMeAuthenticationFilter</h3><p>处理 <strong><code>记住我</code></strong> 功能的过滤器。</p>
+<p><code>RememberMeAuthenticationFilter</code> 通过 <code>HttpSecurity.rememberMe()</code> 及相关方法引入其配置对象 <code>RememberMeConfigurer</code> 来进行配置。</p>
+<h3 id="3-29-AnonymousAuthenticationFilter"><a href="#3-29-AnonymousAuthenticationFilter" class="headerlink" title="3.29 AnonymousAuthenticationFilter"></a>3.29 AnonymousAuthenticationFilter</h3><p>匿名认证过滤器。<strong>对于 <code>Spring Security</code> 来说，所有对资源的访问都是有 <code>Authentication</code> 的。对于无需登录（<code>UsernamePasswordAuthenticationFilter</code> ）直接可以访问的资源，会授予其匿名用户身份</strong>。</p>
+<p><code>AnonymousAuthenticationFilter</code> 通过 <code>HttpSecurity.anonymous()</code> 及相关方法引入其配置对象 <code>AnonymousConfigurer</code> 来进行配置。</p>
+<h3 id="3-30-SessionManagementFilter"><a href="#3-30-SessionManagementFilter" class="headerlink" title="3.30 SessionManagementFilter"></a>3.30 SessionManagementFilter</h3><p><code>Session</code> 管理器过滤器，内部维护了一个 <code>SessionAuthenticationStrategy</code> 用于管理 <code>Session</code> 。</p>
+<p><code>SessionManagementFilter</code> 通过 <code>HttpScurity#sessionManagement()</code> 及相关方法引入其配置对象 <code>SessionManagementConfigurer</code> 来进行配置。</p>
+<h3 id="3-31-ExceptionTranslationFilter"><a href="#3-31-ExceptionTranslationFilter" class="headerlink" title="3.31 ExceptionTranslationFilter"></a>3.31 ExceptionTranslationFilter</h3><p>主要来传输异常事件，还记得之前我们见过的 <code>DefaultAuthenticationEventPublisher</code> 吗？</p>
+<h3 id="3-32-FilterSecurityInterceptor"><a href="#3-32-FilterSecurityInterceptor" class="headerlink" title="3.32 FilterSecurityInterceptor"></a>3.32 FilterSecurityInterceptor</h3><p>这个过滤器决定了访问特定路径应该具备的权限，访问的用户的角色，权限是什么？访问的路径需要什么样的角色和权限？这些判断和处理都是由该类进行的。<strong>如果你要实现动态权限控制就必须研究该类</strong> 。</p>
+<h3 id="3-33-SwitchUserFilter"><a href="#3-33-SwitchUserFilter" class="headerlink" title="3.33 SwitchUserFilter"></a>3.33 SwitchUserFilter</h3><p><code>SwitchUserFilter</code> 是用来做账户切换的。默认的切换账号的<code>url</code>为<code>/login/impersonate</code>，默认注销切换账号的<code>url</code>为<code>/logout/impersonate</code>，默认的账号参数为<code>username</code> 。</p>
+<p>你可以通过此类实现自定义的账户切换。</p>
+
+            
+        </div>
+        
+    </div>
+    
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2020/springBootWithSpringSecurity/">spring cloud集成spring security</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">小莫</a></p>
+        <p><span>发布时间:</span>2020-11-30, 00:00:00</p>
+        <p><span>最后更新:</span>2021-07-20, 20:08:26</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2020/springBootWithSpringSecurity/" title="spring cloud集成spring security">https://blog.xiaomo.info/2020/springBootWithSpringSecurity/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://blog.xiaomo.info/2020/springBootWithSpringSecurity/　　作者: 小莫" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2020/jsCommonUtilsMethods/">
+                    js/ts常用公有方法收集整理(长期向)
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2020/flyway/">
+                    使用flyway版本控制工具维护数据库表
+                </a>
+            </div>
+        
+    </nav>
+
+    
+</article>
+
+
+
+<!-- 代码2：用来读取评论框配置，此代码需放置在代码1之后。 -->
+<!-- 如果当前页面有评论框，代码2请勿放置在评论框代码之前。 -->
+<!-- 如果页面同时使用多个实验室项目，以下代码只需要引入一次，只配置上面的div标签即可 -->
+<!--<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cysUkgluO"></script>-->
+
+<div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-原理"><span class="toc-number">1.</span> <span class="toc-text">1.原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-内置过滤器初始化"><span class="toc-number"></span> <span class="toc-text">2. 内置过滤器初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-排序规则"><span class="toc-number">1.</span> <span class="toc-text">2.1 排序规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-内置过滤器讲解"><span class="toc-number"></span> <span class="toc-text">3. 内置过滤器讲解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-ChannelProcessingFilter"><span class="toc-number">1.</span> <span class="toc-text">3.1 ChannelProcessingFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-ConcurrentSessionFilter"><span class="toc-number">2.</span> <span class="toc-text">3.2 ConcurrentSessionFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-WebAsyncManagerIntegrationFilter"><span class="toc-number">3.</span> <span class="toc-text">3.3 WebAsyncManagerIntegrationFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-SecurityContextPersistenceFilter"><span class="toc-number">4.</span> <span class="toc-text">3.4 SecurityContextPersistenceFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-HeaderWriterFilter"><span class="toc-number">5.</span> <span class="toc-text">3.5 HeaderWriterFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-CorsFilter"><span class="toc-number">6.</span> <span class="toc-text">3.6 CorsFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-CsrfFilter"><span class="toc-number">7.</span> <span class="toc-text">3.7 CsrfFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8-LogoutFilter"><span class="toc-number">8.</span> <span class="toc-text">3.8 LogoutFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-9-OAuth2AuthorizationRequestRedirectFilter"><span class="toc-number">9.</span> <span class="toc-text">3.9 OAuth2AuthorizationRequestRedirectFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-10-Saml2WebSsoAuthenticationRequestFilter"><span class="toc-number">10.</span> <span class="toc-text">3.10 Saml2WebSsoAuthenticationRequestFilter</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#关于SAML"><span class="toc-number">10.1.</span> <span class="toc-text">关于SAML</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-11-X509AuthenticationFilter"><span class="toc-number">11.</span> <span class="toc-text">3.11 X509AuthenticationFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-12-AbstractPreAuthenticatedProcessingFilter"><span class="toc-number">12.</span> <span class="toc-text">3.12 AbstractPreAuthenticatedProcessingFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-13-CasAuthenticationFilter"><span class="toc-number">13.</span> <span class="toc-text">3.13 CasAuthenticationFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-14-OAuth2LoginAuthenticationFilter"><span class="toc-number">14.</span> <span class="toc-text">3.14 OAuth2LoginAuthenticationFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-15-Saml2WebSsoAuthenticationFilter"><span class="toc-number">15.</span> <span class="toc-text">3.15 Saml2WebSsoAuthenticationFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-16-UsernamePasswordAuthenticationFilter"><span class="toc-number">16.</span> <span class="toc-text">3.16 UsernamePasswordAuthenticationFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-17-ConcurrentSessionFilter"><span class="toc-number">17.</span> <span class="toc-text">3.17 ConcurrentSessionFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-18-OpenIDAuthenticationFilter"><span class="toc-number">18.</span> <span class="toc-text">3.18 OpenIDAuthenticationFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-19-DefaultLoginPageGeneratingFilter"><span class="toc-number">19.</span> <span class="toc-text">3.19 DefaultLoginPageGeneratingFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-20-DefaultLogoutPageGeneratingFilter"><span class="toc-number">20.</span> <span class="toc-text">3.20 DefaultLogoutPageGeneratingFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-21-ConcurrentSessionFilter"><span class="toc-number">21.</span> <span class="toc-text">3.21 ConcurrentSessionFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-23-DigestAuthenticationFilter"><span class="toc-number">22.</span> <span class="toc-text">3.23 DigestAuthenticationFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-24-BasicAuthenticationFilter"><span class="toc-number">23.</span> <span class="toc-text">3.24 BasicAuthenticationFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-25-RequestCacheAwareFilter"><span class="toc-number">24.</span> <span class="toc-text">3.25 RequestCacheAwareFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-26-SecurityContextHolderAwareRequestFilter"><span class="toc-number">25.</span> <span class="toc-text">3.26 SecurityContextHolderAwareRequestFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-27-JaasApiIntegrationFilter"><span class="toc-number">26.</span> <span class="toc-text">3.27 JaasApiIntegrationFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-28-RememberMeAuthenticationFilter"><span class="toc-number">27.</span> <span class="toc-text">3.28 RememberMeAuthenticationFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-29-AnonymousAuthenticationFilter"><span class="toc-number">28.</span> <span class="toc-text">3.29 AnonymousAuthenticationFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-30-SessionManagementFilter"><span class="toc-number">29.</span> <span class="toc-text">3.30 SessionManagementFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-31-ExceptionTranslationFilter"><span class="toc-number">30.</span> <span class="toc-text">3.31 ExceptionTranslationFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-32-FilterSecurityInterceptor"><span class="toc-number">31.</span> <span class="toc-text">3.32 FilterSecurityInterceptor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-33-SwitchUserFilter"><span class="toc-number">32.</span> <span class="toc-text">3.33 SwitchUserFilter</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script>
+    yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+</script>
+
+
+
+<div class="share">
+    
+
+    
+</div>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<hr/>
+<br/>
+<div style="display:block;text-align: center">
+    <a href="javascript:window.open('https://twitter.com/share?url='+encodeURIComponent(document.location.href)+'&text='+encodeURIComponent(document.title),'_blank','toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=600, height=450,top=100,left=350');void(0)"
+       style="background-color: lightskyblue;border-radius: 45px;box-shadow: #767676;font-size: 14px;font-family: '微软雅黑',serif;color: whitesmoke;padding: 10px 15px;"
+    >
+        twitter分享
+    </a>
+</div>
+<br/>
+<br/>
+<div id="gitalk-container" style="margin: 1% 3%"></div>
+<h3 style="text-align: center">如果想及时收到回复,可在 <a href="https://github.com/settings/notifications" target="_blank">订阅中心</a>的 <code>Participating</code>中勾选Email</h3>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '9772f6a6fdb199a60ba1',
+        clientSecret: '9a606af21688d2d4ff2efa2467ee82e76e1e9865',
+        id: window.location.pathname,
+        repo: 'blog',
+        owner: 'houko',
+        admin: 'houko',
+        distractionFreeMode: false
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2020/jsCommonUtilsMethods/" title="上一篇: js/ts常用公有方法收集整理(长期向)">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2020/flyway/" title="下一篇: 使用flyway版本控制工具维护数据库表">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuyin2/">日本医疗制度之限度額適用認定証</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/ohmytmux/">我的tmux之旅（tmux使用详解）</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/redisPubSub/">nodejs中使用redis的订阅分发功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuuinn/">小莫的日本(东京)住院回忆录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/doTween/">(转)doTween插件使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/mySecondFiveYearsLifePlan/">2020年年终总结和第二个长期学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/newmanCommandLine/">postman和commandline tools（newman）用法介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/ctwJobs/">【日本东京六本木】【CTW株式会社】招聘Node全栈/Java后端/SRE/大数据工程师/UI设计师</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/npmPackageCollection/">npm优秀库使用收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/jsCommonUtilsMethods/">js/ts常用公有方法收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/springBootWithSpringSecurity/">spring cloud集成spring security</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/flyway/">使用flyway版本控制工具维护数据库表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/autoFormatOnSvae/">使用IDEA保存时自动格式化代码配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/dynamoDB/">aws dynamoDB使用总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueSSRNuxt/">nuxt.js使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/pm2UseApi/">node项目监控工具之pm2</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/webAppleSignIn/">web端接入apple Sign in流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/browserEventLoop/">聊聊Javascript的事件循环(转载)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/AwsSqsUse/">AWS SQS/SNS/Redis的pub/sub用法总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsSSo/">AWS SSO用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsCommandLineUse/">aws command line 用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueFrameworkVuex/">vue框架状态管理之vuex</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/backToJapan/">疫情下的回日坎坷路</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/unityInterviewQuestions/">unity常见面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/my2019Summary/">2019年年终总结（作为前端开发这一年）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/worldServerGame/">经历了几场面试后的全球同服架构思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/japanKannjiIndex/">日语汉字速查表</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/aboutAllVisa/">签证总结大全（工作签、在留卡加汉字、工作签证更新、家族签证等）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/javaPassByValueAndReference/">jdk源码系列-Java到底是值传递还是引用传递？</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/event20190729/">没想到有一天我逼停了电车</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/jdkSourceCodeReadThreadSleep/">jdk源码系列-Thread.sleep(0)和Thread.sleep(1)的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/restfulBestUse/">restful最佳实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/nihonnmennkyo/">小莫的日本换驾照攻略</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/nihonnkita2kagetsu/">2018年终总结（从杭州到日本工作的心路历程）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unityFpsCommonMethod/">Fps游戏常用功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unitySceneFarAndNear/">镜头拉远拉近</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unity3dMiniMap/">unity3d小地图</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUISorting/">使用UGUI中的层级问题——以背包为例</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUIServerList/">使用UGUI制作滚动列表-选服列表</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/aboutDockerUse/">docker应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadArrayListAndLinkedArrayList/">jdk源码系列-Java中ArrayList、LinkedList和Vector的联系与区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadCreateObject/">jdk源码系列-创建对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadClassInitOrder/">jdk源码系列-类的初始化顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadStringDifferent/">jdk源码系列-String,StringBuffer,StringBuilder</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadAtomicInteger/">jdk源码系列-AtomicInteger</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadInteger/">jdk源码系列-Integer</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadLocal/">jdk源码系列-ThreadLocal</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadMemoryActor/">jdk源码系列-内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadConcurrentHashMap/">jdk源码系列-ConcurrentHashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadPool/">jdk源码系列-线程池</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadIO/">jdk源码系列-深入了解IO的工作机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadObject/">jdk源码系列-Object</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadNIO/">jdk源码系列-NIO</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/throwableAndException/">jdk源码系列-throwable和Exception的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeRead/">jdk源码系列-顺序索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/myBookSheet/">我的书架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/onlineProjectKen/">项目上线之后遇到的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/mainProjectJobs/">主程职责总结和反思</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/fastjson/">fastjson的key为非字符串的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/saikennokoto/">2017年终总结(作为主程的这一年)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AngularEnvironment/">angular2学习笔记之基础环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/HowToAskQuestionOnStackOverFlow/">StackOverFlow提问的艺术</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/oracleJavaSeSliver/">java的oracle考试认证(OCJP)之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/blackAppleSystem/">安装黑苹果的历程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JapanTravel/">日本游记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/GameServerType/">游戏服务器的常用架构</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaLombok/">lombok常用注解整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SwiftProjectBuild/">swift项目初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MySoftware/">我的常用软件清单</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AboutObject/">关于对象的一些思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MyKindle/">kindle初体验.</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SomethingForNewCar/">我的新车常备用品</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/VimTabAutoComplete/">使用vim打开文件时tab补全忽略大小写设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/Win7OneNote/">win7系统登录不上onenote的解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/FormatDisk/">在linux系统下格式化移动硬盘的操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/LinuxIdeaSetting/">linux系统环境下使用idea遇到的问题及解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaApiJsonFormat/">接口格式返回大小写处理.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/StartMy2017/">2016年终总结(进入游戏行业)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MysqlCommon/">mysql常用操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NormalShell/">常用shell脚本.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidUsersPermission/">Android users-permission权限列表.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidAsyncTask/">android异步任务AsyncTask.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidEnvironment/">android环境搭建.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/blogToXiaomo/">博客域名迁移(从二级域名迁移到一级域名).</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/SublimeConfig/">Sublime Text 3 使用配置与插件安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/HttpToHttps/">拥抱https(http全面切换到https)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootSwaggerUi/">swagger ui和spring boot集成生成api文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringVideo/">spring4免费全套视频教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaLombok/">lombok简化java代码注解的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSeiyou/">日本动漫声优公演,来看看什么叫专业声优</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootDataFormat/">spring boot做前后分离时间格式化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootCors/">spring boot做前后分离的跨域问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringZiliao/">spring boot相关资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaIdeaMaven/">Maven 与 IntelliJ IDEA 的完美结合</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaServletUpload/">使用Servlet做简单的上传功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonAnime/">喜欢的动漫</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSekaku/">生活习惯的不同，造就了丰富多彩的世界</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/BangumiDongli/">《东离剑游记》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmYargs/">yargs插件的使用，node.js 命令行框架 yargs 和你的程序实现交互</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiRouter/">angular2 api整理之路由模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiCommon/">angular2 api整理之通用模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptRxjsStudy/">rxjs全接触</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptDesignPattern/">javascript设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/2016StudyPlan/">5年学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2studyAnimate/">angular2学习笔记之动画效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyServiceHttp/">angular2学习笔记之服务和http</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteOther/">angular2学习笔记之小技巧</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteNgTag/">angular2学习笔记之ng2标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteEvent/">angular2学习笔记之事件和多组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteComponent/">angular2学习笔记之基本组件和ngFor</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/PublicDns/">几个国内专用的公共 DNS</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxDisk/">阿里云服务器磁盘挂载</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxChmod/">linux权限详细解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownTableStyle/">Markdown 表格样式调整与自适应优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/GulpUse/">gulp构建工具的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/FrontEndTools/">前端工程化工具初选</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AnkiExcelShortcuts/">Anki 记忆库之 Excel 快捷键大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/CssFontFamily/">CSS font-family 网页字体使用小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeSpider/">nodejs爬虫项目实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Package.jsonScripts/">package.json常用script</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmModulesShare/">npm模块分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MongodbUse/">mongodb数据库的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/KoaGenerator/">koa生成器,一键生成koa和koa2项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeKoa/">nodejs框架koa学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptSyntax/">javascript学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Es6Syntax/">es6语法快速上手</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackLLink/">webpack进阶之loader篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackPlugins/">webpack进阶之插件篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackParams/">webpack相关命令参数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeProcess/">nodejs的process模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackBasicUse/">webpack使用之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeOnlineChat/">使用nodejs搭建一个简易的即时聊天软件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxCrontab/">linux下使用定时器跑任务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AngularKeyboardEvent/">angularjs键盘事件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownSyntax/">markdown语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NgCheckbox/">angularjs复选框</a></li></ul>
+
+<style>
+    #post-nav-button a{
+        background-color: skyblue;
+    }
+</style>
+
+
+
+<script>
+    
+</script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i>
+                
+                    2016-
+                
+                2021 小莫
+                <!--                <a href="http://www.miibeian.gov.cn/" target="_blank">浙ICP备15009606号</a>-->
+            </div>
+            <div class="footer-right">
+                <a href="https://blog.xiaomo.info/" target="_blank" title="欢迎来到小莫的博客">Blog </a> Created by <a
+                        href="https://github.com/houko" target="_blank" rel="external nofollow"
+                        title="希望这里的文章对你有所帮助  v3.0">xiaomo</a>
+                <a href="/record.html"><i class="fa fa-heart animated infinite pulse"></i></a>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit">总访问数:
+                            <span id="busuanzi_value_site_pv"></span>
+                        </span>
+                    </span>
+                
+                <span style="color: grey;">(<a href="https://www.upyun.com/" rel="external nofollow" target="_blank">背景随机加载-资源存储于又拍云</a>) | 本站己运行<span
+                            id="day_count">222</span>天<span id="time_now">1</span></span>
+            </div>
+        
+    </div>
+    <script src="/js/activate-power-mode.js" ></script>
+</footer>
+<script>
+    // 添加输入效果
+    POWERMODE.colorful = true; // make power mode colorful
+    POWERMODE.shake = false; // turn off shake
+    document.body.addEventListener('input', POWERMODE);
+
+    (function () {
+        function current() {
+            var d = new Date(), str = '';
+            str += d.getHours() + '小时';
+            str += d.getMinutes() + '分';
+            str += d.getSeconds() + '秒';
+            return str;
+        }
+
+        setInterval(function () {
+            $("#time_now").html(current)
+        }, 1000);
+
+        var dateFrom = new Date(2015, 9, 12);
+        var dateTo = new Date();
+        var diff = dateTo.valueOf() - dateFrom.valueOf();
+        var diff_day = parseInt(diff / (1000 * 60 * 60 * 24));
+        $("#day_count").html(diff_day);
+    })();
+</script>
+<a href="https://github.com/houko/blog"><img style="position: fixed; top: 0;left: 0;" width="140" height="140" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_gray_6d6d6d.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 36;
+                var randomIndex = Math.ceil(Math.random() * backgroundnum);
+                var result = randomIndex+".jpg?version="+(new Date()/1000);
+                var backgroundimg = "url(https://image.xiaomo.info/background/bg-number)".replace(/number/gi,result);
+//                console.info("加载图片"+backgroundimg);
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover","background-color":"rgba(255,255,255,0.5)","background-blend-mode":"lighten"});
+            }
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80824007-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+<script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1626811730142')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body>
+</html>

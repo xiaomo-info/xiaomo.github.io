@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><link rel=manifest href=/manifest.json><meta name="generator" content="Hexo 3.9.0"><link rel="manifest" href="/manifest.json">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="小莫">
+<meta name="baidu-site-verification" content="qp2dTXVqvj">
+
+
+
+<meta name="keywords" content="小莫的博客, java, 日语, 动漫, 技术, unity3d, nginx, https, angular, 游戏, 服务器, tomcat, IDEA, javaweb, spring, hibernate, spring boot, 开源中国, github, linux, 主程">
+
+
+<meta name="description" content="这篇文章主要介绍了mysql的用法，包含安装、常用命令等等">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql常用操作">
+<meta property="og:url" content="https://blog.xiaomo.info/2016/MysqlCommon/index.html">
+<meta property="og:site_name" content="小莫的博客-fighting(技术分享、生活随笔)">
+<meta property="og:description" content="这篇文章主要介绍了mysql的用法，包含安装、常用命令等等">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-07-20T20:08:26.464Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql常用操作">
+<meta name="twitter:description" content="这篇文章主要介绍了mysql的用法，包含安装、常用命令等等">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternative" href="/atom.xml" title="小莫的博客-fighting(技术分享、生活随笔)" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="//image.xiaomo.info/logo/avatar.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/green/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>mysql常用操作 | 小莫的博客-fighting(技术分享、生活随笔)</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        open_in_new: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+</html>
+<body oncontextmenu="return false" onselectstart="return false">
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="https://blog.xiaomo.info" target="_self" class="profilepic">
+            <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">小莫</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">行百里者半九十</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" results="0" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="//xiaomo.info">回到主站</a></li>
+                        
+                            <li><a href="/tags/japan/">日本生活系列</a></li>
+                        
+                            <li><a href="/categories/summary/">年度总结系列</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about.html">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA/">IDEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK源码系列/">JDK源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OCJP/">OCJP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alime/">alime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/">aws</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doTween/">doTween</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es5/">es5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/">excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/game/">game</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/japan/">japan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/">lombok</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxt/">nuxt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/onenote/">onenote</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postman/">postman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sso/">sso</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stackoverflow/">stackoverflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/">technology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ugui/">ugui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动漫/">动漫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字体/">字体</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码系列/">源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件/">软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑苹果/">黑苹果</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">技术宅、 杭州、 夜猫子、 爱动漫、 爱日语 2015年毕业、 java开发、 web前端、 前沿技术发烧友、 生命不息折腾不止、</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">小莫</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">小莫</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">行百里者半九十</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="//xiaomo.info">回到主站</a></li>
+                
+                    <li><a href="/tags/japan/">日本生活系列</a></li>
+                
+                    <li><a href="/categories/summary/">年度总结系列</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about.html">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><style>
+    .background-cover {
+        float: left;
+        width: 400px;
+        height: 250px;
+    }
+
+    .article img {
+        margin: -1px 20px 5px -1px;
+        border-top-left-radius: 3px;
+        -webkit-border-radius-topleft: 3%;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -o-transition: all 0.5s;
+    }
+
+    /*.article img:hover{*/
+    /*transform: scale(1, 1.05);*/
+    /*-webkit-transition:all 0.5s;*/
+    /*-moz-transition:all 0.5s;*/
+    /*-o-transition:all 0.5s;*/
+    /*}*/
+</style>
+
+
+<article id="post-MysqlCommon" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        function getPgjs() {
+            const agent = navigator.userAgent.toLowerCase()
+            let res = agent.match(/android/)
+            if (res === "android")
+                return res;
+            res = agent.match(/iphone/);
+            if (res === "iphone")
+                return "ios";
+            res = agent.match(/ipad/);
+            if (res === "ipad")
+                return "ios";
+            res = agent.match(/windows/);
+            if (res === "windows")
+                return "wp";
+            console.info('pc......')
+            return "pc";
+        }
+
+        function loadImage(id) {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                return;
+            }
+            var backgroundnum = 40;
+            var randomIndex = Math.ceil(Math.random() * backgroundnum);
+            var result = randomIndex + "?version=" + (new Date() / 1000);
+            var backgroundimg = "https://image.xiaomo.info/cover/bg-number.jpg".replace(/number/gi, randomIndex);
+            var key = "#" + id;
+            $(key).attr("src", backgroundimg);
+            $(".background-cover").show();
+        }
+
+        (function () {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                console.log(page)
+                $(".background-cover").hide();
+            }
+        })()
+    </script>
+    
+    <div class="article-meta">
+        <a href="/2016/MysqlCommon/" class="article-date">
+      <time datetime="2016-12-21T00:00:00.000Z" itemprop="datePublished">2016-12-21</time>
+</a>
+    </div>
+    
+    <div class="article-inner">
+        
+        <input type="hidden" class="isFancy"/>
+        
+        <div class="background-cover">
+            <img class="fengmian-image" id="MysqlCommon" src="https://image.xiaomo.info/cover/bg-5.jpg" alt="封面" onload="loadImage(this.id)"/>
+        </div>
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      mysql常用操作
+    </h1>
+  
+
+        </header>
+        
+        <div class="article-info article-info-post">
+            
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/mysql/">mysql</a>
+    </div>
+
+
+            
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul> </div>
+
+
+
+            <!-- 访问量  -->
+            <!--<span id="busuanzi_container_page_pv" style='display:none'>-->
+            <!--<span id="page-visit"><i class="fa fa-eye" style="float: left;margin-top:5px" aria-hidden="true" title="文章访问量"></i>-->
+            <!--<span id="busuanzi_value_page_pv"></span>-->
+            <!--</span>-->
+            <!--</span>-->
+
+            <div class="clearfix"></div>
+        </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+            
+            <p>这篇文章主要介绍了mysql的用法，包含安装、常用命令等等</p>
+<a id="more"></a>
+<h3 id="一、环境"><a href="#一、环境" class="headerlink" title="一、环境"></a>一、环境</h3><blockquote>
+<p>linux centerOs 6.5<br>mysql 最新 </p>
+</blockquote>
+<h3 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h3><h4 id="1-yum安装"><a href="#1-yum安装" class="headerlink" title="1. yum安装"></a>1. yum安装</h4><p>yum安装mysql</p>
+<p><code>[root@stonex ~]#  yum -y install mysql-server</code></p>
+<p>安装结果：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">Installed</span>:</span><br><span class="line">    <span class="selector-tag">mysql-server</span><span class="selector-class">.x86_64</span> 0<span class="selector-pseudo">:5.1.73-3.el6_5</span>                                                                                                                                                         </span><br><span class="line"><span class="selector-tag">Dependency</span> <span class="selector-tag">Installed</span>:</span><br><span class="line">    <span class="selector-tag">mysql</span><span class="selector-class">.x86_64</span> 0<span class="selector-pseudo">:5.1.73-3.el6_5</span>                                <span class="selector-tag">perl-DBD-MySQL</span><span class="selector-class">.x86_64</span> 0<span class="selector-pseudo">:4.013-3.el6</span>                                <span class="selector-tag">perl-DBI</span><span class="selector-class">.x86_64</span> 0<span class="selector-pseudo">:1.609-4.el6</span></span><br></pre></td></tr></table></figure>
+
+<p>启动MySql服务<br><code>[root@stonex ~]#  service mysqld start</code></p>
+<p>命令登录mysql<br><code>[root@stonex ~]#  mysql -u root</code></p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">Welcome <span class="keyword">to</span> <span class="keyword">the</span> MySQL monitor.  Commands <span class="keyword">end</span> <span class="keyword">with</span> ; <span class="keyword">or</span> \g.</span><br></pre></td></tr></table></figure>
+
+<p><code>mysql&gt; select user,host,password from mysql.user;</code><br>查询用户的密码，都为空，用下面的命令设置root的密码为root</p>
+<p>设置MySQL的root用户设置密码  </p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">mysql&gt; set password <span class="keyword">for</span> root@localhost=password(<span class="string">'root'</span>);</span><br><span class="line">mysql&gt; <span class="keyword">exit</span></span><br></pre></td></tr></table></figure>
+
+<p>用新密码登陆<br><code>[root@stonex ~]#  mysql -u root -p</code></p>
+<p>基本命令</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">show databases; <span class="regexp">//</span>查看系统已存在的数据库</span><br><span class="line">use databasesname;   <span class="regexp">//</span>选择需要使用的数据库</span><br><span class="line">drop database databasename; <span class="regexp">//</span>删除选定的数据库</span><br><span class="line"><span class="keyword">exit</span>    <span class="regexp">//</span>退出数据库的连接</span><br><span class="line">create database test01;    <span class="regexp">//</span>建立名为test的数据库</span><br><span class="line">show tables;        <span class="regexp">//</span> 列出当前数据库下的表</span><br><span class="line">其他基本的增删改查使用标准SQL即可</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-源码安装"><a href="#2-源码安装" class="headerlink" title="2. 源码安装"></a>2. 源码安装</h4><p>1.假设已经有mysql-5.5.10.tar.gz以及cmake-2.8.4.tar.gz两个源文件</p>
+<p>(1)先安装cmake（mysql5.5以后是通过cmake来编译的）</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line">[<span class="meta">root@ rhel5 local</span>]<span class="meta">#tar -zxv -f cmake-2.8.4.tar.gz</span></span><br><span class="line">[<span class="meta">root@ rhel5 local</span>]<span class="meta">#cd cmake-2.8.4</span></span><br><span class="line">[<span class="meta">root@ rhel5 cmake-2.8.4</span>]<span class="meta">#./configure</span></span><br><span class="line">[<span class="meta">root@ rhel5 cmake-2.8.4</span>]<span class="meta">#make</span></span><br><span class="line">[<span class="meta">root@ rhel5 cmake-2.8.4</span>]<span class="meta">#make install</span></span><br></pre></td></tr></table></figure>
+
+<p>(2)创建mysql的安装目录及数据库存放目录</p>
+<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-attr">[root@ rhel5~]</span><span class="selector-id">#mkdir</span> <span class="selector-tag">-p</span> /<span class="selector-tag">usr</span>/<span class="selector-tag">local</span>/<span class="selector-tag">mysql</span>                 <span class="comment">//安装mysql </span></span><br><span class="line"><span class="selector-attr">[root@ rhel5~]</span><span class="selector-id">#mkdir</span> <span class="selector-tag">-p</span> /<span class="selector-tag">usr</span>/<span class="selector-tag">local</span>/<span class="selector-tag">mysql</span>/<span class="selector-tag">data</span>            <span class="comment">//存放数据库</span></span><br></pre></td></tr></table></figure>
+
+<p>(3)创建mysql用户及用户组</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line">[<span class="meta">root@ rhel5~</span>]groupadd mysql</span><br><span class="line">[<span class="meta">root@ rhel5~</span>]useradd -r -g mysql mysql</span><br></pre></td></tr></table></figure>
+
+<p>(4)安装mysql</p>
+<p><code>cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql -DMYSQL_DATADIR=/usr/local/mysql/data -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DEXTRA_CHARSETS=all  -DENABLED_LOCAL_INFILE=1</code></p>
+<p>复制代码</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[root@ rhel5 local]</span><span class="comment">#tar -zxv -f mysql-5.5.10.tar.gz</span></span><br><span class="line"><span class="section">[root@ rhel5 local]</span><span class="comment">#cd mysql-5.5.10</span></span><br><span class="line"><span class="section">[root@ rhel5 mysql-5.5.10]</span><span class="comment">#cmake . </span></span><br><span class="line"><span class="attr">-DCMAKE_INSTALL_PREFIX</span>=/usr/local/mysql</span><br><span class="line"><span class="attr">-DMYSQL_DATADIR</span>=/usr/local/mysql/data</span><br><span class="line"><span class="attr">-DDEFAULT_CHARSET</span>=utf8</span><br><span class="line"><span class="attr">-DDEFAULT_COLLATION</span>=utf8_general_ci </span><br><span class="line"><span class="attr">-DEXTRA_CHARSETS</span>=all </span><br><span class="line"><span class="attr">-DENABLED_LOCAL_INFILE</span>=<span class="number">1</span></span><br><span class="line"><span class="section">[root@ rhel5 mysql-5.5.10]</span><span class="comment">#make</span></span><br><span class="line"><span class="section">[root@ rhel5 mysql-5.5.10]</span><span class="comment">#make install</span></span><br></pre></td></tr></table></figure>
+
+<p>复制代码<br>参数说明：</p>
+<figure class="highlight haml"><table><tr><td class="code"><pre><span class="line">-<span class="ruby">DCMAKE_INSTALL_PREFIX=<span class="regexp">/usr/local</span><span class="regexp">/mysql        /</span><span class="regexp">/安装目录</span></span></span><br><span class="line"></span><br><span class="line"><span class="ruby">-DINSTALL_DATADIR=<span class="regexp">/usr/local</span><span class="regexp">/mysql/data</span>         /<span class="regexp">/数据库存放目录</span></span></span><br><span class="line"></span><br><span class="line"><span class="ruby">-DDEFAULT_CHARSET=utf8                    　　　　/<span class="regexp">/使用utf8字符</span></span></span><br><span class="line"></span><br><span class="line"><span class="ruby">-DDEFAULT_COLLATION=utf8_general_ci            /<span class="regexp">/校验字符</span></span></span><br><span class="line"></span><br><span class="line"><span class="ruby">-DEXTRA_CHARSETS=all                        　　　　/<span class="regexp">/安装所有扩展字符集</span></span></span><br><span class="line"></span><br><span class="line"><span class="ruby">-DENABLED_LOCAL_INFILE=<span class="number">1</span>                    　　  /<span class="regexp">/允许从本地导入数据</span></span></span><br></pre></td></tr></table></figure>
+
+<p>注意事项：</p>
+<p>重新编译时，需要清除旧的对象文件和缓存信息。</p>
+<figure class="highlight vala"><table><tr><td class="code"><pre><span class="line"><span class="meta"># make clean</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># rm -f CMakeCache.txt</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># rm -rf /etc/my.cnf</span></span><br></pre></td></tr></table></figure>
+
+<p>2.配置</p>
+<p>(1)设置目录权限</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line">[<span class="meta">root@ rhel5~</span>]<span class="meta"># cd /usr/local/mysql</span></span><br><span class="line"></span><br><span class="line">[<span class="meta">root@ rhel5 mysql</span>]<span class="meta"># chown -R root:mysql .　//把当前目录中所有文件的所有者所有者设为root，所属组为mysql</span></span><br><span class="line"></span><br><span class="line">[<span class="meta">root@ rhel5 mysql</span>]<span class="meta"># chown -R mysql:mysql data</span></span><br></pre></td></tr></table></figure>
+
+<p>(2)</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">[root@ rhel5 mysql]# <span class="keyword">cp</span> support-<span class="keyword">files</span>/my-medium.<span class="keyword">cnf</span> /etc/my.<span class="keyword">cnf</span>　//将mysql的启动服务添加到系统服务中</span><br></pre></td></tr></table></figure>
+
+<p>(3)创建系统数据库的表</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line">[<span class="meta">root@ rhel5 mysql</span>]<span class="meta"># cd /usr/local/mysql</span></span><br><span class="line">[<span class="meta">root@ rhel5 mysql</span>]<span class="meta"># scripts/mysql_install_db --user=mysql</span></span><br></pre></td></tr></table></figure>
+
+<p>(4)设置环境变量</p>
+<p>复制代码</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line">[<span class="meta">root@ rhel5~</span>]<span class="meta"># vi /root/.bash_profile</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight crystal"><table><tr><td class="code"><pre><span class="line">在PATH=$<span class="symbol">PATH:</span>$HOME/bin添加参数为：</span><br><span class="line"></span><br><span class="line">PATH=$<span class="symbol">PATH:</span>$HOME/<span class="symbol">bin:</span>/usr/local/mysql/<span class="symbol">bin:</span>/usr/local/mysql/<span class="class"><span class="keyword">lib</span></span></span><br><span class="line"></span><br><span class="line">[root@ rhel5~]<span class="comment">#source /root/.bash_profile</span></span><br></pre></td></tr></table></figure>
+
+<p>复制代码<br>(5)手动启动mysql</p>
+<p>复制代码</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line">[<span class="meta">root@ rhel5~</span>]<span class="meta"># cd /usr/local/mysql</span></span><br><span class="line"></span><br><span class="line">[<span class="meta">root@ rhel5 mysql</span>]<span class="meta"># ./bin/mysqld_safe --user=mysql &amp; 　 //启动MySQL，但不能停止</span></span><br></pre></td></tr></table></figure>
+
+<p>启动日志写在此文件下：<code>/usr/local/mysql/data/localhost.err</code></p>
+<p>关闭MySQL服务</p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">[root@ rhel5 mysql]<span class="meta"># mysqladmin -u root -p shutdown　　<span class="comment">//这里MySQL的root用户还没有配置密码，所以为空值。需要输入密码时，直接点回车键即可。</span></span></span><br></pre></td></tr></table></figure>
+
+<p>复制代码<br>(6)另一种简单的启动mysql的方法(mysql已经被添加到系统服务中)</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">[root@ rhel5~]#<span class="built_in"> service </span>mysql.server start  </span><br><span class="line">[root@ rhel5~]#<span class="built_in"> service </span>mysql.server stop</span><br><span class="line">[root@ rhel5~]#<span class="built_in"> service </span>mysql.server restart</span><br></pre></td></tr></table></figure>
+
+<p>如果上述命令出现：mysql.server 未识别的服务</p>
+<p>则可能mysql还没添加到系统服务中，下面用另一种方法添加：</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">[root@ rhel5 mysql]# cp support-files<span class="regexp">/mysql.server  /</span>etc<span class="regexp">/init.d/my</span>sql　<span class="comment">//将mysql的启动服务添加到系统服务中</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：主要是将mysql.server拷贝到/etc/init.d中，命名为mysql。在有的系统中，mysql.server在/usr/local/mysql/share/mysql/mysql.server中，而本系统中，mysql.server在/usr/local/mysql/support-files/mysql.server中。</p>
+<p>然后再用<code>#service mysql start </code>来启动mysql即可。</p>
+<p>(7)修改MySQL的root用户的密码以及打开远程连接</p>
+<p>复制代码</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">[root@ rhel5~]<span class="comment"># mysql -u root mysql</span></span><br><span class="line"></span><br><span class="line">mysql&gt;use mysql;</span><br><span class="line">mysql&gt;desc user;</span><br><span class="line">mysql&gt; GRANT ALL PRIVILEGES ON *.* TO root@<span class="string">"%"</span> IDENTIFIED BY <span class="string">"root"</span>;　　<span class="regexp">//</span>为root添加远程连接的能力。</span><br><span class="line">mysql&gt;update user set Password = password(<span class="string">'xxxxxx'</span>) where User=<span class="string">'root'</span>;</span><br><span class="line">mysql&gt;select Host,User,Password  from user where User=<span class="string">'root'</span>; </span><br><span class="line">mysql&gt;flush privileges;</span><br><span class="line">mysql&gt;<span class="keyword">exit</span></span><br></pre></td></tr></table></figure>
+
+<p>重新登录：<code>mysql -u root -p</code></p>
+<p>若还不能进行远程连接，则关闭防火墙</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line">[<span class="meta">root@ rhel5~</span>]<span class="meta"># /etc/rc.d/init.d/iptables stop</span></span><br></pre></td></tr></table></figure>
+
+<p>复制代码<br>注：如果不能远程连接，出现错误<code>mysql error number 1130</code>，则加入下面语句试试：</p>
+<figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line">mysql&gt;GRANT <span class="literal">ALL</span> PRIVILEGES <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'root'</span>@<span class="string">'%'</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">'******'</span> <span class="keyword">WITH</span> GRANT OPTION;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三、加入service和自启动"><a href="#三、加入service和自启动" class="headerlink" title="三、加入service和自启动"></a>三、加入service和自启动</h3><p><code>find / -name mysql.server</code>   </p>
+<p>将找到的文件copy到init.d下  加入到系统启动项  </p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">cp url/mysql.server <span class="string">/etc/init.d/mysqld</span> </span><br><span class="line">　　<span class="comment">#把msql的脚本文件拷到系统的启动目录下 </span></span><br><span class="line">　　<span class="keyword">cd</span> <span class="string">/etc/init.d/</span> </span><br><span class="line">　　chkconfig <span class="params">--add</span> mysqld <span class="comment">#将mysql加到启动服务列表里 </span></span><br><span class="line">　　chkconfig mysqld on <span class="comment">#让系统启动时自动打开mysql服务</span></span><br></pre></td></tr></table></figure>
+
+<p>设置开机启动<br><code>[root@stonex ~]#  chkconfig mysqld on</code></p>
+<h3 id="四、设置编码"><a href="#四、设置编码" class="headerlink" title="四、设置编码"></a>四、设置编码</h3><p>MySql修改数据库编码为UTF8<br>　mysql 创建 数据库时指定编码很重要，很多开发者都使用了默认编码，乱码问题可是防不胜防。制定数据库的编码可以很大程度上避免倒入导出带来的乱码问题。<br>　　网页数据一般采用UTF8编码，而数据库默认为latin 。我们可以通过修改数据库默认编码方式为UTF8来减少数据库创建时的设置，也能最大限度的避免因粗心造成的乱码问题。<br>　　我们遵循的标准是，数据库，表，字段和页面或文本的编码要统一起来<br>　　我们可以通过命令查看数据库当前编码：</p>
+<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line">　　mysql&gt; SHOW <span class="keyword">VARIABLES</span> LIKE <span class="comment">'character%'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>　　发现很多对应的都是 latin1，我们的目标就是在下次使用此命令时latin1能被UTF8取代。</p>
+<p>　　第一阶段：</p>
+<p>　　mysql设置编码命令</p>
+<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SET</span> character_set_client <span class="comment">= utf8</span>;</span><br><span class="line"><span class="keyword">SET</span> character_set_connection <span class="comment">= utf8</span>;</span><br><span class="line"><span class="keyword">SET</span> character_set_database <span class="comment">= utf8</span>;</span><br><span class="line"><span class="keyword">SET</span> character_set_results <span class="comment">= utf8</span>;</span><br><span class="line"><span class="keyword">SET</span> character_set_server <span class="comment">= utf8</span>;</span><br></pre></td></tr></table></figure>
+
+<p>　　然后 <code>mysql&gt; SHOW VARIABLES LIKE &#39;character%&#39;; </code>你可以看到全变为 <code>utf8</code> 。</p>
+<p>　　但是，这只是一种假象</p>
+<p>　　此种方式只在当前状态下有效，当重启数据库服务后失效。</p>
+<p>　　所以如果想要不出现乱码只有修改my.ini文件，</p>
+<p>　　从my.ini下手（标签下没有的添加，有的修改）</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line">　　[<span class="meta">client</span>]</span><br><span class="line">　　<span class="keyword">default</span>-character-<span class="keyword">set</span>=utf8</span><br><span class="line">　　[<span class="meta">mysql</span>]</span><br><span class="line">　　<span class="keyword">default</span>-character-<span class="keyword">set</span>=utf8</span><br><span class="line">　　[<span class="meta">mysqld</span>]</span><br><span class="line">　　<span class="keyword">default</span>-character-<span class="keyword">set</span>=utf8</span><br></pre></td></tr></table></figure>
+
+<p>　　以上3个section都要加default-character-set=utf8，平时我们可能只加了mysqld一项。</p>
+<p>　　然后重启mysql，执行</p>
+<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line">　　mysql&gt; SHOW <span class="keyword">VARIABLES</span> LIKE <span class="comment">'character%'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>　　确保所有的Value项都是utf8即可。</p>
+<p>　　但是可恶的事情又来了，</p>
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">　　|<span class="string">character_set_client      </span>|<span class="string"> utf8                                  </span>|</span><br><span class="line">　　|<span class="string"> character_set_connection </span>|<span class="string"> utf8                                  </span>|</span><br><span class="line">　　|<span class="string"> character_set_database   </span>|<span class="string"> utf8                                  </span>|</span><br><span class="line">　　|<span class="string"> character_set_filesystem </span>|<span class="string"> binary                                </span>|</span><br><span class="line">　　|<span class="string"> character_set_results    </span>|<span class="string"> utf8                                  </span>|</span><br><span class="line">　　|<span class="string"> character_set_server     </span>|<span class="string"> latin1                                </span>|</span><br><span class="line">　　|<span class="string"> character_set_system     </span>|<span class="string"> utf8</span></span><br></pre></td></tr></table></figure>
+
+<p>　　注意  该配置| character_set_server     | latin1 无法设置成UTF8   交互时候仍然会出现乱码。</p>
+<p>　第二阶段：找到下面这东东</p>
+<p>　　<code>X:\%path%\MySQL\MySQL Server 5.0\bin\MySQLInstanceConfig.exe</code></p>
+<p>　　重新启动设置，将默认编码设置为utf8.这样就能达到我们所要的效果了。</p>
+<p>　　<code>mysql&gt; SHOW VARIABLES LIKE &#39;character%&#39;;</code></p>
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">　　+--------------------------+---------------------------------------------------------+</span><br><span class="line">　　|<span class="string"> Variable_name            </span>|<span class="string"> Value                                                   </span>|</span><br><span class="line">　　+--------------------------+---------------------------------------------------------+</span><br><span class="line">　　|<span class="string"> character_set_client     </span>|<span class="string"> utf8                                                    </span>|</span><br><span class="line">　　|<span class="string"> character_set_connection </span>|<span class="string"> utf8                                                    </span>|</span><br><span class="line">　　|<span class="string"> character_set_database   </span>|<span class="string"> utf8                                                    </span>|</span><br><span class="line">　　|<span class="string"> character_set_filesystem </span>|<span class="string"> binary                                                  </span>|</span><br><span class="line">　　|<span class="string"> character_set_results    </span>|<span class="string"> utf8                                                    </span>|</span><br><span class="line">　　|<span class="string"> character_set_server     </span>|<span class="string"> utf8                                                    </span>|</span><br><span class="line">　　|<span class="string"> character_set_system     </span>|<span class="string"> utf8                                                    </span>|</span><br><span class="line">　　|<span class="string"> character_sets_dir       </span>|<span class="string"> C:\Program Files\MySQL\MySQL Server 5.0\share\charsets\ </span>|</span><br><span class="line">　　+--------------------------+---------------------------------------------------------+</span><br><span class="line"></span><br><span class="line">　　8 rows in set</span><br></pre></td></tr></table></figure>
+
+<p>　　另外注意事项：</p>
+<p>　　1、建表时加utf8，表字段的Collation可加可不加，不加时默认是utf8_general_ci了。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">CREATE TABLE `tablename4` (</span><br><span class="line">`id` int(11) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line">`varchar1` varchar(255)<span class="built_in"> DEFAULT </span><span class="literal">NULL</span>,</span><br><span class="line">`varbinary1` varbinary(255)<span class="built_in"> DEFAULT </span><span class="literal">NULL</span>,</span><br><span class="line">PRIMARY KEY (`id`)</span><br><span class="line">) <span class="attribute">ENGINE</span>=MyISAM<span class="built_in"> DEFAULT </span><span class="attribute">CHARSET</span>=utf8</span><br></pre></td></tr></table></figure>
+
+<p>　　2、网页xxx.php/jsp保存时选择utf8编码，页头最好加上</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">　　header(<span class="symbol">'conten</span>-<span class="class"><span class="keyword">type</span></span>:text/html;charset=utf<span class="number">-8</span>');</span><br></pre></td></tr></table></figure>
+
+<p>　　在执行CRUD操作前先执行一下</p>
+<p>　　<code>mysql_query(&quot;set names utf8&quot;);</code></p>
+<p>　　————————-</p>
+<p>　　连接数据库设置编码</p>
+<p>　<code>jdbc:mysql://地址:3306/数据库名?characterEncoding=utf8</code></p>
+<p>　　————————-</p>
+<p>　　java中的常用编码<code>UTF-8;GBK;GB2312;ISO-8859-1;</code></p>
+<p>　　对应mysql数据库中的编码<code>utf8;gbk;gb2312;latin1</code></p>
+<h3 id="五、-设置权限"><a href="#五、-设置权限" class="headerlink" title="五、 设置权限"></a>五、 设置权限</h3><p>开放远程登录权限</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> <span class="keyword">privileges</span> <span class="keyword">on</span> *.* <span class="keyword">to</span> root@<span class="string">"%"</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">"xiaomo"</span>;</span><br><span class="line"><span class="keyword">FLUSH</span> <span class="keyword">PRIVILEGES</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="六、创建用户"><a href="#六、创建用户" class="headerlink" title="六、创建用户"></a>六、创建用户</h3><p>1.创建账户<br><code>CREATE USER &#39;pig&#39;@&#39;%&#39; IDENTIFIED BY &#39;123456&#39;; </code><br>2.授权<br><code>GRANT ALL ON *.* TO &#39;pig&#39;@&#39;%&#39;; </code><br>3.设置和修改密码<br><code>SET PASSWORD FOR &#39;pig&#39;@&#39;%&#39; = PASSWORD(&quot;123456&quot;); </code><br>4.撤销权限<br><code>REVOKE SELECT ON *.* FROM &#39;pig&#39;@&#39;%&#39;;</code>    </p>
+<h3 id="七、存储过程"><a href="#七、存储过程" class="headerlink" title="七、存储过程"></a>七、存储过程</h3><p>我们常用的操作数据库语言SQL语句在执行的时候需要要先编译，然后执行，而存储过程（Stored Procedure）是一组为了完成特定功能的SQL语句集，经编译后存储在数据库中，用户通过指定存储过程的名字并给定参数（如果该存储过程带有参数）来调用执行它<br>1.存储过程简介 </p>
+<p>我们常用的操作数据库语言SQL语句在执行的时候需要要先编译，然后执行，而存储过程（Stored Procedure）是一组为了完成特定功能的SQL语句集，经编译后存储在数据库中，用户通过指定存储过程的名字并给定参数（如果该存储过程带有参数）来调用执行它。 </p>
+<p>一个存储过程是一个可编程的函数，它在数据库中创建并保存。它可以有SQL语句和一些特殊的控制结构组成。当希望在不同的应用程序或平台上执行相同的函数，或者封装特定功能时，存储过程是非常有用的。数据库中的存储过程可以看做是对编程中面向对象方法的模拟。它允许控制数据的访问方式。 </p>
+<p>存储过程通常有以下优点： </p>
+<p>(1).存储过程增强了SQL语言的功能和灵活性。存储过程可以用流控制语句编写，有很强的灵活性，可以完成复杂的判断和较复杂的运算。 </p>
+<p>(2).存储过程允许标准组件是编程。存储过程被创建后，可以在程序中被多次调用，而不必重新编写该存储过程的SQL语句。而且数据库专业人员可以随时对存储过程进行修改，对应用程序源代码毫无影响。 </p>
+<p>(3).存储过程能实现较快的执行速度。如果某一操作包含大量的Transaction-SQL代码或分别被多次执行，那么存储过程要比批处理的执行速度快很多。因为存储过程是预编译的。在首次运行一个存储过程时查询，优化器对其进行分析优化，并且给出最终被存储在系统表中的执行计划。而批处理的Transaction-SQL语句在每次运行时都要进行编译和优化，速度相对要慢一些。 </p>
+<p>(4).存储过程能过减少网络流量。针对同一个数据库对象的操作（如查询、修改），如果这一操作所涉及的Transaction-SQL语句被组织程存储过程，那么当在客户计算机上调用该存储过程时，网络中传送的只是该调用语句，从而大大增加了网络流量并降低了网络负载。 </p>
+<p>(5).存储过程可被作为一种安全机制来充分利用。系统管理员通过执行某一存储过程的权限进行限制，能够实现对相应的数据的访问权限的限制，避免了非授权用户对数据的访问，保证了数据的安全。 </p>
+<ol start="2">
+<li>关于MySQL的存储过程 </li>
+</ol>
+<p>存储过程是数据库存储的一个重要的功能，但是MySQL在5.0以前并不支持存储过程，这使得MySQL在应用上大打折扣。好在MySQL 5.0终于开始已经支持存储过程，这样即可以大大提高数据库的处理速度，同时也可以提高数据库编程的灵活性。 </p>
+<ol start="3">
+<li>MySQL存储过程的创建 </li>
+</ol>
+<p>(1). 格式 </p>
+<p>MySQL存储过程创建的格式：CREATE PROCEDURE 过程名 ([过程参数[,…]])<br>[特性 …] 过程体 </p>
+<p>这里先举个例子： </p>
+<figure class="highlight delphi"><table><tr><td class="code"><pre><span class="line">mysql&gt; DELIMITER <span class="comment">// </span></span><br><span class="line">mysql&gt; CREATE <span class="function"><span class="keyword">PROCEDURE</span> <span class="title">proc1</span><span class="params">(<span class="keyword">OUT</span> s int)</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">BEGIN</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">SELECT</span> <span class="title">COUNT</span><span class="params">(*)</span> <span class="title">INTO</span> <span class="title">s</span> <span class="title">FROM</span> <span class="title">user</span>;</span> </span><br><span class="line">-&gt; <span class="keyword">END</span> </span><br><span class="line">-&gt; <span class="comment">// </span></span><br><span class="line">mysql&gt; DELIMITER ;</span><br></pre></td></tr></table></figure>
+
+<p>注： </p>
+<p>（1）这里需要注意的是DELIMITER //和DELIMITER ;两句，DELIMITER是分割符的意思，因为MySQL默认以”;”为分隔符，如果我们没有声明分割符，那么编译器会把存储过程当成SQL语句进行处理，则存储过程的编译过程会报错，所以要事先用DELIMITER关键字申明当前段分隔符，这样MySQL才会将”;”当做存储过程中的代码，不会执行这些代码，用完了之后要把分隔符还原。 </p>
+<p>（2）存储过程根据需要可能会有输入、输出、输入输出参数，这里有一个输出参数s，类型是int型，如果有多个参数用”,”分割开。 </p>
+<p>（3）过程体的开始与结束使用BEGIN与END进行标识。 </p>
+<p>这样，我们的一个MySQL存储过程就完成了，是不是很容易呢?看不懂也没关系，接下来，我们详细的讲解。 </p>
+<p>(2). 声明分割符 </p>
+<p>其实，关于声明分割符，上面的注解已经写得很清楚，不需要多说，只是稍微要注意一点的是：如果是用MySQL的Administrator管理工具时，可以直接创建，不再需要声明。 </p>
+<p>(3). 参数 </p>
+<p>MySQL存储过程的参数用在存储过程的定义，共有三种参数类型,IN,OUT,INOUT,形式如： </p>
+<p>CREATE PROCEDURE([[IN |OUT |INOUT ] 参数名 数据类形…]) </p>
+<p>IN 输入参数:表示该参数的值必须在调用存储过程时指定，在存储过程中修改该参数的值不能被返回，为默认值 </p>
+<p>OUT 输出参数:该值可在存储过程内部被改变，并可返回 </p>
+<p>INOUT 输入输出参数:调用时指定，并且可被改变和返回 </p>
+<p>Ⅰ. IN参数例子 </p>
+<p>创建: </p>
+<figure class="highlight delphi"><table><tr><td class="code"><pre><span class="line">mysql &gt; DELIMITER <span class="comment">// </span></span><br><span class="line">mysql &gt; CREATE <span class="function"><span class="keyword">PROCEDURE</span> <span class="title">demo_in_parameter</span><span class="params">(<span class="keyword">IN</span> p_in int)</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">BEGIN</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">SELECT</span> <span class="title">p_in</span>;</span> </span><br><span class="line">-&gt; <span class="keyword">SET</span> p_in=<span class="number">2</span>; </span><br><span class="line">-&gt; SELECT p_in; </span><br><span class="line">-&gt; <span class="keyword">END</span>; </span><br><span class="line">-&gt; <span class="comment">// </span></span><br><span class="line">mysql &gt; DELIMITER ;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果: </p>
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">mysql &gt; SET <span class="meta">@p_in=1;</span> </span><br><span class="line">mysql &gt; CALL demo_in_parameter(<span class="meta">@p_in);</span> </span><br><span class="line">+------+ </span><br><span class="line">|<span class="string"> p_in </span>|<span class="string"> </span></span><br><span class="line"><span class="string">+------+ </span></span><br><span class="line">|<span class="string"> 1 </span>|<span class="string"> </span></span><br><span class="line"><span class="string">+------+ </span></span><br><span class="line"></span><br><span class="line"><span class="string">+------+ </span></span><br><span class="line">|<span class="string"> p_in </span>|<span class="string"> </span></span><br><span class="line"><span class="string">+------+ </span></span><br><span class="line">|<span class="string"> 2 </span>|<span class="string"> </span></span><br><span class="line"><span class="string">+------+ </span></span><br><span class="line"></span><br><span class="line"><span class="string">mysql&gt; SELECT @p_in; </span></span><br><span class="line"><span class="string">+-------+ </span></span><br><span class="line">|<span class="string"> @p_in </span>|<span class="string"> </span></span><br><span class="line"><span class="string">+-------+ </span></span><br><span class="line">|<span class="string"> 1 </span>|<span class="string"> </span></span><br><span class="line"><span class="string">+-------+</span></span><br></pre></td></tr></table></figure>
+
+<p>以上可以看出，p_in虽然在存储过程中被修改，但并不影响@p_id的值 </p>
+<p>Ⅱ.OUT参数例子 </p>
+<p>创建: </p>
+<figure class="highlight delphi"><table><tr><td class="code"><pre><span class="line">mysql &gt; DELIMITER <span class="comment">// </span></span><br><span class="line">mysql &gt; CREATE <span class="function"><span class="keyword">PROCEDURE</span> <span class="title">demo_out_parameter</span><span class="params">(<span class="keyword">OUT</span> p_out int)</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">BEGIN</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">SELECT</span> <span class="title">p_out</span>;</span> </span><br><span class="line">-&gt; <span class="keyword">SET</span> p_out=<span class="number">2</span>; </span><br><span class="line">-&gt; SELECT p_out; </span><br><span class="line">-&gt; <span class="keyword">END</span>; </span><br><span class="line">-&gt; <span class="comment">// </span></span><br><span class="line">mysql &gt; DELIMITER ;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果: </p>
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">mysql &gt; SET <span class="meta">@p_out=1;</span> </span><br><span class="line">mysql &gt; CALL sp_demo_out_parameter(<span class="meta">@p_out);</span> </span><br><span class="line">+-------+ </span><br><span class="line">|<span class="string"> p_out </span>|<span class="string"> </span></span><br><span class="line"><span class="string">+-------+ </span></span><br><span class="line">|<span class="string"> NULL </span>|<span class="string"> </span></span><br><span class="line"><span class="string">+-------+ </span></span><br><span class="line"></span><br><span class="line"><span class="string">+-------+ </span></span><br><span class="line">|<span class="string"> p_out </span>|<span class="string"> </span></span><br><span class="line"><span class="string">+-------+ </span></span><br><span class="line">|<span class="string"> 2 </span>|<span class="string"> </span></span><br><span class="line"><span class="string">+-------+ </span></span><br><span class="line"></span><br><span class="line"><span class="string">mysql&gt; SELECT @p_out; </span></span><br><span class="line"><span class="string">+-------+ </span></span><br><span class="line">|<span class="string"> p_out </span>|<span class="string"> </span></span><br><span class="line"><span class="string">+-------+ </span></span><br><span class="line">|<span class="string"> 2 </span>|<span class="string"> </span></span><br><span class="line"><span class="string">+-------+</span></span><br></pre></td></tr></table></figure>
+
+<p>Ⅲ. INOUT参数例子 </p>
+<p>创建: </p>
+<figure class="highlight delphi"><table><tr><td class="code"><pre><span class="line">mysql &gt; DELIMITER <span class="comment">// </span></span><br><span class="line">mysql &gt; CREATE <span class="function"><span class="keyword">PROCEDURE</span> <span class="title">demo_inout_parameter</span><span class="params">(INOUT p_inout int)</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">BEGIN</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">SELECT</span> <span class="title">p_inout</span>;</span> </span><br><span class="line">-&gt; <span class="keyword">SET</span> p_inout=<span class="number">2</span>; </span><br><span class="line">-&gt; SELECT p_inout; </span><br><span class="line">-&gt; <span class="keyword">END</span>; </span><br><span class="line">-&gt; <span class="comment">// </span></span><br><span class="line">mysql &gt; DELIMITER ;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果: </p>
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">mysql &gt; SET <span class="meta">@p_inout=1;</span> </span><br><span class="line">mysql &gt; CALL demo_inout_parameter(<span class="meta">@p_inout)</span> ; </span><br><span class="line">+---------+ </span><br><span class="line">|<span class="string"> p_inout </span>|<span class="string"> </span></span><br><span class="line"><span class="string">+---------+ </span></span><br><span class="line">|<span class="string"> 1 </span>|<span class="string"> </span></span><br><span class="line"><span class="string">+---------+ </span></span><br><span class="line"></span><br><span class="line"><span class="string">+---------+ </span></span><br><span class="line">|<span class="string"> p_inout </span>|<span class="string"> </span></span><br><span class="line"><span class="string">+---------+ </span></span><br><span class="line">|<span class="string"> 2 </span>|<span class="string"> </span></span><br><span class="line"><span class="string">+---------+ </span></span><br><span class="line"></span><br><span class="line"><span class="string">mysql &gt; SELECT @p_inout; </span></span><br><span class="line"><span class="string">+----------+ </span></span><br><span class="line">|<span class="string"> @p_inout </span>|<span class="string"> </span></span><br><span class="line"><span class="string">+----------+ </span></span><br><span class="line">|<span class="string"> 2 </span>|<span class="string"> </span></span><br><span class="line"><span class="string">+----------+</span></span><br></pre></td></tr></table></figure>
+
+<p>(4). 变量 </p>
+<p>Ⅰ. 变量定义 </p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DECLARE</span> variable_name [,variable_name...] datatype [<span class="keyword">DEFAULT</span> <span class="keyword">value</span>];</span><br></pre></td></tr></table></figure>
+
+<p>其中，datatype为MySQL的数据类型，如:int, float, date, varchar(length) </p>
+<p>例如: </p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">DECLARE l_int int unsigned<span class="built_in"> default </span>4000000; </span><br><span class="line">DECLARE l_numeric number(8,2)<span class="built_in"> DEFAULT </span>9.95; </span><br><span class="line">DECLARE l_date date<span class="built_in"> DEFAULT </span><span class="string">'1999-12-31'</span>; </span><br><span class="line">DECLARE l_datetime datetime<span class="built_in"> DEFAULT </span><span class="string">'1999-12-31 23:59:59'</span>; </span><br><span class="line">DECLARE l_varchar varchar(255)<span class="built_in"> DEFAULT </span><span class="string">'This will not be padded'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>Ⅱ. 变量赋值 </p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="builtin-name">SET</span> 变量名 = 表达式值 [,variable_name = expression <span class="built_in">..</span>.]</span><br></pre></td></tr></table></figure>
+
+<p>Ⅲ. 用户变量 </p>
+<p>ⅰ. 在MySQL客户端使用用户变量 </p>
+<figure class="highlight moonscript"><table><tr><td class="code"><pre><span class="line">mysql &gt; SELECT <span class="string">'Hello World'</span> into @x; </span><br><span class="line">mysql &gt; SELECT @x; </span><br><span class="line">+<span class="comment">-------------+ </span></span><br><span class="line">| @x | </span><br><span class="line">+<span class="comment">-------------+ </span></span><br><span class="line">| Hello World | </span><br><span class="line">+<span class="comment">-------------+ </span></span><br><span class="line">mysql &gt; SET @y=<span class="string">'Goodbye Cruel World'</span>; </span><br><span class="line">mysql &gt; SELECT @y; </span><br><span class="line">+<span class="comment">---------------------+ </span></span><br><span class="line">| @y | </span><br><span class="line">+<span class="comment">---------------------+ </span></span><br><span class="line">| Goodbye Cruel World | </span><br><span class="line">+<span class="comment">---------------------+ </span></span><br><span class="line"></span><br><span class="line">mysql &gt; SET @z=<span class="number">1</span>+<span class="number">2</span>+<span class="number">3</span>; </span><br><span class="line">mysql &gt; SELECT @z; </span><br><span class="line">+<span class="comment">------+ </span></span><br><span class="line">| @z | </span><br><span class="line">+<span class="comment">------+ </span></span><br><span class="line">| <span class="number">6</span> | </span><br><span class="line">+<span class="comment">------+</span></span><br></pre></td></tr></table></figure>
+
+<p>ⅱ. 在存储过程中使用用户变量 </p>
+<figure class="highlight oxygene"><table><tr><td class="code"><pre><span class="line">mysql &gt; <span class="keyword">CREATE</span> <span class="function"><span class="keyword">PROCEDURE</span> <span class="title">GreetWorld</span><span class="params">( )</span> <span class="title">SELECT</span> <span class="title">CONCAT</span><span class="params">(@greeting,<span class="string">' World'</span>)</span>;</span> </span><br><span class="line">mysql &gt; <span class="keyword">SET</span> @greeting=<span class="string">'Hello'</span>; </span><br><span class="line">mysql &gt; CALL GreetWorld( ); </span><br><span class="line">+----------------------------+ </span><br><span class="line">| <span class="keyword">CONCAT</span>(@greeting,<span class="string">' World'</span>) | </span><br><span class="line">+----------------------------+ </span><br><span class="line">| Hello World | </span><br><span class="line">+----------------------------+</span><br></pre></td></tr></table></figure>
+
+<p>ⅲ. 在存储过程间传递全局范围的用户变量 </p>
+<figure class="highlight oxygene"><table><tr><td class="code"><pre><span class="line">mysql&gt; <span class="keyword">CREATE</span> <span class="function"><span class="keyword">PROCEDURE</span> <span class="title">p1</span><span class="params">()</span> <span class="title">SET</span> @<span class="title">last_procedure</span>='<span class="title">p1</span>';</span> </span><br><span class="line">mysql&gt; <span class="keyword">CREATE</span> <span class="function"><span class="keyword">PROCEDURE</span> <span class="title">p2</span><span class="params">()</span> <span class="title">SELECT</span> <span class="title">CONCAT</span><span class="params">(<span class="string">'Last procedure was '</span>,@last_proc)</span>;</span> </span><br><span class="line">mysql&gt; CALL p1( ); </span><br><span class="line">mysql&gt; CALL p2( ); </span><br><span class="line">+-----------------------------------------------+ </span><br><span class="line">| <span class="keyword">CONCAT</span>(<span class="string">'Last procedure was '</span>,@last_proc | </span><br><span class="line">+-----------------------------------------------+ </span><br><span class="line">| Last <span class="function"><span class="keyword">procedure</span> <span class="title">was</span> <span class="title">p1</span> | </span></span><br><span class="line"><span class="function">+-----------------------------------------------+</span></span><br></pre></td></tr></table></figure>
+
+<p>注意: </p>
+<p>①用户变量名一般以@开头<br>②滥用用户变量会导致程序难以理解及管理 </p>
+<p>(5). 注释 </p>
+<p>MySQL存储过程可使用两种风格的注释 </p>
+<p>双模杠：– </p>
+<p>该风格一般用于单行注释<br>c风格： 一般用于多行注释<br>例如： </p>
+<figure class="highlight delphi"><table><tr><td class="code"><pre><span class="line">mysql &gt; DELIMITER <span class="comment">// </span></span><br><span class="line">mysql &gt; CREATE <span class="function"><span class="keyword">PROCEDURE</span> <span class="title">proc1</span> --<span class="title">name</span>存储过程名 </span></span><br><span class="line"><span class="function">-&gt; <span class="params">(<span class="keyword">IN</span> parameter1 INTEGER)</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">BEGIN</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">DECLARE</span> <span class="title">variable1</span> <span class="title">CHAR</span><span class="params">(10)</span>;</span> </span><br><span class="line">-&gt; <span class="keyword">IF</span> parameter1 = <span class="number">17</span> <span class="keyword">THEN</span> </span><br><span class="line">-&gt; <span class="keyword">SET</span> variable1 = <span class="string">'birds'</span>; </span><br><span class="line">-&gt; <span class="keyword">ELSE</span> </span><br><span class="line">-&gt; <span class="keyword">SET</span> variable1 = <span class="string">'beasts'</span>; </span><br><span class="line">-&gt; <span class="keyword">END</span> <span class="keyword">IF</span>; </span><br><span class="line">-&gt; INSERT INTO table1 VALUES (variable1); </span><br><span class="line">-&gt; <span class="keyword">END</span> </span><br><span class="line">-&gt; <span class="comment">// </span></span><br><span class="line">mysql &gt; DELIMITER ;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>MySQL存储过程的调用 </li>
+</ol>
+<p>用call和你过程名以及一个括号，括号里面根据需要，加入参数，参数包括输入参数、输出参数、输入输出参数。具体的调用方法可以参看上面的例子。 </p>
+<ol start="5">
+<li>MySQL存储过程的查询 </li>
+</ol>
+<p>我们像知道一个数据库下面有那些表，我们一般采用show tables;进行查看。那么我们要查看某个数据库下面的存储过程，是否也可以采用呢？答案是，我们可以查看某个数据库下面的存储过程，但是是令一钟方式。 </p>
+<p>我们可以用 </p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> mysql.proc <span class="keyword">where</span> db=<span class="string">'数据库名'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>或者 </p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> routine_name <span class="keyword">from</span> information_schema.routines <span class="keyword">where</span> routine_schema=<span class="string">'数据库名'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>或者 </p>
+<figure class="highlight cal"><table><tr><td class="code"><pre><span class="line">show <span class="function"><span class="keyword">procedure</span> <span class="title">status</span> <span class="title">where</span> <span class="title">db</span>='数据库名';</span></span><br></pre></td></tr></table></figure>
+
+<p>进行查询。 </p>
+<p>如果我们想知道，某个存储过程的详细，那我们又该怎么做呢？是不是也可以像操作表一样用describe 表名进行查看呢？ </p>
+<p>答案是：我们可以查看存储过程的详细，但是需要用另一种方法： </p>
+<p>SHOW CREATE PROCEDURE 数据库.存储过程名; </p>
+<p>就可以查看当前存储过程的详细。 </p>
+<p>6.MySQL存储过程的修改 </p>
+<p><code>ALTER PROCEDURE </code></p>
+<p>更改用CREATE PROCEDURE 建立的预先指定的存储过程，其不会影响相关存储过程或存储功能。 </p>
+<ol start="7">
+<li>MySQL存储过程的删除 </li>
+</ol>
+<p>删除一个存储过程比较简单，和删除表一样： </p>
+<p><code>DROP PROCEDURE </code></p>
+<p>从MySQL的表格中删除一个或多个存储过程。 </p>
+<ol start="8">
+<li>MySQL存储过程的控制语句 </li>
+</ol>
+<p>(1). 变量作用域 </p>
+<p>内部的变量在其作用域范围内享有更高的优先权，当执行到end。变量时，内部变量消失，此时已经在其作用域外，变量不再可见了，应为在存储<br>过程外再也不能找到这个申明的变量，但是你可以通过out参数或者将其值指派<br>给会话变量来保存其值。 </p>
+<figure class="highlight delphi"><table><tr><td class="code"><pre><span class="line">mysql &gt; DELIMITER <span class="comment">// </span></span><br><span class="line">mysql &gt; CREATE <span class="function"><span class="keyword">PROCEDURE</span> <span class="title">proc3</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">begin</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">declare</span> <span class="title">x1</span> <span class="title">varchar</span><span class="params">(5)</span> <span class="title">default</span> '<span class="title">outer</span>';</span> </span><br><span class="line">-&gt; <span class="keyword">begin</span> </span><br><span class="line">-&gt; declare x1 varchar(<span class="number">5</span>) <span class="keyword">default</span> <span class="string">'inner'</span>; </span><br><span class="line">-&gt; select x1; </span><br><span class="line">-&gt; <span class="keyword">end</span>; </span><br><span class="line">-&gt; select x1; </span><br><span class="line">-&gt; <span class="keyword">end</span>; </span><br><span class="line">-&gt; <span class="comment">// </span></span><br><span class="line">mysql &gt; DELIMITER ;</span><br></pre></td></tr></table></figure>
+
+<p>(2). 条件语句 </p>
+<p>Ⅰ. if-then -else语句 </p>
+<figure class="highlight delphi"><table><tr><td class="code"><pre><span class="line">mysql &gt; DELIMITER <span class="comment">// </span></span><br><span class="line">mysql &gt; CREATE <span class="function"><span class="keyword">PROCEDURE</span> <span class="title">proc2</span><span class="params">(<span class="keyword">IN</span> parameter int)</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">begin</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">declare</span> <span class="title">var</span> <span class="title">int</span>;</span> </span><br><span class="line">-&gt; <span class="keyword">set</span> <span class="keyword">var</span>=parameter+<span class="number">1</span>; </span><br><span class="line">-&gt; <span class="keyword">if</span> <span class="keyword">var</span>=<span class="number">0</span> <span class="keyword">then</span> </span><br><span class="line">-&gt; insert into t values(<span class="number">17</span>); </span><br><span class="line">-&gt; <span class="keyword">end</span> <span class="keyword">if</span>; </span><br><span class="line">-&gt; <span class="keyword">if</span> parameter=<span class="number">0</span> <span class="keyword">then</span> </span><br><span class="line">-&gt; update t <span class="keyword">set</span> s1=s1+<span class="number">1</span>; </span><br><span class="line">-&gt; <span class="keyword">else</span> </span><br><span class="line">-&gt; update t <span class="keyword">set</span> s1=s1+<span class="number">2</span>; </span><br><span class="line">-&gt; <span class="keyword">end</span> <span class="keyword">if</span>; </span><br><span class="line">-&gt; <span class="keyword">end</span>; </span><br><span class="line">-&gt; <span class="comment">// </span></span><br><span class="line">mysql &gt; DELIMITER ;</span><br></pre></td></tr></table></figure>
+
+<p>Ⅱ. case语句： </p>
+<figure class="highlight delphi"><table><tr><td class="code"><pre><span class="line">mysql &gt; DELIMITER <span class="comment">// </span></span><br><span class="line">mysql &gt; CREATE <span class="function"><span class="keyword">PROCEDURE</span> <span class="title">proc3</span> <span class="params">(<span class="keyword">in</span> parameter int)</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">begin</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">declare</span> <span class="title">var</span> <span class="title">int</span>;</span> </span><br><span class="line">-&gt; <span class="keyword">set</span> <span class="keyword">var</span>=parameter+<span class="number">1</span>; </span><br><span class="line">-&gt; <span class="keyword">case</span> <span class="keyword">var</span> </span><br><span class="line">-&gt; when <span class="number">0</span> <span class="keyword">then</span> </span><br><span class="line">-&gt; insert into t values(<span class="number">17</span>); </span><br><span class="line">-&gt; when <span class="number">1</span> <span class="keyword">then</span> </span><br><span class="line">-&gt; insert into t values(<span class="number">18</span>); </span><br><span class="line">-&gt; <span class="keyword">else</span> </span><br><span class="line">-&gt; insert into t values(<span class="number">19</span>); </span><br><span class="line">-&gt; <span class="keyword">end</span> <span class="keyword">case</span>; </span><br><span class="line">-&gt; <span class="keyword">end</span>; </span><br><span class="line">-&gt; <span class="comment">// </span></span><br><span class="line">mysql &gt; DELIMITER ;</span><br></pre></td></tr></table></figure>
+
+<p>(3). 循环语句 </p>
+<p>Ⅰ. while ···· end while： </p>
+<figure class="highlight delphi"><table><tr><td class="code"><pre><span class="line">mysql &gt; DELIMITER <span class="comment">// </span></span><br><span class="line">mysql &gt; CREATE <span class="function"><span class="keyword">PROCEDURE</span> <span class="title">proc4</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">begin</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">declare</span> <span class="title">var</span> <span class="title">int</span>;</span> </span><br><span class="line">-&gt; <span class="keyword">set</span> <span class="keyword">var</span>=<span class="number">0</span>; </span><br><span class="line">-&gt; <span class="keyword">while</span> <span class="keyword">var</span>&lt;<span class="number">6</span> <span class="keyword">do</span> </span><br><span class="line">-&gt; insert into t values(<span class="keyword">var</span>); </span><br><span class="line">-&gt; <span class="keyword">set</span> <span class="keyword">var</span>=<span class="keyword">var</span>+<span class="number">1</span>; </span><br><span class="line">-&gt; <span class="keyword">end</span> <span class="keyword">while</span>; </span><br><span class="line">-&gt; <span class="keyword">end</span>; </span><br><span class="line">-&gt; <span class="comment">// </span></span><br><span class="line">mysql &gt; DELIMITER ;</span><br></pre></td></tr></table></figure>
+
+<p>Ⅱ. repeat···· end repeat： </p>
+<p>它在执行操作后检查结果，而while则是执行前进行检查。 </p>
+<figure class="highlight delphi"><table><tr><td class="code"><pre><span class="line">mysql &gt; DELIMITER <span class="comment">// </span></span><br><span class="line">mysql &gt; CREATE <span class="function"><span class="keyword">PROCEDURE</span> <span class="title">proc5</span> <span class="params">()</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">begin</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">declare</span> <span class="title">v</span> <span class="title">int</span>;</span> </span><br><span class="line">-&gt; <span class="keyword">set</span> v=<span class="number">0</span>; </span><br><span class="line">-&gt; <span class="keyword">repeat</span> </span><br><span class="line">-&gt; insert into t values(v); </span><br><span class="line">-&gt; <span class="keyword">set</span> v=v+<span class="number">1</span>; </span><br><span class="line">-&gt; <span class="keyword">until</span> v&gt;=<span class="number">5</span> </span><br><span class="line">-&gt; <span class="keyword">end</span> <span class="keyword">repeat</span>; </span><br><span class="line">-&gt; <span class="keyword">end</span>; </span><br><span class="line">-&gt; <span class="comment">// </span></span><br><span class="line">mysql &gt; DELIMITER ;</span><br></pre></td></tr></table></figure>
+
+<p>Ⅲ. loop ·····end loop: </p>
+<p>loop循环不需要初始条件，这点和while 循环相似，同时和repeat循环一样不需要结束条件, leave语句的意义是离开循环。 </p>
+<figure class="highlight delphi"><table><tr><td class="code"><pre><span class="line">mysql &gt; DELIMITER <span class="comment">// </span></span><br><span class="line">mysql &gt; CREATE <span class="function"><span class="keyword">PROCEDURE</span> <span class="title">proc6</span> <span class="params">()</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">begin</span> </span></span><br><span class="line"><span class="function">-&gt; <span class="title">declare</span> <span class="title">v</span> <span class="title">int</span>;</span> </span><br><span class="line">-&gt; <span class="keyword">set</span> v=<span class="number">0</span>; </span><br><span class="line">-&gt; LOOP_LABLE:loop </span><br><span class="line">-&gt; insert into t values(v); </span><br><span class="line">-&gt; <span class="keyword">set</span> v=v+<span class="number">1</span>; </span><br><span class="line">-&gt; <span class="keyword">if</span> v &gt;=<span class="number">5</span> <span class="keyword">then</span> </span><br><span class="line">-&gt; leave LOOP_LABLE; </span><br><span class="line">-&gt; <span class="keyword">end</span> <span class="keyword">if</span>; </span><br><span class="line">-&gt; <span class="keyword">end</span> loop; </span><br><span class="line">-&gt; <span class="keyword">end</span>; </span><br><span class="line">-&gt; <span class="comment">// </span></span><br><span class="line">mysql &gt; DELIMITER ;</span><br></pre></td></tr></table></figure>
+
+<p>Ⅳ. LABLES 标号： </p>
+<p>标号可以用在begin repeat while 或者loop 语句前，语句标号只能在合法的语句前面使用。可以跳出循环，使运行指令达到复合语句的最后一步。 </p>
+<p>(4). ITERATE迭代 </p>
+<p>Ⅰ. ITERATE: </p>
+<p>通过引用复合语句的标号,来从新开始复合语句 </p>
+<figure class="highlight coq"><table><tr><td class="code"><pre><span class="line">mysql &gt; DELIMITER // </span><br><span class="line">mysql &gt; CREATE PROCEDURE proc10 () </span><br><span class="line">-&gt; begin </span><br><span class="line">-&gt; declare v int; </span><br><span class="line">-&gt; <span class="built_in">set</span> v=<span class="number">0</span>; </span><br><span class="line">-&gt; LOOP_LABLE:loop </span><br><span class="line">-&gt; <span class="keyword">if</span> v=<span class="number">3</span> <span class="keyword">then</span> </span><br><span class="line">-&gt; <span class="built_in">set</span> v=v+<span class="number">1</span>; </span><br><span class="line">-&gt; ITERATE LOOP_LABLE; </span><br><span class="line">-&gt; <span class="keyword">end</span> <span class="keyword">if</span>; </span><br><span class="line">-&gt; insert into t values(v); </span><br><span class="line">-&gt; <span class="built_in">set</span> v=v+<span class="number">1</span>; </span><br><span class="line">-&gt; <span class="keyword">if</span> v&gt;=<span class="number">5</span> <span class="keyword">then</span> </span><br><span class="line">-&gt; leave LOOP_LABLE; </span><br><span class="line">-&gt; <span class="keyword">end</span> <span class="keyword">if</span>; </span><br><span class="line">-&gt; <span class="keyword">end</span> loop; </span><br><span class="line">-&gt; <span class="keyword">end</span>; </span><br><span class="line">-&gt; // </span><br><span class="line">mysql &gt; DELIMITER ;</span><br></pre></td></tr></table></figure>
+
+<p>9.MySQL存储过程的基本函数 </p>
+<p>(1).字符串类 </p>
+<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">CHARSET</span>(str) <span class="comment">//返回字串字符集 </span></span><br><span class="line"><span class="selector-tag">CONCAT</span> (string2 [,... ]) <span class="comment">//连接字串 </span></span><br><span class="line"><span class="selector-tag">INSTR</span> (string ,substring ) <span class="comment">//返回substring首次在string中出现的位置,不存在返回0 </span></span><br><span class="line"><span class="selector-tag">LCASE</span> (string2 ) <span class="comment">//转换成小写 </span></span><br><span class="line"><span class="selector-tag">LEFT</span> (string2 ,length ) <span class="comment">//从string2中的左边起取length个字符 </span></span><br><span class="line"><span class="selector-tag">LENGTH</span> (string ) <span class="comment">//string长度 </span></span><br><span class="line"><span class="selector-tag">LOAD_FILE</span> (file_name ) <span class="comment">//从文件读取内容 </span></span><br><span class="line"><span class="selector-tag">LOCATE</span> (substring , string [,start_position ] ) 同<span class="selector-tag">INSTR</span>,但可指定开始位置 </span><br><span class="line"><span class="selector-tag">LPAD</span> (string2 ,length ,pad ) <span class="comment">//重复用pad加在string开头,直到字串长度为length </span></span><br><span class="line"><span class="selector-tag">LTRIM</span> (string2 ) <span class="comment">//去除前端空格 </span></span><br><span class="line"><span class="selector-tag">REPEAT</span> (string2 ,count ) <span class="comment">//重复count次 </span></span><br><span class="line"><span class="selector-tag">REPLACE</span> (str ,search_str ,replace_str ) <span class="comment">//在str中用replace_str替换search_str </span></span><br><span class="line"><span class="selector-tag">RPAD</span> (string2 ,length ,pad) <span class="comment">//在str后用pad补充,直到长度为length </span></span><br><span class="line"><span class="selector-tag">RTRIM</span> (string2 ) <span class="comment">//去除后端空格 </span></span><br><span class="line"><span class="selector-tag">STRCMP</span> (string1 ,string2 ) <span class="comment">//逐字符比较两字串大小, </span></span><br><span class="line"><span class="selector-tag">SUBSTRING</span> (str , position [,length ]) <span class="comment">//从str的position开始,取length个字符,</span></span><br></pre></td></tr></table></figure>
+
+<p>注：mysql中处理字符串时，默认第一个字符下标为1，即参数position必须大于等于1 </p>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">mysql&gt; select substring(<span class="string">'abcd'</span>,<span class="number">0</span>,<span class="number">2</span>); </span><br><span class="line">+<span class="comment">-----------------------+ </span></span><br><span class="line">| substring(<span class="string">'abcd'</span>,<span class="number">0</span>,<span class="number">2</span>) | </span><br><span class="line">+<span class="comment">-----------------------+ </span></span><br><span class="line"></span><br><span class="line">+<span class="comment">-----------------------+ </span></span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> <span class="built_in">set</span> (<span class="number">0.00</span> <span class="built_in">sec</span>) </span><br><span class="line"></span><br><span class="line">mysql&gt; select substring(<span class="string">'abcd'</span>,<span class="number">1</span>,<span class="number">2</span>); </span><br><span class="line">+<span class="comment">-----------------------+ </span></span><br><span class="line">| substring(<span class="string">'abcd'</span>,<span class="number">1</span>,<span class="number">2</span>) | </span><br><span class="line">+<span class="comment">-----------------------+ </span></span><br><span class="line">| ab | </span><br><span class="line">+<span class="comment">-----------------------+ </span></span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> <span class="built_in">set</span> (<span class="number">0.02</span> <span class="built_in">sec</span>) </span><br><span class="line">TRIM([[BOTH|LEADING|TRAILING] [padding] FROM]string2)<span class="comment"> //去除指定位置的指定字符 </span></span><br><span class="line">UCASE (string2 )<span class="comment"> //转换成大写 </span></span><br><span class="line"><span class="literal">RIGHT</span>(string2,<span class="built_in">length</span>)<span class="comment"> //取string2最后length个字符 </span></span><br><span class="line"><span class="literal">SPACE</span>(count)<span class="comment"> //生成count个空格</span></span><br></pre></td></tr></table></figure>
+
+<p>(2).数学类 </p>
+<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">ABS</span> (number2 ) <span class="comment">//绝对值 </span></span><br><span class="line"><span class="selector-tag">BIN</span> (decimal_number ) <span class="comment">//十进制转二进制 </span></span><br><span class="line"><span class="selector-tag">CEILING</span> (number2 ) <span class="comment">//向上取整 </span></span><br><span class="line"><span class="selector-tag">CONV</span>(number2,from_base,to_base) <span class="comment">//进制转换 </span></span><br><span class="line"><span class="selector-tag">FLOOR</span> (number2 ) <span class="comment">//向下取整 </span></span><br><span class="line"><span class="selector-tag">FORMAT</span> (number,decimal_places ) <span class="comment">//保留小数位数 </span></span><br><span class="line"><span class="selector-tag">HEX</span> (DecimalNumber ) <span class="comment">//转十六进制 </span></span><br><span class="line">注：<span class="selector-tag">HEX</span>()中可传入字符串，则返回其<span class="selector-tag">ASC-11</span>码，如<span class="selector-tag">HEX</span>(<span class="string">'DEF'</span>)返回<span class="selector-tag">4142143</span> </span><br><span class="line">也可以传入十进制整数，返回其十六进制编码，如<span class="selector-tag">HEX</span>(<span class="number">25</span>)返回<span class="selector-tag">19</span> </span><br><span class="line"><span class="selector-tag">LEAST</span> (number , number2 [,..]) <span class="comment">//求最小值 </span></span><br><span class="line"><span class="selector-tag">MOD</span> (numerator ,denominator ) <span class="comment">//求余 </span></span><br><span class="line"><span class="selector-tag">POWER</span> (number ,power ) <span class="comment">//求指数 </span></span><br><span class="line"><span class="selector-tag">RAND</span>([seed]) <span class="comment">//随机数 </span></span><br><span class="line"><span class="selector-tag">ROUND</span> (number [,decimals ]) <span class="comment">//四舍五入,decimals为小数位数]</span></span><br></pre></td></tr></table></figure>
+
+<p>注：返回类型并非均为整数，如：<br>(1)默认变为整形值 </p>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">mysql&gt; select <span class="built_in">round</span>(<span class="number">1.23</span>); </span><br><span class="line">+<span class="comment">-------------+ </span></span><br><span class="line">| <span class="built_in">round</span>(<span class="number">1.23</span>) | </span><br><span class="line">+<span class="comment">-------------+ </span></span><br><span class="line">| <span class="number">1</span> | </span><br><span class="line">+<span class="comment">-------------+ </span></span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> <span class="built_in">set</span> (<span class="number">0.00</span> <span class="built_in">sec</span>) </span><br><span class="line"></span><br><span class="line">mysql&gt; select <span class="built_in">round</span>(<span class="number">1.56</span>); </span><br><span class="line">+<span class="comment">-------------+ </span></span><br><span class="line">| <span class="built_in">round</span>(<span class="number">1.56</span>) | </span><br><span class="line">+<span class="comment">-------------+ </span></span><br><span class="line">| <span class="number">2</span> | </span><br><span class="line">+<span class="comment">-------------+ </span></span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> <span class="built_in">set</span> (<span class="number">0.00</span> <span class="built_in">sec</span>)</span><br></pre></td></tr></table></figure>
+
+<p>(2)可以设定小数位数，返回浮点型数据 </p>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">mysql&gt; select <span class="built_in">round</span>(<span class="number">1.567</span>,<span class="number">2</span>); </span><br><span class="line">+<span class="comment">----------------+ </span></span><br><span class="line">| <span class="built_in">round</span>(<span class="number">1.567</span>,<span class="number">2</span>) | </span><br><span class="line">+<span class="comment">----------------+ </span></span><br><span class="line">| <span class="number">1.57</span> | </span><br><span class="line">+<span class="comment">----------------+ </span></span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> <span class="built_in">set</span> (<span class="number">0.00</span> <span class="built_in">sec</span>) </span><br><span class="line">SIGN (number2 )<span class="comment"> //</span></span><br></pre></td></tr></table></figure>
+
+<p>(3).日期时间类 </p>
+<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">ADDTIME</span> (date2 ,time_interval ) <span class="comment">//将time_interval加到date2 </span></span><br><span class="line"><span class="selector-tag">CONVERT_TZ</span> (datetime2 ,fromTZ ,toTZ ) <span class="comment">//转换时区 </span></span><br><span class="line"><span class="selector-tag">CURRENT_DATE</span> ( ) <span class="comment">//当前日期 </span></span><br><span class="line"><span class="selector-tag">CURRENT_TIME</span> ( ) <span class="comment">//当前时间 </span></span><br><span class="line"><span class="selector-tag">CURRENT_TIMESTAMP</span> ( ) <span class="comment">//当前时间戳 </span></span><br><span class="line"><span class="selector-tag">DATE</span> (datetime ) <span class="comment">//返回datetime的日期部分 </span></span><br><span class="line"><span class="selector-tag">DATE_ADD</span> (date2 , INTERVAL d_value d_type ) <span class="comment">//在date2中加上日期或时间 </span></span><br><span class="line"><span class="selector-tag">DATE_FORMAT</span> (datetime ,FormatCodes ) <span class="comment">//使用formatcodes格式显示datetime </span></span><br><span class="line"><span class="selector-tag">DATE_SUB</span> (date2 , INTERVAL d_value d_type ) <span class="comment">//在date2上减去一个时间 </span></span><br><span class="line"><span class="selector-tag">DATEDIFF</span> (date1 ,date2 ) <span class="comment">//两个日期差 </span></span><br><span class="line"><span class="selector-tag">DAY</span> (date ) <span class="comment">//返回日期的天 </span></span><br><span class="line"><span class="selector-tag">DAYNAME</span> (date ) <span class="comment">//英文星期 </span></span><br><span class="line"><span class="selector-tag">DAYOFWEEK</span> (date ) <span class="comment">//星期(1-7) ,1为星期天 </span></span><br><span class="line"><span class="selector-tag">DAYOFYEAR</span> (date ) <span class="comment">//一年中的第几天 </span></span><br><span class="line"><span class="selector-tag">EXTRACT</span> (interval_name FROM date ) <span class="comment">//从date中提取日期的指定部分 </span></span><br><span class="line"><span class="selector-tag">MAKEDATE</span> (year ,day ) <span class="comment">//给出年及年中的第几天,生成日期串 </span></span><br><span class="line"><span class="selector-tag">MAKETIME</span> (hour ,minute ,second ) <span class="comment">//生成时间串 </span></span><br><span class="line"><span class="selector-tag">MONTHNAME</span> (date ) <span class="comment">//英文月份名 </span></span><br><span class="line"><span class="selector-tag">NOW</span> ( ) <span class="comment">//当前时间 </span></span><br><span class="line"><span class="selector-tag">SEC_TO_TIME</span> (seconds ) <span class="comment">//秒数转成时间 </span></span><br><span class="line"><span class="selector-tag">STR_TO_DATE</span> (string ,format ) <span class="comment">//字串转成时间,以format格式显示 </span></span><br><span class="line"><span class="selector-tag">TIMEDIFF</span> (datetime1 ,datetime2 ) <span class="comment">//两个时间差 </span></span><br><span class="line"><span class="selector-tag">TIME_TO_SEC</span> (time ) <span class="comment">//时间转秒数] </span></span><br><span class="line"><span class="selector-tag">WEEK</span> (date_time [,start_of_week ]) <span class="comment">//第几周 </span></span><br><span class="line"><span class="selector-tag">YEAR</span> (datetime ) <span class="comment">//年份 </span></span><br><span class="line"><span class="selector-tag">DAYOFMONTH</span>(datetime) <span class="comment">//月的第几天 </span></span><br><span class="line"><span class="selector-tag">HOUR</span>(datetime) <span class="comment">//小时</span></span><br></pre></td></tr></table></figure>
+
+
+            
+        </div>
+        
+    </div>
+    
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/MysqlCommon/">mysql常用操作</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">小莫</a></p>
+        <p><span>发布时间:</span>2016-12-21, 00:00:00</p>
+        <p><span>最后更新:</span>2021-07-20, 20:08:26</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/MysqlCommon/" title="mysql常用操作">https://blog.xiaomo.info/2016/MysqlCommon/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://blog.xiaomo.info/2016/MysqlCommon/　　作者: 小莫" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/StartMy2017/">
+                    2016年终总结(进入游戏行业)
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/NormalShell/">
+                    常用shell脚本.
+                </a>
+            </div>
+        
+    </nav>
+
+    
+</article>
+
+
+
+<!-- 代码2：用来读取评论框配置，此代码需放置在代码1之后。 -->
+<!-- 如果当前页面有评论框，代码2请勿放置在评论框代码之前。 -->
+<!-- 如果页面同时使用多个实验室项目，以下代码只需要引入一次，只配置上面的div标签即可 -->
+<!--<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cysUkgluO"></script>-->
+
+<div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、环境"><span class="toc-number">1.</span> <span class="toc-text">一、环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、安装"><span class="toc-number">2.</span> <span class="toc-text">二、安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-yum安装"><span class="toc-number">2.1.</span> <span class="toc-text">1. yum安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-源码安装"><span class="toc-number">2.2.</span> <span class="toc-text">2. 源码安装</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、加入service和自启动"><span class="toc-number">3.</span> <span class="toc-text">三、加入service和自启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、设置编码"><span class="toc-number">4.</span> <span class="toc-text">四、设置编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、-设置权限"><span class="toc-number">5.</span> <span class="toc-text">五、 设置权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六、创建用户"><span class="toc-number">6.</span> <span class="toc-text">六、创建用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七、存储过程"><span class="toc-number">7.</span> <span class="toc-text">七、存储过程</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script>
+    yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+</script>
+
+
+
+<div class="share">
+    
+
+    
+</div>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<hr/>
+<br/>
+<div style="display:block;text-align: center">
+    <a href="javascript:window.open('https://twitter.com/share?url='+encodeURIComponent(document.location.href)+'&text='+encodeURIComponent(document.title),'_blank','toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=600, height=450,top=100,left=350');void(0)"
+       style="background-color: lightskyblue;border-radius: 45px;box-shadow: #767676;font-size: 14px;font-family: '微软雅黑',serif;color: whitesmoke;padding: 10px 15px;"
+    >
+        twitter分享
+    </a>
+</div>
+<br/>
+<br/>
+<div id="gitalk-container" style="margin: 1% 3%"></div>
+<h3 style="text-align: center">如果想及时收到回复,可在 <a href="https://github.com/settings/notifications" target="_blank">订阅中心</a>的 <code>Participating</code>中勾选Email</h3>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '9772f6a6fdb199a60ba1',
+        clientSecret: '9a606af21688d2d4ff2efa2467ee82e76e1e9865',
+        id: window.location.pathname,
+        repo: 'blog',
+        owner: 'houko',
+        admin: 'houko',
+        distractionFreeMode: false
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/StartMy2017/" title="上一篇: 2016年终总结(进入游戏行业)">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/NormalShell/" title="下一篇: 常用shell脚本.">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuyin2/">日本医疗制度之限度額適用認定証</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/ohmytmux/">我的tmux之旅（tmux使用详解）</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/redisPubSub/">nodejs中使用redis的订阅分发功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuuinn/">小莫的日本(东京)住院回忆录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/doTween/">(转)doTween插件使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/mySecondFiveYearsLifePlan/">2020年年终总结和第二个长期学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/newmanCommandLine/">postman和commandline tools（newman）用法介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/ctwJobs/">【日本东京六本木】【CTW株式会社】招聘Node全栈/Java后端/SRE/大数据工程师/UI设计师</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/npmPackageCollection/">npm优秀库使用收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/jsCommonUtilsMethods/">js/ts常用公有方法收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/springBootWithSpringSecurity/">spring cloud集成spring security</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/flyway/">使用flyway版本控制工具维护数据库表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/autoFormatOnSvae/">使用IDEA保存时自动格式化代码配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/dynamoDB/">aws dynamoDB使用总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueSSRNuxt/">nuxt.js使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/pm2UseApi/">node项目监控工具之pm2</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/webAppleSignIn/">web端接入apple Sign in流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/browserEventLoop/">聊聊Javascript的事件循环(转载)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/AwsSqsUse/">AWS SQS/SNS/Redis的pub/sub用法总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsSSo/">AWS SSO用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsCommandLineUse/">aws command line 用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueFrameworkVuex/">vue框架状态管理之vuex</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/backToJapan/">疫情下的回日坎坷路</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/unityInterviewQuestions/">unity常见面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/my2019Summary/">2019年年终总结（作为前端开发这一年）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/worldServerGame/">经历了几场面试后的全球同服架构思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/japanKannjiIndex/">日语汉字速查表</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/aboutAllVisa/">签证总结大全（工作签、在留卡加汉字、工作签证更新、家族签证等）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/javaPassByValueAndReference/">jdk源码系列-Java到底是值传递还是引用传递？</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/event20190729/">没想到有一天我逼停了电车</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/jdkSourceCodeReadThreadSleep/">jdk源码系列-Thread.sleep(0)和Thread.sleep(1)的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/restfulBestUse/">restful最佳实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/nihonnmennkyo/">小莫的日本换驾照攻略</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/nihonnkita2kagetsu/">2018年终总结（从杭州到日本工作的心路历程）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unityFpsCommonMethod/">Fps游戏常用功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unitySceneFarAndNear/">镜头拉远拉近</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unity3dMiniMap/">unity3d小地图</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUISorting/">使用UGUI中的层级问题——以背包为例</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUIServerList/">使用UGUI制作滚动列表-选服列表</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/aboutDockerUse/">docker应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadArrayListAndLinkedArrayList/">jdk源码系列-Java中ArrayList、LinkedList和Vector的联系与区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadCreateObject/">jdk源码系列-创建对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadClassInitOrder/">jdk源码系列-类的初始化顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadStringDifferent/">jdk源码系列-String,StringBuffer,StringBuilder</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadAtomicInteger/">jdk源码系列-AtomicInteger</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadInteger/">jdk源码系列-Integer</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadLocal/">jdk源码系列-ThreadLocal</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadMemoryActor/">jdk源码系列-内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadConcurrentHashMap/">jdk源码系列-ConcurrentHashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadPool/">jdk源码系列-线程池</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadIO/">jdk源码系列-深入了解IO的工作机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadObject/">jdk源码系列-Object</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadNIO/">jdk源码系列-NIO</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/throwableAndException/">jdk源码系列-throwable和Exception的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeRead/">jdk源码系列-顺序索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/myBookSheet/">我的书架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/onlineProjectKen/">项目上线之后遇到的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/mainProjectJobs/">主程职责总结和反思</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/fastjson/">fastjson的key为非字符串的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/saikennokoto/">2017年终总结(作为主程的这一年)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AngularEnvironment/">angular2学习笔记之基础环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/HowToAskQuestionOnStackOverFlow/">StackOverFlow提问的艺术</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/oracleJavaSeSliver/">java的oracle考试认证(OCJP)之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/blackAppleSystem/">安装黑苹果的历程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JapanTravel/">日本游记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/GameServerType/">游戏服务器的常用架构</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaLombok/">lombok常用注解整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SwiftProjectBuild/">swift项目初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MySoftware/">我的常用软件清单</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AboutObject/">关于对象的一些思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MyKindle/">kindle初体验.</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SomethingForNewCar/">我的新车常备用品</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/VimTabAutoComplete/">使用vim打开文件时tab补全忽略大小写设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/Win7OneNote/">win7系统登录不上onenote的解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/FormatDisk/">在linux系统下格式化移动硬盘的操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/LinuxIdeaSetting/">linux系统环境下使用idea遇到的问题及解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaApiJsonFormat/">接口格式返回大小写处理.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/StartMy2017/">2016年终总结(进入游戏行业)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MysqlCommon/">mysql常用操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NormalShell/">常用shell脚本.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidUsersPermission/">Android users-permission权限列表.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidAsyncTask/">android异步任务AsyncTask.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidEnvironment/">android环境搭建.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/blogToXiaomo/">博客域名迁移(从二级域名迁移到一级域名).</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/SublimeConfig/">Sublime Text 3 使用配置与插件安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/HttpToHttps/">拥抱https(http全面切换到https)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootSwaggerUi/">swagger ui和spring boot集成生成api文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringVideo/">spring4免费全套视频教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaLombok/">lombok简化java代码注解的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSeiyou/">日本动漫声优公演,来看看什么叫专业声优</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootDataFormat/">spring boot做前后分离时间格式化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootCors/">spring boot做前后分离的跨域问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringZiliao/">spring boot相关资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaIdeaMaven/">Maven 与 IntelliJ IDEA 的完美结合</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaServletUpload/">使用Servlet做简单的上传功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonAnime/">喜欢的动漫</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSekaku/">生活习惯的不同，造就了丰富多彩的世界</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/BangumiDongli/">《东离剑游记》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmYargs/">yargs插件的使用，node.js 命令行框架 yargs 和你的程序实现交互</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiRouter/">angular2 api整理之路由模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiCommon/">angular2 api整理之通用模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptRxjsStudy/">rxjs全接触</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptDesignPattern/">javascript设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/2016StudyPlan/">5年学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2studyAnimate/">angular2学习笔记之动画效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyServiceHttp/">angular2学习笔记之服务和http</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteOther/">angular2学习笔记之小技巧</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteNgTag/">angular2学习笔记之ng2标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteEvent/">angular2学习笔记之事件和多组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteComponent/">angular2学习笔记之基本组件和ngFor</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/PublicDns/">几个国内专用的公共 DNS</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxDisk/">阿里云服务器磁盘挂载</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxChmod/">linux权限详细解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownTableStyle/">Markdown 表格样式调整与自适应优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/GulpUse/">gulp构建工具的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/FrontEndTools/">前端工程化工具初选</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AnkiExcelShortcuts/">Anki 记忆库之 Excel 快捷键大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/CssFontFamily/">CSS font-family 网页字体使用小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeSpider/">nodejs爬虫项目实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Package.jsonScripts/">package.json常用script</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmModulesShare/">npm模块分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MongodbUse/">mongodb数据库的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/KoaGenerator/">koa生成器,一键生成koa和koa2项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeKoa/">nodejs框架koa学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptSyntax/">javascript学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Es6Syntax/">es6语法快速上手</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackLLink/">webpack进阶之loader篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackPlugins/">webpack进阶之插件篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackParams/">webpack相关命令参数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeProcess/">nodejs的process模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackBasicUse/">webpack使用之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeOnlineChat/">使用nodejs搭建一个简易的即时聊天软件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxCrontab/">linux下使用定时器跑任务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AngularKeyboardEvent/">angularjs键盘事件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownSyntax/">markdown语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NgCheckbox/">angularjs复选框</a></li></ul>
+
+<style>
+    #post-nav-button a{
+        background-color: skyblue;
+    }
+</style>
+
+
+
+<script>
+    
+</script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i>
+                
+                    2016-
+                
+                2021 小莫
+                <!--                <a href="http://www.miibeian.gov.cn/" target="_blank">浙ICP备15009606号</a>-->
+            </div>
+            <div class="footer-right">
+                <a href="https://blog.xiaomo.info/" target="_blank" title="欢迎来到小莫的博客">Blog </a> Created by <a
+                        href="https://github.com/houko" target="_blank" rel="external nofollow"
+                        title="希望这里的文章对你有所帮助  v3.0">xiaomo</a>
+                <a href="/record.html"><i class="fa fa-heart animated infinite pulse"></i></a>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit">总访问数:
+                            <span id="busuanzi_value_site_pv"></span>
+                        </span>
+                    </span>
+                
+                <span style="color: grey;">(<a href="https://www.upyun.com/" rel="external nofollow" target="_blank">背景随机加载-资源存储于又拍云</a>) | 本站己运行<span
+                            id="day_count">222</span>天<span id="time_now">1</span></span>
+            </div>
+        
+    </div>
+    <script src="/js/activate-power-mode.js" ></script>
+</footer>
+<script>
+    // 添加输入效果
+    POWERMODE.colorful = true; // make power mode colorful
+    POWERMODE.shake = false; // turn off shake
+    document.body.addEventListener('input', POWERMODE);
+
+    (function () {
+        function current() {
+            var d = new Date(), str = '';
+            str += d.getHours() + '小时';
+            str += d.getMinutes() + '分';
+            str += d.getSeconds() + '秒';
+            return str;
+        }
+
+        setInterval(function () {
+            $("#time_now").html(current)
+        }, 1000);
+
+        var dateFrom = new Date(2015, 9, 12);
+        var dateTo = new Date();
+        var diff = dateTo.valueOf() - dateFrom.valueOf();
+        var diff_day = parseInt(diff / (1000 * 60 * 60 * 24));
+        $("#day_count").html(diff_day);
+    })();
+</script>
+<a href="https://github.com/houko/blog"><img style="position: fixed; top: 0;left: 0;" width="140" height="140" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_gray_6d6d6d.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 36;
+                var randomIndex = Math.ceil(Math.random() * backgroundnum);
+                var result = randomIndex+".jpg?version="+(new Date()/1000);
+                var backgroundimg = "url(https://image.xiaomo.info/background/bg-number)".replace(/number/gi,result);
+//                console.info("加载图片"+backgroundimg);
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover","background-color":"rgba(255,255,255,0.5)","background-blend-mode":"lighten"});
+            }
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80824007-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+<script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1626811730142')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body>
+</html>

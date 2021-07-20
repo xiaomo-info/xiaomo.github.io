@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><link rel=manifest href=/manifest.json><meta name="generator" content="Hexo 3.9.0"><link rel="manifest" href="/manifest.json">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="小莫">
+<meta name="baidu-site-verification" content="qp2dTXVqvj">
+
+
+
+<meta name="keywords" content="小莫的博客, java, 日语, 动漫, 技术, unity3d, nginx, https, angular, 游戏, 服务器, tomcat, IDEA, javaweb, spring, hibernate, spring boot, 开源中国, github, linux, 主程">
+
+
+<meta name="description" content="算起来到现在为止面试的大多是游戏服务端或者web前端相关的类容，没有经历过一次正儿八经的Unity面试，通过面试题也可以侧面了解到Unity开发中有哪些常用的需要掌握的知识，因此搬运一篇号称“屎上最全”的博客当作备份。">
+<meta name="keywords" content="game">
+<meta property="og:type" content="article">
+<meta property="og:title" content="unity常见面试题">
+<meta property="og:url" content="https://blog.xiaomo.info/2020/unityInterviewQuestions/index.html">
+<meta property="og:site_name" content="小莫的博客-fighting(技术分享、生活随笔)">
+<meta property="og:description" content="算起来到现在为止面试的大多是游戏服务端或者web前端相关的类容，没有经历过一次正儿八经的Unity面试，通过面试题也可以侧面了解到Unity开发中有哪些常用的需要掌握的知识，因此搬运一篇号称“屎上最全”的博客当作备份。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-07-20T20:08:26.468Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="unity常见面试题">
+<meta name="twitter:description" content="算起来到现在为止面试的大多是游戏服务端或者web前端相关的类容，没有经历过一次正儿八经的Unity面试，通过面试题也可以侧面了解到Unity开发中有哪些常用的需要掌握的知识，因此搬运一篇号称“屎上最全”的博客当作备份。">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternative" href="/atom.xml" title="小莫的博客-fighting(技术分享、生活随笔)" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="//image.xiaomo.info/logo/avatar.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/green/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>unity常见面试题 | 小莫的博客-fighting(技术分享、生活随笔)</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        open_in_new: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+</html>
+<body oncontextmenu="return false" onselectstart="return false">
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="https://blog.xiaomo.info" target="_self" class="profilepic">
+            <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">小莫</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">行百里者半九十</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" results="0" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="//xiaomo.info">回到主站</a></li>
+                        
+                            <li><a href="/tags/japan/">日本生活系列</a></li>
+                        
+                            <li><a href="/categories/summary/">年度总结系列</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about.html">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA/">IDEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK源码系列/">JDK源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OCJP/">OCJP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alime/">alime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/">aws</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doTween/">doTween</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es5/">es5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/">excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/game/">game</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/japan/">japan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/">lombok</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxt/">nuxt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/onenote/">onenote</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postman/">postman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sso/">sso</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stackoverflow/">stackoverflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/">technology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ugui/">ugui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动漫/">动漫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字体/">字体</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码系列/">源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件/">软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑苹果/">黑苹果</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">技术宅、 杭州、 夜猫子、 爱动漫、 爱日语 2015年毕业、 java开发、 web前端、 前沿技术发烧友、 生命不息折腾不止、</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">小莫</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">小莫</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">行百里者半九十</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="//xiaomo.info">回到主站</a></li>
+                
+                    <li><a href="/tags/japan/">日本生活系列</a></li>
+                
+                    <li><a href="/categories/summary/">年度总结系列</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about.html">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><style>
+    .background-cover {
+        float: left;
+        width: 400px;
+        height: 250px;
+    }
+
+    .article img {
+        margin: -1px 20px 5px -1px;
+        border-top-left-radius: 3px;
+        -webkit-border-radius-topleft: 3%;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -o-transition: all 0.5s;
+    }
+
+    /*.article img:hover{*/
+    /*transform: scale(1, 1.05);*/
+    /*-webkit-transition:all 0.5s;*/
+    /*-moz-transition:all 0.5s;*/
+    /*-o-transition:all 0.5s;*/
+    /*}*/
+</style>
+
+
+<article id="post-unityInterviewQuestions" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        function getPgjs() {
+            const agent = navigator.userAgent.toLowerCase()
+            let res = agent.match(/android/)
+            if (res === "android")
+                return res;
+            res = agent.match(/iphone/);
+            if (res === "iphone")
+                return "ios";
+            res = agent.match(/ipad/);
+            if (res === "ipad")
+                return "ios";
+            res = agent.match(/windows/);
+            if (res === "windows")
+                return "wp";
+            console.info('pc......')
+            return "pc";
+        }
+
+        function loadImage(id) {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                return;
+            }
+            var backgroundnum = 40;
+            var randomIndex = Math.ceil(Math.random() * backgroundnum);
+            var result = randomIndex + "?version=" + (new Date() / 1000);
+            var backgroundimg = "https://image.xiaomo.info/cover/bg-number.jpg".replace(/number/gi, randomIndex);
+            var key = "#" + id;
+            $(key).attr("src", backgroundimg);
+            $(".background-cover").show();
+        }
+
+        (function () {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                console.log(page)
+                $(".background-cover").hide();
+            }
+        })()
+    </script>
+    
+    <div class="article-meta">
+        <a href="/2020/unityInterviewQuestions/" class="article-date">
+      <time datetime="2020-01-07T00:00:00.000Z" itemprop="datePublished">2020-01-07</time>
+</a>
+    </div>
+    
+    <div class="article-inner">
+        
+        <input type="hidden" class="isFancy"/>
+        
+        <div class="background-cover">
+            <img class="fengmian-image" id="unityInterviewQuestions" src="https://image.xiaomo.info/cover/bg-5.jpg" alt="封面" onload="loadImage(this.id)"/>
+        </div>
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      unity常见面试题
+    </h1>
+  
+
+        </header>
+        
+        <div class="article-info article-info-post">
+            
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/game/">game</a>
+    </div>
+
+
+            
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/game/">game</a></li></ul> </div>
+
+
+
+            <!-- 访问量  -->
+            <!--<span id="busuanzi_container_page_pv" style='display:none'>-->
+            <!--<span id="page-visit"><i class="fa fa-eye" style="float: left;margin-top:5px" aria-hidden="true" title="文章访问量"></i>-->
+            <!--<span id="busuanzi_value_page_pv"></span>-->
+            <!--</span>-->
+            <!--</span>-->
+
+            <div class="clearfix"></div>
+        </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+            
+            <p>算起来到现在为止面试的大多是游戏服务端或者web前端相关的类容，没有经历过一次正儿八经的Unity面试，通过面试题也可以侧面了解到Unity开发中有哪些常用的需要掌握的知识，因此搬运一篇号称“屎上最全”的博客当作备份。</p>
+<a id="more"></a>
+<h3 id="一．什么是渲染管道？"><a href="#一．什么是渲染管道？" class="headerlink" title="一．什么是渲染管道？"></a>一．什么是渲染管道？</h3><p>是指在显示器上为了显示出图像而经过的一系列必要操作。<br>渲染管道中的很多步骤，都要将几何物体从一个坐标系中变换到另一个坐标系中去。<br>主要步骤有：<br>本地坐标-&gt;视图坐标-&gt;背面裁剪-&gt;光照-&gt;裁剪-&gt;投影-&gt;视图变换-&gt;光栅化。</p>
+<h3 id="二．如何优化内存？"><a href="#二．如何优化内存？" class="headerlink" title="二．如何优化内存？"></a>二．如何优化内存？</h3><p>有很多种方式，例如</p>
+<ul>
+<li>1.压缩自带类库；</li>
+<li>2.将暂时不用的以后还需要使用的物体隐藏起来而不是直接Destroy掉；</li>
+<li>3.释放AssetBundle占用的资源；</li>
+<li>4.降低模型的片面数，降低模型的骨骼数量，降低贴图的大小；</li>
+<li>5.使用光照贴图，使用多层次细节(LOD)，使用着色器(Shader)，使用预设(Prefab)。</li>
+</ul>
+<h3 id="三、动态加载资源的方式？-有时候也问区别，具体请百度"><a href="#三、动态加载资源的方式？-有时候也问区别，具体请百度" class="headerlink" title="三、动态加载资源的方式？(有时候也问区别，具体请百度)"></a>三、动态加载资源的方式？(有时候也问区别，具体请百度)</h3><ul>
+<li>1.Resources.Load();</li>
+<li>2.AssetBundle</li>
+</ul>
+<h3 id="四：什么是协同程序？"><a href="#四：什么是协同程序？" class="headerlink" title="四：什么是协同程序？"></a>四：什么是协同程序？</h3><p>在主线程运行的同时开启另一段逻辑处理，来协助当前程序的执行，协程很像多线程，但是不是多线程，Unity的协程实在每帧结束之后去检测yield的条件是否满足。<br>五：Unity3d中的碰撞器和触发器的区别？</p>
+<p>碰撞器是触发器的载体，而触发器只是碰撞器身上的一个属性。当Is Trigger=false时，碰撞器根据物理引擎引发碰撞，产生碰撞的效果，可以调用OnCollisionEnter/Stay/Exit函数；当Is Trigger=true时，碰撞器被物理引擎所忽略，没有碰撞效果，可以调用OnTriggerEnter/Stay/Exit函数。如果既要检测到物体的接触又不想让碰撞检测影响物体移动或要检测一个物件是否经过空间中的某个区域这时就可以用到触发器</p>
+<h3 id="六：物体发生碰撞的必要条件？"><a href="#六：物体发生碰撞的必要条件？" class="headerlink" title="六：物体发生碰撞的必要条件？"></a>六：物体发生碰撞的必要条件？</h3><p>两个物体都必须带有碰撞器（Collider），其中一个物体还必须带有Rigidbody刚体，而且必须是运动的物体带有Rigidbody脚本才能检测到碰撞。</p>
+<h3 id="七：请简述ArrayList和List的主要区别？"><a href="#七：请简述ArrayList和List的主要区别？" class="headerlink" title="七：请简述ArrayList和List的主要区别？"></a>七：请简述ArrayList和List的主要区别？</h3><p>ArrayList存在不安全类型（ArrayList会把所有插入其中的数据都当做Object来处理） 装箱拆箱的操作（费时） List是接口，ArrayList是一个实现了该接口的类，可以被实例化</p>
+<h3 id="八：如何安全的在不同工程间安全地迁移asset数据？三种方法"><a href="#八：如何安全的在不同工程间安全地迁移asset数据？三种方法" class="headerlink" title="八：如何安全的在不同工程间安全地迁移asset数据？三种方法"></a>八：如何安全的在不同工程间安全地迁移asset数据？三种方法</h3><ul>
+<li>1.将Assets目录和Library目录一起迁移</li>
+<li>2.导出包，export Package</li>
+<li>3.用unity自带的assets Server功能</li>
+</ul>
+<h3 id="九：OnEnable、Awake、Start运行时的发生顺序？哪些可能在同一个对象周期中反复的发生"><a href="#九：OnEnable、Awake、Start运行时的发生顺序？哪些可能在同一个对象周期中反复的发生" class="headerlink" title="九：OnEnable、Awake、Start运行时的发生顺序？哪些可能在同一个对象周期中反复的发生"></a>九：OnEnable、Awake、Start运行时的发生顺序？哪些可能在同一个对象周期中反复的发生</h3><p>Awake –&gt;OnEnable-&gt;Start，OnEnable在同一周期中可以反复地发生。</p>
+<h3 id="十：MeshRender中material和sharedmaterial的区别？"><a href="#十：MeshRender中material和sharedmaterial的区别？" class="headerlink" title="十：MeshRender中material和sharedmaterial的区别？"></a>十：MeshRender中material和sharedmaterial的区别？</h3><p>修改sharedMaterial将改变所有物体使用这个材质的外观，并且也改变储存在工程里的材质设置。不推荐修改由sharedMaterial返回的材质。如果你想修改渲染器的材质，使用material替代。</p>
+<h3 id="十一：Unity提供了几种光源，分别是什么"><a href="#十一：Unity提供了几种光源，分别是什么" class="headerlink" title="十一：Unity提供了几种光源，分别是什么"></a>十一：Unity提供了几种光源，分别是什么</h3><p>四种。</p>
+<ul>
+<li>平行光：Directional Light</li>
+<li>点光源：Point Light</li>
+<li>聚光灯：Spot Light</li>
+<li>区域光源：Area Light</li>
+</ul>
+<h3 id="十二：简述一下对象池，你觉得在FPS里哪些东西适合使用对象池"><a href="#十二：简述一下对象池，你觉得在FPS里哪些东西适合使用对象池" class="headerlink" title="十二：简述一下对象池，你觉得在FPS里哪些东西适合使用对象池"></a>十二：简述一下对象池，你觉得在FPS里哪些东西适合使用对象池</h3><p>对象池就存放需要被反复调用资源的一个空间，当一个对象回大量生成的时候如果每次都销毁创建会很费时间，通过对象池把暂时不用的对象放到一个池中（也就是一个集合），当下次要重新生成这个对象的时候先去池中查找一下是否有可用的对象，如果有的话就直接拿出来使用，不需要再创建，如果池中没有可用的对象，才需要重新创建，利用空间换时间来达到游戏的高速运行效果，在FPS游戏中要常被大量复制的对象包括子弹，敌人，粒子等</p>
+<h3 id="十三：CharacterController和Rigidbody的区别"><a href="#十三：CharacterController和Rigidbody的区别" class="headerlink" title="十三：CharacterController和Rigidbody的区别"></a>十三：CharacterController和Rigidbody的区别</h3><p>Rigidbody具有完全真实物理的特性，Unity中物理系统最基本的一个组件，包含了常用的物理特性，而CharacterController可以说是受限的的Rigidbody，具有一定的物理效果但不是完全真实的，是Unity为了使开发者能方便的开发第一人称视角的游戏而封装的一个组件</p>
+<h3 id="十四：简述prefab的用处"><a href="#十四：简述prefab的用处" class="headerlink" title="十四：简述prefab的用处"></a>十四：简述prefab的用处</h3><p>在游戏运行时实例化，prefab相当于一个模板，对你已经有的素材、脚本、参数做一个默认的配置，以便于以后的修改，同时prefab打包的内容简化了导出的操作，便于团队的交流。</p>
+<h3 id="十五：请简述sealed关键字用在类声明时与函数声明时的作用"><a href="#十五：请简述sealed关键字用在类声明时与函数声明时的作用" class="headerlink" title="十五：请简述sealed关键字用在类声明时与函数声明时的作用"></a>十五：请简述sealed关键字用在类声明时与函数声明时的作用</h3><p>sealed修饰的类为密封类，类声明时可防止其他类继承此类，在方法中声明则可防止派生类重写此方法。</p>
+<h3 id="十六：请简述private，public，protected，internal的区别"><a href="#十六：请简述private，public，protected，internal的区别" class="headerlink" title="十六：请简述private，public，protected，internal的区别"></a>十六：请简述private，public，protected，internal的区别</h3><ul>
+<li>public：对任何类和成员都公开，无限制访问</li>
+<li>private：仅对该类公开</li>
+<li>protected：对该类和其派生类公开</li>
+<li>internal：只能在包含该类的程序集中访问该类</li>
+</ul>
+<h3 id="十七：使用Unity3d实现2d游戏，有几种方式？"><a href="#十七：使用Unity3d实现2d游戏，有几种方式？" class="headerlink" title="十七：使用Unity3d实现2d游戏，有几种方式？"></a>十七：使用Unity3d实现2d游戏，有几种方式？</h3><ul>
+<li>1.使用本身的GUI，在Unity4.6以后出现的UGUI</li>
+<li>2.把摄像机的Projection(投影)值调为Orthographic(正交投影)，不考虑z轴；</li>
+<li>3.使用2d插件，如：2DToolKit，和NGUI</li>
+</ul>
+<h3 id="十八：在物体发生碰撞的整个过程中，有几个阶段，分别列出对应的函数"><a href="#十八：在物体发生碰撞的整个过程中，有几个阶段，分别列出对应的函数" class="headerlink" title="十八：在物体发生碰撞的整个过程中，有几个阶段，分别列出对应的函数"></a>十八：在物体发生碰撞的整个过程中，有几个阶段，分别列出对应的函数</h3><p>三个阶段，1.OnCollisionEnter 2.OnCollisionStay 3.OnCollisionExit</p>
+<h3 id="十九：Unity3d的物理引擎中，有几种施加力的方式，分别描述出来"><a href="#十九：Unity3d的物理引擎中，有几种施加力的方式，分别描述出来" class="headerlink" title="十九：Unity3d的物理引擎中，有几种施加力的方式，分别描述出来"></a>十九：Unity3d的物理引擎中，有几种施加力的方式，分别描述出来</h3><p>rigidbody.AddForce/AddForceAtPosition，都在rigidbody系列函数中。大家可以自己去查看一下rigidbody的API</p>
+<h3 id="二十：什么叫做链条关节？"><a href="#二十：什么叫做链条关节？" class="headerlink" title="二十：什么叫做链条关节？"></a>二十：什么叫做链条关节？</h3><p>Hinge Joint，可以模拟两个物体间用一根链条连接在一起的情况，能保持两个物体在一个固定距离内部相互移动而不产生作用力，但是达到固定距离后就会产生拉力。</p>
+<h3 id="二十一：物体自身旋转使用的函数？"><a href="#二十一：物体自身旋转使用的函数？" class="headerlink" title="二十一：物体自身旋转使用的函数？"></a>二十一：物体自身旋转使用的函数？</h3><p>Transform.Rotate()</p>
+<h3 id="二十二：Unity3d提供了一个用于保存和读取数据的类-PlayerPrefs-，请列出保存和读取整形数据的函数"><a href="#二十二：Unity3d提供了一个用于保存和读取数据的类-PlayerPrefs-，请列出保存和读取整形数据的函数" class="headerlink" title="二十二：Unity3d提供了一个用于保存和读取数据的类(PlayerPrefs)，请列出保存和读取整形数据的函数"></a>二十二：Unity3d提供了一个用于保存和读取数据的类(PlayerPrefs)，请列出保存和读取整形数据的函数</h3><p>PlayerPrefs.SetInt() PlayerPrefs.GetInt()</p>
+<h3 id="二十三：Unity3d脚本从唤醒到销毁有着一套比较完整的生命周期，请列出系统自带的几个重要的方法。"><a href="#二十三：Unity3d脚本从唤醒到销毁有着一套比较完整的生命周期，请列出系统自带的几个重要的方法。" class="headerlink" title="二十三：Unity3d脚本从唤醒到销毁有着一套比较完整的生命周期，请列出系统自带的几个重要的方法。"></a>二十三：Unity3d脚本从唤醒到销毁有着一套比较完整的生命周期，请列出系统自带的几个重要的方法。</h3><p>Awake——&gt;OnEnable–&gt;Start——&gt;Update——&gt;FixedUpdate——&gt;LateUpdate——&gt;OnGUI——&gt;OnDisable——&gt;OnDestroy</p>
+<h3 id="二十四：物理更新一般放在哪个系统函数里？"><a href="#二十四：物理更新一般放在哪个系统函数里？" class="headerlink" title="二十四：物理更新一般放在哪个系统函数里？"></a>二十四：物理更新一般放在哪个系统函数里？</h3><p>FixedUpdate，每固定帧绘制时执行一次，和Update不同的是FixedUpdate是渲染帧执行，如果你的渲染效率低下的时候FixedUpdate调用次数就会跟着下降。FixedUpdate比较适用于物理引擎的计算，因为是跟每帧渲染有关。Update就比较适合做控制。</p>
+<h3 id="二十五：在场景中放置多个Camera并同时处于活动状态会发生什么？"><a href="#二十五：在场景中放置多个Camera并同时处于活动状态会发生什么？" class="headerlink" title="二十五：在场景中放置多个Camera并同时处于活动状态会发生什么？"></a>二十五：在场景中放置多个Camera并同时处于活动状态会发生什么？</h3><p>游戏界面可以看到很多摄像机的混合。</p>
+<h3 id="二十六：如何销毁一个UnityEngine-Object及其子类？"><a href="#二十六：如何销毁一个UnityEngine-Object及其子类？" class="headerlink" title="二十六：如何销毁一个UnityEngine.Object及其子类？"></a>二十六：如何销毁一个UnityEngine.Object及其子类？</h3><p>使用Destroy()方法;</p>
+<h3 id="二十七：请描述为什么Unity3d中会发生在组件上出现数据丢失的情况"><a href="#二十七：请描述为什么Unity3d中会发生在组件上出现数据丢失的情况" class="headerlink" title="二十七：请描述为什么Unity3d中会发生在组件上出现数据丢失的情况"></a>二十七：请描述为什么Unity3d中会发生在组件上出现数据丢失的情况</h3><p>一般是组件上绑定的物体对象被删除了</p>
+<h3 id="二十八：LOD是什么，优缺点是什么？"><a href="#二十八：LOD是什么，优缺点是什么？" class="headerlink" title="二十八：LOD是什么，优缺点是什么？"></a>二十八：LOD是什么，优缺点是什么？</h3><p>LOD(Level of detail)多层次细节，是最常用的游戏优化技术。它按照模型的位置和重要程度决定物体渲染的资源分配，降低非重要物体的面数和细节度，从而获得高效率的渲染运算。缺点是增加了内存。</p>
+<h3 id="二十九：MipMap是什么，作用？"><a href="#二十九：MipMap是什么，作用？" class="headerlink" title="二十九：MipMap是什么，作用？"></a>二十九：MipMap是什么，作用？</h3><p>MipMapping：在三维计算机图形的贴图渲染中有常用的技术，为加快渲染进度和减少图像锯齿，贴图被处理成由一系列被预先计算和优化过的图片组成的文件，这样的贴图被称为MipMap。</p>
+<h3 id="三十：请描述Interface与抽象类之间的不同"><a href="#三十：请描述Interface与抽象类之间的不同" class="headerlink" title="三十：请描述Interface与抽象类之间的不同"></a>三十：请描述Interface与抽象类之间的不同</h3><p>抽象类表示该类中可能已经有一些方法的具体定义，但接口就是公公只能定义各个方法的界面 ，不能具体的实现代码在成员方法中。类是子类用来继承的，当父类已经有实际功能的方法时该方法在子类中可以不必实现，直接引用父类的方法，子类也可以重写该父类的方法。实现接口的时候必须要实现接口中所有的方法，不能遗漏任何一个。</p>
+<h3 id="三十一：-Net与Mono的关系？"><a href="#三十一：-Net与Mono的关系？" class="headerlink" title="三十一：.Net与Mono的关系？"></a>三十一：.Net与Mono的关系？</h3><p>mono是.net的一个开源跨平台工具，就类似java虚拟机，java本身不是跨平台语言，但运行在虚拟机上就能够实现了跨平台。.net只能在windows下运行，mono可以实现跨平台跑，可以运行于linux，Unix，Mac OS等。</p>
+<h3 id="三十二：简述Unity3D支持的作为脚本的语言的名称"><a href="#三十二：简述Unity3D支持的作为脚本的语言的名称" class="headerlink" title="三十二：简述Unity3D支持的作为脚本的语言的名称"></a>三十二：简述Unity3D支持的作为脚本的语言的名称</h3><p>Unity的脚本语言基于Mono的.Net平台上运行，可以使用.NET库，这也为XML、数据库、正则表达式等问题提供了很好的解决方案。Unity里的脚本都会经过编译，他们的运行速度也很快。这三种语言实际上的功能和运行速度是一样的，区别主要体现在语言特性上。JavaScript、 C#、Boo</p>
+<h3 id="三十三：U3D中用于记录节点空间几何信息的组件名称，及其父类名称"><a href="#三十三：U3D中用于记录节点空间几何信息的组件名称，及其父类名称" class="headerlink" title="三十三：U3D中用于记录节点空间几何信息的组件名称，及其父类名称"></a>三十三：U3D中用于记录节点空间几何信息的组件名称，及其父类名称</h3><p>Transform 父类是 Component</p>
+<h3 id="三十四：向量的点乘、叉乘以及归一化的意义？"><a href="#三十四：向量的点乘、叉乘以及归一化的意义？" class="headerlink" title="三十四：向量的点乘、叉乘以及归一化的意义？"></a>三十四：向量的点乘、叉乘以及归一化的意义？</h3><ul>
+<li>1.点乘描述了两个向量的相似程度，结果越大两向量越相似，还可表示投影</li>
+<li>2.叉乘得到的向量垂直于原来的两个向量</li>
+<li>3.标准化向量：用在只关系方向，不关心大小的时候<h3 id="三十五：为何大家都在移动设备上寻求U3D原生GUI的替代方案"><a href="#三十五：为何大家都在移动设备上寻求U3D原生GUI的替代方案" class="headerlink" title="三十五：为何大家都在移动设备上寻求U3D原生GUI的替代方案"></a>三十五：为何大家都在移动设备上寻求U3D原生GUI的替代方案</h3>不美观，OnGUI很耗费时间，效率不高，使用不方便</li>
+</ul>
+<h3 id="三十六：请简述如何在不同分辨率下保持UI的一致性"><a href="#三十六：请简述如何在不同分辨率下保持UI的一致性" class="headerlink" title="三十六：请简述如何在不同分辨率下保持UI的一致性"></a>三十六：请简述如何在不同分辨率下保持UI的一致性</h3><p>NGUI很好的解决了这一点，屏幕分辨率的自适应性，原理就是计算出屏幕的宽高比跟原来的预设的屏幕分辨率求出一个对比值，然后修改摄像机的size。UGUI通过锚点和中心点和分辨率也解决这个问题</p>
+<h3 id="三十七：什么是LightMap？"><a href="#三十七：什么是LightMap？" class="headerlink" title="三十七：什么是LightMap？"></a>三十七：什么是LightMap？</h3><p>LightMap:就是指在三维软件里实现打好光，然后渲染把场景各表面的光照输出到贴图上，最后又通过引擎贴到场景上，这样就使物体有了光照的感觉。</p>
+<h3 id="三十八：Unity和cocos2d的区别"><a href="#三十八：Unity和cocos2d的区别" class="headerlink" title="三十八：Unity和cocos2d的区别"></a>三十八：Unity和cocos2d的区别</h3><ul>
+<li><ol>
+<li>Unity3D支持C#、javascript等，cocos2d-x 支持c++、Html5、Lua等。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>cocos2d 开源 并且免费</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>Unity3D支持iOS、Android、Flash、Windows、Mac、Wii等平台的游戏开发，cocos2d-x支持iOS、Android、WP等。</li>
+</ol>
+</li>
+</ul>
+<h3 id="三十九：C-和C-的区别？"><a href="#三十九：C-和C-的区别？" class="headerlink" title="三十九：C#和C++的区别？"></a>三十九：C#和C++的区别？</h3><p>简单的说：C### 与C++ 比较的话，最重要的特性就是C### 是一种完全面向对象的语言，而C++ 不是，另外C### 是基于IL 中间语言和.NET Framework CLR 的，在可移植性，可维护性和强壮性都比C++ 有很大的改进。C### 的设计目标是用来开发快速稳定可扩展的应用程序，当然也可以通过Interop 和Pinvoke 完成一些底层操作。更详细的区别大家可以参考这里</p>
+<h3 id="四十：结构体和类有何区别？"><a href="#四十：结构体和类有何区别？" class="headerlink" title="四十：结构体和类有何区别？"></a>四十：结构体和类有何区别？</h3><p>结构体是一种值类型，而类是引用类型。（值类型、引用类型是根据数据存储的角度来分的）就是值类型用于存储数据的值，引用类型用于存储对实际数据的引用。那么结构体就是当成值来使用的，类则通过引用来对实际数据操作</p>
+<h3 id="四十一：ref参数和out参数是什么？有什么区别？"><a href="#四十一：ref参数和out参数是什么？有什么区别？" class="headerlink" title="四十一：ref参数和out参数是什么？有什么区别？"></a>四十一：ref参数和out参数是什么？有什么区别？</h3><p>ref和out参数的效果一样，都是通过关键字找到定义在主函数里面的变量的内存地址，并通过方法体内的语法改变它的大小。不同点就是输出参数必须对参数进行初始化。ref必须初始化，out 参数必须在函数里赋值。ref参数是引用，out参数为输出参数。</p>
+<h3 id="四十二：C-的委托是什么？有何用处？"><a href="#四十二：C-的委托是什么？有何用处？" class="headerlink" title="四十二：C#的委托是什么？有何用处？"></a>四十二：C#的委托是什么？有何用处？</h3><p>委托类似于一种安全的指针引用，在使用它时是当做类来看待而不是一个方法，相当于对一组方法的列表的引用。用处：使用委托使程序员可以将方法引用封装在委托对象内。然后可以将该委托对象传递给可调用所引用方法的代码，而不必在编译时知道将调用哪个方法。与C或C++中的函数指针不同，委托是面向对象，而且是类型安全的。</p>
+<h3 id="四十三：C-中的排序方式有哪些？"><a href="#四十三：C-中的排序方式有哪些？" class="headerlink" title="四十三：C#中的排序方式有哪些？"></a>四十三：C#中的排序方式有哪些？</h3><p>选择排序，冒泡排序，快速排序，插入排序，希尔排序，归并排序</p>
+<h3 id="四十四：射线检测碰撞物的原理是？"><a href="#四十四：射线检测碰撞物的原理是？" class="headerlink" title="四十四：射线检测碰撞物的原理是？"></a>四十四：射线检测碰撞物的原理是？</h3><p>射线是3D世界中一个点向一个方向发射的一条无终点的线，在发射轨迹中与其他物体发生碰撞时，它将停止发射 。</p>
+<h3 id="四十五：Unity中，照相机的Clipping-Planes的作用是什么？调整Near、Fare两个值时，应该注意什么？"><a href="#四十五：Unity中，照相机的Clipping-Planes的作用是什么？调整Near、Fare两个值时，应该注意什么？" class="headerlink" title="四十五：Unity中，照相机的Clipping Planes的作用是什么？调整Near、Fare两个值时，应该注意什么？"></a>四十五：Unity中，照相机的Clipping Planes的作用是什么？调整Near、Fare两个值时，应该注意什么？</h3><p>剪裁平面 。从相机到开始渲染和停止渲染之间的距离。</p>
+<h3 id="四十六：如何让已经存在的GameObject在LoadLevel后不被卸载掉？"><a href="#四十六：如何让已经存在的GameObject在LoadLevel后不被卸载掉？" class="headerlink" title="四十六：如何让已经存在的GameObject在LoadLevel后不被卸载掉？"></a>四十六：如何让已经存在的GameObject在LoadLevel后不被卸载掉？</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Awake</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    DontDestroyOnLoad(transform.gameObject);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="四十七：请简述GC（垃圾回收）产生的原因，并描述如何避免？"><a href="#四十七：请简述GC（垃圾回收）产生的原因，并描述如何避免？" class="headerlink" title="四十七：请简述GC（垃圾回收）产生的原因，并描述如何避免？"></a>四十七：请简述GC（垃圾回收）产生的原因，并描述如何避免？</h3><p>GC回收堆上的内存<br>避免：</p>
+<ul>
+<li>1.减少new产生对象的次数</li>
+<li>2.使用公用的对象（静态成员）</li>
+<li>3.将String换为StringBuilder</li>
+</ul>
+<h3 id="四十八：反射的实现原理？"><a href="#四十八：反射的实现原理？" class="headerlink" title="四十八：反射的实现原理？"></a>四十八：反射的实现原理？</h3><p>审查元数据并收集关于它的类型信息的能力。实现原理：在运行时根据程序集及其中的类型得到元数据。下面是实现步骤：</p>
+<ol>
+<li>导入using System.Reflection;</li>
+<li>Assembly.Load(“程序集”)加载程序集,返回类型是一个Assembly</li>
+<li>得到程序集中所有类的名称</li>
+</ol>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="keyword">foreach</span> (Type<span class="built_in"> type </span><span class="keyword">in</span> assembly.GetTypes())</span><br><span class="line">&#123;</span><br><span class="line">    string t = type.Name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>Type type = assembly.GetType(“程序集.类名”);获取当前类的类型</li>
+<li>Activator.CreateInstance(type); 创建此类型实例</li>
+<li>MethodInfo mInfo = type.GetMethod(“方法名”);获取当前方法</li>
+<li>m.Info.Invoke(null,方法参数);</li>
+</ol>
+<h3 id="四十九：简述四元数的作用，四元数对欧拉角的优点？"><a href="#四十九：简述四元数的作用，四元数对欧拉角的优点？" class="headerlink" title="四十九：简述四元数的作用，四元数对欧拉角的优点？"></a>四十九：简述四元数的作用，四元数对欧拉角的优点？</h3><p>四元数用于表示旋转<br>相对欧拉角的优点：<br>1.能进行增量旋转<br>2.避免万向锁<br>3.给定方位的表达方式有两种，互为负（欧拉角有无数种表达方式）</p>
+<h3 id="五十：移动相机动作在哪个函数里，为什么在这个函数里？"><a href="#五十：移动相机动作在哪个函数里，为什么在这个函数里？" class="headerlink" title="五十：移动相机动作在哪个函数里，为什么在这个函数里？"></a>五十：移动相机动作在哪个函数里，为什么在这个函数里？</h3><p>LateUpdate，是在所有的update结束后才调用，比较适合用于命令脚本的执行。官网上例子是摄像机的跟随，都是所有的update操作完才进行摄像机的跟进，不然就有可能出现摄像机已经推进了，但是视角里还未有角色的空帧出现。</p>
+<h3 id="五十一：GPU的工作原理"><a href="#五十一：GPU的工作原理" class="headerlink" title="五十一：GPU的工作原理"></a>五十一：GPU的工作原理</h3><p>简而言之，GPU的图形（处理）流水线完成如下的工作：（并不一定是按照如下顺序） </p>
+<ul>
+<li>顶点处理：这阶段GPU读取描述3D图形外观的顶点数据并根据顶点数据确定3D图形的形状及位置关系，建立起3D图形的骨架。在支持DX8和DX9规格的GPU中，这些工作由硬件实现的Vertex Shader（定点着色器）完成。 </li>
+<li>光栅化计算：显示器实际显示的图像是由像素组成的，我们需要将上面生成的图形上的点和线通过一定的算法转换到相应的像素点。把一个矢量图形转换为一系列像素点的过程就称为光栅化。例如，一条数学表示的斜线段，最终被转化成阶梯状的连续像素点。 </li>
+<li>纹理帖图：顶点单元生成的多边形只构成了3D物体的轮廓，而纹理映射（texture mapping）工作完成对多变形表面的帖图，通俗的说，就是将多边形的表面贴上相应的图片，从而生成“真实”的图形。TMU（Texture mapping unit）即是用来完成此项工作。 </li>
+<li>像素处理：这阶段（在对每个像素进行光栅化处理期间）GPU完成对像素的计算和处理，从而确定每个像素的最终属性。在支持DX8和DX9规格的GPU中，这些工作由硬件实现的Pixel Shader（像素着色器）完成。 </li>
+<li>最终输出：由ROP（光栅化引擎）最终完成像素的输出，1帧渲染完毕后，被送到显存帧缓冲区。</li>
+<li>总结：GPU的工作通俗的来说就是完成3D图形的生成，将图形映射到相应的像素点上，对每个像素进行计算确定最终颜色并完成输出。</li>
+</ul>
+<h3 id="五十二：什么是渲染管道？"><a href="#五十二：什么是渲染管道？" class="headerlink" title="五十二：什么是渲染管道？"></a>五十二：什么是渲染管道？</h3><p>是指在显示器上为了显示出图像而经过的一系列必要操作。 渲染管道中的很多步骤，都要将几何物体从一个坐标系中变换到另一个坐标系中去。主要步骤有：<br>本地坐标-&gt;视图坐标-&gt;背面裁剪-&gt;光照-&gt;裁剪-&gt;投影-&gt;视图变换-&gt;光栅化</p>
+<h3 id="五十三：如何优化内存？"><a href="#五十三：如何优化内存？" class="headerlink" title="五十三：如何优化内存？"></a>五十三：如何优化内存？</h3><p>有很多种方式，例如</p>
+<ul>
+<li>1.压缩自带类库；</li>
+<li>2.将暂时不用的以后还需要使用的物体隐藏起来而不是直接Destroy掉；</li>
+<li>3.释放AssetBundle占用的资源；</li>
+<li>4.降低模型的片面数，降低模型的骨骼数量，降低贴图的大小；</li>
+<li>5.使用光照贴图，使用多层次细节(LOD)，使用着色器(Shader)，使用预设(Prefab)。</li>
+<li>6.代码中少产生临时变量</li>
+</ul>
+<h3 id="五十四：动态加载资源的方式？他们之间的区别"><a href="#五十四：动态加载资源的方式？他们之间的区别" class="headerlink" title="五十四：动态加载资源的方式？他们之间的区别"></a>五十四：动态加载资源的方式？他们之间的区别</h3><ul>
+<li>1.Resources.Load();</li>
+<li>2.AssetBundle<br>区别参考</li>
+</ul>
+<h3 id="五十五：请描述游戏动画有哪几种，以及其原理？"><a href="#五十五：请描述游戏动画有哪几种，以及其原理？" class="headerlink" title="五十五：请描述游戏动画有哪几种，以及其原理？"></a>五十五：请描述游戏动画有哪几种，以及其原理？</h3><p>主要有关节动画、骨骼动画、单一网格模型动画(关键帧动画)。<br>关节动画：把角色分成若干独立部分，一个部分对应一个网格模型，部分的动画连接成一个整体的动画，角色比较灵活，Quake2中使用这种动画；<br>骨骼动画，广泛应用的动画方式，集成了以上两个方式的优点，骨骼按角色特点组成一定的层次结构，有关节相连，可做相对运动，皮肤作为单一网格蒙在骨骼之外，决定角色的外观；<br>单一网格模型动画由一个完整的网格模型构成，在动画序列的关键帧里记录各个顶点的原位置及其改变量，然后插值运算实现动画效果，角色动画较真实。</p>
+<h3 id="五十六：alpha-blend工作原理"><a href="#五十六：alpha-blend工作原理" class="headerlink" title="五十六：alpha blend工作原理"></a>五十六：alpha blend工作原理</h3><p>Alpha Blend 实现透明效果，不过只能针对某块区域进行alpha操作，透明度可设。</p>
+<h3 id="五十七：写出光照计算中的diffuse的计算公式"><a href="#五十七：写出光照计算中的diffuse的计算公式" class="headerlink" title="五十七：写出光照计算中的diffuse的计算公式"></a>五十七：写出光照计算中的diffuse的计算公式</h3><figure class="highlight excel"><table><tr><td class="code"><pre><span class="line">diffuse = Kd x colorLight x <span class="built_in">max</span>(<span class="built_in">N</span>*L,<span class="number">0</span>)；</span><br><span class="line">Kd 漫反射系数、colorLight 光的颜色、</span><br><span class="line"><span class="built_in">N</span> 单位法线向量、</span><br><span class="line">L 由点指向光源的单位向量、</span><br><span class="line">其中<span class="built_in">N</span>与L点乘，如果结果小于等于<span class="number">0</span>，则漫反射为<span class="number">0</span>。</span><br></pre></td></tr></table></figure>
+
+<h3 id="五十八：两种阴影判断的方法、工作原理。"><a href="#五十八：两种阴影判断的方法、工作原理。" class="headerlink" title="五十八：两种阴影判断的方法、工作原理。"></a>五十八：两种阴影判断的方法、工作原理。</h3><ul>
+<li>本影和半影：参考本影和半影</li>
+<li>本影：景物表面上那些没有被光源直接照射的区域（全黑的轮廓分明的区域）。</li>
+<li>半影：景物表面上那些被某些特定光源直接照射但并非被所有特定光源直接照射的区域（半明半暗区域）</li>
+<li>工作原理：从光源处向物体的所有可见面投射光线，将这些面投影到场景中得到投影面，再将这些投影面与场景中的其他平面求交得出阴影多边形，保存这些阴影多边形信息，然后再按视点位置对场景进行相应处理得到所要求的视图（利用空间换时间，每次只需依据视点位置进行一次阴影计算即可，省去了一次消隐过程）</li>
+</ul>
+<h3 id="五十九：Vertex-Shader是什么，怎么计算？"><a href="#五十九：Vertex-Shader是什么，怎么计算？" class="headerlink" title="五十九：Vertex Shader是什么，怎么计算？"></a>五十九：Vertex Shader是什么，怎么计算？</h3><p>顶点着色器是一段执行在GPU上的程序，用来取代fixed pipeline中的transformation和lighting，Vertex Shader主要操作顶点。<br>Vertex Shader对输入顶点完成了从local space到homogeneous space（齐次空间）的变换过程，homogeneous space即projection space的下一个space。在这其间共有world transformation, view transformation和projection transformation及lighting几个过程。</p>
+<h3 id="六十：下列代码在运行中会产生几个临时对象？"><a href="#六十：下列代码在运行中会产生几个临时对象？" class="headerlink" title="六十：下列代码在运行中会产生几个临时对象？"></a>六十：下列代码在运行中会产生几个临时对象？</h3><figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">string</span> a = <span class="keyword">new</span> <span class="keyword">string</span>(<span class="string">"abc"</span>);</span><br><span class="line">a = (a.ToUpper() + <span class="string">"123"</span>).Substring(<span class="number">0</span>, <span class="number">2</span>); </span><br><span class="line">在C<span class="meta">#中第一行是会报错的（Java中倒是可行）。</span></span><br><span class="line">应该这样初始化：</span><br><span class="line"><span class="keyword">string</span> b = <span class="keyword">new</span> <span class="keyword">string</span>(<span class="keyword">new</span> <span class="keyword">char</span>[]&#123;<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>答案为：5个临时对象</p>
+<h3 id="六十一：下列代码在运行中会发生什么问题？如何避免？"><a href="#六十一：下列代码在运行中会发生什么问题？如何避免？" class="headerlink" title="六十一：下列代码在运行中会发生什么问题？如何避免？"></a>六十一：下列代码在运行中会发生什么问题？如何避免？</h3><figure class="highlight zephir"><table><tr><td class="code"><pre><span class="line"><span class="keyword">List</span>&lt;<span class="keyword">int</span>&gt; ls = <span class="keyword">new</span> <span class="keyword">List</span>&lt;<span class="keyword">int</span>&gt;(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span> &#125;);</span><br><span class="line"><span class="keyword">foreach</span> (<span class="keyword">int</span> item in ls)</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(item * item);</span><br><span class="line">    ls.Remove(item);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>产生运行时错误，在 ls.Remove(item)这行，因为foreach是只读的。不能一边遍历一边修改。</p>
+<h3 id="六十二：Unity3D是否支持写成多线程程序？如果支持的话需要注意什么？"><a href="#六十二：Unity3D是否支持写成多线程程序？如果支持的话需要注意什么？" class="headerlink" title="六十二：Unity3D是否支持写成多线程程序？如果支持的话需要注意什么？"></a>六十二：Unity3D是否支持写成多线程程序？如果支持的话需要注意什么？</h3><p>仅能从主线程中访问Unity3D的组件，对象和Unity3D系统调用<br>支持：如果同时你要处理很多事情或者与Unity的对象互动小可以用thread,否则使用coroutine。<br>注意：C#中有lock这个关键字,以确保只有一个线程可以在特定时间内访问特定的对象</p>
+<h3 id="六十三：Unity3D的协程和C-线程之间的区别是什么？"><a href="#六十三：Unity3D的协程和C-线程之间的区别是什么？" class="headerlink" title="六十三：Unity3D的协程和C#线程之间的区别是什么？"></a>六十三：Unity3D的协程和C#线程之间的区别是什么？</h3><p>多线程程序同时运行多个线程 ，而在任一指定时刻只有一个协程在运行，并且这个正在运行的协同程序只在必要时才被挂起。除主线程之外的线程无法访问Unity3D的对象、组件、方法。<br>Unity3d没有多线程的概念，不过unity也给我们提供了StartCoroutine（协同程序）和LoadLevelAsync（异步加载关卡）后台加载场景的方法。 StartCoroutine为什么叫协同程序呢，所谓协同，就是当你在StartCoroutine的函数体里处理一段代码时，利用yield语句等待执行结果，这期间不影响主程序的继续执行，可以协同工作。</p>
+<h3 id="六十四：矩阵相乘的意义及注意点"><a href="#六十四：矩阵相乘的意义及注意点" class="headerlink" title="六十四：矩阵相乘的意义及注意点"></a>六十四：矩阵相乘的意义及注意点</h3><p>用于表示线性变换：旋转、缩放、投影、平移、仿射<br>注意矩阵的蠕变：误差的积累</p>
+<h3 id="六十五：为什么dynamic-font在unicode环境下优于static-font"><a href="#六十五：为什么dynamic-font在unicode环境下优于static-font" class="headerlink" title="六十五：为什么dynamic font在unicode环境下优于static font"></a>六十五：为什么dynamic font在unicode环境下优于static font</h3><p>Unicode是国际组织制定的可以容纳世界上所有文字和符号的字符编码方案。<br>使用动态字体时，Unity将不会预先生成一个与所有字体的字符纹理。当需要支持亚洲语言或者较大的字体的时候，若使用正常纹理，则字体的纹理将非常大。</p>
+<h3 id="六十六：当一个细小的高速物体撞向另一个较大的物体时，会出现什么情况？如何避免？"><a href="#六十六：当一个细小的高速物体撞向另一个较大的物体时，会出现什么情况？如何避免？" class="headerlink" title="六十六：当一个细小的高速物体撞向另一个较大的物体时，会出现什么情况？如何避免？"></a>六十六：当一个细小的高速物体撞向另一个较大的物体时，会出现什么情况？如何避免？</h3><p>穿透（碰撞检测失败）</p>
+<h3 id="六十七：请简述OnBecameVisible及OnBecameInvisible的发生时机，以及这一对回调函数的意义？"><a href="#六十七：请简述OnBecameVisible及OnBecameInvisible的发生时机，以及这一对回调函数的意义？" class="headerlink" title="六十七：请简述OnBecameVisible及OnBecameInvisible的发生时机，以及这一对回调函数的意义？"></a>六十七：请简述OnBecameVisible及OnBecameInvisible的发生时机，以及这一对回调函数的意义？</h3><p>当物体是否可见切换之时。可以用于只需要在物体可见时才进行的计算。</p>
+<h3 id="六十八：什么叫动态合批？跟静态合批有什么区别？"><a href="#六十八：什么叫动态合批？跟静态合批有什么区别？" class="headerlink" title="六十八：什么叫动态合批？跟静态合批有什么区别？"></a>六十八：什么叫动态合批？跟静态合批有什么区别？</h3><p>如果动态物体共用着相同的材质，那么Unity会自动对这些物体进行批处理。动态批处理操作是自动完成的，并不需要你进行额外的操作。<br>区别：动态批处理一切都是自动的，不需要做任何操作，而且物体是可以移动的，但是限制很多。静态批处理：自由度很高，限制很少，缺点可能会占用更多的内存，而且经过静态批处理后的所有物体都不可以再移动了。<br>参考</p>
+<h3 id="六十九：简述StringBuilder和String的区别？"><a href="#六十九：简述StringBuilder和String的区别？" class="headerlink" title="六十九：简述StringBuilder和String的区别？"></a>六十九：简述StringBuilder和String的区别？</h3><ul>
+<li>String是字符串常量。</li>
+<li>StringBuffer是字符串变量 ，线程安全。</li>
+<li>StringBuilder是字符串变量，线程不安全。</li>
+<li>String类型是个不可变的对象，当每次对String进行改变时都需要生成一个新的String对象，然后将指针指向一个新的对象，如果在一个循环里面，不断的改变一个对象，就要不断的生成新的对象，所以效率很低，建议在不断更改String对象的地方不要使用String类型。</li>
+<li>StringBuilder对象在做字符串连接操作时是在原来的字符串上进行修改，改善了性能。这一点我们平时使用中也许都知道，连接操作频繁的时候，使用StringBuilder对象。</li>
+</ul>
+<h3 id="七十：Unity3D-Shader分哪几种，有什么区别？"><a href="#七十：Unity3D-Shader分哪几种，有什么区别？" class="headerlink" title="七十：Unity3D Shader分哪几种，有什么区别？"></a>七十：Unity3D Shader分哪几种，有什么区别？</h3><p>表面着色器的抽象层次比较高，它可以轻松地以简洁方式实现复杂着色。表面着色器可同时在前向渲染及延迟渲染模式下正常工作。<br>顶点片段着色器可以非常灵活地实现需要的效果，但是需要编写更多的代码，并且很难与Unity的渲染管线完美集成。<br>固定功能管线着色器可以作为前两种着色器的备用选择，当硬件无法运行那些酷炫Shader的时，还可以通过固定功能管线着色器来绘制出一些基本的内容。</p>
+<h3 id="七十一：已知strcpy函数的原型是：char-strcpy-char-strDest-const-char-strSrc-1-不调用库函数，实现strcpy函数。2-解释为什么要返回char"><a href="#七十一：已知strcpy函数的原型是：char-strcpy-char-strDest-const-char-strSrc-1-不调用库函数，实现strcpy函数。2-解释为什么要返回char" class="headerlink" title="七十一：已知strcpy函数的原型是：char * strcpy(char * strDest,const char * strSrc); 1.不调用库函数，实现strcpy函数。2.解释为什么要返回char *"></a>七十一：已知strcpy函数的原型是：char * strcpy(char * strDest,const char * strSrc); 1.不调用库函数，实现strcpy函数。2.解释为什么要返回char *</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> * <span class="title">strcpy</span><span class="params">(<span class="keyword">char</span> * strDest,<span class="keyword">const</span> <span class="keyword">char</span> * strSrc)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((strDest==<span class="literal">NULL</span>)||(strSrc==<span class="literal">NULL</span>))</span><br><span class="line">        <span class="keyword">throw</span> <span class="string">"Invalid argument(s)"</span>;</span><br><span class="line">    <span class="keyword">char</span> * strDestCopy=strDest;</span><br><span class="line">    <span class="keyword">while</span> ((*strDest++=*strSrc++)!=<span class="string">'\0'</span>);</span><br><span class="line">    <span class="keyword">return</span> strDestCopy;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="七十二：C-中四种访问修饰符是哪些？各有什么区别？"><a href="#七十二：C-中四种访问修饰符是哪些？各有什么区别？" class="headerlink" title="七十二：C#中四种访问修饰符是哪些？各有什么区别？"></a>七十二：C#中四种访问修饰符是哪些？各有什么区别？</h3><p>1.属性修饰符 2.存取修饰符 3.类修饰符 4.成员修饰符。<br>属性修饰符：</p>
+<ul>
+<li>Serializable：按值将对象封送到远程服务器。</li>
+<li>STATread：是单线程套间的意思，是一种线程模型。</li>
+<li>MATAThread：是多线程套间的意思，也是一种线程模型。<br>存取修饰符：</li>
+<li>public：存取不受限制。</li>
+<li>private：只有包含该成员的类可以存取。</li>
+<li>internal：只有当前工程可以存取。</li>
+<li>protected：只有包含该成员的类以及派生类可以存取。<br>类修饰符：</li>
+<li>abstract：抽象类。指示一个类只能作为其它类的基类。</li>
+<li>sealed：密封类。指示一个类不能被继承。理所当然，密封类不能同时又是抽象类，因为抽象总是希望被继承的。<br>成员修饰符：</li>
+<li>abstract：指示该方法或属性没有实现。</li>
+<li>sealed：密封方法。可以防止在派生类中对该方法的override（重载）。不是类的每个成员方法都可以作为密封方法密封方法，必须对基类的虚方法进行重载，提供具体的实现方法。所以，在方法的声明中，sealed修饰符总是和override修饰符同时使用。</li>
+<li>delegate：委托。用来定义一个函数指针。C#中的事件驱动是基于delegate + event的。</li>
+<li>const：指定该成员的值只读不允许修改。</li>
+<li>event：声明一个事件。</li>
+<li>extern：指示方法在外部实现。</li>
+<li>override：重写。对由基类继承成员的新实现。</li>
+<li>readonly：指示一个域只能在声明时以及相同类的内部被赋值。</li>
+<li>static：指示一个成员属于类型本身，而不是属于特定的对象。即在定义后可不经实例化，就可使用。</li>
+<li>virtual：指示一个方法或存取器的实现可以在继承类中被覆盖。<br>new：在派生类中隐藏指定的基类成员，从而实现重写的功能。 若要隐藏继承类的成员，请使用相同名称在派生类中声明该成员，并用 new 修饰符修饰它。</li>
+</ul>
+<h3 id="七十三：Heap与Stack有何区别？"><a href="#七十三：Heap与Stack有何区别？" class="headerlink" title="七十三：Heap与Stack有何区别？"></a>七十三：Heap与Stack有何区别？</h3><ul>
+<li>1.heap是堆，stack是栈。</li>
+<li>2.stack的空间由操作系统自动分配和释放，heap的空间是手动申请和释放的，heap常用new关键字来分配。</li>
+<li>3.stack空间有限，heap的空间是很大的自由区。</li>
+</ul>
+<h3 id="七十四：值类型和引用类型有何区别？"><a href="#七十四：值类型和引用类型有何区别？" class="headerlink" title="七十四：值类型和引用类型有何区别？"></a>七十四：值类型和引用类型有何区别？</h3><p>1.值类型的数据存储在内存的栈中；引用类型的数据存储在内存的堆中，而内存单元中只存放堆中对象的地址。<br>2.值类型存取速度快，引用类型存取速度慢。<br>3.值类型表示实际数据，引用类型表示指向存储在内存堆中的数据的指针或引用<br>4.值类型继承自System.ValueType，引用类型继承自System.Object<br>5.栈的内存分配是自动释放；而堆在.NET中会有GC来释放<br>6.值类型的变量直接存放实际的数据，而引用类型的变量存放的则是数据的地址，即对象的引用。</p>
+<h3 id="七十五：协同程序的执行代码是什么？有何用处，有何缺点？"><a href="#七十五：协同程序的执行代码是什么？有何用处，有何缺点？" class="headerlink" title="七十五：协同程序的执行代码是什么？有何用处，有何缺点？"></a>七十五：协同程序的执行代码是什么？有何用处，有何缺点？</h3><figure class="highlight lua"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Start</span><span class="params">()</span></span> &#123; </span><br><span class="line">    // 协同程序WaitAndPrint在Start函数内执行,可以视同于它与Start函数同步执行.</span><br><span class="line">    StartCoroutine(WaitAndPrint(<span class="number">2.0</span>)); </span><br><span class="line">    <span class="built_in">print</span> (<span class="string">"Before WaitAndPrint Finishes "</span> + Time.<span class="built_in">time</span> );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">WaitAndPrint</span> <span class="params">(waitTime : float)</span></span> &#123;</span><br><span class="line">    // 暂停执行waitTime秒</span><br><span class="line">    <span class="built_in">yield</span> WaitForSeconds (waitTime);</span><br><span class="line">    <span class="built_in">print</span> (<span class="string">"WaitAndPrint "</span>+ Time.<span class="built_in">time</span> );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>作用：一个协同程序在执行过程中,可以在任意位置使用yield语句。yield的返回值控制何时恢复协同程序向下执行。协同程序在对象自有帧执行过程中堪称优秀。协同程序在性能上没有更多的开销。<br>缺点：协同程序并非真线程，可能会发生堵塞。</p>
+
+            
+        </div>
+        
+    </div>
+    
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2020/unityInterviewQuestions/">unity常见面试题</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">小莫</a></p>
+        <p><span>发布时间:</span>2020-01-07, 00:00:00</p>
+        <p><span>最后更新:</span>2021-07-20, 20:08:26</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2020/unityInterviewQuestions/" title="unity常见面试题">https://blog.xiaomo.info/2020/unityInterviewQuestions/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://blog.xiaomo.info/2020/unityInterviewQuestions/　　作者: 小莫" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2020/backToJapan/">
+                    疫情下的回日坎坷路
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/my2019Summary/">
+                    2019年年终总结（作为前端开发这一年）
+                </a>
+            </div>
+        
+    </nav>
+
+    
+</article>
+
+
+
+<!-- 代码2：用来读取评论框配置，此代码需放置在代码1之后。 -->
+<!-- 如果当前页面有评论框，代码2请勿放置在评论框代码之前。 -->
+<!-- 如果页面同时使用多个实验室项目，以下代码只需要引入一次，只配置上面的div标签即可 -->
+<!--<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cysUkgluO"></script>-->
+
+<div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一．什么是渲染管道？"><span class="toc-number">1.</span> <span class="toc-text">一．什么是渲染管道？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二．如何优化内存？"><span class="toc-number">2.</span> <span class="toc-text">二．如何优化内存？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、动态加载资源的方式？-有时候也问区别，具体请百度"><span class="toc-number">3.</span> <span class="toc-text">三、动态加载资源的方式？(有时候也问区别，具体请百度)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四：什么是协同程序？"><span class="toc-number">4.</span> <span class="toc-text">四：什么是协同程序？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六：物体发生碰撞的必要条件？"><span class="toc-number">5.</span> <span class="toc-text">六：物体发生碰撞的必要条件？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七：请简述ArrayList和List的主要区别？"><span class="toc-number">6.</span> <span class="toc-text">七：请简述ArrayList和List的主要区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#八：如何安全的在不同工程间安全地迁移asset数据？三种方法"><span class="toc-number">7.</span> <span class="toc-text">八：如何安全的在不同工程间安全地迁移asset数据？三种方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#九：OnEnable、Awake、Start运行时的发生顺序？哪些可能在同一个对象周期中反复的发生"><span class="toc-number">8.</span> <span class="toc-text">九：OnEnable、Awake、Start运行时的发生顺序？哪些可能在同一个对象周期中反复的发生</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#十：MeshRender中material和sharedmaterial的区别？"><span class="toc-number">9.</span> <span class="toc-text">十：MeshRender中material和sharedmaterial的区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#十一：Unity提供了几种光源，分别是什么"><span class="toc-number">10.</span> <span class="toc-text">十一：Unity提供了几种光源，分别是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#十二：简述一下对象池，你觉得在FPS里哪些东西适合使用对象池"><span class="toc-number">11.</span> <span class="toc-text">十二：简述一下对象池，你觉得在FPS里哪些东西适合使用对象池</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#十三：CharacterController和Rigidbody的区别"><span class="toc-number">12.</span> <span class="toc-text">十三：CharacterController和Rigidbody的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#十四：简述prefab的用处"><span class="toc-number">13.</span> <span class="toc-text">十四：简述prefab的用处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#十五：请简述sealed关键字用在类声明时与函数声明时的作用"><span class="toc-number">14.</span> <span class="toc-text">十五：请简述sealed关键字用在类声明时与函数声明时的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#十六：请简述private，public，protected，internal的区别"><span class="toc-number">15.</span> <span class="toc-text">十六：请简述private，public，protected，internal的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#十七：使用Unity3d实现2d游戏，有几种方式？"><span class="toc-number">16.</span> <span class="toc-text">十七：使用Unity3d实现2d游戏，有几种方式？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#十八：在物体发生碰撞的整个过程中，有几个阶段，分别列出对应的函数"><span class="toc-number">17.</span> <span class="toc-text">十八：在物体发生碰撞的整个过程中，有几个阶段，分别列出对应的函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#十九：Unity3d的物理引擎中，有几种施加力的方式，分别描述出来"><span class="toc-number">18.</span> <span class="toc-text">十九：Unity3d的物理引擎中，有几种施加力的方式，分别描述出来</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二十：什么叫做链条关节？"><span class="toc-number">19.</span> <span class="toc-text">二十：什么叫做链条关节？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二十一：物体自身旋转使用的函数？"><span class="toc-number">20.</span> <span class="toc-text">二十一：物体自身旋转使用的函数？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二十二：Unity3d提供了一个用于保存和读取数据的类-PlayerPrefs-，请列出保存和读取整形数据的函数"><span class="toc-number">21.</span> <span class="toc-text">二十二：Unity3d提供了一个用于保存和读取数据的类(PlayerPrefs)，请列出保存和读取整形数据的函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二十三：Unity3d脚本从唤醒到销毁有着一套比较完整的生命周期，请列出系统自带的几个重要的方法。"><span class="toc-number">22.</span> <span class="toc-text">二十三：Unity3d脚本从唤醒到销毁有着一套比较完整的生命周期，请列出系统自带的几个重要的方法。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二十四：物理更新一般放在哪个系统函数里？"><span class="toc-number">23.</span> <span class="toc-text">二十四：物理更新一般放在哪个系统函数里？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二十五：在场景中放置多个Camera并同时处于活动状态会发生什么？"><span class="toc-number">24.</span> <span class="toc-text">二十五：在场景中放置多个Camera并同时处于活动状态会发生什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二十六：如何销毁一个UnityEngine-Object及其子类？"><span class="toc-number">25.</span> <span class="toc-text">二十六：如何销毁一个UnityEngine.Object及其子类？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二十七：请描述为什么Unity3d中会发生在组件上出现数据丢失的情况"><span class="toc-number">26.</span> <span class="toc-text">二十七：请描述为什么Unity3d中会发生在组件上出现数据丢失的情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二十八：LOD是什么，优缺点是什么？"><span class="toc-number">27.</span> <span class="toc-text">二十八：LOD是什么，优缺点是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二十九：MipMap是什么，作用？"><span class="toc-number">28.</span> <span class="toc-text">二十九：MipMap是什么，作用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三十：请描述Interface与抽象类之间的不同"><span class="toc-number">29.</span> <span class="toc-text">三十：请描述Interface与抽象类之间的不同</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三十一：-Net与Mono的关系？"><span class="toc-number">30.</span> <span class="toc-text">三十一：.Net与Mono的关系？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三十二：简述Unity3D支持的作为脚本的语言的名称"><span class="toc-number">31.</span> <span class="toc-text">三十二：简述Unity3D支持的作为脚本的语言的名称</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三十三：U3D中用于记录节点空间几何信息的组件名称，及其父类名称"><span class="toc-number">32.</span> <span class="toc-text">三十三：U3D中用于记录节点空间几何信息的组件名称，及其父类名称</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三十四：向量的点乘、叉乘以及归一化的意义？"><span class="toc-number">33.</span> <span class="toc-text">三十四：向量的点乘、叉乘以及归一化的意义？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三十五：为何大家都在移动设备上寻求U3D原生GUI的替代方案"><span class="toc-number">34.</span> <span class="toc-text">三十五：为何大家都在移动设备上寻求U3D原生GUI的替代方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三十六：请简述如何在不同分辨率下保持UI的一致性"><span class="toc-number">35.</span> <span class="toc-text">三十六：请简述如何在不同分辨率下保持UI的一致性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三十七：什么是LightMap？"><span class="toc-number">36.</span> <span class="toc-text">三十七：什么是LightMap？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三十八：Unity和cocos2d的区别"><span class="toc-number">37.</span> <span class="toc-text">三十八：Unity和cocos2d的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三十九：C-和C-的区别？"><span class="toc-number">38.</span> <span class="toc-text">三十九：C#和C++的区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四十：结构体和类有何区别？"><span class="toc-number">39.</span> <span class="toc-text">四十：结构体和类有何区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四十一：ref参数和out参数是什么？有什么区别？"><span class="toc-number">40.</span> <span class="toc-text">四十一：ref参数和out参数是什么？有什么区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四十二：C-的委托是什么？有何用处？"><span class="toc-number">41.</span> <span class="toc-text">四十二：C#的委托是什么？有何用处？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四十三：C-中的排序方式有哪些？"><span class="toc-number">42.</span> <span class="toc-text">四十三：C#中的排序方式有哪些？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四十四：射线检测碰撞物的原理是？"><span class="toc-number">43.</span> <span class="toc-text">四十四：射线检测碰撞物的原理是？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四十五：Unity中，照相机的Clipping-Planes的作用是什么？调整Near、Fare两个值时，应该注意什么？"><span class="toc-number">44.</span> <span class="toc-text">四十五：Unity中，照相机的Clipping Planes的作用是什么？调整Near、Fare两个值时，应该注意什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四十六：如何让已经存在的GameObject在LoadLevel后不被卸载掉？"><span class="toc-number">45.</span> <span class="toc-text">四十六：如何让已经存在的GameObject在LoadLevel后不被卸载掉？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四十七：请简述GC（垃圾回收）产生的原因，并描述如何避免？"><span class="toc-number">46.</span> <span class="toc-text">四十七：请简述GC（垃圾回收）产生的原因，并描述如何避免？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四十八：反射的实现原理？"><span class="toc-number">47.</span> <span class="toc-text">四十八：反射的实现原理？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四十九：简述四元数的作用，四元数对欧拉角的优点？"><span class="toc-number">48.</span> <span class="toc-text">四十九：简述四元数的作用，四元数对欧拉角的优点？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五十：移动相机动作在哪个函数里，为什么在这个函数里？"><span class="toc-number">49.</span> <span class="toc-text">五十：移动相机动作在哪个函数里，为什么在这个函数里？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五十一：GPU的工作原理"><span class="toc-number">50.</span> <span class="toc-text">五十一：GPU的工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五十二：什么是渲染管道？"><span class="toc-number">51.</span> <span class="toc-text">五十二：什么是渲染管道？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五十三：如何优化内存？"><span class="toc-number">52.</span> <span class="toc-text">五十三：如何优化内存？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五十四：动态加载资源的方式？他们之间的区别"><span class="toc-number">53.</span> <span class="toc-text">五十四：动态加载资源的方式？他们之间的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五十五：请描述游戏动画有哪几种，以及其原理？"><span class="toc-number">54.</span> <span class="toc-text">五十五：请描述游戏动画有哪几种，以及其原理？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五十六：alpha-blend工作原理"><span class="toc-number">55.</span> <span class="toc-text">五十六：alpha blend工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五十七：写出光照计算中的diffuse的计算公式"><span class="toc-number">56.</span> <span class="toc-text">五十七：写出光照计算中的diffuse的计算公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五十八：两种阴影判断的方法、工作原理。"><span class="toc-number">57.</span> <span class="toc-text">五十八：两种阴影判断的方法、工作原理。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五十九：Vertex-Shader是什么，怎么计算？"><span class="toc-number">58.</span> <span class="toc-text">五十九：Vertex Shader是什么，怎么计算？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六十：下列代码在运行中会产生几个临时对象？"><span class="toc-number">59.</span> <span class="toc-text">六十：下列代码在运行中会产生几个临时对象？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六十一：下列代码在运行中会发生什么问题？如何避免？"><span class="toc-number">60.</span> <span class="toc-text">六十一：下列代码在运行中会发生什么问题？如何避免？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六十二：Unity3D是否支持写成多线程程序？如果支持的话需要注意什么？"><span class="toc-number">61.</span> <span class="toc-text">六十二：Unity3D是否支持写成多线程程序？如果支持的话需要注意什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六十三：Unity3D的协程和C-线程之间的区别是什么？"><span class="toc-number">62.</span> <span class="toc-text">六十三：Unity3D的协程和C#线程之间的区别是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六十四：矩阵相乘的意义及注意点"><span class="toc-number">63.</span> <span class="toc-text">六十四：矩阵相乘的意义及注意点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六十五：为什么dynamic-font在unicode环境下优于static-font"><span class="toc-number">64.</span> <span class="toc-text">六十五：为什么dynamic font在unicode环境下优于static font</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六十六：当一个细小的高速物体撞向另一个较大的物体时，会出现什么情况？如何避免？"><span class="toc-number">65.</span> <span class="toc-text">六十六：当一个细小的高速物体撞向另一个较大的物体时，会出现什么情况？如何避免？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六十七：请简述OnBecameVisible及OnBecameInvisible的发生时机，以及这一对回调函数的意义？"><span class="toc-number">66.</span> <span class="toc-text">六十七：请简述OnBecameVisible及OnBecameInvisible的发生时机，以及这一对回调函数的意义？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六十八：什么叫动态合批？跟静态合批有什么区别？"><span class="toc-number">67.</span> <span class="toc-text">六十八：什么叫动态合批？跟静态合批有什么区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六十九：简述StringBuilder和String的区别？"><span class="toc-number">68.</span> <span class="toc-text">六十九：简述StringBuilder和String的区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七十：Unity3D-Shader分哪几种，有什么区别？"><span class="toc-number">69.</span> <span class="toc-text">七十：Unity3D Shader分哪几种，有什么区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七十一：已知strcpy函数的原型是：char-strcpy-char-strDest-const-char-strSrc-1-不调用库函数，实现strcpy函数。2-解释为什么要返回char"><span class="toc-number">70.</span> <span class="toc-text">七十一：已知strcpy函数的原型是：char * strcpy(char * strDest,const char * strSrc); 1.不调用库函数，实现strcpy函数。2.解释为什么要返回char *</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七十二：C-中四种访问修饰符是哪些？各有什么区别？"><span class="toc-number">71.</span> <span class="toc-text">七十二：C#中四种访问修饰符是哪些？各有什么区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七十三：Heap与Stack有何区别？"><span class="toc-number">72.</span> <span class="toc-text">七十三：Heap与Stack有何区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七十四：值类型和引用类型有何区别？"><span class="toc-number">73.</span> <span class="toc-text">七十四：值类型和引用类型有何区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七十五：协同程序的执行代码是什么？有何用处，有何缺点？"><span class="toc-number">74.</span> <span class="toc-text">七十五：协同程序的执行代码是什么？有何用处，有何缺点？</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script>
+    yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+</script>
+
+
+
+<div class="share">
+    
+
+    
+</div>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<hr/>
+<br/>
+<div style="display:block;text-align: center">
+    <a href="javascript:window.open('https://twitter.com/share?url='+encodeURIComponent(document.location.href)+'&text='+encodeURIComponent(document.title),'_blank','toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=600, height=450,top=100,left=350');void(0)"
+       style="background-color: lightskyblue;border-radius: 45px;box-shadow: #767676;font-size: 14px;font-family: '微软雅黑',serif;color: whitesmoke;padding: 10px 15px;"
+    >
+        twitter分享
+    </a>
+</div>
+<br/>
+<br/>
+<div id="gitalk-container" style="margin: 1% 3%"></div>
+<h3 style="text-align: center">如果想及时收到回复,可在 <a href="https://github.com/settings/notifications" target="_blank">订阅中心</a>的 <code>Participating</code>中勾选Email</h3>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '9772f6a6fdb199a60ba1',
+        clientSecret: '9a606af21688d2d4ff2efa2467ee82e76e1e9865',
+        id: window.location.pathname,
+        repo: 'blog',
+        owner: 'houko',
+        admin: 'houko',
+        distractionFreeMode: false
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2020/backToJapan/" title="上一篇: 疫情下的回日坎坷路">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/my2019Summary/" title="下一篇: 2019年年终总结（作为前端开发这一年）">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuyin2/">日本医疗制度之限度額適用認定証</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/ohmytmux/">我的tmux之旅（tmux使用详解）</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/redisPubSub/">nodejs中使用redis的订阅分发功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuuinn/">小莫的日本(东京)住院回忆录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/doTween/">(转)doTween插件使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/mySecondFiveYearsLifePlan/">2020年年终总结和第二个长期学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/newmanCommandLine/">postman和commandline tools（newman）用法介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/ctwJobs/">【日本东京六本木】【CTW株式会社】招聘Node全栈/Java后端/SRE/大数据工程师/UI设计师</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/npmPackageCollection/">npm优秀库使用收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/jsCommonUtilsMethods/">js/ts常用公有方法收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/springBootWithSpringSecurity/">spring cloud集成spring security</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/flyway/">使用flyway版本控制工具维护数据库表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/autoFormatOnSvae/">使用IDEA保存时自动格式化代码配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/dynamoDB/">aws dynamoDB使用总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueSSRNuxt/">nuxt.js使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/pm2UseApi/">node项目监控工具之pm2</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/webAppleSignIn/">web端接入apple Sign in流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/browserEventLoop/">聊聊Javascript的事件循环(转载)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/AwsSqsUse/">AWS SQS/SNS/Redis的pub/sub用法总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsSSo/">AWS SSO用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsCommandLineUse/">aws command line 用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueFrameworkVuex/">vue框架状态管理之vuex</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/backToJapan/">疫情下的回日坎坷路</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/unityInterviewQuestions/">unity常见面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/my2019Summary/">2019年年终总结（作为前端开发这一年）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/worldServerGame/">经历了几场面试后的全球同服架构思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/japanKannjiIndex/">日语汉字速查表</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/aboutAllVisa/">签证总结大全（工作签、在留卡加汉字、工作签证更新、家族签证等）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/javaPassByValueAndReference/">jdk源码系列-Java到底是值传递还是引用传递？</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/event20190729/">没想到有一天我逼停了电车</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/jdkSourceCodeReadThreadSleep/">jdk源码系列-Thread.sleep(0)和Thread.sleep(1)的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/restfulBestUse/">restful最佳实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/nihonnmennkyo/">小莫的日本换驾照攻略</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/nihonnkita2kagetsu/">2018年终总结（从杭州到日本工作的心路历程）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unityFpsCommonMethod/">Fps游戏常用功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unitySceneFarAndNear/">镜头拉远拉近</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unity3dMiniMap/">unity3d小地图</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUISorting/">使用UGUI中的层级问题——以背包为例</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUIServerList/">使用UGUI制作滚动列表-选服列表</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/aboutDockerUse/">docker应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadArrayListAndLinkedArrayList/">jdk源码系列-Java中ArrayList、LinkedList和Vector的联系与区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadCreateObject/">jdk源码系列-创建对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadClassInitOrder/">jdk源码系列-类的初始化顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadStringDifferent/">jdk源码系列-String,StringBuffer,StringBuilder</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadAtomicInteger/">jdk源码系列-AtomicInteger</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadInteger/">jdk源码系列-Integer</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadLocal/">jdk源码系列-ThreadLocal</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadMemoryActor/">jdk源码系列-内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadConcurrentHashMap/">jdk源码系列-ConcurrentHashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadPool/">jdk源码系列-线程池</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadIO/">jdk源码系列-深入了解IO的工作机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadObject/">jdk源码系列-Object</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadNIO/">jdk源码系列-NIO</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/throwableAndException/">jdk源码系列-throwable和Exception的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeRead/">jdk源码系列-顺序索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/myBookSheet/">我的书架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/onlineProjectKen/">项目上线之后遇到的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/mainProjectJobs/">主程职责总结和反思</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/fastjson/">fastjson的key为非字符串的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/saikennokoto/">2017年终总结(作为主程的这一年)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AngularEnvironment/">angular2学习笔记之基础环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/HowToAskQuestionOnStackOverFlow/">StackOverFlow提问的艺术</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/oracleJavaSeSliver/">java的oracle考试认证(OCJP)之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/blackAppleSystem/">安装黑苹果的历程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JapanTravel/">日本游记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/GameServerType/">游戏服务器的常用架构</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaLombok/">lombok常用注解整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SwiftProjectBuild/">swift项目初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MySoftware/">我的常用软件清单</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AboutObject/">关于对象的一些思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MyKindle/">kindle初体验.</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SomethingForNewCar/">我的新车常备用品</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/VimTabAutoComplete/">使用vim打开文件时tab补全忽略大小写设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/Win7OneNote/">win7系统登录不上onenote的解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/FormatDisk/">在linux系统下格式化移动硬盘的操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/LinuxIdeaSetting/">linux系统环境下使用idea遇到的问题及解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaApiJsonFormat/">接口格式返回大小写处理.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/StartMy2017/">2016年终总结(进入游戏行业)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MysqlCommon/">mysql常用操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NormalShell/">常用shell脚本.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidUsersPermission/">Android users-permission权限列表.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidAsyncTask/">android异步任务AsyncTask.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidEnvironment/">android环境搭建.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/blogToXiaomo/">博客域名迁移(从二级域名迁移到一级域名).</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/SublimeConfig/">Sublime Text 3 使用配置与插件安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/HttpToHttps/">拥抱https(http全面切换到https)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootSwaggerUi/">swagger ui和spring boot集成生成api文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringVideo/">spring4免费全套视频教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaLombok/">lombok简化java代码注解的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSeiyou/">日本动漫声优公演,来看看什么叫专业声优</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootDataFormat/">spring boot做前后分离时间格式化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootCors/">spring boot做前后分离的跨域问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringZiliao/">spring boot相关资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaIdeaMaven/">Maven 与 IntelliJ IDEA 的完美结合</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaServletUpload/">使用Servlet做简单的上传功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonAnime/">喜欢的动漫</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSekaku/">生活习惯的不同，造就了丰富多彩的世界</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/BangumiDongli/">《东离剑游记》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmYargs/">yargs插件的使用，node.js 命令行框架 yargs 和你的程序实现交互</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiRouter/">angular2 api整理之路由模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiCommon/">angular2 api整理之通用模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptRxjsStudy/">rxjs全接触</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptDesignPattern/">javascript设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/2016StudyPlan/">5年学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2studyAnimate/">angular2学习笔记之动画效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyServiceHttp/">angular2学习笔记之服务和http</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteOther/">angular2学习笔记之小技巧</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteNgTag/">angular2学习笔记之ng2标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteEvent/">angular2学习笔记之事件和多组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteComponent/">angular2学习笔记之基本组件和ngFor</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/PublicDns/">几个国内专用的公共 DNS</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxDisk/">阿里云服务器磁盘挂载</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxChmod/">linux权限详细解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownTableStyle/">Markdown 表格样式调整与自适应优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/GulpUse/">gulp构建工具的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/FrontEndTools/">前端工程化工具初选</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AnkiExcelShortcuts/">Anki 记忆库之 Excel 快捷键大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/CssFontFamily/">CSS font-family 网页字体使用小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeSpider/">nodejs爬虫项目实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Package.jsonScripts/">package.json常用script</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmModulesShare/">npm模块分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MongodbUse/">mongodb数据库的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/KoaGenerator/">koa生成器,一键生成koa和koa2项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeKoa/">nodejs框架koa学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptSyntax/">javascript学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Es6Syntax/">es6语法快速上手</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackLLink/">webpack进阶之loader篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackPlugins/">webpack进阶之插件篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackParams/">webpack相关命令参数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeProcess/">nodejs的process模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackBasicUse/">webpack使用之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeOnlineChat/">使用nodejs搭建一个简易的即时聊天软件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxCrontab/">linux下使用定时器跑任务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AngularKeyboardEvent/">angularjs键盘事件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownSyntax/">markdown语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NgCheckbox/">angularjs复选框</a></li></ul>
+
+<style>
+    #post-nav-button a{
+        background-color: skyblue;
+    }
+</style>
+
+
+
+<script>
+    
+</script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i>
+                
+                    2016-
+                
+                2021 小莫
+                <!--                <a href="http://www.miibeian.gov.cn/" target="_blank">浙ICP备15009606号</a>-->
+            </div>
+            <div class="footer-right">
+                <a href="https://blog.xiaomo.info/" target="_blank" title="欢迎来到小莫的博客">Blog </a> Created by <a
+                        href="https://github.com/houko" target="_blank" rel="external nofollow"
+                        title="希望这里的文章对你有所帮助  v3.0">xiaomo</a>
+                <a href="/record.html"><i class="fa fa-heart animated infinite pulse"></i></a>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit">总访问数:
+                            <span id="busuanzi_value_site_pv"></span>
+                        </span>
+                    </span>
+                
+                <span style="color: grey;">(<a href="https://www.upyun.com/" rel="external nofollow" target="_blank">背景随机加载-资源存储于又拍云</a>) | 本站己运行<span
+                            id="day_count">222</span>天<span id="time_now">1</span></span>
+            </div>
+        
+    </div>
+    <script src="/js/activate-power-mode.js" ></script>
+</footer>
+<script>
+    // 添加输入效果
+    POWERMODE.colorful = true; // make power mode colorful
+    POWERMODE.shake = false; // turn off shake
+    document.body.addEventListener('input', POWERMODE);
+
+    (function () {
+        function current() {
+            var d = new Date(), str = '';
+            str += d.getHours() + '小时';
+            str += d.getMinutes() + '分';
+            str += d.getSeconds() + '秒';
+            return str;
+        }
+
+        setInterval(function () {
+            $("#time_now").html(current)
+        }, 1000);
+
+        var dateFrom = new Date(2015, 9, 12);
+        var dateTo = new Date();
+        var diff = dateTo.valueOf() - dateFrom.valueOf();
+        var diff_day = parseInt(diff / (1000 * 60 * 60 * 24));
+        $("#day_count").html(diff_day);
+    })();
+</script>
+<a href="https://github.com/houko/blog"><img style="position: fixed; top: 0;left: 0;" width="140" height="140" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_gray_6d6d6d.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 36;
+                var randomIndex = Math.ceil(Math.random() * backgroundnum);
+                var result = randomIndex+".jpg?version="+(new Date()/1000);
+                var backgroundimg = "url(https://image.xiaomo.info/background/bg-number)".replace(/number/gi,result);
+//                console.info("加载图片"+backgroundimg);
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover","background-color":"rgba(255,255,255,0.5)","background-blend-mode":"lighten"});
+            }
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80824007-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+<script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1626811730142')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body>
+</html>

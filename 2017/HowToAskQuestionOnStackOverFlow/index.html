@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><link rel=manifest href=/manifest.json><meta name="generator" content="Hexo 3.9.0"><link rel="manifest" href="/manifest.json">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="小莫">
+<meta name="baidu-site-verification" content="qp2dTXVqvj">
+
+
+
+<meta name="keywords" content="小莫的博客, java, 日语, 动漫, 技术, unity3d, nginx, https, angular, 游戏, 服务器, tomcat, IDEA, javaweb, spring, hibernate, spring boot, 开源中国, github, linux, 主程">
+
+
+<meta name="description" content="stackOverFlow现在不仅是一个社区，更是一个程序员的聚集地，就像古代高手云集的江湖。合理的使用它不仅能够方便自己，更能够帮助别人。我最喜欢的两个网站:github和stackOverFlow">
+<meta name="keywords" content="stackoverflow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="StackOverFlow提问的艺术">
+<meta property="og:url" content="https://blog.xiaomo.info/2017/HowToAskQuestionOnStackOverFlow/index.html">
+<meta property="og:site_name" content="小莫的博客-fighting(技术分享、生活随笔)">
+<meta property="og:description" content="stackOverFlow现在不仅是一个社区，更是一个程序员的聚集地，就像古代高手云集的江湖。合理的使用它不仅能够方便自己，更能够帮助别人。我最喜欢的两个网站:github和stackOverFlow">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-07-20T20:08:26.464Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="StackOverFlow提问的艺术">
+<meta name="twitter:description" content="stackOverFlow现在不仅是一个社区，更是一个程序员的聚集地，就像古代高手云集的江湖。合理的使用它不仅能够方便自己，更能够帮助别人。我最喜欢的两个网站:github和stackOverFlow">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternative" href="/atom.xml" title="小莫的博客-fighting(技术分享、生活随笔)" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="//image.xiaomo.info/logo/avatar.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/green/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>StackOverFlow提问的艺术 | 小莫的博客-fighting(技术分享、生活随笔)</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        open_in_new: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+</html>
+<body oncontextmenu="return false" onselectstart="return false">
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="https://blog.xiaomo.info" target="_self" class="profilepic">
+            <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">小莫</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">行百里者半九十</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" results="0" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="//xiaomo.info">回到主站</a></li>
+                        
+                            <li><a href="/tags/japan/">日本生活系列</a></li>
+                        
+                            <li><a href="/categories/summary/">年度总结系列</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about.html">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA/">IDEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK源码系列/">JDK源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OCJP/">OCJP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alime/">alime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/">aws</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doTween/">doTween</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es5/">es5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/">excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/game/">game</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/japan/">japan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/">lombok</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxt/">nuxt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/onenote/">onenote</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postman/">postman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sso/">sso</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stackoverflow/">stackoverflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/">technology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ugui/">ugui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动漫/">动漫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字体/">字体</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码系列/">源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件/">软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑苹果/">黑苹果</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">技术宅、 杭州、 夜猫子、 爱动漫、 爱日语 2015年毕业、 java开发、 web前端、 前沿技术发烧友、 生命不息折腾不止、</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">小莫</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">小莫</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">行百里者半九十</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="//xiaomo.info">回到主站</a></li>
+                
+                    <li><a href="/tags/japan/">日本生活系列</a></li>
+                
+                    <li><a href="/categories/summary/">年度总结系列</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about.html">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><style>
+    .background-cover {
+        float: left;
+        width: 400px;
+        height: 250px;
+    }
+
+    .article img {
+        margin: -1px 20px 5px -1px;
+        border-top-left-radius: 3px;
+        -webkit-border-radius-topleft: 3%;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -o-transition: all 0.5s;
+    }
+
+    /*.article img:hover{*/
+    /*transform: scale(1, 1.05);*/
+    /*-webkit-transition:all 0.5s;*/
+    /*-moz-transition:all 0.5s;*/
+    /*-o-transition:all 0.5s;*/
+    /*}*/
+</style>
+
+
+<article id="post-HowToAskQuestionOnStackOverFlow" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        function getPgjs() {
+            const agent = navigator.userAgent.toLowerCase()
+            let res = agent.match(/android/)
+            if (res === "android")
+                return res;
+            res = agent.match(/iphone/);
+            if (res === "iphone")
+                return "ios";
+            res = agent.match(/ipad/);
+            if (res === "ipad")
+                return "ios";
+            res = agent.match(/windows/);
+            if (res === "windows")
+                return "wp";
+            console.info('pc......')
+            return "pc";
+        }
+
+        function loadImage(id) {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                return;
+            }
+            var backgroundnum = 40;
+            var randomIndex = Math.ceil(Math.random() * backgroundnum);
+            var result = randomIndex + "?version=" + (new Date() / 1000);
+            var backgroundimg = "https://image.xiaomo.info/cover/bg-number.jpg".replace(/number/gi, randomIndex);
+            var key = "#" + id;
+            $(key).attr("src", backgroundimg);
+            $(".background-cover").show();
+        }
+
+        (function () {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                console.log(page)
+                $(".background-cover").hide();
+            }
+        })()
+    </script>
+    
+    <div class="article-meta">
+        <a href="/2017/HowToAskQuestionOnStackOverFlow/" class="article-date">
+      <time datetime="2017-11-30T00:00:00.000Z" itemprop="datePublished">2017-11-30</time>
+</a>
+    </div>
+    
+    <div class="article-inner">
+        
+        <input type="hidden" class="isFancy"/>
+        
+        <div class="background-cover">
+            <img class="fengmian-image" id="HowToAskQuestionOnStackOverFlow" src="https://image.xiaomo.info/cover/bg-5.jpg" alt="封面" onload="loadImage(this.id)"/>
+        </div>
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      StackOverFlow提问的艺术
+    </h1>
+  
+
+        </header>
+        
+        <div class="article-info article-info-post">
+            
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/工具/">工具</a>
+    </div>
+
+
+            
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stackoverflow/">stackoverflow</a></li></ul> </div>
+
+
+
+            <!-- 访问量  -->
+            <!--<span id="busuanzi_container_page_pv" style='display:none'>-->
+            <!--<span id="page-visit"><i class="fa fa-eye" style="float: left;margin-top:5px" aria-hidden="true" title="文章访问量"></i>-->
+            <!--<span id="busuanzi_value_page_pv"></span>-->
+            <!--</span>-->
+            <!--</span>-->
+
+            <div class="clearfix"></div>
+        </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+            
+            <p>stackOverFlow现在不仅是一个社区，更是一个程序员的聚集地，就像古代高手云集的江湖。合理的使用它不仅能够方便自己，更能够帮助别人。我最喜欢的两个网站:<a href="https://github.com/houko" target="_blank" rel="noopener">github</a>和<a href="https://stackoverflow.com/users/5804125/xiaomo" target="_blank" rel="noopener">stackOverFlow</a></p>
+<a id="more"></a>
+
+<h1 id="提问相关"><a href="#提问相关" class="headerlink" title="提问相关"></a>提问相关</h1><h2 id="可以问什么样的主题"><a href="#可以问什么样的主题" class="headerlink" title="可以问什么样的主题"></a>可以问什么样的主题</h2><p>大家都知道 Stack Overflow是编程类的问答社区， 但还真有人把它当成通用的问答社区了， 问些完全无关的问题。 其实， Stack Overflow 是有一系列兄弟网站的（目前已经有100+)， 统称 Stack Exchange， 涵盖很多主题， 比如数学、物理、化学等科学类， 服务器管理、Latex、数据库等计算机类， 中文、俄文、日文等语言类， 详细的列表看这里， 不要让好问题问错地方哦。<br>允许的主题包括： 具体的编程问题、软件算法相关、通常只有程序员用的软件工具相关等。<br>有些主题是比较容易弄错的， 比如一般的电脑操作问题， 应该去Super User(热门的 Linux/Unix, 和Ubuntu还有独立的站点）， 专业的服务器问题， 应该去Server Fault。这些都不属于编程类的问题， 尽管不少程序员的日常工作也有涉及（想一想“怎么修电脑？”属于编程问题么）。 再举个例子， 同样是编辑器， Vim/Emacs/Atom相关的问题是可以的，因为基本只有程序员会用这些工具， 而 Word/记事本相关的一般就不可以。</p>
+<h2 id="什么样的问题应该避免问"><a href="#什么样的问题应该避免问" class="headerlink" title="什么样的问题应该避免问"></a>什么样的问题应该避免问</h2><p>编程相关还不够， Stack Overflow 要求问题必须是 「practical, answerable questions based on actual problems that you face」。<br>这是什么意思呢？ 首先， 开放式的问题是不允许的，比如“你为什么喜欢PHP?”， 隔壁Quora会是更合适的对象。 其次， 问题应该不需要很长的篇幅来回答， 如果一个问题期待的回答足够写一本书， 那很可能会被关闭的。 各种寻求资源的问题应该避免，如 “要完成某某工作， 有什么Python的库可以用”， 或者“学习C++应该选择哪本书？”等， 因为答案会主观， 也容易吸引广告。 最后， 问题不要基于凭空的假设，要基于实际的难题。<br>需要注意的是，你很可能见过一些违反上面规定的问题还在，而且浏览量很大， 尤其是一些寻求资源的问题， 和非编程相关的计算机问题等。 这是什么原因呢？ 原来，早期的Stack Overflow的规则还比较松，也没有Super User之类的站点。 这些问题往往是08/09年问的，大多数现在已经被关闭了。<br>上面的规则如果遵守， 你的问题应该问对地方了。 下面继续说说内容上具体需要注意的。</p>
+<h2 id="直入主题"><a href="#直入主题" class="headerlink" title="直入主题"></a>直入主题</h2><p>Stack Overflow不是论坛， 它的目标是希望成为编程类问答的一个超级数据库， 所以每个问题都不止是为了帮助提问者本人， 更重要的是希望将来能够帮助到每一个遇到同样问题的人。<br>所以， 和问题无关的内容都被认为是一种噪音， 包括： 打招呼（比如 Hi, Hello， Good afternoon， Dear Coders等)， 表示感谢（比如 Thanks, Any help would be appreciated等)， 没必要的背景（比如 I’m a newbie in C#等)， 你的签名 等。<br>可能有人会不理解为什么这样规定， 尤其是不要表示感谢这点。 Stack Overflow社区的理由是， 对愿意阅读并尝试解答你问题的人来说， 最好的表达感谢的方式是upvote有帮助的回答， 以及选择其中一个作为答案。 每一句和问题无关的内容都增加了额外的阅读时间， 而一个问题可能会被大量的人阅读。 更多的相关讨论可以参见这里和这里。<br>同样道理， 当有人回答你的问题之后， 也不要去添加无用的评论， 比如单纯的表达感谢的话， “+1”， 或者闲聊等。 评论的唯一用处是用来澄清疑问。</p>
+<h2 id="英语"><a href="#英语" class="headerlink" title="英语"></a>英语</h2><p>作为一个英语社区， 不论提问、回答还是在评论中和别人互动， 都是要用英语的。<br>除非英语水平真的很糟糕， 语法其实并不是最需要担心的，因为并不需要做到完美。Stack Overflow是允许自由的编辑其他人的问题/回答的（编辑者如果rep不到2K，需要经过评审才会生效）。 有很多人会热情的对问题进行编辑的， 包括修复可能的语法错误。 我想说的一点是， 要尽可能的保证单词拼写是正确的。 即使对英语不够好的人来说， 这也只需要多花一点时间检查就可以做到， 但它代表着对阅读你问题的人的尊重。 甚至很多英语母语的人在拼写上也不注意， 会把I’m 写成im, 把 want to写成 wanna之类的非正式英语， 这些都会降低问题被回答的概率。</p>
+<h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h2><p>在发问题之前， 问自己几个问题：</p>
+<ul>
+<li>你做过足够的研究么？ 有的人连入门指南都没读上10分钟就去提问， 问的问题能有多少价值呢？</li>
+<li>你尝试过搜索么？ 至少要试过Google和站内搜索， 很可能相同的问题已经有答案了</li>
+<li>你试过debug么？ 把你的想法或调试过程写在问题里，否则很可能会看到几条评论“Have you tried anything?”或“We don’t do your homework”之后问题就被downvote得惨不忍睹了。 因为大多数人是拒绝回答没有努力尝试的提问者的。</li>
+<li>标签： 一个问题可以加1~5个标签， 大多数问题是和某种具体的编程语言相关的， 这个语言的标签通常是必须的， 否则相关语言的关注者们很可能根本见不到问题。</li>
+</ul>
+<h2 id="起一个好标题"><a href="#起一个好标题" class="headerlink" title="起一个好标题"></a>起一个好标题</h2><p>一般来说， 标题应该尽量用简介的语言描述具体的问题。 比如 C# number confusion就是个反例， 如果改成 Why does using float instead of int give me different results when all of my inputs are integers? 就要具体多了。</p>
+<h2 id="提供代码"><a href="#提供代码" class="headerlink" title="提供代码"></a>提供代码</h2><p>对于编程类问题，的确有问题不需要代码也能表达清楚的， 但大多数问题都需要代码才能清晰的表达。“我声明了一个变量， 调用了几个函数， 然后它的值就变了， 为什么呢？” 这样的问题， 鬼才知道答案。<br>提供代码要注意： 不要贴截图， 难道你要回答者去照着截图敲键盘复现你的问题？ 也不要只贴站外的链接， 如果站外链接能够提供一些额外的方便功能， 也要在贴代码的基础上附上该链接。<br>对于提供什么样的代码， Stack Overflow给出了一个可参考的标准： MCVE， 即Minimal, Complete, and Verifiable example<br>Minimal: 最小的， 也就是尽可能的去掉和问题无关的部分。 如果你贴了一个几百行的代码， 很少有人愿意花时间去仔细看。 构造最小化例子的过程本身也是debug的过程。<br>Complete: 完整的， 一个简单的判断是：别人看到问题， 可以通过复制你提供的代码复现出问题吗？<br>Verifiable: 可验证， 描述问题尽可能具体， “the code doesn’t work”这样的描述就很不好。 如果编译不过， 要加上编译错误信息； 如果运行报错， 也同样要加上具体的错误信息； 如果结果和你的预期不一致， 要说清楚你的预期结果是什么， 为什么会这样想。<br>格式<br>Stack Overflow的编辑器是Markdown格式的， 如果你还不熟悉， 建议去学一下， 因为Markdown真的是一个只要10分钟就可以学会的语言。<br>大多数的格式问题都是出在贴代码的地方， 如果你发现你的代码是普通文本， 而没有语法高亮等功能， 那你很可能是格式搞错了。 最方便的方法就是选择所有代码， 然后按键盘Ctrl + K 即可。</p>
+<h2 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h2><p>有可能你的问题几分钟内就会有人回答， 也有可能有人对问题有疑问， 在评论中要求你解释。 可以评论@他们解释， 如果问题确实不够清晰， 编辑你的问题吧。 最后， 如果你自己发现了解答方法， 而还没人给出， 那就自己回答自己的问题吧。 自问自答是被鼓励的行为。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>看完上面我的唠叨， 是不是也感觉到Stack Overflow对新手的不友好了呢？ 但这是保持高质量内容的代价之一， 必须有一定的机制让低质量的问题不会泛滥， 才会有更多的人愿意花时间回答好的问题。 希望大家都能得到自己问题的答案， 有机会再讲讲如何回答问题。</p>
+<h2 id="提问前的自问"><a href="#提问前的自问" class="headerlink" title="提问前的自问"></a>提问前的自问</h2><p>提问之前你做过研究吗？ &lt;注1&gt;<br>你是否说明了自己试过哪些方法解决问题？<br>你说明你使用的编程语言/平台了吗， 包括版本号？<br>如果你的问题包含代码， 你是否已经改写成最小且完整的程序？&lt;注2&gt;<br>如果你的问题包含代码， 你是否检查过代码格式？&lt;注3&gt;<br>如果你的代码不能编译， 问题中是否包含了编译错误信息？<br>如果你的问题不包含代码， 你确认不需要吗？<br>如果你的程序抛出了异常， 问题中是否包含异常信息和堆栈回溯(stack trace)？<br>如果你的程序的输出结果和预期不同， 你是否说明了你的预期结果是什么， 你为什么这么想， 以及程序的实际结果？<br>如果你的问题和本地化有关（语言，时区等）， 问题中是否包含了相关的信息？<br>你是否检查过问题的格式是否正确？<br>你是否检查过拼写和语法？&lt;注4&gt;<br>你是否认真读过自己的问题， 确认问题对一个不了解问题背景的人也能明白?<br>如果以上任何一个问题的答案是否定的话， 很可能你提问前需要再修改一下问题。 我知道这听上去像是不少工作， 但它能帮助你尽快的得到答案。别忘了你是在请求他人用自己的善心帮助你， 你有义务让他们的工作尽可能的简单。</p>
+<p>注1： 如果你从“这怎么不工作了”到“应该去问个问题”只花了不到10分钟， 那很可能你的研究还不够。<br>注2： 理想情况下， 你的代码应该可以让回答者复制， 粘贴到编辑器， 编译， 运行， 然后就能看到问题输出。 命令行程序适用于这样的标准（除非你的问题和用户界面有关， 最好用命令行程序）。  去掉任何和问题无关的代码， 但保证可以复现问题。<br>注3： 代码最好不需要水平滚动， 这可能需要你从IDE复制代码之后做些额外的处理。 为了那些愿意帮助你的人花点时间把问题表达清楚吧。<br>注4： 我明白很多Stack Overflow用户母语不是英语， 我们并不要求完美， 只是希望你做过努力。如果你清楚自己英语不好， 找一个同事/朋友帮你改改吧。k</p>
+<h1 id="答题相关"><a href="#答题相关" class="headerlink" title="答题相关"></a>答题相关</h1><h2 id="想法的萌芽"><a href="#想法的萌芽" class="headerlink" title="想法的萌芽"></a>想法的萌芽</h2><p>如果非要总结下我多年来是如何使用Stack Overflow的话，我的答案就是：打开网页，搜索问题，查看Stack Overflow的搜索结果，参考答案，最后再关掉网页。</p>
+<p>我的生活已经离不开Stack Overflow了。但我从来没有对那些有用的回答做出过反馈，更别提自己提问题和回答问题了。</p>
+<p>不过我最终还是意识到，Stack Overflow的成功正是建立在其众多用户的慷慨解答上。我从这个网站上收获了很多，却从未做出回报，因为没有任何人、任何规则的约束。每个问题、每个答案或者每个有帮助的评论的出现只是因为某人慷慨的写了出来。诚然，Stack Overflow也有一套激励机制去帮助它的发展，且用户获得徽章和威望的多少也是个未知数，且通常由其他用户决定。例如，如果你提了一个问题或者回答了一个问题，没有人有义务去赞同或者反对你。</p>
+<p>多年来，我一直受益于它，但未对它尽过绵薄之力。我在网站上找到过一打有帮助的答案，但我甚至不曾为它们点个赞。</p>
+<p>是时候回报Stack Overflow了！</p>
+<h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p>   某天我在浏览徽章列表时发现，可以通过连续30天访问网站而获得一枚银色勋章。于是我决定将这个作为我的目标，通过30天不间断地浏览网站并且达到1000威望值。但我将只回答问题而不提问。</p>
+<h2 id="完成情况"><a href="#完成情况" class="headerlink" title="完成情况"></a>完成情况</h2><p>正如下表所示，我只能算是勉强完成目标。</p>
+<p>尽管我发现在访问量达到200的时候就会有100点威望值的福利作为回报，但是我也依然有一整个星期都颗粒无收的瓶颈期。理解并回答问题无疑是一个缓慢并需要一定方法的过程，要想达到我的目标，至少需要每天30点左右的威望值进账才可以。 </p>
+<p>##经验之谈</p>
+<p>Stack Overflow看起来就像一个纯粹的问答网站，但在我花了30天沉浸在回答问题的过程中后，发现了网站本身以及它所形成的社区的一些微妙的特点。以下是我所学到的一些：</p>
+<p>“摘樱桃”</p>
+<p>没过多久我就发现了网站上用户提问的速度之快。而我每天要做的只是：每小时花上几分钟刷新下问题页面，随机淘汰几个简单、不圆满的答案而已。除此之外，网站上的一些友好（有时并不十分友好）的竞争状况也显而易见。</p>
+<p>我从择优的过程中学到了很多。</p>
+<p>首先，确保你理解了问题。读完整个问题并且明确提问者想要的答案。如果你没有理解的话那么在评论中礼貌的问清楚。阅读标签也同样重要。不止一次我错误的回答了一个问题只因我自己假定了提问者所用的环境，显然这种情况可以通过阅读标签避免。</p>
+<p>其次，不要为了快点回答问题而牺牲了答案的质量。错别字和语法错误不会对任何人有帮助，并且这些都可以通过放慢回答速度以及在提交答案前检查一遍来避免。换一种方式来说：拥有良好的书写格式和完整的答案更容易得赞，而残缺的答案自然不会。不要只为了回答问题而写一个快速但不完整的答案，然后不得不忙着补充忘记的点。我见过太多这样的答案，这样做也只会招来其他用户甚至包括操作员要求更多的解释。这种行为明显不利于用户提问和回答的发展。</p>
+<p>最后，如果你正在撰写一个答案，一定要看一下已经存在的答案。如果你的答案和别人的几乎一样，那么你只需为别人的答案点个赞。如果他们的答案中缺了某些方面，那么你只需要在该答案的评论中去补充一下就可以了。</p>
+<h2 id="求助吸血鬼"><a href="#求助吸血鬼" class="headerlink" title="求助吸血鬼"></a>求助吸血鬼</h2><p>   Stack Overflow上有一群被称为”求助吸血鬼”的人。这些用户以“从不放过任何机会获得别人的帮助 “而闻名。这种现象一直存在，可我一直不知道他们甚至有个专属用词，直到某天有个用户斥责一位问题提问者为“求助吸血鬼”我才知道。</p>
+<p>   我就曾经为几个看起来像“求助吸血鬼”的用户回答过问题，接着就一发不可收拾了。他们通常采纳了我的答案接着在再答案下留言问一些新的毫无关系的新问题。</p>
+<p>   我的处理方式就是（建议其它用户在遇到这种情况时也这样）：写一个评论告诉用户他的所作所为是不对的以及应该怎么做。当时我就建议他去Google一下这个新问题，如果找不到想要的答案再来Stack Overflow上问一个新的问题，而不是在一个用户的答案下不停的问一些毫无关联的问题。</p>
+<p>   上面给出的Meta Stack Exchange链接上提供了很多在遇到这种求助吸血鬼时的有用回应。我还想说的一点就是，当普遍认可的答案却得到质疑时，首先应该做的是在该问题下做出评论，解释提问者可以自己修正这个问题。给用户一个改正自己错误的机会。这样的话，用户可能更能从这个网站上学到新的东西，你甚至还能为网站审核者节省时间！</p>
+<h2 id="卖弄狼人"><a href="#卖弄狼人" class="headerlink" title="卖弄狼人"></a>卖弄狼人</h2><p>   卖弄狼人，我专门为与“求助吸血鬼”所造的名词。对于求助吸血鬼们来说，这些原本可能善意的用户简直就是恶魔的化身。</p>
+<p>   当我发现求助吸血鬼的现象越来越严重的时候，有些用户采用粗暴且无用的方法制止他们。卖弄狼人们通常这样说：“这明显是一个家庭作业水平的问题”，“你难道都不试着Google一下么”，“不要问重复的问题！”。当我完成我的30天目标时，比起求助吸血鬼，我更烦这些卖弄狼人。</p>
+<p>   我想对这些人说：请回答的更具建设性和有用一点。为提问者提供更常规的答案。我的这些建议对提问者也同样适用！如果你遇到一个卖弄狼人只需要忽视他们就行，树立一个好榜样，不要在评论里面针锋相对！</p>
+<h2 id="关于反对票"><a href="#关于反对票" class="headerlink" title="关于反对票"></a>关于反对票</h2><p>   在这30天里，我一直尽我最大的努力为提问者做出一个好的、详细的答案。但是有时候会出现这样的现象：某个我的被采纳了的答案竟然没有一个人赞同，反而都是反对。</p>
+<p>   这些否定深深得伤害了我。那些不赞同我的答案的用户都没有解释原因，甚至在我追问后也没有给出回答。我的答案被接受了，显然对于提问者来说这是一个好答案，但是我至今不懂为什么有那些反对票，甚至让我丢了两点威望值。</p>
+<p>   Stack Overflow上并没有强制要求你在反对某个答案的时候解释原因，这样郁闷很久后，我觉得网站应该这样有这样的机制。在一个反对票下做出解释是体现网站人性化的一面。</p>
+<p>   如何人性的在反对票下留言呢？我想了两种方法：</p>
+<ul>
+<li>如果有人已经在反对票中的评论解释了为什么投反对票，那么你只需要赞同一下这个评论就能引起回答者的注意了。</li>
+<li>如果没有人解释你投反对票的原因，那么就在评论中写出问题或者答案需要改进的地方。</li>
+</ul>
+<h1 id="声明："><a href="#声明：" class="headerlink" title="声明："></a>声明：</h1><p>我只是个萌萌的搬运工，待我也在stackOverFlow上修行完成之后再来谈自己的经验。</p>
+<h2 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h2><ul>
+<li><a href="http://blog.jobbole.com/101980/" target="_blank" rel="noopener">玩转 Stack Overflow 之提问篇</a></li>
+<li><a href="http://blog.jobbole.com/75292/" target="_blank" rel="noopener">泡在 Stack Overflow 答题的 30 天</a></li>
+<li><a href="https://www.zhihu.com/question/19562768" target="_blank" rel="noopener">国内为什么没有好的 Stack Overflow 的模仿者？</a></li>
+<li><a href="http://www.infoq.com/cn/news/2016/03/Stack-Overflow-architecture-insi?utm_source=infoq&utm_medium=related_content_link&utm_campaign=relatedContent_presentations_clk" target="_blank" rel="noopener">Stack Overflow 2016最新架构探秘</a></li>
+<li><a href="http://www.ifanr.com/337680" target="_blank" rel="noopener">CODE Keyboard：Stack OverFlow 联合创始人亲手操刀的极客机械键盘</a></li>
+<li><a href="http://blog.jobbole.com/102810/?utm_source=blog.jobbole.com&utm_medium=relatedPosts" target="_blank" rel="noopener">为什么离不开 StackOverFlow？</a></li>
+<li><a href="https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/master/README-zh_CN.md" target="_blank" rel="noopener">提问的智慧</a></li>
+</ul>
+
+            
+        </div>
+        
+    </div>
+    
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/HowToAskQuestionOnStackOverFlow/">StackOverFlow提问的艺术</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">小莫</a></p>
+        <p><span>发布时间:</span>2017-11-30, 00:00:00</p>
+        <p><span>最后更新:</span>2021-07-20, 20:08:26</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/HowToAskQuestionOnStackOverFlow/" title="StackOverFlow提问的艺术">https://blog.xiaomo.info/2017/HowToAskQuestionOnStackOverFlow/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://blog.xiaomo.info/2017/HowToAskQuestionOnStackOverFlow/　　作者: 小莫" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/AngularEnvironment/">
+                    angular2学习笔记之基础环境搭建
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/oracleJavaSeSliver/">
+                    java的oracle考试认证(OCJP)之路
+                </a>
+            </div>
+        
+    </nav>
+
+    
+</article>
+
+
+
+<!-- 代码2：用来读取评论框配置，此代码需放置在代码1之后。 -->
+<!-- 如果当前页面有评论框，代码2请勿放置在评论框代码之前。 -->
+<!-- 如果页面同时使用多个实验室项目，以下代码只需要引入一次，只配置上面的div标签即可 -->
+<!--<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cysUkgluO"></script>-->
+
+<div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#提问相关"><span class="toc-number">1.</span> <span class="toc-text">提问相关</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#可以问什么样的主题"><span class="toc-number">1.1.</span> <span class="toc-text">可以问什么样的主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什么样的问题应该避免问"><span class="toc-number">1.2.</span> <span class="toc-text">什么样的问题应该避免问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#直入主题"><span class="toc-number">1.3.</span> <span class="toc-text">直入主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#英语"><span class="toc-number">1.4.</span> <span class="toc-text">英语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内容"><span class="toc-number">1.5.</span> <span class="toc-text">内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#起一个好标题"><span class="toc-number">1.6.</span> <span class="toc-text">起一个好标题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提供代码"><span class="toc-number">1.7.</span> <span class="toc-text">提供代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交流"><span class="toc-number">1.8.</span> <span class="toc-text">交流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结语"><span class="toc-number">1.9.</span> <span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提问前的自问"><span class="toc-number">1.10.</span> <span class="toc-text">提问前的自问</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#答题相关"><span class="toc-number">2.</span> <span class="toc-text">答题相关</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#想法的萌芽"><span class="toc-number">2.1.</span> <span class="toc-text">想法的萌芽</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目标"><span class="toc-number">2.2.</span> <span class="toc-text">目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#完成情况"><span class="toc-number">2.3.</span> <span class="toc-text">完成情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#求助吸血鬼"><span class="toc-number">2.4.</span> <span class="toc-text">求助吸血鬼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#卖弄狼人"><span class="toc-number">2.5.</span> <span class="toc-text">卖弄狼人</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于反对票"><span class="toc-number">2.6.</span> <span class="toc-text">关于反对票</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#声明："><span class="toc-number">3.</span> <span class="toc-text">声明：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#相关文章"><span class="toc-number">3.1.</span> <span class="toc-text">相关文章</span></a></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script>
+    yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+</script>
+
+
+
+<div class="share">
+    
+
+    
+</div>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<hr/>
+<br/>
+<div style="display:block;text-align: center">
+    <a href="javascript:window.open('https://twitter.com/share?url='+encodeURIComponent(document.location.href)+'&text='+encodeURIComponent(document.title),'_blank','toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=600, height=450,top=100,left=350');void(0)"
+       style="background-color: lightskyblue;border-radius: 45px;box-shadow: #767676;font-size: 14px;font-family: '微软雅黑',serif;color: whitesmoke;padding: 10px 15px;"
+    >
+        twitter分享
+    </a>
+</div>
+<br/>
+<br/>
+<div id="gitalk-container" style="margin: 1% 3%"></div>
+<h3 style="text-align: center">如果想及时收到回复,可在 <a href="https://github.com/settings/notifications" target="_blank">订阅中心</a>的 <code>Participating</code>中勾选Email</h3>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '9772f6a6fdb199a60ba1',
+        clientSecret: '9a606af21688d2d4ff2efa2467ee82e76e1e9865',
+        id: window.location.pathname,
+        repo: 'blog',
+        owner: 'houko',
+        admin: 'houko',
+        distractionFreeMode: false
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/AngularEnvironment/" title="上一篇: angular2学习笔记之基础环境搭建">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/oracleJavaSeSliver/" title="下一篇: java的oracle考试认证(OCJP)之路">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuyin2/">日本医疗制度之限度額適用認定証</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/ohmytmux/">我的tmux之旅（tmux使用详解）</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/redisPubSub/">nodejs中使用redis的订阅分发功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuuinn/">小莫的日本(东京)住院回忆录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/doTween/">(转)doTween插件使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/mySecondFiveYearsLifePlan/">2020年年终总结和第二个长期学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/newmanCommandLine/">postman和commandline tools（newman）用法介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/ctwJobs/">【日本东京六本木】【CTW株式会社】招聘Node全栈/Java后端/SRE/大数据工程师/UI设计师</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/npmPackageCollection/">npm优秀库使用收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/jsCommonUtilsMethods/">js/ts常用公有方法收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/springBootWithSpringSecurity/">spring cloud集成spring security</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/flyway/">使用flyway版本控制工具维护数据库表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/autoFormatOnSvae/">使用IDEA保存时自动格式化代码配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/dynamoDB/">aws dynamoDB使用总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueSSRNuxt/">nuxt.js使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/pm2UseApi/">node项目监控工具之pm2</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/webAppleSignIn/">web端接入apple Sign in流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/browserEventLoop/">聊聊Javascript的事件循环(转载)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/AwsSqsUse/">AWS SQS/SNS/Redis的pub/sub用法总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsSSo/">AWS SSO用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsCommandLineUse/">aws command line 用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueFrameworkVuex/">vue框架状态管理之vuex</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/backToJapan/">疫情下的回日坎坷路</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/unityInterviewQuestions/">unity常见面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/my2019Summary/">2019年年终总结（作为前端开发这一年）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/worldServerGame/">经历了几场面试后的全球同服架构思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/japanKannjiIndex/">日语汉字速查表</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/aboutAllVisa/">签证总结大全（工作签、在留卡加汉字、工作签证更新、家族签证等）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/javaPassByValueAndReference/">jdk源码系列-Java到底是值传递还是引用传递？</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/event20190729/">没想到有一天我逼停了电车</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/jdkSourceCodeReadThreadSleep/">jdk源码系列-Thread.sleep(0)和Thread.sleep(1)的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/restfulBestUse/">restful最佳实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/nihonnmennkyo/">小莫的日本换驾照攻略</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/nihonnkita2kagetsu/">2018年终总结（从杭州到日本工作的心路历程）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unityFpsCommonMethod/">Fps游戏常用功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unitySceneFarAndNear/">镜头拉远拉近</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unity3dMiniMap/">unity3d小地图</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUISorting/">使用UGUI中的层级问题——以背包为例</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUIServerList/">使用UGUI制作滚动列表-选服列表</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/aboutDockerUse/">docker应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadArrayListAndLinkedArrayList/">jdk源码系列-Java中ArrayList、LinkedList和Vector的联系与区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadCreateObject/">jdk源码系列-创建对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadClassInitOrder/">jdk源码系列-类的初始化顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadStringDifferent/">jdk源码系列-String,StringBuffer,StringBuilder</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadAtomicInteger/">jdk源码系列-AtomicInteger</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadInteger/">jdk源码系列-Integer</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadLocal/">jdk源码系列-ThreadLocal</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadMemoryActor/">jdk源码系列-内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadConcurrentHashMap/">jdk源码系列-ConcurrentHashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadPool/">jdk源码系列-线程池</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadIO/">jdk源码系列-深入了解IO的工作机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadObject/">jdk源码系列-Object</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadNIO/">jdk源码系列-NIO</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/throwableAndException/">jdk源码系列-throwable和Exception的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeRead/">jdk源码系列-顺序索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/myBookSheet/">我的书架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/onlineProjectKen/">项目上线之后遇到的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/mainProjectJobs/">主程职责总结和反思</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/fastjson/">fastjson的key为非字符串的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/saikennokoto/">2017年终总结(作为主程的这一年)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AngularEnvironment/">angular2学习笔记之基础环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/HowToAskQuestionOnStackOverFlow/">StackOverFlow提问的艺术</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/oracleJavaSeSliver/">java的oracle考试认证(OCJP)之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/blackAppleSystem/">安装黑苹果的历程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JapanTravel/">日本游记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/GameServerType/">游戏服务器的常用架构</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaLombok/">lombok常用注解整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SwiftProjectBuild/">swift项目初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MySoftware/">我的常用软件清单</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AboutObject/">关于对象的一些思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MyKindle/">kindle初体验.</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SomethingForNewCar/">我的新车常备用品</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/VimTabAutoComplete/">使用vim打开文件时tab补全忽略大小写设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/Win7OneNote/">win7系统登录不上onenote的解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/FormatDisk/">在linux系统下格式化移动硬盘的操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/LinuxIdeaSetting/">linux系统环境下使用idea遇到的问题及解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaApiJsonFormat/">接口格式返回大小写处理.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/StartMy2017/">2016年终总结(进入游戏行业)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MysqlCommon/">mysql常用操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NormalShell/">常用shell脚本.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidUsersPermission/">Android users-permission权限列表.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidAsyncTask/">android异步任务AsyncTask.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidEnvironment/">android环境搭建.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/blogToXiaomo/">博客域名迁移(从二级域名迁移到一级域名).</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/SublimeConfig/">Sublime Text 3 使用配置与插件安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/HttpToHttps/">拥抱https(http全面切换到https)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootSwaggerUi/">swagger ui和spring boot集成生成api文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringVideo/">spring4免费全套视频教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaLombok/">lombok简化java代码注解的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSeiyou/">日本动漫声优公演,来看看什么叫专业声优</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootDataFormat/">spring boot做前后分离时间格式化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootCors/">spring boot做前后分离的跨域问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringZiliao/">spring boot相关资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaIdeaMaven/">Maven 与 IntelliJ IDEA 的完美结合</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaServletUpload/">使用Servlet做简单的上传功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonAnime/">喜欢的动漫</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSekaku/">生活习惯的不同，造就了丰富多彩的世界</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/BangumiDongli/">《东离剑游记》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmYargs/">yargs插件的使用，node.js 命令行框架 yargs 和你的程序实现交互</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiRouter/">angular2 api整理之路由模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiCommon/">angular2 api整理之通用模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptRxjsStudy/">rxjs全接触</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptDesignPattern/">javascript设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/2016StudyPlan/">5年学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2studyAnimate/">angular2学习笔记之动画效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyServiceHttp/">angular2学习笔记之服务和http</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteOther/">angular2学习笔记之小技巧</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteNgTag/">angular2学习笔记之ng2标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteEvent/">angular2学习笔记之事件和多组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteComponent/">angular2学习笔记之基本组件和ngFor</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/PublicDns/">几个国内专用的公共 DNS</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxDisk/">阿里云服务器磁盘挂载</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxChmod/">linux权限详细解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownTableStyle/">Markdown 表格样式调整与自适应优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/GulpUse/">gulp构建工具的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/FrontEndTools/">前端工程化工具初选</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AnkiExcelShortcuts/">Anki 记忆库之 Excel 快捷键大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/CssFontFamily/">CSS font-family 网页字体使用小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeSpider/">nodejs爬虫项目实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Package.jsonScripts/">package.json常用script</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmModulesShare/">npm模块分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MongodbUse/">mongodb数据库的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/KoaGenerator/">koa生成器,一键生成koa和koa2项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeKoa/">nodejs框架koa学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptSyntax/">javascript学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Es6Syntax/">es6语法快速上手</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackLLink/">webpack进阶之loader篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackPlugins/">webpack进阶之插件篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackParams/">webpack相关命令参数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeProcess/">nodejs的process模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackBasicUse/">webpack使用之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeOnlineChat/">使用nodejs搭建一个简易的即时聊天软件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxCrontab/">linux下使用定时器跑任务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AngularKeyboardEvent/">angularjs键盘事件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownSyntax/">markdown语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NgCheckbox/">angularjs复选框</a></li></ul>
+
+<style>
+    #post-nav-button a{
+        background-color: skyblue;
+    }
+</style>
+
+
+
+<script>
+    
+</script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i>
+                
+                    2016-
+                
+                2021 小莫
+                <!--                <a href="http://www.miibeian.gov.cn/" target="_blank">浙ICP备15009606号</a>-->
+            </div>
+            <div class="footer-right">
+                <a href="https://blog.xiaomo.info/" target="_blank" title="欢迎来到小莫的博客">Blog </a> Created by <a
+                        href="https://github.com/houko" target="_blank" rel="external nofollow"
+                        title="希望这里的文章对你有所帮助  v3.0">xiaomo</a>
+                <a href="/record.html"><i class="fa fa-heart animated infinite pulse"></i></a>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit">总访问数:
+                            <span id="busuanzi_value_site_pv"></span>
+                        </span>
+                    </span>
+                
+                <span style="color: grey;">(<a href="https://www.upyun.com/" rel="external nofollow" target="_blank">背景随机加载-资源存储于又拍云</a>) | 本站己运行<span
+                            id="day_count">222</span>天<span id="time_now">1</span></span>
+            </div>
+        
+    </div>
+    <script src="/js/activate-power-mode.js" ></script>
+</footer>
+<script>
+    // 添加输入效果
+    POWERMODE.colorful = true; // make power mode colorful
+    POWERMODE.shake = false; // turn off shake
+    document.body.addEventListener('input', POWERMODE);
+
+    (function () {
+        function current() {
+            var d = new Date(), str = '';
+            str += d.getHours() + '小时';
+            str += d.getMinutes() + '分';
+            str += d.getSeconds() + '秒';
+            return str;
+        }
+
+        setInterval(function () {
+            $("#time_now").html(current)
+        }, 1000);
+
+        var dateFrom = new Date(2015, 9, 12);
+        var dateTo = new Date();
+        var diff = dateTo.valueOf() - dateFrom.valueOf();
+        var diff_day = parseInt(diff / (1000 * 60 * 60 * 24));
+        $("#day_count").html(diff_day);
+    })();
+</script>
+<a href="https://github.com/houko/blog"><img style="position: fixed; top: 0;left: 0;" width="140" height="140" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_gray_6d6d6d.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 36;
+                var randomIndex = Math.ceil(Math.random() * backgroundnum);
+                var result = randomIndex+".jpg?version="+(new Date()/1000);
+                var backgroundimg = "url(https://image.xiaomo.info/background/bg-number)".replace(/number/gi,result);
+//                console.info("加载图片"+backgroundimg);
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover","background-color":"rgba(255,255,255,0.5)","background-blend-mode":"lighten"});
+            }
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80824007-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+<script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1626811730142')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body>
+</html>

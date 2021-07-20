@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><link rel=manifest href=/manifest.json><meta name="generator" content="Hexo 3.9.0"><link rel="manifest" href="/manifest.json">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="小莫">
+<meta name="baidu-site-verification" content="qp2dTXVqvj">
+
+
+
+<meta name="keywords" content="小莫的博客, java, 日语, 动漫, 技术, unity3d, nginx, https, angular, 游戏, 服务器, tomcat, IDEA, javaweb, spring, hibernate, spring boot, 开源中国, github, linux, 主程">
+
+
+<meta name="description" content="很多java开发的小伙伴都会阅读jdk源码，然而确不知道应该从哪读起。以下为通常所需阅读的源码范围。 标题为包名，后面序号为优先级1-4，优先级递减">
+<meta name="keywords" content="源码系列,JDK源码系列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jdk源码系列-顺序索引">
+<meta property="og:url" content="https://blog.xiaomo.info/2018/jdkSourceCodeRead/index.html">
+<meta property="og:site_name" content="小莫的博客-fighting(技术分享、生活随笔)">
+<meta property="og:description" content="很多java开发的小伙伴都会阅读jdk源码，然而确不知道应该从哪读起。以下为通常所需阅读的源码范围。 标题为包名，后面序号为优先级1-4，优先级递减">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-07-20T20:08:26.468Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jdk源码系列-顺序索引">
+<meta name="twitter:description" content="很多java开发的小伙伴都会阅读jdk源码，然而确不知道应该从哪读起。以下为通常所需阅读的源码范围。 标题为包名，后面序号为优先级1-4，优先级递减">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternative" href="/atom.xml" title="小莫的博客-fighting(技术分享、生活随笔)" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="//image.xiaomo.info/logo/avatar.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/green/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>jdk源码系列-顺序索引 | 小莫的博客-fighting(技术分享、生活随笔)</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        open_in_new: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+</html>
+<body oncontextmenu="return false" onselectstart="return false">
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="https://blog.xiaomo.info" target="_self" class="profilepic">
+            <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">小莫</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">行百里者半九十</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" results="0" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="//xiaomo.info">回到主站</a></li>
+                        
+                            <li><a href="/tags/japan/">日本生活系列</a></li>
+                        
+                            <li><a href="/categories/summary/">年度总结系列</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about.html">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA/">IDEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK源码系列/">JDK源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OCJP/">OCJP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alime/">alime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/">aws</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doTween/">doTween</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es5/">es5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/">excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/game/">game</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/japan/">japan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/">lombok</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxt/">nuxt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/onenote/">onenote</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postman/">postman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sso/">sso</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stackoverflow/">stackoverflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/">technology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ugui/">ugui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动漫/">动漫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字体/">字体</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码系列/">源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件/">软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑苹果/">黑苹果</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">技术宅、 杭州、 夜猫子、 爱动漫、 爱日语 2015年毕业、 java开发、 web前端、 前沿技术发烧友、 生命不息折腾不止、</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">小莫</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">小莫</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">行百里者半九十</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="//xiaomo.info">回到主站</a></li>
+                
+                    <li><a href="/tags/japan/">日本生活系列</a></li>
+                
+                    <li><a href="/categories/summary/">年度总结系列</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about.html">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><style>
+    .background-cover {
+        float: left;
+        width: 400px;
+        height: 250px;
+    }
+
+    .article img {
+        margin: -1px 20px 5px -1px;
+        border-top-left-radius: 3px;
+        -webkit-border-radius-topleft: 3%;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -o-transition: all 0.5s;
+    }
+
+    /*.article img:hover{*/
+    /*transform: scale(1, 1.05);*/
+    /*-webkit-transition:all 0.5s;*/
+    /*-moz-transition:all 0.5s;*/
+    /*-o-transition:all 0.5s;*/
+    /*}*/
+</style>
+
+
+<article id="post-jdkSourceCodeRead" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        function getPgjs() {
+            const agent = navigator.userAgent.toLowerCase()
+            let res = agent.match(/android/)
+            if (res === "android")
+                return res;
+            res = agent.match(/iphone/);
+            if (res === "iphone")
+                return "ios";
+            res = agent.match(/ipad/);
+            if (res === "ipad")
+                return "ios";
+            res = agent.match(/windows/);
+            if (res === "windows")
+                return "wp";
+            console.info('pc......')
+            return "pc";
+        }
+
+        function loadImage(id) {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                return;
+            }
+            var backgroundnum = 40;
+            var randomIndex = Math.ceil(Math.random() * backgroundnum);
+            var result = randomIndex + "?version=" + (new Date() / 1000);
+            var backgroundimg = "https://image.xiaomo.info/cover/bg-number.jpg".replace(/number/gi, randomIndex);
+            var key = "#" + id;
+            $(key).attr("src", backgroundimg);
+            $(".background-cover").show();
+        }
+
+        (function () {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                console.log(page)
+                $(".background-cover").hide();
+            }
+        })()
+    </script>
+    
+    <div class="article-meta">
+        <a href="/2018/jdkSourceCodeRead/" class="article-date">
+      <time datetime="2018-05-25T00:00:00.000Z" itemprop="datePublished">2018-05-25</time>
+</a>
+    </div>
+    
+    <div class="article-inner">
+        
+        <input type="hidden" class="isFancy"/>
+        
+        <div class="background-cover">
+            <img class="fengmian-image" id="jdkSourceCodeRead" src="https://image.xiaomo.info/cover/bg-5.jpg" alt="封面" onload="loadImage(this.id)"/>
+        </div>
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      jdk源码系列-顺序索引
+    </h1>
+  
+
+        </header>
+        
+        <div class="article-info article-info-post">
+            
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a>
+    </div>
+
+
+            
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK源码系列/">JDK源码系列</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码系列/">源码系列</a></li></ul> </div>
+
+
+
+            <!-- 访问量  -->
+            <!--<span id="busuanzi_container_page_pv" style='display:none'>-->
+            <!--<span id="page-visit"><i class="fa fa-eye" style="float: left;margin-top:5px" aria-hidden="true" title="文章访问量"></i>-->
+            <!--<span id="busuanzi_value_page_pv"></span>-->
+            <!--</span>-->
+            <!--</span>-->
+
+            <div class="clearfix"></div>
+        </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+            
+            <p>很多java开发的小伙伴都会阅读jdk源码，然而确不知道应该从哪读起。以下为通常所需阅读的源码范围。 标题为包名，后面序号为优先级1-4，优先级递减</p>
+<a id="more"></a>
+
+<h1 id="1、java-lang"><a href="#1、java-lang" class="headerlink" title="1、java.lang"></a>1、java.lang</h1><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>) Object <span class="number">1</span></span><br><span class="line"><span class="number">2</span>) String <span class="number">1</span></span><br><span class="line"><span class="number">3</span>) AbstractStringBuilder <span class="number">1</span></span><br><span class="line"><span class="number">4</span>) StringBuffer <span class="number">1</span></span><br><span class="line"><span class="number">5</span>) StringBuilder <span class="number">1</span></span><br><span class="line"><span class="number">6</span>) Boolean <span class="number">2</span></span><br><span class="line"><span class="number">7</span>) Byte <span class="number">2</span></span><br><span class="line"><span class="number">8</span>) Double <span class="number">2</span></span><br><span class="line"><span class="number">9</span>) Float <span class="number">2</span></span><br><span class="line"><span class="number">10</span>) Integer <span class="number">2</span></span><br><span class="line"><span class="number">11</span>) Long <span class="number">2</span></span><br><span class="line"><span class="number">12</span>) Short <span class="number">2</span></span><br><span class="line"><span class="number">13</span>) Thread <span class="number">2</span></span><br><span class="line"><span class="number">14</span>) ThreadLocal <span class="number">2</span></span><br><span class="line"><span class="number">15</span>) Enum <span class="number">3</span></span><br><span class="line"><span class="number">16</span>) Throwable <span class="number">3</span></span><br><span class="line"><span class="number">17</span>) Error <span class="number">3</span></span><br><span class="line"><span class="number">18</span>) Exception <span class="number">3</span></span><br><span class="line"><span class="number">19</span>) Class <span class="number">4</span></span><br><span class="line"><span class="number">20</span>) ClassLoader <span class="number">4</span></span><br><span class="line"><span class="number">21</span>) Compiler <span class="number">4</span></span><br><span class="line"><span class="number">22</span>) System <span class="number">4</span></span><br><span class="line"><span class="number">23</span>) Package <span class="number">4</span></span><br><span class="line"><span class="number">24</span>) Void <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="java-util"><a href="#java-util" class="headerlink" title="java.util"></a>java.util</h1><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>) AbstractList <span class="number">1</span></span><br><span class="line"><span class="number">2</span>) AbstractMap <span class="number">1</span></span><br><span class="line"><span class="number">3</span>) AbstractSet <span class="number">1</span></span><br><span class="line"><span class="number">4</span>) ArrayList <span class="number">1</span></span><br><span class="line"><span class="number">5</span>) LinkedList <span class="number">1</span></span><br><span class="line"><span class="number">6</span>) HashMap <span class="number">1</span></span><br><span class="line"><span class="number">7</span>) Hashtable <span class="number">1</span></span><br><span class="line"><span class="number">8</span>) HashSet <span class="number">1</span></span><br><span class="line"><span class="number">9</span>) LinkedHashMap <span class="number">1</span></span><br><span class="line"><span class="number">10</span>) LinkedHashSet <span class="number">1</span></span><br><span class="line"><span class="number">11</span>) TreeMap <span class="number">1</span></span><br><span class="line"><span class="number">12</span>) TreeSet <span class="number">1</span></span><br><span class="line"><span class="number">13</span>) Vector <span class="number">2</span></span><br><span class="line"><span class="number">14</span>) Queue <span class="number">2</span></span><br><span class="line"><span class="number">15</span>) Stack <span class="number">2</span></span><br><span class="line"><span class="number">16</span>) SortedMap <span class="number">2</span></span><br><span class="line"><span class="number">17</span>) SortedSet <span class="number">2</span></span><br><span class="line"><span class="number">18</span>) Collections <span class="number">3</span></span><br><span class="line"><span class="number">19</span>) Arrays <span class="number">3</span></span><br><span class="line"><span class="number">20</span>) Comparator <span class="number">3</span></span><br><span class="line"><span class="number">21</span>) Iterator <span class="number">3</span></span><br><span class="line"><span class="number">22</span>) Base64 <span class="number">4</span></span><br><span class="line"><span class="number">23</span>) Date <span class="number">4</span></span><br><span class="line"><span class="number">24</span>) EventListener <span class="number">4</span></span><br><span class="line"><span class="number">25</span>) Random <span class="number">4</span></span><br><span class="line"><span class="number">26</span>) SubList <span class="number">4</span></span><br><span class="line"><span class="number">27</span>) Timer <span class="number">4</span></span><br><span class="line"><span class="number">28</span>) UUID <span class="number">4</span></span><br><span class="line"><span class="number">29</span>) WeakHashMap <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="java-util-concurrent"><a href="#java-util-concurrent" class="headerlink" title="java.util.concurrent"></a>java.util.concurrent</h1><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>) ConcurrentHashMap <span class="number">1</span></span><br><span class="line"><span class="number">2</span>) Executor <span class="number">2</span></span><br><span class="line"><span class="number">3</span>) AbstractExecutorService <span class="number">2</span></span><br><span class="line"><span class="number">4</span>) ExecutorService <span class="number">2</span></span><br><span class="line"><span class="number">5</span>) ThreadPoolExecutor <span class="number">2</span></span><br><span class="line"><span class="number">6</span>) BlockingQueue <span class="number">2</span></span><br><span class="line"><span class="number">7</span>）AbstractQueuedSynchronizer <span class="number">2</span></span><br><span class="line"><span class="number">8</span>）CountDownLatch <span class="number">2</span></span><br><span class="line"><span class="number">9</span>) FutureTask <span class="number">2</span></span><br><span class="line"><span class="number">10</span>）Semaphore <span class="number">2</span></span><br><span class="line"><span class="number">11</span>）CyclicBarrier <span class="number">2</span></span><br><span class="line"><span class="number">13</span>）CopyOnWriteArrayList <span class="number">3</span></span><br><span class="line"><span class="number">14</span>）SynchronousQueue <span class="number">3</span></span><br><span class="line"><span class="number">15</span>）BlockingDeque <span class="number">3</span></span><br><span class="line"><span class="number">16</span>) Callable <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="java-util-concurrent-atomic"><a href="#java-util-concurrent-atomic" class="headerlink" title="java.util.concurrent.atomic"></a>java.util.concurrent.atomic</h1><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>) AtomicBoolean <span class="number">2</span></span><br><span class="line"><span class="number">2</span>) AtomicInteger <span class="number">2</span></span><br><span class="line"><span class="number">3</span>) AtomicLong <span class="number">2</span></span><br><span class="line"><span class="number">4</span>) AtomicReference <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="java-lang-reflect"><a href="#java-lang-reflect" class="headerlink" title="java.lang.reflect"></a>java.lang.reflect</h1><figure class="highlight oxygene"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>) Field <span class="number">2</span></span><br><span class="line"><span class="number">2</span>) <span class="function"><span class="keyword">Method</span> 2</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="java-lang-annotation"><a href="#java-lang-annotation" class="headerlink" title="java.lang.annotation"></a>java.lang.annotation</h1><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>) Annotation <span class="number">3</span></span><br><span class="line"><span class="number">2</span>) Target <span class="number">3</span></span><br><span class="line"><span class="number">3</span>) Inherited <span class="number">3</span></span><br><span class="line"><span class="number">4</span>) Retention <span class="number">3</span></span><br><span class="line"><span class="number">5</span>) Documented <span class="number">4</span></span><br><span class="line"><span class="number">6</span>) ElementType <span class="number">4</span></span><br><span class="line"><span class="number">7</span>) Native <span class="number">4</span></span><br><span class="line"><span class="number">8</span>) Repeatable <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="java-util-concurrent-locks"><a href="#java-util-concurrent-locks" class="headerlink" title="java.util.concurrent.locks"></a>java.util.concurrent.locks</h1><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>) Lock <span class="number">2</span></span><br><span class="line"><span class="number">2</span>) Condition <span class="number">2</span></span><br><span class="line"><span class="number">3</span>) ReentrantLock <span class="number">2</span></span><br><span class="line"><span class="number">4</span>) ReentrantReadWriteLock <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="java-nio"><a href="#java-nio" class="headerlink" title="java.nio"></a>java.nio</h1><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>) Buffer <span class="number">3</span></span><br><span class="line"><span class="number">2</span>) ByteBuffer <span class="number">4</span></span><br><span class="line"><span class="number">3</span>) CharBuffer <span class="number">4</span></span><br><span class="line"><span class="number">4</span>) DoubleBuffer <span class="number">4</span></span><br><span class="line"><span class="number">5</span>) FloatBuffer <span class="number">4</span></span><br><span class="line"><span class="number">6</span>) IntBuffer <span class="number">4</span></span><br><span class="line"><span class="number">7</span>) LongBuffer <span class="number">4</span></span><br><span class="line"><span class="number">8</span>) ShortBuffer <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="java-sql"><a href="#java-sql" class="headerlink" title="java.sql"></a>java.sql</h1><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>) Connection <span class="number">3</span></span><br><span class="line"><span class="number">2</span>) Driver <span class="number">3</span></span><br><span class="line"><span class="number">3</span>) DriverManager <span class="number">3</span></span><br><span class="line"><span class="number">4</span>) JDBCType <span class="number">3</span></span><br><span class="line"><span class="number">5</span>) ResultSet <span class="number">4</span></span><br><span class="line"><span class="number">6</span>) Statement <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="java-net"><a href="#java-net" class="headerlink" title="java.net"></a>java.net</h1><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>) Socket <span class="number">3</span></span><br><span class="line"><span class="number">2</span>) ServerSocket <span class="number">3</span></span><br><span class="line"><span class="number">3</span>) URI <span class="number">4</span></span><br><span class="line"><span class="number">4</span>) URL <span class="number">4</span></span><br><span class="line"><span class="number">5</span>) URLEncoder <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>阅读笔记简版</p>
+<h1 id="1、Object"><a href="#1、Object" class="headerlink" title="1、Object"></a>1、Object</h1> <figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">1</span>) <span class="selector-tag">wait</span>(), <span class="selector-tag">notify</span>(), <span class="selector-tag">notifyAll</span>(), <span class="selector-tag">wait</span>(timeout) </span><br><span class="line"><span class="selector-tag">2</span>) <span class="selector-tag">hashCode</span>(), <span class="selector-tag">equals</span>() </span><br><span class="line"><span class="selector-tag">3</span>) <span class="selector-tag">clone</span>()</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、String"><a href="#2、String" class="headerlink" title="2、String"></a>2、String</h1><figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>) <span class="keyword">char</span>[] <span class="keyword">value</span> </span><br><span class="line"><span class="number">2</span>) <span class="keyword">int</span> hash </span><br><span class="line"><span class="number">3</span>) <span class="keyword">equals</span>(), startWith(), endWith(), replace</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、AbstractStringBuilder"><a href="#3、AbstractStringBuilder" class="headerlink" title="3、AbstractStringBuilder"></a>3、AbstractStringBuilder</h1><figure class="highlight excel"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>) <span class="built_in">char</span>[] <span class="built_in">value</span> </span><br><span class="line"><span class="number">2</span>) <span class="built_in">int</span> <span class="built_in">count</span> </span><br><span class="line"><span class="number">3</span>) 扩容：翻倍，不够取所需最小</span><br></pre></td></tr></table></figure>
+
+<h1 id="4、StringBuffer"><a href="#4、StringBuffer" class="headerlink" title="4、StringBuffer"></a>4、StringBuffer</h1>  <figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>) 继承AbstractStringBuilder </span><br><span class="line"><span class="number">2</span>) synchronized方法保证线程安全 </span><br><span class="line"><span class="number">3</span>) char[] toStringCache</span><br></pre></td></tr></table></figure>
+
+<h1 id="5、StringBuilder-继承AbstractStringBuilder"><a href="#5、StringBuilder-继承AbstractStringBuilder" class="headerlink" title="5、StringBuilder 继承AbstractStringBuilder"></a>5、StringBuilder 继承AbstractStringBuilder</h1><h1 id="6、ArrayList"><a href="#6、ArrayList" class="headerlink" title="6、ArrayList"></a>6、ArrayList</h1> <figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>) Object[] elementData </span><br><span class="line"><span class="number">2</span>) int size </span><br><span class="line"><span class="number">3</span>) 默认大小<span class="number">10</span> </span><br><span class="line"><span class="number">4</span>) 扩容：翻倍，不够取所需最小</span><br></pre></td></tr></table></figure>
+
+<h1 id="7、LinkedList"><a href="#7、LinkedList" class="headerlink" title="7、LinkedList"></a>7、LinkedList</h1> <figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>) <span class="keyword">Node</span> <span class="title">&#123;E</span> item, <span class="keyword">Node</span> <span class="title">prev</span>, <span class="keyword">Node</span> <span class="title">next</span>&#125; </span><br><span class="line"><span class="number">2</span>) int size </span><br><span class="line"><span class="number">3</span>) <span class="keyword">Node</span> <span class="title">first</span> </span><br><span class="line"><span class="number">4</span>) <span class="keyword">Node</span> <span class="title">last</span> </span><br><span class="line"><span class="number">5</span>) linkFirst(), linkLast(), linkBefore(), unLinkFirst(), unLinkLast(), unLink(), indexOf()</span><br></pre></td></tr></table></figure>
+
+<h1 id="8、HashMap"><a href="#8、HashMap" class="headerlink" title="8、HashMap"></a>8、HashMap</h1><figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>) <span class="keyword">Node</span><span class="title">&#123;int</span> hash, K key, V value, <span class="keyword">Node</span> <span class="title">next</span>&#125; </span><br><span class="line"><span class="number">2</span>) 默认容量<span class="number">16</span>，负载因子<span class="number">0.75</span>f </span><br><span class="line"><span class="number">3</span>) int size, modCount, threshold, float loadFactor </span><br><span class="line"><span class="number">4</span>) <span class="keyword">Node</span><span class="title">[] table</span> </span><br><span class="line"><span class="number">5</span>) Set entrySet </span><br><span class="line"><span class="number">6</span>) put():根据key算hash，根据容量和hash算index，table[index]没有直接添加到数组中，table[index]有，若index位置同一个key则更新，否则遍历next是否有，有则更新，无则新增，最后根据thread与size判断是否扩容。注：扩容时容量翻倍，重新算hash复制到新数组 </span><br><span class="line"><span class="number">7</span>）get()类似 </span><br><span class="line">注：先比较hash，若相等在比较equals</span><br></pre></td></tr></table></figure>
+
+<h1 id="9、Hashtable"><a href="#9、Hashtable" class="headerlink" title="9、Hashtable"></a>9、Hashtable</h1> <figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>) 结构实现与HashMap基本一致 </span><br><span class="line"><span class="number">2</span>)通过synchronized方法保证线程安全</span><br></pre></td></tr></table></figure>
+
+<h1 id="10、HashSet"><a href="#10、HashSet" class="headerlink" title="10、HashSet"></a>10、HashSet</h1><p> <code>委托给HashMap，其Value是同一个默认对象</code></p>
+<h1 id="11、LinkedHashMap继承HashMap"><a href="#11、LinkedHashMap继承HashMap" class="headerlink" title="11、LinkedHashMap继承HashMap"></a>11、LinkedHashMap继承HashMap</h1> <figure class="highlight aspectj"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>) Entry&#123;HashMap.Node, Entry <span class="keyword">before</span>, <span class="keyword">after</span>&#125; </span><br><span class="line">2) Entry head, tail </span><br><span class="line"><span class="number">3</span>) 重写newNode()添加节点时，除像HashMap中添加外，保存<span class="keyword">before</span>、<span class="keyword">after</span>信息</span><br></pre></td></tr></table></figure>
+
+<h1 id="12、LinkedHashSet"><a href="#12、LinkedHashSet" class="headerlink" title="12、LinkedHashSet"></a>12、LinkedHashSet</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">继承HashSet：不知道如何实现的顺序？</span><br></pre></td></tr></table></figure>
+
+<h1 id="13、AbstractMap"><a href="#13、AbstractMap" class="headerlink" title="13、AbstractMap"></a>13、AbstractMap</h1><p> <code>维护EntrySet，AbstractSet维护Iterator，AbstractList维护Iterator</code></p>
+<h1 id="14、ConcurrentHashMap"><a href="#14、ConcurrentHashMap" class="headerlink" title="14、ConcurrentHashMap"></a>14、ConcurrentHashMap</h1> <figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">1</span>) <span class="selector-tag">JDK1</span><span class="selector-class">.7</span>及以前： </span><br><span class="line"><span class="selector-tag">a</span>、<span class="selector-tag">Segment</span><span class="selector-attr">[]</span> ,<span class="selector-tag">HashEntry</span><span class="selector-attr">[]</span> , <span class="selector-tag">HashEntry</span>&#123;<span class="selector-tag">hash</span>, <span class="selector-tag">k</span>, <span class="selector-tag">v</span>, <span class="selector-tag">next</span>&#125; </span><br><span class="line"><span class="selector-tag">b</span>、根据<span class="selector-tag">key</span>算<span class="selector-tag">hash</span>，根据<span class="selector-tag">hash</span>和<span class="selector-tag">Segment</span>的大小算位置，每个<span class="selector-tag">segment</span>拥有一个自己的<span class="selector-tag">HashEntry</span><span class="selector-attr">[]</span> </span><br><span class="line"><span class="selector-tag">c</span>、<span class="selector-tag">get</span>()：不加锁，<span class="selector-tag">volatile</span>类型 </span><br><span class="line"><span class="selector-tag">d</span>、<span class="selector-tag">put</span>(): 对相应<span class="selector-tag">segment</span>加锁 </span><br><span class="line"><span class="selector-tag">e</span>、<span class="selector-tag">size</span>()：各<span class="selector-tag">HashEntry</span><span class="selector-attr">[]</span> 之和，先不加锁算两遍，若一致则返回，若不一致则加锁重新计算 </span><br><span class="line"><span class="selector-tag">2</span>）<span class="selector-tag">JDK1</span><span class="selector-class">.8</span> </span><br><span class="line"><span class="selector-tag">a</span>、<span class="selector-tag">Node</span>&#123;<span class="selector-tag">hash</span>, <span class="selector-tag">key</span>, <span class="selector-tag">value</span>, <span class="selector-tag">next</span>&#125; </span><br><span class="line"><span class="selector-tag">b</span>、<span class="selector-tag">Node</span><span class="selector-attr">[]</span> <span class="selector-tag">table</span> </span><br><span class="line"><span class="selector-tag">c</span>、大多数操作类似于<span class="selector-tag">HashMap</span>，不同<span class="selector-tag">CAS</span>方式设置，根据<span class="selector-tag">key</span>算<span class="selector-tag">hash</span>，在根据<span class="selector-tag">hash</span>和容量算<span class="selector-tag">index</span>，对<span class="selector-tag">table</span><span class="selector-attr">[index]</span>加锁，从而达到更大的并发量 </span><br><span class="line"><span class="selector-tag">d</span>、<span class="selector-tag">get</span>(): 同<span class="selector-tag">HashMap</span> </span><br><span class="line"><span class="selector-tag">e</span>、<span class="selector-tag">put</span>(): 对<span class="selector-tag">table</span><span class="selector-attr">[index]</span>加锁</span><br></pre></td></tr></table></figure>
+
+<h1 id="15、TreeMap"><a href="#15、TreeMap" class="headerlink" title="15、TreeMap"></a>15、TreeMap</h1> <figure class="highlight fortran"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>）红黑树，即自平衡二叉查找树，时间复杂度O(logn) </span><br><span class="line"><span class="number">2</span>）<span class="built_in">Entry</span>&#123;K k, V v, <span class="built_in">Entry</span> parent, left, right, boolean color&#125; </span><br><span class="line"><span class="number">3</span>）<span class="built_in">Entry</span> root，<span class="built_in">int</span> <span class="built_in">size</span>， <span class="built_in">int</span> modeCount</span><br></pre></td></tr></table></figure>
+
+<h1 id="16、TreeSet"><a href="#16、TreeSet" class="headerlink" title="16、TreeSet"></a>16、TreeSet</h1><p><code>委托TreeMap实现</code></p>
+<h1 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h1><p><a href="https://blog.csdn.net/qq_21033663/article/details/79571506" target="_blank" rel="noopener">https://blog.csdn.net/qq_21033663/article/details/79571506</a></p>
+
+            
+        </div>
+        
+    </div>
+    
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/jdkSourceCodeRead/">jdk源码系列-顺序索引</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">小莫</a></p>
+        <p><span>发布时间:</span>2018-05-25, 00:00:00</p>
+        <p><span>最后更新:</span>2021-07-20, 20:08:26</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/jdkSourceCodeRead/" title="jdk源码系列-顺序索引">https://blog.xiaomo.info/2018/jdkSourceCodeRead/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://blog.xiaomo.info/2018/jdkSourceCodeRead/　　作者: 小莫" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/throwableAndException/">
+                    jdk源码系列-throwable和Exception的区别
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/myBookSheet/">
+                    我的书架
+                </a>
+            </div>
+        
+    </nav>
+
+    
+</article>
+
+
+
+<!-- 代码2：用来读取评论框配置，此代码需放置在代码1之后。 -->
+<!-- 如果当前页面有评论框，代码2请勿放置在评论框代码之前。 -->
+<!-- 如果页面同时使用多个实验室项目，以下代码只需要引入一次，只配置上面的div标签即可 -->
+<!--<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cysUkgluO"></script>-->
+
+<div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、java-lang"><span class="toc-number">1.</span> <span class="toc-text">1、java.lang</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java-util"><span class="toc-number">2.</span> <span class="toc-text">java.util</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java-util-concurrent"><span class="toc-number">3.</span> <span class="toc-text">java.util.concurrent</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java-util-concurrent-atomic"><span class="toc-number">4.</span> <span class="toc-text">java.util.concurrent.atomic</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java-lang-reflect"><span class="toc-number">5.</span> <span class="toc-text">java.lang.reflect</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java-lang-annotation"><span class="toc-number">6.</span> <span class="toc-text">java.lang.annotation</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java-util-concurrent-locks"><span class="toc-number">7.</span> <span class="toc-text">java.util.concurrent.locks</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java-nio"><span class="toc-number">8.</span> <span class="toc-text">java.nio</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java-sql"><span class="toc-number">9.</span> <span class="toc-text">java.sql</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java-net"><span class="toc-number">10.</span> <span class="toc-text">java.net</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1、Object"><span class="toc-number">11.</span> <span class="toc-text">1、Object</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、String"><span class="toc-number">12.</span> <span class="toc-text">2、String</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、AbstractStringBuilder"><span class="toc-number">13.</span> <span class="toc-text">3、AbstractStringBuilder</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、StringBuffer"><span class="toc-number">14.</span> <span class="toc-text">4、StringBuffer</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5、StringBuilder-继承AbstractStringBuilder"><span class="toc-number">15.</span> <span class="toc-text">5、StringBuilder 继承AbstractStringBuilder</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6、ArrayList"><span class="toc-number">16.</span> <span class="toc-text">6、ArrayList</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7、LinkedList"><span class="toc-number">17.</span> <span class="toc-text">7、LinkedList</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8、HashMap"><span class="toc-number">18.</span> <span class="toc-text">8、HashMap</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9、Hashtable"><span class="toc-number">19.</span> <span class="toc-text">9、Hashtable</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10、HashSet"><span class="toc-number">20.</span> <span class="toc-text">10、HashSet</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11、LinkedHashMap继承HashMap"><span class="toc-number">21.</span> <span class="toc-text">11、LinkedHashMap继承HashMap</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#12、LinkedHashSet"><span class="toc-number">22.</span> <span class="toc-text">12、LinkedHashSet</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#13、AbstractMap"><span class="toc-number">23.</span> <span class="toc-text">13、AbstractMap</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#14、ConcurrentHashMap"><span class="toc-number">24.</span> <span class="toc-text">14、ConcurrentHashMap</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#15、TreeMap"><span class="toc-number">25.</span> <span class="toc-text">15、TreeMap</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#16、TreeSet"><span class="toc-number">26.</span> <span class="toc-text">16、TreeSet</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#来源"><span class="toc-number">27.</span> <span class="toc-text">来源</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script>
+    yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+</script>
+
+
+
+<div class="share">
+    
+
+    
+</div>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<hr/>
+<br/>
+<div style="display:block;text-align: center">
+    <a href="javascript:window.open('https://twitter.com/share?url='+encodeURIComponent(document.location.href)+'&text='+encodeURIComponent(document.title),'_blank','toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=600, height=450,top=100,left=350');void(0)"
+       style="background-color: lightskyblue;border-radius: 45px;box-shadow: #767676;font-size: 14px;font-family: '微软雅黑',serif;color: whitesmoke;padding: 10px 15px;"
+    >
+        twitter分享
+    </a>
+</div>
+<br/>
+<br/>
+<div id="gitalk-container" style="margin: 1% 3%"></div>
+<h3 style="text-align: center">如果想及时收到回复,可在 <a href="https://github.com/settings/notifications" target="_blank">订阅中心</a>的 <code>Participating</code>中勾选Email</h3>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '9772f6a6fdb199a60ba1',
+        clientSecret: '9a606af21688d2d4ff2efa2467ee82e76e1e9865',
+        id: window.location.pathname,
+        repo: 'blog',
+        owner: 'houko',
+        admin: 'houko',
+        distractionFreeMode: false
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/throwableAndException/" title="上一篇: jdk源码系列-throwable和Exception的区别">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/myBookSheet/" title="下一篇: 我的书架">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuyin2/">日本医疗制度之限度額適用認定証</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/ohmytmux/">我的tmux之旅（tmux使用详解）</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/redisPubSub/">nodejs中使用redis的订阅分发功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuuinn/">小莫的日本(东京)住院回忆录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/doTween/">(转)doTween插件使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/mySecondFiveYearsLifePlan/">2020年年终总结和第二个长期学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/newmanCommandLine/">postman和commandline tools（newman）用法介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/ctwJobs/">【日本东京六本木】【CTW株式会社】招聘Node全栈/Java后端/SRE/大数据工程师/UI设计师</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/npmPackageCollection/">npm优秀库使用收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/jsCommonUtilsMethods/">js/ts常用公有方法收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/springBootWithSpringSecurity/">spring cloud集成spring security</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/flyway/">使用flyway版本控制工具维护数据库表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/autoFormatOnSvae/">使用IDEA保存时自动格式化代码配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/dynamoDB/">aws dynamoDB使用总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueSSRNuxt/">nuxt.js使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/pm2UseApi/">node项目监控工具之pm2</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/webAppleSignIn/">web端接入apple Sign in流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/browserEventLoop/">聊聊Javascript的事件循环(转载)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/AwsSqsUse/">AWS SQS/SNS/Redis的pub/sub用法总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsSSo/">AWS SSO用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsCommandLineUse/">aws command line 用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueFrameworkVuex/">vue框架状态管理之vuex</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/backToJapan/">疫情下的回日坎坷路</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/unityInterviewQuestions/">unity常见面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/my2019Summary/">2019年年终总结（作为前端开发这一年）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/worldServerGame/">经历了几场面试后的全球同服架构思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/japanKannjiIndex/">日语汉字速查表</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/aboutAllVisa/">签证总结大全（工作签、在留卡加汉字、工作签证更新、家族签证等）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/javaPassByValueAndReference/">jdk源码系列-Java到底是值传递还是引用传递？</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/event20190729/">没想到有一天我逼停了电车</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/jdkSourceCodeReadThreadSleep/">jdk源码系列-Thread.sleep(0)和Thread.sleep(1)的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/restfulBestUse/">restful最佳实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/nihonnmennkyo/">小莫的日本换驾照攻略</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/nihonnkita2kagetsu/">2018年终总结（从杭州到日本工作的心路历程）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unityFpsCommonMethod/">Fps游戏常用功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unitySceneFarAndNear/">镜头拉远拉近</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unity3dMiniMap/">unity3d小地图</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUISorting/">使用UGUI中的层级问题——以背包为例</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUIServerList/">使用UGUI制作滚动列表-选服列表</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/aboutDockerUse/">docker应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadArrayListAndLinkedArrayList/">jdk源码系列-Java中ArrayList、LinkedList和Vector的联系与区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadCreateObject/">jdk源码系列-创建对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadClassInitOrder/">jdk源码系列-类的初始化顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadStringDifferent/">jdk源码系列-String,StringBuffer,StringBuilder</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadAtomicInteger/">jdk源码系列-AtomicInteger</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadInteger/">jdk源码系列-Integer</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadLocal/">jdk源码系列-ThreadLocal</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadMemoryActor/">jdk源码系列-内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadConcurrentHashMap/">jdk源码系列-ConcurrentHashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadPool/">jdk源码系列-线程池</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadIO/">jdk源码系列-深入了解IO的工作机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadObject/">jdk源码系列-Object</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadNIO/">jdk源码系列-NIO</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/throwableAndException/">jdk源码系列-throwable和Exception的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeRead/">jdk源码系列-顺序索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/myBookSheet/">我的书架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/onlineProjectKen/">项目上线之后遇到的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/mainProjectJobs/">主程职责总结和反思</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/fastjson/">fastjson的key为非字符串的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/saikennokoto/">2017年终总结(作为主程的这一年)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AngularEnvironment/">angular2学习笔记之基础环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/HowToAskQuestionOnStackOverFlow/">StackOverFlow提问的艺术</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/oracleJavaSeSliver/">java的oracle考试认证(OCJP)之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/blackAppleSystem/">安装黑苹果的历程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JapanTravel/">日本游记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/GameServerType/">游戏服务器的常用架构</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaLombok/">lombok常用注解整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SwiftProjectBuild/">swift项目初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MySoftware/">我的常用软件清单</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AboutObject/">关于对象的一些思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MyKindle/">kindle初体验.</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SomethingForNewCar/">我的新车常备用品</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/VimTabAutoComplete/">使用vim打开文件时tab补全忽略大小写设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/Win7OneNote/">win7系统登录不上onenote的解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/FormatDisk/">在linux系统下格式化移动硬盘的操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/LinuxIdeaSetting/">linux系统环境下使用idea遇到的问题及解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaApiJsonFormat/">接口格式返回大小写处理.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/StartMy2017/">2016年终总结(进入游戏行业)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MysqlCommon/">mysql常用操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NormalShell/">常用shell脚本.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidUsersPermission/">Android users-permission权限列表.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidAsyncTask/">android异步任务AsyncTask.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidEnvironment/">android环境搭建.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/blogToXiaomo/">博客域名迁移(从二级域名迁移到一级域名).</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/SublimeConfig/">Sublime Text 3 使用配置与插件安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/HttpToHttps/">拥抱https(http全面切换到https)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootSwaggerUi/">swagger ui和spring boot集成生成api文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringVideo/">spring4免费全套视频教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaLombok/">lombok简化java代码注解的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSeiyou/">日本动漫声优公演,来看看什么叫专业声优</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootDataFormat/">spring boot做前后分离时间格式化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootCors/">spring boot做前后分离的跨域问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringZiliao/">spring boot相关资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaIdeaMaven/">Maven 与 IntelliJ IDEA 的完美结合</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaServletUpload/">使用Servlet做简单的上传功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonAnime/">喜欢的动漫</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSekaku/">生活习惯的不同，造就了丰富多彩的世界</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/BangumiDongli/">《东离剑游记》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmYargs/">yargs插件的使用，node.js 命令行框架 yargs 和你的程序实现交互</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiRouter/">angular2 api整理之路由模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiCommon/">angular2 api整理之通用模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptRxjsStudy/">rxjs全接触</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptDesignPattern/">javascript设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/2016StudyPlan/">5年学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2studyAnimate/">angular2学习笔记之动画效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyServiceHttp/">angular2学习笔记之服务和http</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteOther/">angular2学习笔记之小技巧</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteNgTag/">angular2学习笔记之ng2标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteEvent/">angular2学习笔记之事件和多组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteComponent/">angular2学习笔记之基本组件和ngFor</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/PublicDns/">几个国内专用的公共 DNS</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxDisk/">阿里云服务器磁盘挂载</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxChmod/">linux权限详细解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownTableStyle/">Markdown 表格样式调整与自适应优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/GulpUse/">gulp构建工具的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/FrontEndTools/">前端工程化工具初选</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AnkiExcelShortcuts/">Anki 记忆库之 Excel 快捷键大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/CssFontFamily/">CSS font-family 网页字体使用小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeSpider/">nodejs爬虫项目实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Package.jsonScripts/">package.json常用script</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmModulesShare/">npm模块分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MongodbUse/">mongodb数据库的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/KoaGenerator/">koa生成器,一键生成koa和koa2项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeKoa/">nodejs框架koa学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptSyntax/">javascript学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Es6Syntax/">es6语法快速上手</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackLLink/">webpack进阶之loader篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackPlugins/">webpack进阶之插件篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackParams/">webpack相关命令参数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeProcess/">nodejs的process模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackBasicUse/">webpack使用之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeOnlineChat/">使用nodejs搭建一个简易的即时聊天软件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxCrontab/">linux下使用定时器跑任务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AngularKeyboardEvent/">angularjs键盘事件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownSyntax/">markdown语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NgCheckbox/">angularjs复选框</a></li></ul>
+
+<style>
+    #post-nav-button a{
+        background-color: skyblue;
+    }
+</style>
+
+
+
+<script>
+    
+</script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i>
+                
+                    2016-
+                
+                2021 小莫
+                <!--                <a href="http://www.miibeian.gov.cn/" target="_blank">浙ICP备15009606号</a>-->
+            </div>
+            <div class="footer-right">
+                <a href="https://blog.xiaomo.info/" target="_blank" title="欢迎来到小莫的博客">Blog </a> Created by <a
+                        href="https://github.com/houko" target="_blank" rel="external nofollow"
+                        title="希望这里的文章对你有所帮助  v3.0">xiaomo</a>
+                <a href="/record.html"><i class="fa fa-heart animated infinite pulse"></i></a>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit">总访问数:
+                            <span id="busuanzi_value_site_pv"></span>
+                        </span>
+                    </span>
+                
+                <span style="color: grey;">(<a href="https://www.upyun.com/" rel="external nofollow" target="_blank">背景随机加载-资源存储于又拍云</a>) | 本站己运行<span
+                            id="day_count">222</span>天<span id="time_now">1</span></span>
+            </div>
+        
+    </div>
+    <script src="/js/activate-power-mode.js" ></script>
+</footer>
+<script>
+    // 添加输入效果
+    POWERMODE.colorful = true; // make power mode colorful
+    POWERMODE.shake = false; // turn off shake
+    document.body.addEventListener('input', POWERMODE);
+
+    (function () {
+        function current() {
+            var d = new Date(), str = '';
+            str += d.getHours() + '小时';
+            str += d.getMinutes() + '分';
+            str += d.getSeconds() + '秒';
+            return str;
+        }
+
+        setInterval(function () {
+            $("#time_now").html(current)
+        }, 1000);
+
+        var dateFrom = new Date(2015, 9, 12);
+        var dateTo = new Date();
+        var diff = dateTo.valueOf() - dateFrom.valueOf();
+        var diff_day = parseInt(diff / (1000 * 60 * 60 * 24));
+        $("#day_count").html(diff_day);
+    })();
+</script>
+<a href="https://github.com/houko/blog"><img style="position: fixed; top: 0;left: 0;" width="140" height="140" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_gray_6d6d6d.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 36;
+                var randomIndex = Math.ceil(Math.random() * backgroundnum);
+                var result = randomIndex+".jpg?version="+(new Date()/1000);
+                var backgroundimg = "url(https://image.xiaomo.info/background/bg-number)".replace(/number/gi,result);
+//                console.info("加载图片"+backgroundimg);
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover","background-color":"rgba(255,255,255,0.5)","background-blend-mode":"lighten"});
+            }
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80824007-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+<script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1626811730142')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body>
+</html>

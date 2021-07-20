@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><link rel=manifest href=/manifest.json><meta name="generator" content="Hexo 3.9.0"><link rel="manifest" href="/manifest.json">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="小莫">
+<meta name="baidu-site-verification" content="qp2dTXVqvj">
+
+
+
+<meta name="keywords" content="小莫的博客, java, 日语, 动漫, 技术, unity3d, nginx, https, angular, 游戏, 服务器, tomcat, IDEA, javaweb, spring, hibernate, spring boot, 开源中国, github, linux, 主程">
+
+
+<meta name="description" content="日本游记，记录为期9天的日本之旅。第一次出国，便是自由行。有人说是艺高人胆大，我倒觉得是难得自由。下次出去玩，我还是会选择自由行。所有照片放在空间相册日本之旅">
+<meta name="keywords" content="life">
+<meta property="og:type" content="article">
+<meta property="og:title" content="日本游记">
+<meta property="og:url" content="https://blog.xiaomo.info/2017/JapanTravel/index.html">
+<meta property="og:site_name" content="小莫的博客-fighting(技术分享、生活随笔)">
+<meta property="og:description" content="日本游记，记录为期9天的日本之旅。第一次出国，便是自由行。有人说是艺高人胆大，我倒觉得是难得自由。下次出去玩，我还是会选择自由行。所有照片放在空间相册日本之旅">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://image.xiaomo.info/travel/JRPASS.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E6%8A%A4%E7%85%A7.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E8%BE%BE%E6%91%A9%E5%8D%A1.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/yen.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%87%BA%E5%8F%91%E5%89%8D1.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%88%B0%E5%AE%B6.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E6%B5%85%E8%8D%89/4.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E6%B5%85%E8%8D%89/2.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E6%B5%85%E8%8D%89/3.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E6%B5%85%E8%8D%89/1.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E9%93%B6%E5%BA%A7/1.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E9%93%B6%E5%BA%A7/2.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E9%93%B6%E5%BA%A7/3.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E9%93%B6%E5%BA%A7/4.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E9%93%B6%E5%BA%A7/5.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E9%BA%A6%E5%BD%93%E5%8A%B3.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E9%93%B6%E5%BA%A7/6.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%AF%8C%E5%A3%AB%E5%B1%B11.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%AF%8C%E5%A3%AB%E5%B1%B12.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%AF%8C%E5%A3%AB%E5%B1%B13.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%AF%8C%E5%A3%AB%E5%B1%B14.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/0.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/10.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/1.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/2.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/3.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/4.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/5.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/6.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/7.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/8.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/9.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/11.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/12.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/13.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/25.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/26.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/cat1.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/2.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/4.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A9%E7%A9%BA.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/5.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/6.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/7.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/10.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/11.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/9.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/8.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E6%9C%89%E8%B6%A3%E6%81%8B%E4%BA%BA.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/12.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E6%B0%B4%E4%B8%8A%E5%B7%B4%E5%A3%AB.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E9%9B%A8%E4%B8%AD1.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/m3.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/15.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/16.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/17.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/24.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/m4.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/m1.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/18.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/19.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/20.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/21.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/22.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/23.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/1.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/3.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/1.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/4.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/3.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/25.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/6.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/8.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/9.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/2.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/17.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/26.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/11.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/16.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/18.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/20.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/21.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/22.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/24.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/27.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/28.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/29.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/30.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/31.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/ps4.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/airport1.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E6%88%90%E6%9E%9C.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/alipay1.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/air.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/limotsu.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/people.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/hangzhoudong.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/book.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/ice.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/shoufuti.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/dianti1.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/yinzuo1.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E6%9C%89%E8%B6%A3%E6%81%8B%E4%BA%BA.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/price1.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/jrji1.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/honglvdeng.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/alipay1.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/shouyin1.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/wenlu1.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/xigua1.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%AF%8C%E5%A3%AB%E5%B1%B1%E8%BD%A6%E7%A5%A8.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/chexiang.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%AB%99%E7%9D%80%E5%90%83%E9%A5%AD.JPEG">
+<meta property="og:image" content="https://image.xiaomo.info/travel/tuoxie1.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/fuyuanai.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E8%87%AA%E5%8A%A8%E8%B4%A9%E5%8D%96%E6%9C%BA.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%9E%83%E5%9C%BE%E7%AE%B11.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E8%87%AA%E5%8A%A8%E9%97%A8.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E6%94%B9%E6%9C%AD%E5%8F%A3.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/airbnb%E8%AF%84%E4%BB%B7.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E6%88%90%E6%9E%9C.jpg">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E6%B4%97%E9%9D%A2%E5%A5%B6.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E9%98%B2%E6%99%92%E9%9C%9C.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%8D%B8%E5%A6%86%E6%B0%B4.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E9%99%B6%E7%93%B7%E5%88%80.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%8C%96%E5%A6%86%E5%93%81.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E9%9D%A2%E8%86%9C.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/sk2.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%89%99%E8%86%8F.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%89%99%E5%88%B7.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E6%8A%A4%E5%94%87.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E6%8A%A4%E5%8F%91%E7%B1%BB.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E4%BF%9D%E6%B8%A9%E6%9D%AF.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E8%8D%AF%E5%93%811.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E8%8D%AF%E5%93%812.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%9C%BC%E8%8D%AF%E6%B0%B4.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E6%84%9F%E5%86%92%E8%8D%AF.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E8%86%8F%E8%8D%AF.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E4%BF%9D%E5%81%A5%E7%B1%BB.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E8%96%AF%E6%9D%A1%E4%B8%89%E5%85%84%E5%BC%9F.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E8%94%AC%E8%8F%9C%E6%B1%81.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%B3%96.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E8%8C%B6%E5%8F%B6.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E7%99%BD%E8%89%B2%E6%81%8B%E4%BA%BA.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/Rocyce%E7%94%9F%E5%B7%A7%E5%85%8B%E5%8A%9B.png">
+<meta property="og:image" content="https://image.xiaomo.info/travel/%E5%B0%8F%E5%AE%B6%E7%94%B5.png">
+<meta property="og:updated_time" content="2021-07-20T20:08:26.468Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="日本游记">
+<meta name="twitter:description" content="日本游记，记录为期9天的日本之旅。第一次出国，便是自由行。有人说是艺高人胆大，我倒觉得是难得自由。下次出去玩，我还是会选择自由行。所有照片放在空间相册日本之旅">
+<meta name="twitter:image" content="https://image.xiaomo.info/travel/JRPASS.jpg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternative" href="/atom.xml" title="小莫的博客-fighting(技术分享、生活随笔)" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="//image.xiaomo.info/logo/avatar.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/green/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>日本游记 | 小莫的博客-fighting(技术分享、生活随笔)</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        open_in_new: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+</html>
+<body oncontextmenu="return false" onselectstart="return false">
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="https://blog.xiaomo.info" target="_self" class="profilepic">
+            <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">小莫</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">行百里者半九十</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" results="0" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="//xiaomo.info">回到主站</a></li>
+                        
+                            <li><a href="/tags/japan/">日本生活系列</a></li>
+                        
+                            <li><a href="/categories/summary/">年度总结系列</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about.html">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA/">IDEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK源码系列/">JDK源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OCJP/">OCJP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alime/">alime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/">aws</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doTween/">doTween</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es5/">es5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/">excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/game/">game</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/japan/">japan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/">lombok</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxt/">nuxt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/onenote/">onenote</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postman/">postman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sso/">sso</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stackoverflow/">stackoverflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/">technology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ugui/">ugui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动漫/">动漫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字体/">字体</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码系列/">源码系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件/">软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑苹果/">黑苹果</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">技术宅、 杭州、 夜猫子、 爱动漫、 爱日语 2015年毕业、 java开发、 web前端、 前沿技术发烧友、 生命不息折腾不止、</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">小莫</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="//image.xiaomo.info/logo/avatar.png" alt="logo" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">小莫</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">行百里者半九十</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="//xiaomo.info">回到主站</a></li>
+                
+                    <li><a href="/tags/japan/">日本生活系列</a></li>
+                
+                    <li><a href="/categories/summary/">年度总结系列</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about.html">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" rel="external nofollow" href="mailto:xiaomo@xiaomo.info" title="Email"></a>
+                            
+                                <a class="fa QQ" target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" rel="external nofollow" href="https://twitter.com/xiaomoinfo" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" rel="external nofollow" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" rel="external nofollow" href="https://www.zhihu.com/people/xiaomoinfo" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><style>
+    .background-cover {
+        float: left;
+        width: 400px;
+        height: 250px;
+    }
+
+    .article img {
+        margin: -1px 20px 5px -1px;
+        border-top-left-radius: 3px;
+        -webkit-border-radius-topleft: 3%;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -o-transition: all 0.5s;
+    }
+
+    /*.article img:hover{*/
+    /*transform: scale(1, 1.05);*/
+    /*-webkit-transition:all 0.5s;*/
+    /*-moz-transition:all 0.5s;*/
+    /*-o-transition:all 0.5s;*/
+    /*}*/
+</style>
+
+
+<article id="post-JapanTravel" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        function getPgjs() {
+            const agent = navigator.userAgent.toLowerCase()
+            let res = agent.match(/android/)
+            if (res === "android")
+                return res;
+            res = agent.match(/iphone/);
+            if (res === "iphone")
+                return "ios";
+            res = agent.match(/ipad/);
+            if (res === "ipad")
+                return "ios";
+            res = agent.match(/windows/);
+            if (res === "windows")
+                return "wp";
+            console.info('pc......')
+            return "pc";
+        }
+
+        function loadImage(id) {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                return;
+            }
+            var backgroundnum = 40;
+            var randomIndex = Math.ceil(Math.random() * backgroundnum);
+            var result = randomIndex + "?version=" + (new Date() / 1000);
+            var backgroundimg = "https://image.xiaomo.info/cover/bg-number.jpg".replace(/number/gi, randomIndex);
+            var key = "#" + id;
+            $(key).attr("src", backgroundimg);
+            $(".background-cover").show();
+        }
+
+        (function () {
+            const page = window.location.pathname
+            if (page.indexOf("about") !== -1) {
+                console.log(page)
+                $(".background-cover").hide();
+            }
+        })()
+    </script>
+    
+    <div class="article-meta">
+        <a href="/2017/JapanTravel/" class="article-date">
+      <time datetime="2017-10-10T00:00:00.000Z" itemprop="datePublished">2017-10-10</time>
+</a>
+    </div>
+    
+    <div class="article-inner">
+        
+        <input type="hidden" class="isFancy"/>
+        
+        <div class="background-cover">
+            <img class="fengmian-image" id="JapanTravel" src="https://image.xiaomo.info/cover/bg-5.jpg" alt="封面" onload="loadImage(this.id)"/>
+        </div>
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      日本游记
+    </h1>
+  
+
+        </header>
+        
+        <div class="article-info article-info-post">
+            
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/生活/">生活</a>
+    </div>
+
+
+            
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/life/">life</a></li></ul> </div>
+
+
+
+            <!-- 访问量  -->
+            <!--<span id="busuanzi_container_page_pv" style='display:none'>-->
+            <!--<span id="page-visit"><i class="fa fa-eye" style="float: left;margin-top:5px" aria-hidden="true" title="文章访问量"></i>-->
+            <!--<span id="busuanzi_value_page_pv"></span>-->
+            <!--</span>-->
+            <!--</span>-->
+
+            <div class="clearfix"></div>
+        </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+            
+            <p>日本游记，记录为期9天的日本之旅。第一次出国，便是自由行。有人说是艺高人胆大，我倒觉得是难得自由。下次出去玩，我还是会选择自由行。所有照片放在空间相册<a href="https://user.qzone.qq.com/83387856/photo/" target="_blank" rel="noopener">日本之旅</a></p>
+<a id="more"></a>
+
+<h1 id="行程前的准备"><a href="#行程前的准备" class="headerlink" title="行程前的准备"></a>行程前的准备</h1><h3 id="护照-200RMB一本"><a href="#护照-200RMB一本" class="headerlink" title="护照(200RMB一本)"></a>护照(200RMB一本)</h3><p>一般来说是在户籍所在地办理，用时1周左右，可以自取和邮寄。</p>
+<h3 id="签证-旅行社代办300RMB"><a href="#签证-旅行社代办300RMB" class="headerlink" title="签证(旅行社代办300RMB)"></a>签证(旅行社代办300RMB)</h3><p>自己办需要的材料比较多，觉得麻烦可以直接找代办，就是价格稍贵。</p>
+<h3 id="住处-airbnb-booking"><a href="#住处-airbnb-booking" class="headerlink" title="住处(airbnb,booking)"></a>住处(airbnb,booking)</h3><p>airbnb是民宿，booking是酒店，如果是一行人的话住民宿会比较划算。</p>
+<h3 id="JR-PASS-1600RMB"><a href="#JR-PASS-1600RMB" class="headerlink" title="JR PASS(1600RMB)"></a>JR PASS(1600RMB)</h3><p>可以乘坐日本所有的JR,如果行程规划只是在一个城市就没有必要买，因为我们要去富士山和大阪所以买了会省不少钱。</p>
+<h3 id="机票"><a href="#机票" class="headerlink" title="机票"></a>机票</h3><p>买的春秋航空的廉价机票，往返2800/人。如果是平日只需要一半左右，国庆期间出游的人太太太多，所以溢价不少。</p>
+<h3 id="电话卡-WIFI"><a href="#电话卡-WIFI" class="headerlink" title="电话卡(WIFI)"></a>电话卡(WIFI)</h3><p>直接买了1张可以使用一周的达摩卡（建议1人一张），不买4g卡可以去机场租wifi。</p>
+<h2 id="google地图"><a href="#google地图" class="headerlink" title="google地图"></a>google地图</h2><p>人肉翻墙终于可以看看墙外的世界了,让google地图指引你前进的方向吧。</p>
+<h3 id="日元"><a href="#日元" class="headerlink" title="日元"></a>日元</h3><p>怎么说呢，日本习惯用卡和现金，所以备点零钱去了刷银联也可以。但是钱嘛多带点毕竟有安全感（日本的治安不用担心钱的安全问题）</p>
+<h3 id="一个18到24寸之间的密码箱"><a href="#一个18到24寸之间的密码箱" class="headerlink" title="一个18到24寸之间的密码箱"></a>一个18到24寸之间的密码箱</h3><p>去的时候尽量留空，因为回来的时候根本不够装啊。</p>
+<p><img src="https://image.xiaomo.info/travel/JRPASS.jpg"></p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E6%8A%A4%E7%85%A7.jpg"></p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E8%BE%BE%E6%91%A9%E5%8D%A1.png"></p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/yen.png"></p>
+<hr>
+<h1 id="行程"><a href="#行程" class="headerlink" title="行程"></a>行程</h1><h2 id="9-27-杭州-上海-东京"><a href="#9-27-杭州-上海-东京" class="headerlink" title="9.27 杭州-上海-东京"></a>9.27 杭州-上海-东京</h2><p>中午从杭州出发，5点前到达上海浦东机场办值机登机，7点左右出发。<br><img src="https://image.xiaomo.info/travel/%E5%87%BA%E5%8F%91%E5%89%8D1.png"></p>
+<hr>
+<p>晚上11点左右到达东京羽田机场，然后万能的淘宝接机送我们到住处——浅草，因为日本是右舵靠左行，开着100多的速度一路上看着感觉好惊险刺激，总觉得要撞上了，不过我的担心是多余的。到达浅草大概夜里12点左右，并且在下雨，装上达摩卡打开google地图。为了找住的地方绕了有半个小时才找到位置，心情不是很美丽，不过到了住的地方老婆还是很开心，暖心的微笑。<br><img src="https://image.xiaomo.info/travel/%E5%88%B0%E5%AE%B6.jpg"></p>
+<hr>
+<h2 id="9-28-浅草-浅草寺-上野-银座"><a href="#9-28-浅草-浅草寺-上野-银座" class="headerlink" title="9.28 浅草-浅草寺-上野-银座"></a>9.28 浅草-浅草寺-上野-银座</h2><p>睡到自然醒，然后去浅草寺逛了好几个小时,在路上偶遇现场的幽默剧表演，老婆看的入迷拉都拉不走。不得不说在东京的外国人真的超多，中国的，韩国的，美国的，印度的，非洲的各种都能遇到，走着走着遇到一个韩国人搭讪让我帮忙。他们应该是家庭出游，一家人说了一大通听不懂的话然后站在一起让我拍照。到中午了，在日本吃的第一顿饭真是一言难尽。点了一份荞麦面，腥味重的可怕结果一点都没吃，后来去超市买了一大包零食。</p>
+<p><img src="https://image.xiaomo.info/travel/%E6%B5%85%E8%8D%89/4.jpg"><br>有家店门口有个大青蛙，还挺萌的</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E6%B5%85%E8%8D%89/2.jpg"><br>浅草寺，就在我们住的地方旁边，还是挺热闹的，还遇到了一家子韩国人让我帮忙拍合照。</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E6%B5%85%E8%8D%89/3.jpg"><br>浅草的纪念品，然而我都没买</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E6%B5%85%E8%8D%89/1.jpg"><br>在东京见到了久违的黄包车，还存在这个东西有点让我惊讶</p>
+<hr>
+<p>下午坐车去上野换JR PASS,决定换到从9.29-10.5号期间的票。<br><img src="https://image.xiaomo.info/travel/%E9%93%B6%E5%BA%A7/1.jpg"><br>上野JR站，我们的JP PASS票就是在这里兑换的</p>
+<hr>
+<p>之后坐车去银座逛商店，不得不说银座的建筑真的超级漂亮，地上找不到垃圾也找不到垃圾桶。银座应该算是有钱人的天堂吧,各种东西超级贵，逛了一下午没找到一件能下手的东西，穷人真的是很难过的说。<br><img src="https://image.xiaomo.info/travel/%E9%93%B6%E5%BA%A7/2.jpg"><br>银座繁华的商场</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E9%93%B6%E5%BA%A7/3.jpg"><br>偶然遇到一辆日产的火红跑车，亮瞎了我的眼</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E9%93%B6%E5%BA%A7/4.jpg"><br>sony大楼里的高科技，投影出来一个可点击的android的操作系统桌面，可以把任何地方当桌面用。</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E9%93%B6%E5%BA%A7/5.jpg"><br>银座大黑屋，听说还挺出名的</p>
+<hr>
+<p>因为中午的阴影，晚上吃饭在麦当劳解决的。不用怀疑，麦当劳和肯德基在全世界都是一个味道。晚上我们比较早就回住处了，不过同行的小伙子去了居酒屋去玩到半夜1点多才回。<br><img src="https://image.xiaomo.info/travel/%E9%BA%A6%E5%BD%93%E5%8A%B3.jpg"><br>一个麦当劳套餐</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E9%93%B6%E5%BA%A7/6.jpg"><br>看板上的广告都有这么萌的妹子，忍不住拍了一张</p>
+<hr>
+<h2 id="9-29-浅草-富士山"><a href="#9-29-浅草-富士山" class="headerlink" title="9.29 浅草-富士山"></a>9.29 浅草-富士山</h2><p>到日本玩不到富士山难免是一场遗憾,所以决定今天去富士山去玩。查了路线大概有150公里，需要3个多小时才能到。再加上出发的时间比较晚，到达富士山的时候己经下午了，因此没有爬山。只是在富士山下玩顺便吃了顿饭便开始返回。<br><img src="https://image.xiaomo.info/travel/%E5%AF%8C%E5%A3%AB%E5%B1%B11.jpg"><br><img src="https://image.xiaomo.info/travel/%E5%AF%8C%E5%A3%AB%E5%B1%B12.jpg"><br><img src="https://image.xiaomo.info/travel/%E5%AF%8C%E5%A3%AB%E5%B1%B13.jpg"><br><img src="https://image.xiaomo.info/travel/%E5%AF%8C%E5%A3%AB%E5%B1%B14.jpg"></p>
+<h2 id="9-30-浅草-秋叶原"><a href="#9-30-浅草-秋叶原" class="headerlink" title="9.30 浅草-秋叶原"></a>9.30 浅草-秋叶原</h2><p>今天在日本名古屋工作的朋友知道我们在东京便一起出发找我们一起玩，我们约定在秋叶原汇合，同行的另一个小伙伴要去买小学生书包我们便分头行头了。<br><img src="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/0.jpg"><br>秋叶原的入口，进一步便是宅男天堂</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/10.jpg"><br>JR秋叶原站，旁边也有地铁站</p>
+<hr>
+<p>来到了传说中的宅男天堂，不过里面真的有好多化妆品啊，结果大部分时间都是陪妹子逛各种化妆品和药妆店。当然也去看了手办，本来打算帮同事带高达，不过找了很久都没有找到想要的那一款。<br><img src="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/1.jpg"><br>巴比娃娃</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/2.jpg"><br>动物王国</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/3.jpg"><br>扭蛋机，比我在杭州国际动漫节玩的扭蛋机要便宜，这边的商店到处都有扭蛋机。</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/4.jpg"><br>在秋叶原体验街机的父子</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/5.jpg"><br>你的名字相关的名信片，不知道去哪买邮票就没买</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/6.jpg"><br>ps4版的初音，买不起</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/7.jpg"><br>同事让我帮忙找高达，都是这种小个子，我想要一个同人的大家伙。</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/8.jpg"><br>本来以为是个卡哇伊的小女孩，走近才发现是个洋娃娃</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/9.jpg"><br>洋娃娃正面照，很精致</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/11.jpg"><br>音乐猫，每只猫捏了都能发出不同的声音。</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/12.jpg"><br>遇到一个萌出血的双马尾妹子</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E7%A7%8B%E5%8F%B6%E5%8E%9F/13.jpg"><br>忍不住又拍了一张</p>
+<hr>
+<h2 id="10-1-东京-大阪"><a href="#10-1-东京-大阪" class="headerlink" title="10.1 东京-大阪"></a>10.1 东京-大阪</h2><p>今天出发去大阪，坐了2个多小时的JR终于到达大阪，买了一张2500yen的大阪周游券。<br><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/25.png"><br>一日游的卡</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/26.png"><br>附带了这么大的一本说明</p>
+<hr>
+<p>然后下了JR拿出地图寻找住处，然后突然伸出一个头看我们的手机，被吓了一下，结果是个热心的小伙子帮我们指路，语速超快，听的我们一行人n脸懵逼，然后带着我们去地铁站排队叮嘱了一大串才离开。不仅感慨大阪民风淳朴，热情好客，弄的我们都不好意思了。跟着google地图到来住处附近徘徊，遇到一个老太太，带着比较重的关西口音问我们要去哪里，然后她佝偻着身子一直带我们到住的门口，感动的无以言表。由于初到大阪，决定放好行李之后出去熟悉一下路线。正好我们住处的旁边有一条商店街。因为是周末过去的，所有有好多店关都关着的。我们沿着这条街一直走，都没有遇到几个人。不禁在想，如果是在国内一定是人从众众众 吧。<br><img src="https://image.xiaomo.info/travel/cat1.jpg"></p>
+<hr>
+<p>在路上偶遇中年夫妻开的中华料理店，不由自主的便进去了。点了好几个家常菜和老板娘说了一路的日语。结果点完菜她用浓浓的东北口音给她老公说话，真是蜜汁尴尬。<br><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/2.jpg"><br>日本的中国饭店还是挺多的</p>
+<hr>
+<p>吃完饭去逛大阪的药妆店，不过买的东西并不多。后来非常后悔，因为大阪的东西真的比东京要便宜不少。回去的时候就买了一大吃零食和水果，如果能反悔，当时一定要在大阪把想买的东西都买了，可以省不少钱。<br><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/4.jpg"><br>大阪商店街，一共有1-9条街</p>
+<hr>
+<p>由于逛的比较晚，准备回去的时候己经快夜间12点了。偶然抬头看着天空，简直把我惊到了，明亮的月亮加上白色的云，我发誓这辈子没看到过这种景色。<br><img src="https://image.xiaomo.info/travel/%E5%A4%A9%E7%A9%BA.jpg"><br>如果在这种地方生活，一定会多活很多年的吧。</p>
+<hr>
+<h2 id="10-2-大阪一日游"><a href="#10-2-大阪一日游" class="headerlink" title="10.2 大阪一日游"></a>10.2 大阪一日游</h2><p>早上一大早起来，很不幸外面下起了雨。不过既然买了卡我们依然按照原计划去大阪城玩。第一站：通天阁，高度500多米,站在塔顶能够看到大阪80%以上的建筑，如果是晚上看的话一定很漂亮。<br><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/5.jpg"><br>站在500多米的观景台上看下面的景色，白天一点都没有感觉</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/6.jpg"><br>对面的塔晚上会很漂亮，白天完全不行</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/7.jpg"><br>观景台楼下的迷你大阪城，精致到看每个人都栩栩如生（白天）。</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/10.jpg"><br>观景台楼下的迷你大阪城，精致到看每个人都栩栩如生（夜晚）</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/11.jpg"><br>也不知道这个铜人叫什么，反正很出名就是了</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/9.jpg"><br>纪念章，500日元一个，可以刻字</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/8.jpg"><br>带着这么萌的包出来心里没点数么。</p>
+<hr>
+<p>在这里还偶遇猴子表演，确实还挺有意思的。这里有很多土特产，不过让人心动的倒没遇到。在商店逛的时候遇到了假的白色恋人巧克力，名字叫《面白い恋人》真正的是叫《白い恋人》，小伙伴们要注意分辨。如果要带白色恋人巧克力去机场免税店吧，别的地方都是假的。<br><img src="https://image.xiaomo.info/travel/%E6%9C%89%E8%B6%A3%E6%81%8B%E4%BA%BA.jpg"></p>
+<hr>
+<p>第二站准备去大 天王寺动物园 ，结果去了被告知今天休息（详情看<a href="http://ask.qyer.com/question/3392370.html" target="_blank" rel="noopener">大阪周一休园</a>),整个人瞬间就不好了。<br><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/12.jpg"><br>很可惜天王寺动物园周一休园，只能在门外拍张照表示来过</p>
+<hr>
+<p>然后去下一个游玩点 坐轮渡,全体披着雨衣坐观光船还是很壮观的。最前面有个导游顶着雨铿锵有力的解说着各个景点，不得不佩服日本人对工作的敬业态度。<br><img src="https://image.xiaomo.info/travel/%E6%B0%B4%E4%B8%8A%E5%B7%B4%E5%A3%AB.jpg"><br><img src="https://image.xiaomo.info/travel/%E9%9B%A8%E4%B8%AD1.jpg"></p>
+<hr>
+<p>第三站去了天保山坐世界上最大的摩天轮，为了排队透明舱多等了半个多小时，坐上去的时候并没有特别刺激的感觉，当升到顶的时候看风景是很漂亮的，如果想刺激去大阪影视城坐过山车挺好的。<br><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/m3.jpg"><br><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/15.jpg"><br>来到了世界上最大的天保山摩天轮，还下着小雨</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/16.jpg"><br>在摩天轮上看到外面的玻璃都是水</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/17.jpg"><br>从透明仓底部拍的比较清楚</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/24.jpg"><br><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/m4.jpg"><br><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/m1.jpg"><br>晚上的摩天轮果然最漂亮</p>
+<hr>
+<p>第四站坐游轮看了个各个码头的集装箱和两岸的风景，还可以把天保山摩天轮做背景拍照。<br><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/18.jpg"><br>这个大妈指着让我去坐圣玛利亚帆船</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/19.jpg"><br>在船上看摩天轮依然这么大</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/20.jpg"><br>江对面的工厂</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/21.jpg"><br>帆船走远了，摩天轮越来越小</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/22.jpg"><br>大概有这么大</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/23.jpg"><br>对面的码头很热闹，很多集装箱。想到了docker…，程序员的思想跳跃就是大</p>
+<hr>
+<p>最后一站去空中展望台依旧不营业，真是罪过，错过这么多景点。由于一直下雨身上也淋了雨我们就准备回去休息了，不过老婆看起来玩的还挺开心的,在回去的路上也拍了几张。<br><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/1.jpg"><br>在大阪的街上闲逛</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A4%A7%E9%98%AA/3.jpg"><br>开这么萌的车出来会被打的</p>
+<hr>
+<h2 id="10-3-大阪-奈良公园"><a href="#10-3-大阪-奈良公园" class="headerlink" title="10.3 大阪-奈良公园"></a>10.3 大阪-奈良公园</h2><p>同行的小伙伴觉得奈良太远便去了大阪影视城玩，我和老婆便坐JR去了奈良。<br><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/1.jpg"><br>这个是小鹿的人偶店<br>奈良的人真的很少，我们下车之后一度认为走错了位置。<br><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/4.jpg"><br>这个其实是一个古代名人的后院</p>
+<hr>
+<p>一路问奈良公园的入口在哪，被问的人都一脸懵逼的看着我，说这边一大片都是奈良公园，然后走着走着看到一个门收费200日元我们便进去了，进去才发现是一个古代名人的后院所以我们准备直接出来，那个收费叫知道我们走错地方还准备退我钱我谢绝了。后来走了很久看到一个地图才恍然大悟，奈良是免费的没有设立入口,从哪都可以进。<br><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/3.jpg"><br>在去公园的路上遇到了一个湖</p>
+<hr>
+<p>在公园见到了传说中的小鹿，喂它吃东西还会点头表示感谢。遇到这么萌的小鹿真是太高兴了。<br><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/25.jpg"><br>一只鹿</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/6.jpg"><br>在公园门口穿和服的女人</p>
+<hr>
+<p>中午饭了就在景区吃饭随意找了一家荞麦面馆。按照中国的习惯我己经做好了被宰的准备，但是很意外的价格很亲民，吃饭的时候我们迎面看到了一座特别漂亮的山然后忍不住问店员能不能爬。然后热心的老婆婆拿了一张地图过来一边讲一边画路线，标记上哪一段路程大概花费多少分钟，简直无法表达感激之情。</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/8.jpg"><br>对面的房子是春日大社，久仰大名</p>
+<hr>
+<p>吃完饭按照老婆婆的线路图往前走，看到了传说中的春日大社和美术馆，因为被山上的景色吸引我们便没有多做停留直接往山那边的方向走。<br><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/9.jpg"><br>从这条路可以上山</p>
+<hr>
+<p>爬山前管理员细心的告诉我们要准备点吃的和喝的，用蹩脚的英语说 no drink,not shop。听了好几遍才反应过来她说的什么意思，有时候不同的语言表达真是太有意思了。爬山的过程的辛苦的，但是爬到一半的时候回头看山下的景色，看起来真是太惊艳了。<br><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/2.jpg"><br>下过雨的松树看起来很绿</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/17.jpg"><br>在半山腰感觉己经挺高了</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/26.jpg"><br>在山上的各个地方都能看见小鹿，悠闲的吃着草，想起了小时候在山上放牛的日子。</p>
+<hr>
+<p>在山上感觉整个人都是轻松的，不用考虑工作，不用考虑生活，这一刻静静的享受这美景。</p>
+<p><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/11.jpg"><br>在半山腰看大阪城</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/16.jpg"><br>顺着这么路可以继续爬山</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/18.jpg"><br>半山腰的检票口，遇到两个美国人</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/20.jpg"><br>在山顶看大阪城</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/21.jpg"><br>有个大概70岁左右的老爷爷坐在山顶的长凳上休息，真佩服他们的体力</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/22.jpg"><br>老婆在山顶上高兴的撒欢子跑</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/24.jpg"><br>在山顶上睡觉的老外，他老婆抱着孩子跑的我都看不到了</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/27.jpg"><br>下山的路</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/28.jpg"><br>再看一眼风景</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/29.jpg"><br>长的奇怪的树</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/30.jpg"><br>下山了</p>
+<hr>
+<p><img src="https://image.xiaomo.info/travel/%E5%A5%88%E8%89%AF/31.jpg"><br>遇到很多来若草山玩的小学生，一个个的都好萌</p>
+<hr>
+<p>从奈良回来己经8点多了，由于第二天准备回东京所以趁晚上再出去转转买个PS4玩玩。到电器街的时候大概9点多了，发现各个商场都在准备收拾关门了感觉很遗憾。老婆一直说再找找，我们就一直逛终于遇到了一个卖电子设备的店没关门。大阪和东京的商店的区别是东京大部分店都有中国店员，但是大阪基本上都没有。但是我们在这个店里遇到了一个说中文特别标准的日本女孩，瞬间觉得她很厉害。因为她说的很标准我把她当成中国人了就语速较快的和她讲中文，但是发现她有点发愣我才反应过来她不是中国人。就这样我们中文+日语沟通着，最后成功的买回了一台价值3万多日元的PS4。<br><img src="https://image.xiaomo.info/travel/ps4.jpg"></p>
+<hr>
+<h2 id="10-4-大阪-东京"><a href="#10-4-大阪-东京" class="headerlink" title="10.4 大阪-东京"></a>10.4 大阪-东京</h2><p>今天睡到自然醒然后起床收拾东西准备回东京，直接去机场然后到机场免税店逛。到了机场问了工作人员得知飞机起飞前3个小时才能进，我们只能把行李暂寄在机场去银座和秋叶原逛街。<br><img src="https://image.xiaomo.info/travel/airport1.jpg"><br>在秋叶原狠心买了一块2万日元的太阳能机械表和6000日元的香水(送给老妈)，老婆买了一套雪肌精和一堆化妆品。把剩下的钱全部花光了，这算是最后的狂欢吧。<br><img src="https://image.xiaomo.info/travel/%E6%88%90%E6%9E%9C.jpg"><br>在机场免税店发现可以刷支付宝，于是买了几盒白色恋人巧克力，抹茶饼干和一条sevenStar的香烟，支付宝自动换算成人民币扣款还减了20块钱，很好很强大给个好评。<br><img src="https://image.xiaomo.info/travel/alipay1.png"></p>
+<hr>
+<h2 id="10-5-东京-上海-杭州"><a href="#10-5-东京-上海-杭州" class="headerlink" title="10.5 东京-上海-杭州"></a>10.5 东京-上海-杭州</h2><p>0点左右我们开始办检票登机，发现飞机上基本上都是中国人连空姐都是中国人，有种己经回国了的错觉。我困的不行上飞机就想睡觉，老婆兴奋的像个孩子一样说外面的风景好漂亮，拉着我和她一起看风景，她成功的赶跑了我的瞌睡一起看着飞机转弯、加速、起飞、爬升，一直到半夜2点多才睡着。<br><img src="https://image.xiaomo.info/travel/air.jpg"></p>
+<hr>
+<p>由于时差原因到上海的时候才半夜3点左右，下了飞机去转盘取行李。真是一脸懵逼，上面一件行李都没有。站着像望夫石一样等了近半个小时行李才一件一件的出来。但是在日本的时候刚下飞机所有的行李都全部放出来了,真的无力吐槽中国的办事效率。<br><img src="https://image.xiaomo.info/travel/limotsu.jpg"></p>
+<hr>
+<p>拿到行李的时候己经快4点了，我们叫了个接机的司机直接送我们去上海虹桥火车站坐火车回杭州，再次感受到了天朝的威力,早上6点钟人多的都挤不动，一上车马上就有一群人冲进去抢座位，根本不管什么先下后上，才回来我还真不适应，等我反应过来的时候我己经被挤出来了。<br><img src="https://image.xiaomo.info/travel/people.jpg"></p>
+<hr>
+<p>再次回来这个熟悉而又无奈的地方，为期9天的行程结束了。<br><img src="https://image.xiaomo.info/travel/hangzhoudong.jpg"></p>
+<hr>
+<h1 id="对日本初印象"><a href="#对日本初印象" class="headerlink" title="对日本初印象"></a>对日本初印象</h1><h3 id="公共场合都非常安静"><a href="#公共场合都非常安静" class="headerlink" title="公共场合都非常安静"></a>公共场合都非常安静</h3><p>不管是在飞机上，地铁上还是JR上都比较安静，可能是因为有不少人在睡觉的原因吧。印象比较深刻的是有个小孩哭了,他妈妈告诉她不要哭了不然会吵到别人，然后小孩子就停止哭泣了，真是羞愧难当。<br><img src="https://image.xiaomo.info/travel/book.jpg"></p>
+<hr>
+<h3 id="日本一年四季都喝冰水，所以如果你点餐时如果未做要求都会上冰水。"><a href="#日本一年四季都喝冰水，所以如果你点餐时如果未做要求都会上冰水。" class="headerlink" title="日本一年四季都喝冰水，所以如果你点餐时如果未做要求都会上冰水。"></a>日本一年四季都喝冰水，所以如果你点餐时如果未做要求都会上冰水。</h3><p>有不解的看知乎吧 <a href="https://www.zhihu.com/question/21832177" target="_blank" rel="noopener">日本人为什么喜欢喝冰水？</a>,主要是我在亲爱的祖国喝冷水会拉肚子。<br><img src="https://image.xiaomo.info/travel/ice.jpg"></p>
+<hr>
+<h3 id="日本坐手扶梯都是自觉靠右站，左侧留给赶时间的人通过。"><a href="#日本坐手扶梯都是自觉靠右站，左侧留给赶时间的人通过。" class="headerlink" title="日本坐手扶梯都是自觉靠右站，左侧留给赶时间的人通过。"></a>日本坐手扶梯都是自觉靠右站，左侧留给赶时间的人通过。</h3><p>这似乎己经成了一种骨子里的习惯，如果所有人都站成一排自己站旁边，也会觉得脸红的吧。<br><img src="https://image.xiaomo.info/travel/shoufuti.jpg"></p>
+<hr>
+<h3 id="日本坐电梯位于电梯按钮位置的人会最后出来"><a href="#日本坐电梯位于电梯按钮位置的人会最后出来" class="headerlink" title="日本坐电梯位于电梯按钮位置的人会最后出来"></a>日本坐电梯位于电梯按钮位置的人会最后出来</h3><p>因为选择站在这里就有一个职责,要让所有人安全的进出，所以会一直按着开门的按钮等所有人离开再出来，如果外面有人准备进来但是因为有事没进来一定会鞠躬道歉。<br><img src="https://image.xiaomo.info/travel/dianti1.png"></p>
+<hr>
+<h3 id="日本所有商场基本上都是8点关门，秋叶原则是10点。"><a href="#日本所有商场基本上都是8点关门，秋叶原则是10点。" class="headerlink" title="日本所有商场基本上都是8点关门，秋叶原则是10点。"></a>日本所有商场基本上都是8点关门，秋叶原则是10点。</h3><p>不管多么繁华的地方，到了8点以后基本上都看不到有在营业的商场了。我好奇问了一下，说是因为老板付不起加班费(正常工资的2倍到3倍)，所以到点基本上都下班了。<br><img src="https://image.xiaomo.info/travel/yinzuo1.png"></p>
+<hr>
+<h3 id="日本没有假货，但是也有坑"><a href="#日本没有假货，但是也有坑" class="headerlink" title="日本没有假货，但是也有坑"></a>日本没有假货，但是也有坑</h3><p>在日本最放心的就是没有假货，但是我还是差点被坑了。原因是那个白色恋人巧克力(白い恋人)，我在大阪的商店看到了有趣的恋人(面白い恋人),当时差点认错。我查了一下这个产品己经被起诉了，但是不知道为什么还一直在卖。侵权事件请看 <a href="http://japan.people.com.cn/35467/7659715.html" target="_blank" rel="noopener">日本名点“白色恋人”诉“有趣恋人”侵犯商标权</a><br><img src="https://image.xiaomo.info/travel/%E6%9C%89%E8%B6%A3%E6%81%8B%E4%BA%BA.jpg"></p>
+<hr>
+<h3 id="日本所有的商品价格标签都会有两个价格-含税价和不含税价，真正的明码标价，童叟无欺。"><a href="#日本所有的商品价格标签都会有两个价格-含税价和不含税价，真正的明码标价，童叟无欺。" class="headerlink" title="日本所有的商品价格标签都会有两个价格:含税价和不含税价，真正的明码标价，童叟无欺。"></a>日本所有的商品价格标签都会有两个价格:含税价和不含税价，真正的明码标价，童叟无欺。</h3><p>国内都是稀里糊涂，或许是因为税太高了，不敢标出来。我买个15万的车增值税出了2万多，购置税出了1万多，真是呵呵了。<br><img src="https://image.xiaomo.info/travel/price1.png"></p>
+<hr>
+<h3 id="日本的铁路和地铁一样方便"><a href="#日本的铁路和地铁一样方便" class="headerlink" title="日本的铁路和地铁一样方便"></a>日本的铁路和地铁一样方便</h3><p>日本铁路叫JR,每个站点外面都有自动售票机（当然也有人工窗口），随买随走不用记名。<br><img src="https://image.xiaomo.info/travel/jrji1.jpg"></p>
+<hr>
+<h3 id="日本的红绿灯在变绿后会发出声音，提示行人可以通过了"><a href="#日本的红绿灯在变绿后会发出声音，提示行人可以通过了" class="headerlink" title="日本的红绿灯在变绿后会发出声音，提示行人可以通过了"></a>日本的红绿灯在变绿后会发出声音，提示行人可以通过了</h3><p>并且颜色看着很不习惯，绿灯并不是绿色的，而是有点蓝色的感觉。在日本并不是100%没有人闯红灯，在小道上没车的时候偶尔也会看到红灯时有人通过，但不会出现中国式过马路。<br><img src="https://image.xiaomo.info/travel/honglvdeng.jpg"></p>
+<hr>
+<h3 id="日本能用支付宝的地方并不多-刷银联卡会更划算-打9-5折"><a href="#日本能用支付宝的地方并不多-刷银联卡会更划算-打9-5折" class="headerlink" title="日本能用支付宝的地方并不多,刷银联卡会更划算(打9.5折)"></a>日本能用支付宝的地方并不多,刷银联卡会更划算(打9.5折)</h3><p>听国内吹嘘的多么牛逼，支付宝己打开全球市场。虽然能用是事实，但是支持的店铺很少，机场免税店可以用、银座部分商场可以用，别的地方看到的很少，多数情况是付现金或刷卡。<br><img src="https://image.xiaomo.info/travel/alipay1.png"></p>
+<hr>
+<h3 id="所有的服务台-不管是柜台还是收银台-都会有一个小盘子"><a href="#所有的服务台-不管是柜台还是收银台-都会有一个小盘子" class="headerlink" title="所有的服务台(不管是柜台还是收银台)都会有一个小盘子"></a>所有的服务台(不管是柜台还是收银台)都会有一个小盘子</h3><p>付钱也好找零也好抑或是小票，都会放在小盘子里自取。可能因为日本用硬币情况下太多，放个盘确实会方便很多。<br><img src="https://image.xiaomo.info/travel/shouyin1.jpg"></p>
+<hr>
+<h3 id="在日本问路要谨慎"><a href="#在日本问路要谨慎" class="headerlink" title="在日本问路要谨慎"></a>在日本问路要谨慎</h3><p>在日本旅游期间我问路次数<br>算是比较多的，问到后面我都不好意思开口了。如果你在路上遇到一个人想问路说一句”あの、すみません(对不起，打扰一下)”、对方一定会停下脚步答到”はい、なんでしょうが(好的，请问有什么事？)”,然后芭啦芭啦给你讲怎么走。如果讲完还是没听懂，对方便会说 “ご案内します(请让我给你带路吧)”,然后跟着走就好了。到了之后他/她还会给你鞠躬道谢，这是我最接受不了的。本来麻烦了别人还要还要道谢，这让我很愧疚。总计问路多少次没统计，但是印象深刻的有一个老大爷，带着我走了5分钟左右一直把我带到地铁口，还准备带我下去买票。还好我说了接下来我自己去就好了，他才离开。第二个是中年大叔(或许不是本地人)，我问了他也不知道然后看我手机开着地图然后就带我绕了一圈还是没找到结果把我带到警察局了，让我问警察。(笑哭) 第3个是一个30多岁的阿姨，在地铁站给我讲了很久差点错过电车，在最后一秒跳上车，然后我忍不住深深的鞠了一躬表示道谢和歉意。第4个是一个年轻小伙子，是我们刚从东京到大阪下车在地铁里面徘徊，他上来问我们要去哪。我们把住宿地址给他看了之后便芭啦芭啦语速超快的讲了至少有3分钟，然后我们基本上都没听懂真是迷之尴尬，然后他就直接带着我们去坐车。才开始着实吓了我一跳。最后一个是在大阪天王寺公园我遇到一个阿姨问她这附近地铁在哪，才开始她讲日语发现我们听不大懂开始用蹩脚的英语和我们沟通，我们任性的用着半吊子日语回复，真是神奇的体验。<br><img src="https://image.xiaomo.info/travel/wenlu1.png"></p>
+<hr>
+<h3 id="日本的水果和零食特别贵"><a href="#日本的水果和零食特别贵" class="headerlink" title="日本的水果和零食特别贵"></a>日本的水果和零食特别贵</h3><p>以前听说日本的旅客来中国旅<br>游看到我们拿着勺子挖西瓜吃简直不敢相信。我现在是信了，他们苹果是按个卖的，大概4-5rmb一个。零食也很贵，随便一包都至少得10+rmb。我在想，日本人不吃零食和水果么。我怀疑我老婆在日本呆久了真能吃零食吃到我怀疑人生。<br><img src="https://image.xiaomo.info/travel/xigua1.jpg"></p>
+<hr>
+<h3 id="日本的交通很贵"><a href="#日本的交通很贵" class="headerlink" title="日本的交通很贵"></a>日本的交通很贵</h3><p>一站最低10块钱。我猜想是日本的地铁网太密集了，导致于很多在跑的地铁很大一部分人都坐不满，为了避免亏损太多，定价也很高。听说可以用西瓜卡刷地铁，不知道会不会便宜一点。<br><img src="https://image.xiaomo.info/travel/%E5%AF%8C%E5%A3%AB%E5%B1%B1%E8%BD%A6%E7%A5%A8.jpg"></p>
+<hr>
+<h3 id="日本地铁大部分时间都有位置"><a href="#日本地铁大部分时间都有位置" class="headerlink" title="日本地铁大部分时间都有位置"></a>日本地铁大部分时间都有位置</h3><p>我很奇怪明明有很多座位，但是很多人就是愿意站着，而且有部分人还是50岁以上的中老年人。反正我看到有座位一定会去坐的，出去玩每天都3万步，简直累趴了。<br><img src="https://image.xiaomo.info/travel/chexiang.jpg"></p>
+<hr>
+<h3 id="日本有站着吃面的面馆"><a href="#日本有站着吃面的面馆" class="headerlink" title="日本有站着吃面的面馆"></a>日本有站着吃面的面馆</h3><p>才开始我很好奇站着怎么吃，发现那位穿西装的大叔吃的那么自然。我知道盯着人看不礼貌，所以扫了一眼没看一直看。<br><img src="https://image.xiaomo.info/travel/%E7%AB%99%E7%9D%80%E5%90%83%E9%A5%AD.JPEG"> </p>
+<hr>
+<h3 id="进屋要脱鞋"><a href="#进屋要脱鞋" class="headerlink" title="进屋要脱鞋"></a>进屋要脱鞋</h3><p>不脱鞋会让人很困扰，我们去和服店看衣服时遇到一个中国女孩直接穿鞋进去了。然后马上被屋主带出来了，然后立刻去拿抹布去擦，让人很难为情。门口都会备拖鞋<br><img src="https://image.xiaomo.info/travel/tuoxie1.jpg"> </p>
+<hr>
+<h3 id="不打听别人的家事，更不要说隐私。"><a href="#不打听别人的家事，更不要说隐私。" class="headerlink" title="不打听别人的家事，更不要说隐私。"></a>不打听别人的家事，更不要说隐私。</h3><p>在一起工作十几年，不知道对方有几个兄弟姐妹。福原爱在接受日本媒体的采访时说，中国记者什么都问，问得直想哭。<br><img src="https://image.xiaomo.info/travel/fuyuanai.jpg"> </p>
+<hr>
+<h3 id="日本的自动贩卖机多到不敢让人相信"><a href="#日本的自动贩卖机多到不敢让人相信" class="headerlink" title="日本的自动贩卖机多到不敢让人相信"></a>日本的自动贩卖机多到不敢让人相信</h3><p>不管在多偏的乡下，只要有人住的地方都有自动贩卖机，这点真心太方便了。<br><img src="https://image.xiaomo.info/travel/%E8%87%AA%E5%8A%A8%E8%B4%A9%E5%8D%96%E6%9C%BA.png">    </p>
+<hr>
+<h3 id="日本的垃圾桶很少"><a href="#日本的垃圾桶很少" class="headerlink" title="日本的垃圾桶很少"></a>日本的垃圾桶很少</h3><p>出去玩做好把垃圾背回家的准备。要么走很远都遇不到垃圾桶，要么一遇到就是一大排（分很多种类）。我们居住的生活垃圾最后都留给房东自己处理了，因为对我们来说相当棘手啊。<br><img src="https://image.xiaomo.info/travel/%E5%9E%83%E5%9C%BE%E7%AE%B11.jpg">       </p>
+<hr>
+<h3 id="日本的出租车门是自动的"><a href="#日本的出租车门是自动的" class="headerlink" title="日本的出租车门是自动的"></a>日本的出租车门是自动的</h3><p>虽然出国之前我们也知道，但是多年养成的习惯还是会随手去关门，然后被司机礼貌的提醒这个门是自动的，感觉超尴尬的。<br><img src="https://image.xiaomo.info/travel/%E8%87%AA%E5%8A%A8%E9%97%A8.png"> </p>
+<h3 id="日本的地铁进口和出口是通用的"><a href="#日本的地铁进口和出口是通用的" class="headerlink" title="日本的地铁进口和出口是通用的"></a>日本的地铁进口和出口是通用的</h3><p>如果你正在出去，另一面会显示一个红色的叉提醒别人这个门暂时不能用，反之亦然。<br><img src="https://image.xiaomo.info/travel/%E6%94%B9%E6%9C%AD%E5%8F%A3.png"></p>
+<hr>
+<h3 id="日本是一个高度自助的国度"><a href="#日本是一个高度自助的国度" class="headerlink" title="日本是一个高度自助的国度"></a>日本是一个高度自助的国度</h3><p>好像日本是一个不担心路人不给钱，破坏自助设备的国家，到处都是自动贩卖机。其实，不仅仅是卖饮料，日本的超市，医院，加油站等等都实现了自助付款，不懂日文的话会有些很不方便。我去入住了东京和大阪的民宿全程都没有见到房东，但是走的时候我们会去房间好好整理一下，还获得了房东的夸奖。还有去商场买衣服的时候旁边有很多台机器，把衣服放进去会显示价格，然后投币就可以把衣服拿走了，当然袋子就在机器边上，就是这么自助，超级不适应的说。下面的是airbnb的房东的评价：<br><img src="https://image.xiaomo.info/travel/airbnb%E8%AF%84%E4%BB%B7.png">                  </p>
+<h1 id="开销"><a href="#开销" class="headerlink" title="开销"></a>开销</h1><ul>
+<li>机票 2800/人</li>
+<li>接机 400/次</li>
+<li>JR PASS 1600/张</li>
+<li>交通约 50/天/人</li>
+<li>大阪周游券 300/人</li>
+<li>住宿 350/天/人</li>
+<li>吃饭 50/顿/人</li>
+<li>购物 约10000rmb左右</li>
+</ul>
+<p>两个人合计2.5万RMB左右。</p>
+<h1 id="购物清单"><a href="#购物清单" class="headerlink" title="购物清单"></a>购物清单</h1><ul>
+<li>注意：发票会订在护照上要保存好，过海关时可能会检查。免税(8%)化妆品过海关前不要开封，不然要交税。<br>PS4、游戏碟、手表、雪肌精、Beauteye、玫瑰滴眼液、FX银瓶滴眼液、龙角散、白色恋人、七星香烟、香水、zippo打火机、太田胃药、大正制药口腔溃疡贴、小儿退烧贴、大麦若叶、巧克力零食、坚果、小红丸、MINON、化妆水、EVE止疼药、儿童沐浴液、伊藤园绿茶、Ipsa粘土面膜酵素X酵母<br><img src="https://image.xiaomo.info/travel/%E6%88%90%E6%9E%9C.jpg"></li>
+</ul>
+<h1 id="值得买但没买的东西-网上搜集"><a href="#值得买但没买的东西-网上搜集" class="headerlink" title="值得买但没买的东西(网上搜集)"></a>值得买但没买的东西(网上搜集)</h1><h2 id="护肤品："><a href="#护肤品：" class="headerlink" title="护肤品："></a>护肤品：</h2><ul>
+<li>SK2神仙水</li>
+<li>Albion奥尔滨健康水</li>
+<li>Albion渗透乳</li>
+<li>Mandom曼丹眼唇卸妆油</li>
+<li>Kose高丝卸妆油</li>
+<li>Rosette硫磺祛痘膏</li>
+<li>Rosette海泥洗面奶</li>
+<li>Smile suisai酵素洁面粉</li>
+<li>Skinlife泡沫洗面奶</li>
+<li>Shiseido资生堂洗颜专科</li>
+<li>Albion奥尔滨健康皂</li>
+<li>IPSA化妆棉</li>
+<li>Unicharm1/2省水化妆棉 </li>
+</ul>
+<p><img src="https://image.xiaomo.info/travel/%E6%B4%97%E9%9D%A2%E5%A5%B6.png"><br><img src="https://image.xiaomo.info/travel/%E9%98%B2%E6%99%92%E9%9C%9C.png"></p>
+<h2 id="化妆品："><a href="#化妆品：" class="headerlink" title="化妆品："></a>化妆品：</h2><ul>
+<li>Impress granmula 端正环采顶级粉霜</li>
+<li>CPB肌肤之钥高光</li>
+<li>CPB肌肤之钥遮瑕棒</li>
+<li>Kate眉粉</li>
+<li>Kate眼影</li>
+<li>Kissme睫毛膏</li>
+<li>Kissme眼线笔</li>
+<li>Canmake棉花糖粉饼</li>
+<li>DHC唇膏</li>
+<li>Shiseido资生堂药用唇膏</li>
+<li>Anessa安耐晒金瓶</li>
+<li>Anessa安耐晒银瓶</li>
+<li>ALLIE防晒</li>
+<li>Narisup娜丽丝防晒喷雾</li>
+<li>Deonatulle止汗石</li>
+<li>Shiseido资生堂131粉刷</li>
+<li>Shiseido资生堂119粉扑</li>
+<li>Shiseido资生堂睫毛夹</li>
+<li>Shiseido资生堂眉刀</li>
+</ul>
+<p><img src="https://image.xiaomo.info/travel/%E5%8D%B8%E5%A6%86%E6%B0%B4.png"><br><img src="https://image.xiaomo.info/travel/%E9%99%B6%E7%93%B7%E5%88%80.png"><br><img src="https://image.xiaomo.info/travel/%E5%8C%96%E5%A6%86%E5%93%81.png"><br><img src="https://image.xiaomo.info/travel/%E9%9D%A2%E8%86%9C.png"><br><img src="https://image.xiaomo.info/travel/sk2.png"></p>
+<h2 id="日用品："><a href="#日用品：" class="headerlink" title="日用品："></a>日用品：</h2><ul>
+<li>Lycee乐敦小红花滴眼液</li>
+<li>狮王滴眼液</li>
+<li>Kissyou负离子牙刷</li>
+<li>Smile cosmetique美白牙膏</li>
+<li>狮王美白牙膏</li>
+<li>Ora2美白牙膏</li>
+<li>花王泡沫染发剂</li>
+<li>Hair Recipe银杏果蜂蜜洗发水</li>
+<li>reveur无硅洗发水</li>
+<li>资生堂Fino发膜</li>
+<li>树之惠足贴</li>
+<li>花王蒸汽眼罩</li>
+<li>bold洗衣液 </li>
+<li>Lenor Eau deLuxe衣物柔顺剂</li>
+<li>汉方天然果蔬清洁贝壳杀菌粉</li>
+<li>陶瓷刀</li>
+<li>匠牌指甲刀</li>
+<li>小学生书包</li>
+</ul>
+<p><img src="https://image.xiaomo.info/travel/%E7%89%99%E8%86%8F.png"><br><img src="https://image.xiaomo.info/travel/%E7%89%99%E5%88%B7.png"><br><img src="https://image.xiaomo.info/travel/%E6%8A%A4%E5%94%87.png"><br><img src="https://image.xiaomo.info/travel/%E6%8A%A4%E5%8F%91%E7%B1%BB.png"><br><img src="https://image.xiaomo.info/travel/%E4%BF%9D%E6%B8%A9%E6%9D%AF.png"></p>
+<h2 id="药品："><a href="#药品：" class="headerlink" title="药品："></a>药品：</h2><ul>
+<li>Crystal硅素水</li>
+<li>药王酵素100</li>
+<li>新谷夜酵素</li>
+<li>DHC维生素</li>
+<li>小林制药Breath care口气清新薄荷丸</li>
+<li>小林制药液体创可贴</li>
+<li>AG鼻塞喷雾剂</li>
+<li>狮王祛痘膏 </li>
+<li>白兔祛痘膏 </li>
+<li>浅田饴</li>
+<li>大正制药感冒颗粒</li>
+</ul>
+<p><img src="https://image.xiaomo.info/travel/%E8%8D%AF%E5%93%811.png"><br><img src="https://image.xiaomo.info/travel/%E8%8D%AF%E5%93%812.png"><br><img src="https://image.xiaomo.info/travel/%E7%9C%BC%E8%8D%AF%E6%B0%B4.png"><br><img src="https://image.xiaomo.info/travel/%E6%84%9F%E5%86%92%E8%8D%AF.png"><br><img src="https://image.xiaomo.info/travel/%E8%86%8F%E8%8D%AF.png"><br><img src="https://image.xiaomo.info/travel/%E4%BF%9D%E5%81%A5%E7%B1%BB.png"></p>
+<h2 id="食品："><a href="#食品：" class="headerlink" title="食品："></a>食品：</h2><ul>
+<li>Royce生巧克力 </li>
+<li>Royce巧克力饼干</li>
+<li>Tokyo Banana东京香蕉蛋糕 </li>
+<li>Potato Farm薯条三兄弟</li>
+<li>Kracie玫瑰香体糖</li>
+<li>Uha葡萄味觉糖</li>
+<li>Calbee麦片</li>
+</ul>
+<p><img src="https://image.xiaomo.info/travel/%E8%96%AF%E6%9D%A1%E4%B8%89%E5%85%84%E5%BC%9F.png"><br><img src="https://image.xiaomo.info/travel/%E8%94%AC%E8%8F%9C%E6%B1%81.png"><br><img src="https://image.xiaomo.info/travel/%E7%B3%96.png"><br><img src="https://image.xiaomo.info/travel/%E8%8C%B6%E5%8F%B6.png"><br><img src="https://image.xiaomo.info/travel/%E7%99%BD%E8%89%B2%E6%81%8B%E4%BA%BA.png"><br><img src="https://image.xiaomo.info/travel/Rocyce%E7%94%9F%E5%B7%A7%E5%85%8B%E5%8A%9B.png"></p>
+<h2 id="电器："><a href="#电器：" class="headerlink" title="电器："></a>电器：</h2><ul>
+<li>Tescom负离子胶原蛋白吹风机</li>
+<li>Panasonic松下卷发棒</li>
+<li>Panasonic松下造型吹风机</li>
+<li>Panasonic蒸脸器</li>
+<li>象印保温杯</li>
+<li>膳魔师保温杯</li>
+<li>象印焖烧杯</li>
+<li>虎牌焖烧杯</li>
+<li>剃须刀</li>
+<li>索尼电子产品<br><img src="https://image.xiaomo.info/travel/%E5%B0%8F%E5%AE%B6%E7%94%B5.png"></li>
+</ul>
+<h2 id="参考攻略"><a href="#参考攻略" class="headerlink" title="参考攻略"></a>参考攻略</h2><ul>
+<li><a href="https://www.mafengwo.cn/i/5339323.html" target="_blank" rel="noopener">日本购物攻略——去日本值得购买的80件产品</a></li>
+<li><a href="http://bbs.yilvcheng.com/gonglue/1642.html" target="_blank" rel="noopener">2016日本购物攻略，去日本旅行千万别买这些东西 切记</a></li>
+<li><a href="http://www.mafengwo.cn/travel-news/272562.html" target="_blank" rel="noopener">去日本必买的东西top10</a></li>
+</ul>
+<hr>
+<ul>
+<li><a href="https://post.smzdm.com/p/502174/" target="_blank" rel="noopener">懒人夫妻由东到西的日本15日自由行详细流水账攻略 篇一：第一日 抵达东京，逛银座及东京塔</a></li>
+<li><a href="https://post.smzdm.com/p/502273/" target="_blank" rel="noopener">懒人夫妻由东到西的日本15日自由行详细流水账攻略 篇二：第二日 筑地，皇居，秋叶原和台场</a></li>
+<li><a href="https://post.smzdm.com/p/545500/" target="_blank" rel="noopener">懒人夫妻由东到西的日本15日自由行详细流水账攻略 篇三：第三日 上野动物园，浅草寺，天空树</a></li>
+<li><a href="https://post.smzdm.com/p/547769/" target="_blank" rel="noopener">懒人夫妻由东到西的日本15日自由行详细流水账攻略 篇四：第四日 江之岛，镰仓</a></li>
+<li><a href="https://post.smzdm.com/p/553268/" target="_blank" rel="noopener">懒人夫妻由东到西的日本15日自由行详细流水账攻略 篇五：第五日 去往富士河口湖</a></li>
+<li><a href="https://post.smzdm.com/p/556217/" target="_blank" rel="noopener">懒人夫妻由东到西的日本15日自由行详细流水账攻略 篇六：第六日 去往京都</a></li>
+<li><a href="https://post.smzdm.com/p/560026/" target="_blank" rel="noopener">懒人夫妻由东到西的日本15日自由行详细流水账攻略 篇七：第七日 八坂神社，二年坂，三年坂，清水寺</a></li>
+<li><a href="https://post.smzdm.com/p/562421/" target="_blank" rel="noopener">懒人夫妻由东到西的日本15日自由行详细流水账攻略 篇八：第八日 仙洞御所，伏见稻荷大社</a></li>
+<li><a href="https://post.smzdm.com/p/563714/" target="_blank" rel="noopener">懒人夫妻由东到西的日本15日自由行详细流水账攻略 篇九：第九日 奈良行，春日大社，东大寺</a></li>
+<li><a href="https://post.smzdm.com/p/563732/" target="_blank" rel="noopener">懒人夫妻由东到西的日本15日自由行详细流水账攻略 篇十：第十日 二条城，东西本愿寺</a></li>
+<li><a href="https://post.smzdm.com/p/568535/" target="_blank" rel="noopener">懒人夫妻由东到西的日本15日自由行详细流水账攻略 篇十一：第十一日 金阁寺，岚山景区</a></li>
+<li><a href="https://post.smzdm.com/p/570614/" target="_blank" rel="noopener">懒人夫妻由东到西的日本15日自由行详细流水账攻略 篇十二：第十二日 去往大阪，海游馆，天保山摩天轮</a></li>
+<li><a href="https://post.smzdm.com/p/574237/" target="_blank" rel="noopener">懒人夫妻由东到西的日本15日自由行详细流水账攻略 篇十三：第十三日 大阪环球影城</a></li>
+<li><a href="https://post.smzdm.com/p/577318/" target="_blank" rel="noopener">懒人夫妻由东到西的日本15日自由行详细流水账攻略 篇十四：第十四日 大阪城 道顿堀</a></li>
+<li><a href="https://post.smzdm.com/p/581686/" target="_blank" rel="noopener">懒人夫妻由东到西的日本15日自由行详细流水账攻略 篇十五：最后一日：梅田蓝天大厦 返回厦门以及算总账</a></li>
+</ul>
+
+            
+        </div>
+        
+    </div>
+    
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/JapanTravel/">日本游记</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">小莫</a></p>
+        <p><span>发布时间:</span>2017-10-10, 00:00:00</p>
+        <p><span>最后更新:</span>2021-07-20, 20:08:26</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/JapanTravel/" title="日本游记">https://blog.xiaomo.info/2017/JapanTravel/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://blog.xiaomo.info/2017/JapanTravel/　　作者: 小莫" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/blackAppleSystem/">
+                    安装黑苹果的历程
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/GameServerType/">
+                    游戏服务器的常用架构
+                </a>
+            </div>
+        
+    </nav>
+
+    
+</article>
+
+
+
+<!-- 代码2：用来读取评论框配置，此代码需放置在代码1之后。 -->
+<!-- 如果当前页面有评论框，代码2请勿放置在评论框代码之前。 -->
+<!-- 如果页面同时使用多个实验室项目，以下代码只需要引入一次，只配置上面的div标签即可 -->
+<!--<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cysUkgluO"></script>-->
+
+<div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#行程前的准备"><span class="toc-number">1.</span> <span class="toc-text">行程前的准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#护照-200RMB一本"><span class="toc-number">1.0.1.</span> <span class="toc-text">护照(200RMB一本)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#签证-旅行社代办300RMB"><span class="toc-number">1.0.2.</span> <span class="toc-text">签证(旅行社代办300RMB)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#住处-airbnb-booking"><span class="toc-number">1.0.3.</span> <span class="toc-text">住处(airbnb,booking)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JR-PASS-1600RMB"><span class="toc-number">1.0.4.</span> <span class="toc-text">JR PASS(1600RMB)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#机票"><span class="toc-number">1.0.5.</span> <span class="toc-text">机票</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#电话卡-WIFI"><span class="toc-number">1.0.6.</span> <span class="toc-text">电话卡(WIFI)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#google地图"><span class="toc-number">1.1.</span> <span class="toc-text">google地图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#日元"><span class="toc-number">1.1.1.</span> <span class="toc-text">日元</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一个18到24寸之间的密码箱"><span class="toc-number">1.1.2.</span> <span class="toc-text">一个18到24寸之间的密码箱</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#行程"><span class="toc-number">2.</span> <span class="toc-text">行程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#9-27-杭州-上海-东京"><span class="toc-number">2.1.</span> <span class="toc-text">9.27 杭州-上海-东京</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-28-浅草-浅草寺-上野-银座"><span class="toc-number">2.2.</span> <span class="toc-text">9.28 浅草-浅草寺-上野-银座</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-29-浅草-富士山"><span class="toc-number">2.3.</span> <span class="toc-text">9.29 浅草-富士山</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-30-浅草-秋叶原"><span class="toc-number">2.4.</span> <span class="toc-text">9.30 浅草-秋叶原</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-1-东京-大阪"><span class="toc-number">2.5.</span> <span class="toc-text">10.1 东京-大阪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-2-大阪一日游"><span class="toc-number">2.6.</span> <span class="toc-text">10.2 大阪一日游</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-3-大阪-奈良公园"><span class="toc-number">2.7.</span> <span class="toc-text">10.3 大阪-奈良公园</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-4-大阪-东京"><span class="toc-number">2.8.</span> <span class="toc-text">10.4 大阪-东京</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-5-东京-上海-杭州"><span class="toc-number">2.9.</span> <span class="toc-text">10.5 东京-上海-杭州</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#对日本初印象"><span class="toc-number">3.</span> <span class="toc-text">对日本初印象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#公共场合都非常安静"><span class="toc-number">3.0.1.</span> <span class="toc-text">公共场合都非常安静</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日本一年四季都喝冰水，所以如果你点餐时如果未做要求都会上冰水。"><span class="toc-number">3.0.2.</span> <span class="toc-text">日本一年四季都喝冰水，所以如果你点餐时如果未做要求都会上冰水。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日本坐手扶梯都是自觉靠右站，左侧留给赶时间的人通过。"><span class="toc-number">3.0.3.</span> <span class="toc-text">日本坐手扶梯都是自觉靠右站，左侧留给赶时间的人通过。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日本坐电梯位于电梯按钮位置的人会最后出来"><span class="toc-number">3.0.4.</span> <span class="toc-text">日本坐电梯位于电梯按钮位置的人会最后出来</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日本所有商场基本上都是8点关门，秋叶原则是10点。"><span class="toc-number">3.0.5.</span> <span class="toc-text">日本所有商场基本上都是8点关门，秋叶原则是10点。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日本没有假货，但是也有坑"><span class="toc-number">3.0.6.</span> <span class="toc-text">日本没有假货，但是也有坑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日本所有的商品价格标签都会有两个价格-含税价和不含税价，真正的明码标价，童叟无欺。"><span class="toc-number">3.0.7.</span> <span class="toc-text">日本所有的商品价格标签都会有两个价格:含税价和不含税价，真正的明码标价，童叟无欺。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日本的铁路和地铁一样方便"><span class="toc-number">3.0.8.</span> <span class="toc-text">日本的铁路和地铁一样方便</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日本的红绿灯在变绿后会发出声音，提示行人可以通过了"><span class="toc-number">3.0.9.</span> <span class="toc-text">日本的红绿灯在变绿后会发出声音，提示行人可以通过了</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日本能用支付宝的地方并不多-刷银联卡会更划算-打9-5折"><span class="toc-number">3.0.10.</span> <span class="toc-text">日本能用支付宝的地方并不多,刷银联卡会更划算(打9.5折)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#所有的服务台-不管是柜台还是收银台-都会有一个小盘子"><span class="toc-number">3.0.11.</span> <span class="toc-text">所有的服务台(不管是柜台还是收银台)都会有一个小盘子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在日本问路要谨慎"><span class="toc-number">3.0.12.</span> <span class="toc-text">在日本问路要谨慎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日本的水果和零食特别贵"><span class="toc-number">3.0.13.</span> <span class="toc-text">日本的水果和零食特别贵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日本的交通很贵"><span class="toc-number">3.0.14.</span> <span class="toc-text">日本的交通很贵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日本地铁大部分时间都有位置"><span class="toc-number">3.0.15.</span> <span class="toc-text">日本地铁大部分时间都有位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日本有站着吃面的面馆"><span class="toc-number">3.0.16.</span> <span class="toc-text">日本有站着吃面的面馆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进屋要脱鞋"><span class="toc-number">3.0.17.</span> <span class="toc-text">进屋要脱鞋</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不打听别人的家事，更不要说隐私。"><span class="toc-number">3.0.18.</span> <span class="toc-text">不打听别人的家事，更不要说隐私。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日本的自动贩卖机多到不敢让人相信"><span class="toc-number">3.0.19.</span> <span class="toc-text">日本的自动贩卖机多到不敢让人相信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日本的垃圾桶很少"><span class="toc-number">3.0.20.</span> <span class="toc-text">日本的垃圾桶很少</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日本的出租车门是自动的"><span class="toc-number">3.0.21.</span> <span class="toc-text">日本的出租车门是自动的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日本的地铁进口和出口是通用的"><span class="toc-number">3.0.22.</span> <span class="toc-text">日本的地铁进口和出口是通用的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日本是一个高度自助的国度"><span class="toc-number">3.0.23.</span> <span class="toc-text">日本是一个高度自助的国度</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#开销"><span class="toc-number">4.</span> <span class="toc-text">开销</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#购物清单"><span class="toc-number">5.</span> <span class="toc-text">购物清单</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#值得买但没买的东西-网上搜集"><span class="toc-number">6.</span> <span class="toc-text">值得买但没买的东西(网上搜集)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#护肤品："><span class="toc-number">6.1.</span> <span class="toc-text">护肤品：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#化妆品："><span class="toc-number">6.2.</span> <span class="toc-text">化妆品：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日用品："><span class="toc-number">6.3.</span> <span class="toc-text">日用品：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#药品："><span class="toc-number">6.4.</span> <span class="toc-text">药品：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#食品："><span class="toc-number">6.5.</span> <span class="toc-text">食品：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#电器："><span class="toc-number">6.6.</span> <span class="toc-text">电器：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考攻略"><span class="toc-number">6.7.</span> <span class="toc-text">参考攻略</span></a></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script>
+    yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+</script>
+
+
+
+<div class="share">
+    
+
+    
+</div>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<hr/>
+<br/>
+<div style="display:block;text-align: center">
+    <a href="javascript:window.open('https://twitter.com/share?url='+encodeURIComponent(document.location.href)+'&text='+encodeURIComponent(document.title),'_blank','toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=600, height=450,top=100,left=350');void(0)"
+       style="background-color: lightskyblue;border-radius: 45px;box-shadow: #767676;font-size: 14px;font-family: '微软雅黑',serif;color: whitesmoke;padding: 10px 15px;"
+    >
+        twitter分享
+    </a>
+</div>
+<br/>
+<br/>
+<div id="gitalk-container" style="margin: 1% 3%"></div>
+<h3 style="text-align: center">如果想及时收到回复,可在 <a href="https://github.com/settings/notifications" target="_blank">订阅中心</a>的 <code>Participating</code>中勾选Email</h3>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '9772f6a6fdb199a60ba1',
+        clientSecret: '9a606af21688d2d4ff2efa2467ee82e76e1e9865',
+        id: window.location.pathname,
+        repo: 'blog',
+        owner: 'houko',
+        admin: 'houko',
+        distractionFreeMode: false
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/blackAppleSystem/" title="上一篇: 安装黑苹果的历程">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/GameServerType/" title="下一篇: 游戏服务器的常用架构">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuyin2/">日本医疗制度之限度額適用認定証</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/ohmytmux/">我的tmux之旅（tmux使用详解）</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/redisPubSub/">nodejs中使用redis的订阅分发功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/japanNyuuinn/">小莫的日本(东京)住院回忆录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/doTween/">(转)doTween插件使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/mySecondFiveYearsLifePlan/">2020年年终总结和第二个长期学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/newmanCommandLine/">postman和commandline tools（newman）用法介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/ctwJobs/">【日本东京六本木】【CTW株式会社】招聘Node全栈/Java后端/SRE/大数据工程师/UI设计师</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/npmPackageCollection/">npm优秀库使用收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/jsCommonUtilsMethods/">js/ts常用公有方法收集整理(长期向)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/springBootWithSpringSecurity/">spring cloud集成spring security</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/flyway/">使用flyway版本控制工具维护数据库表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/autoFormatOnSvae/">使用IDEA保存时自动格式化代码配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/dynamoDB/">aws dynamoDB使用总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueSSRNuxt/">nuxt.js使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/pm2UseApi/">node项目监控工具之pm2</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/webAppleSignIn/">web端接入apple Sign in流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/browserEventLoop/">聊聊Javascript的事件循环(转载)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/AwsSqsUse/">AWS SQS/SNS/Redis的pub/sub用法总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsSSo/">AWS SSO用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/awsCommandLineUse/">aws command line 用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/vueFrameworkVuex/">vue框架状态管理之vuex</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/backToJapan/">疫情下的回日坎坷路</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/unityInterviewQuestions/">unity常见面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/my2019Summary/">2019年年终总结（作为前端开发这一年）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/worldServerGame/">经历了几场面试后的全球同服架构思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/japanKannjiIndex/">日语汉字速查表</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/aboutAllVisa/">签证总结大全（工作签、在留卡加汉字、工作签证更新、家族签证等）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/javaPassByValueAndReference/">jdk源码系列-Java到底是值传递还是引用传递？</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/event20190729/">没想到有一天我逼停了电车</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/jdkSourceCodeReadThreadSleep/">jdk源码系列-Thread.sleep(0)和Thread.sleep(1)的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/restfulBestUse/">restful最佳实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/nihonnmennkyo/">小莫的日本换驾照攻略</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/nihonnkita2kagetsu/">2018年终总结（从杭州到日本工作的心路历程）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unityFpsCommonMethod/">Fps游戏常用功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unitySceneFarAndNear/">镜头拉远拉近</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/unity3dMiniMap/">unity3d小地图</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUISorting/">使用UGUI中的层级问题——以背包为例</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/UGUIServerList/">使用UGUI制作滚动列表-选服列表</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/aboutDockerUse/">docker应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadArrayListAndLinkedArrayList/">jdk源码系列-Java中ArrayList、LinkedList和Vector的联系与区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadCreateObject/">jdk源码系列-创建对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadClassInitOrder/">jdk源码系列-类的初始化顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadStringDifferent/">jdk源码系列-String,StringBuffer,StringBuilder</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadAtomicInteger/">jdk源码系列-AtomicInteger</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadInteger/">jdk源码系列-Integer</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadLocal/">jdk源码系列-ThreadLocal</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadMemoryActor/">jdk源码系列-内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadConcurrentHashMap/">jdk源码系列-ConcurrentHashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadThreadPool/">jdk源码系列-线程池</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadIO/">jdk源码系列-深入了解IO的工作机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadObject/">jdk源码系列-Object</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeReadNIO/">jdk源码系列-NIO</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/throwableAndException/">jdk源码系列-throwable和Exception的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/jdkSourceCodeRead/">jdk源码系列-顺序索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/myBookSheet/">我的书架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/onlineProjectKen/">项目上线之后遇到的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/mainProjectJobs/">主程职责总结和反思</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/fastjson/">fastjson的key为非字符串的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/saikennokoto/">2017年终总结(作为主程的这一年)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AngularEnvironment/">angular2学习笔记之基础环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/HowToAskQuestionOnStackOverFlow/">StackOverFlow提问的艺术</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/oracleJavaSeSliver/">java的oracle考试认证(OCJP)之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/blackAppleSystem/">安装黑苹果的历程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JapanTravel/">日本游记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/GameServerType/">游戏服务器的常用架构</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaLombok/">lombok常用注解整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SwiftProjectBuild/">swift项目初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MySoftware/">我的常用软件清单</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/AboutObject/">关于对象的一些思考</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/MyKindle/">kindle初体验.</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/SomethingForNewCar/">我的新车常备用品</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/VimTabAutoComplete/">使用vim打开文件时tab补全忽略大小写设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/Win7OneNote/">win7系统登录不上onenote的解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/FormatDisk/">在linux系统下格式化移动硬盘的操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/LinuxIdeaSetting/">linux系统环境下使用idea遇到的问题及解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/JavaApiJsonFormat/">接口格式返回大小写处理.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/StartMy2017/">2016年终总结(进入游戏行业)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MysqlCommon/">mysql常用操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NormalShell/">常用shell脚本.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidUsersPermission/">Android users-permission权限列表.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidAsyncTask/">android异步任务AsyncTask.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AndroidEnvironment/">android环境搭建.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/blogToXiaomo/">博客域名迁移(从二级域名迁移到一级域名).</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/SublimeConfig/">Sublime Text 3 使用配置与插件安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/HttpToHttps/">拥抱https(http全面切换到https)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootSwaggerUi/">swagger ui和spring boot集成生成api文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringVideo/">spring4免费全套视频教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaLombok/">lombok简化java代码注解的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSeiyou/">日本动漫声优公演,来看看什么叫专业声优</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootDataFormat/">spring boot做前后分离时间格式化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringBootCors/">spring boot做前后分离的跨域问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaSpringZiliao/">spring boot相关资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaIdeaMaven/">Maven 与 IntelliJ IDEA 的完美结合</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavaServletUpload/">使用Servlet做简单的上传功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonAnime/">喜欢的动漫</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NihonSekaku/">生活习惯的不同，造就了丰富多彩的世界</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/BangumiDongli/">《东离剑游记》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmYargs/">yargs插件的使用，node.js 命令行框架 yargs 和你的程序实现交互</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiRouter/">angular2 api整理之路由模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2ApiCommon/">angular2 api整理之通用模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptRxjsStudy/">rxjs全接触</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptDesignPattern/">javascript设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/2016StudyPlan/">5年学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2studyAnimate/">angular2学习笔记之动画效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyServiceHttp/">angular2学习笔记之服务和http</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteOther/">angular2学习笔记之小技巧</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteNgTag/">angular2学习笔记之ng2标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteEvent/">angular2学习笔记之事件和多组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Angular2StudyNoteComponent/">angular2学习笔记之基本组件和ngFor</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/PublicDns/">几个国内专用的公共 DNS</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxDisk/">阿里云服务器磁盘挂载</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxChmod/">linux权限详细解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownTableStyle/">Markdown 表格样式调整与自适应优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/GulpUse/">gulp构建工具的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/FrontEndTools/">前端工程化工具初选</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AnkiExcelShortcuts/">Anki 记忆库之 Excel 快捷键大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/CssFontFamily/">CSS font-family 网页字体使用小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeSpider/">nodejs爬虫项目实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Package.jsonScripts/">package.json常用script</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NpmModulesShare/">npm模块分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MongodbUse/">mongodb数据库的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/KoaGenerator/">koa生成器,一键生成koa和koa2项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeKoa/">nodejs框架koa学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/JavascriptSyntax/">javascript学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/Es6Syntax/">es6语法快速上手</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackLLink/">webpack进阶之loader篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackPlugins/">webpack进阶之插件篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackParams/">webpack相关命令参数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeProcess/">nodejs的process模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/WebpackBasicUse/">webpack使用之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NodeOnlineChat/">使用nodejs搭建一个简易的即时聊天软件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/LinuxCrontab/">linux下使用定时器跑任务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/AngularKeyboardEvent/">angularjs键盘事件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/MarkdownSyntax/">markdown语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/NgCheckbox/">angularjs复选框</a></li></ul>
+
+<style>
+    #post-nav-button a{
+        background-color: skyblue;
+    }
+</style>
+
+
+
+<script>
+    
+</script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i>
+                
+                    2016-
+                
+                2021 小莫
+                <!--                <a href="http://www.miibeian.gov.cn/" target="_blank">浙ICP备15009606号</a>-->
+            </div>
+            <div class="footer-right">
+                <a href="https://blog.xiaomo.info/" target="_blank" title="欢迎来到小莫的博客">Blog </a> Created by <a
+                        href="https://github.com/houko" target="_blank" rel="external nofollow"
+                        title="希望这里的文章对你有所帮助  v3.0">xiaomo</a>
+                <a href="/record.html"><i class="fa fa-heart animated infinite pulse"></i></a>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit">总访问数:
+                            <span id="busuanzi_value_site_pv"></span>
+                        </span>
+                    </span>
+                
+                <span style="color: grey;">(<a href="https://www.upyun.com/" rel="external nofollow" target="_blank">背景随机加载-资源存储于又拍云</a>) | 本站己运行<span
+                            id="day_count">222</span>天<span id="time_now">1</span></span>
+            </div>
+        
+    </div>
+    <script src="/js/activate-power-mode.js" ></script>
+</footer>
+<script>
+    // 添加输入效果
+    POWERMODE.colorful = true; // make power mode colorful
+    POWERMODE.shake = false; // turn off shake
+    document.body.addEventListener('input', POWERMODE);
+
+    (function () {
+        function current() {
+            var d = new Date(), str = '';
+            str += d.getHours() + '小时';
+            str += d.getMinutes() + '分';
+            str += d.getSeconds() + '秒';
+            return str;
+        }
+
+        setInterval(function () {
+            $("#time_now").html(current)
+        }, 1000);
+
+        var dateFrom = new Date(2015, 9, 12);
+        var dateTo = new Date();
+        var diff = dateTo.valueOf() - dateFrom.valueOf();
+        var diff_day = parseInt(diff / (1000 * 60 * 60 * 24));
+        $("#day_count").html(diff_day);
+    })();
+</script>
+<a href="https://github.com/houko/blog"><img style="position: fixed; top: 0;left: 0;" width="140" height="140" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_gray_6d6d6d.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 36;
+                var randomIndex = Math.ceil(Math.random() * backgroundnum);
+                var result = randomIndex+".jpg?version="+(new Date()/1000);
+                var backgroundimg = "url(https://image.xiaomo.info/background/bg-number)".replace(/number/gi,result);
+//                console.info("加载图片"+backgroundimg);
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover","background-color":"rgba(255,255,255,0.5)","background-blend-mode":"lighten"});
+            }
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80824007-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+<script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1626811730142')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body>
+</html>
